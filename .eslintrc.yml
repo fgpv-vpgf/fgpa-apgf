@@ -8,10 +8,11 @@ globals:
   RVersion: true
   existingWindowDotAngular: true
   AUTOFILLED_TRANSLATIONS: true
+  SVG: true
+  canvg: true
 
-ecmaFeatures:
-  modules: true
-  jsx: true
+parserOptions:
+  sourceType: "module"
 
 env:
   amd: true

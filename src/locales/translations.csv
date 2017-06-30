@@ -1,0 +1,11 @@
+Language code (ISO 639-1),lang.code.code,en-CA,1,fr-CA,1
+Language code (ISO 639-2/T),lang.code.iso.639.2,eng,1,fra,1
+Language direction,lang.dir,ltr,1,ltr,1
+Language name (English),lang.en,English,1,French,1
+Language name (French),lang.fr,anglais,1,français,1
+Language name (native),lang.native,English,1,Français,1
+app title,app.title,Federal Geospatial Platform Author,0,Auteur pour la plateforme geospatial federal,0
+app section map,app.section.map,Maps,1,Cartes,1
+app section ui,app.section.ui,UI,0,UI,0
+,map.message,Okidouki,0,Tiguidou,1
+,error.email,Email not valid,1,Courriel non valide,1
