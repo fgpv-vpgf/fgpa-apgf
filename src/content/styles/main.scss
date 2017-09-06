@@ -1,0 +1,10 @@
+@import "~@claviska/jquery-minicolors/jquery.minicolors.css";
+@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+
+@import "common/_all.scss";
+
+.fgpa {
+    @import "base/_all.scss";
+    @import "modules/_all.scss";
+    @import "vendor/_all.scss";
+}
