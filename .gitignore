@@ -1,0 +1,20 @@
+logs/*
+!.gitkeep
+node_modules/
+lib/
+dist/
+build/
+docbuild/
+tmp/
+.tmp/
+report/
+.DS_Store
+.idea
+typings/
+tsd.json
+.vagrant/
+
+# VIM files
+*~
+*.swp
+*.swo

@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- 6.9.1
+cache:
+  directories:
+  - node_modules
+notifications:
+  webhooks:
+    urls:
+    - https://webhooks.gitter.im/e/efbc0b2d9b52db2bf0c4
+    on_success: always
+    on_failure: always
+    on_start: false
+after_success:
+- source ./scripts/devdeploy.sh
+- source ./scripts/docdeploy.sh
