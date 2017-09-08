@@ -98,6 +98,9 @@ module.exports = function (env) {
             },{
                 from: 'src/locales/help',
                 to: 'samples/help'
+            },{
+                from: 'src/schemas/schemaForm',
+                to: 'samples/schemaForm'
             }]),
 
             new CopyWebpackPlugin([

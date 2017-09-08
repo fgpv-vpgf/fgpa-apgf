@@ -19,7 +19,7 @@ angular
  * @function avSummary
  * @return {object} directive body
  */
-function avSummary($rootScope) {
+function avSummary() {
     const directive = {
         restrict: 'E',
         templateUrl,
@@ -32,23 +32,12 @@ function avSummary($rootScope) {
     return directive;
 }
 
-function Controller($scope, stateManager, $rootScope) {
+function Controller(stateManager, events) {
     'ngInject';
     const self = this;
 
-    $rootScope.$watch(() => stateManager.form.map, (newValue, oldValue) => {
-        console.log(newValue);
-        if (typeof newValue !== 'undefined') {
-            // self.model = newValue;
-        }
-    }, true);
+    self.mapModel = {};
+    self.uiModel = {};
 
-    $rootScope.$watch(() => stateManager.state.map, (newValue, oldValue) => {
-        console.log(newValue);
-        if (typeof newValue !== 'undefined') {
-            self.mapModel = newValue;
-        }
-    }, true);
-
-
+    events.$on(events.avSchemaUpdate, (evt, schema) => { self[schema] = stateManager.getState(schema); });
 }

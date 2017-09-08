@@ -19,7 +19,12 @@
 angular
     .module('app.core')
     .factory('events', events)
-    .constant('translations', AUTOFILLED_TRANSLATIONS);
+    .constant('translations', AUTOFILLED_TRANSLATIONS)
+    .factory('appInfo', appInfo)
+    .constant('constants', {
+        debSummary: 500, // time for debouncing when user enter value
+        schemas: ['uiSchema.json', 'serviceSchema.json', 'mapSchema.json']
+    });
 
 function events($rootScope) {
     return {
@@ -36,7 +41,9 @@ function events($rootScope) {
         $broadcast: (...args) =>
             $rootScope.$broadcast(...args),
 
-        avReady: 'avReady' // Fired when author is ready
+        avReady: 'avReady', // Fired when author is ready
+        avFormUpdate: 'avFormUpdate', // Fired when user update a field inside a form
+        avSchemaUpdate: 'avSchemaUpdate' // Fired when there is an update to the state
     };
 }
 

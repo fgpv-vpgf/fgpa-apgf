@@ -32,30 +32,53 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope) {
+function Controller($scope, stateManager, debounceService, constants, events) {
     'ngInject';
     const self = this;
 
-    self.message = 'Good to be home!';
+    self.buttonClick = validate;
 
-    $scope.schema = {
-        type: "object",
-        properties: {
-            name: { type: "string", minLength: 2, title: "Name", description: "Name or alias" },
-            title: {
-                type: "string",
-                enum: ['dr','jr','sir','mrs','mr','NaN','dj']
+    init();
+
+    // when schema is loaded, initialize the form
+    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === 'ui') init(); });
+
+    function init() {
+        $scope.model = {};
+        $scope.schema = stateManager.getSchema('ui');
+
+        $scope.form = [
+            {
+                "key": "fullscreen",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "theme",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "logoUrl",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "type": "actions",
+                "items": [
+                    { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
+                ]
             }
-        }
-    };
+        ];
+    }
 
-    $scope.form = [
-        "*",
-        {
-            type: "submit",
-            title: "Save"
-        }
-    ];
+    function validateForm(form, model) {
+        // First we broadcast an event so all fields validate themselves
+        $scope.$broadcast('schemaFormValidate');
 
-    $scope.model = {};
+        // Then we check if the form is valid
+        if ($scope.mapForm.$valid) {
+            console.log("form is ", $scope.form);
+            console.log("model is ", $scope.model);
+        }
+    }
+
+    function validate(form, model) {
+        const key = model.key[0];
+        stateManager.setValidity('ui', key, $scope.uiForm[`uiForm-${key}`].$valid);
+    }
 }

@@ -32,87 +32,56 @@ function avMap(schemaForm) {
     return directive;
 }
 
-function Controller($scope, $rootScope, $translate, stateManager, $timeout, debounceService) {
+function Controller($scope, stateManager, debounceService, constants, events) {
     'ngInject';
     const self = this;
 
-    self.message = $translate.instant('map.message');
     self.buttonClick = validate;
 
-    $scope.mapModel = {};
+    init();
 
-    $scope.schema = {
-        "type": "object",
-        "title": "Comment",
-        "properties": {
-            "name": {
-                "title": "Name",
-                "type": "string"
+    // when schema is loaded, initialize the form
+    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === 'map') init(); });
+
+    function init() {
+        $scope.model = {};
+        $scope.schema = stateManager.getSchema('map');
+
+        $scope.form = [
+            {
+                "key": "name",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false),
+                "feedback": "{'glyphicon': true, 'glyphicon-ok': hasSuccess(), 'glyphicon-star': !hasSuccess() }"
+            }, {
+                "key": "email",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "comment",
+                "type": "textarea",
+                "placeholder": "Make a comment",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "eligible",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "type": "conditional",
+                "condition": "mapModel.eligible",
+                "items": [
+                    {
+                        "key": "code",
+                        "placeholder": "ex. 666",
+                        "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+                    }
+                ]
             },
-            "email": {
-                "title": "Email",
-                "type": "string",
-                "pattern": "^\\S+@\\S+$",
-                "description": "Email will be used for evil."
-            },
-            "comment": {
-                "title": "Comment",
-                "type": "string",
-                "maxLength": 20,
-                "validationMessage": $translate.instant('error.email')
-            },
-            "eligible": {
-                "type": "boolean",
-                "title": "Eligible for awesome things",
-                "default": true
-            },
-            "code": {
-                "type":"string",
-                "title": "The Code"
+            {
+                "type": "actions",
+                "items": [
+                    { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
+                ]
             }
-        },
-        "required": [
-            "name",
-            "email",
-            "comment"
-        ]
-    };
-
-    $scope.form = [
-        {
-            "key": "name",
-            "onChange": debounceService.registerDebounce(validate, 1000, false),
-            "feedback": "{'glyphicon': true, 'glyphicon-ok': hasSuccess(), 'glyphicon-star': !hasSuccess() }"
-        }, {
-            "key": "email",
-            "onChange": debounceService.registerDebounce(validate, 1000, false)
-        }, {
-            "key": "comment",
-            "type": "textarea",
-            "placeholder": "Make a comment"
-        }, {
-            "key": "eligible",
-            "onChange": debounceService.registerDebounce(validate, 1000, false)
-        }, {
-            "type": "conditional",
-            "condition": "mapModel.eligible",
-            "items": [
-                {
-                    "key": "code",
-                    "placeholder": "ex. 666",
-                    "onChange": debounceService.registerDebounce(validate, 1000, false)
-                }
-            ]
-        },
-        {
-            "type": "actions",
-            "items": [
-                { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
-            ]
-        }
-    ];
-
-    $rootScope.$on('sf-render-finished', init);
+        ];
+    }
 
     function validateForm(form, model) {
         // First we broadcast an event so all fields validate themselves
@@ -123,16 +92,6 @@ function Controller($scope, $rootScope, $translate, stateManager, $timeout, debo
             console.log("form is ", $scope.form);
             console.log("model is ", $scope.model);
         }
-    }
-
-    function init() {
-        // https://github.com/json-schema-form/angular-schema-form/issues/381
-        $timeout(setState, 1000);
-    }
-
-    function setState() {
-        const schema = $scope.schema.properties;
-        stateManager.setState('map', schema);
     }
 
     function validate(form, model) {
