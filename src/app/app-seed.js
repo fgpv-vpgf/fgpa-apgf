@@ -13,7 +13,7 @@ angular.element(document)
         // FIXME:
 
         // the app nodes in the dom
-        const node = document.getElementsByClassName('av-tools')[0];
+        const node = document.getElementsByClassName('fgpa')[0];
 
         // load shell template into the node
         // we need to create an explicit child under app's root node, otherwise animation

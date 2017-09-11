@@ -1,0 +1,16 @@
+{
+    "schema": "ui",
+    "title": "UI",
+    "description": "A set of service endpoints used by the viewer",
+    "type": "object",
+    "properties": {
+        "fullscreen": {
+            "type": "boolean",
+            "default": false,
+            "description": "Indicates viewer takes up entire viewport"
+        },
+        "theme": { "type": "string", "enum": [ "default" ], "default": "default", "description": "UI theme of the viewer" },
+        "logoUrl": { "type": "string", "description": "An optional image to be used in the place of the default viewer logo", "minLength": 2, "validationMessage": "error.email" },
+        "title": { "type": "string", "description": "An optional title to be used in the place of the default viewer title" }
+    }
+}

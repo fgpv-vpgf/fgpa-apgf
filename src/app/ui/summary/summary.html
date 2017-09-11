@@ -1,0 +1,18 @@
+<div>
+    <h1 translate>app.summary</h1>
+    <p>{{ self.model }}</p>
+    <ul>
+        <li class="av-summary-item" ng-repeat="item in self.map">
+            <span>{{ item.key }}</span>
+            <md-icon class="av-summary-icon av-good" md-svg-src="action:check_circle" ng-if="item.valid"></md-icon>
+            <md-icon class="av-summary-icon av-alert" md-svg-src="alert:error" ng-if="item.valid === false"></md-icon>
+        </li>
+    </ul>
+    <ul>
+        <li class="av-summary-item" ng-repeat="item in self.ui">
+            <span>{{ item.key }}</span>
+            <md-icon class="av-summary-icon av-good" md-svg-src="action:check_circle" ng-if="item.valid"></md-icon>
+            <md-icon class="av-summary-icon av-alert" md-svg-src="alert:error" ng-if="item.valid === false"></md-icon>
+        </li>
+    </ul>
+</div>

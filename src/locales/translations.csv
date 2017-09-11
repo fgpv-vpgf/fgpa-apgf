@@ -7,5 +7,6 @@ Language name (native),lang.native,English,1,Français,1
 app title,app.title,Federal Geospatial Platform Author,0,Auteur pour la plateforme geospatial federal,0
 app section map,app.section.map,Maps,1,Cartes,1
 app section ui,app.section.ui,UI,0,UI,0
+app summary,app.summary,Summary,1,Sommaire,1
 ,map.message,Okidouki,0,Tiguidou,1
 ,error.email,Email not valid,1,Courriel non valide,1

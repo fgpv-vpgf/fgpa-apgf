@@ -32,86 +32,70 @@ function avMap(schemaForm) {
     return directive;
 }
 
-function Controller($scope, $translate) {
+function Controller($scope, stateManager, debounceService, constants, events) {
     'ngInject';
     const self = this;
 
-    self.message = $translate.instant('map.message');
+    self.buttonClick = validate;
 
-    $scope.mapModel = {};
+    init();
 
-    $scope.schema = {
-        "type": "object",
-        "title": "Comment",
-        "properties": {
-            "name": {
-                "title": "Name",
-                "type": "string"
+    // when schema is loaded, initialize the form
+    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === 'map') init(); });
+
+    function init() {
+        $scope.model = {};
+        $scope.schema = stateManager.getSchema('map');
+
+        $scope.form = [
+            {
+                "key": "name",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false),
+                "feedback": "{'glyphicon': true, 'glyphicon-ok': hasSuccess(), 'glyphicon-star': !hasSuccess() }"
+            }, {
+                "key": "email",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "comment",
+                "type": "textarea",
+                "placeholder": "Make a comment",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "eligible",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "type": "conditional",
+                "condition": "mapModel.eligible",
+                "items": [
+                    {
+                        "key": "code",
+                        "placeholder": "ex. 666",
+                        "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+                    }
+                ]
             },
-            "email": {
-                "title": "Email",
-                "type": "string",
-                "pattern": "^\\S+@\\S+$",
-                "description": "Email will be used for evil."
-            },
-            "comment": {
-                "title": "Comment",
-                "type": "string",
-                "maxLength": 20,
-                "validationMessage": $translate.instant('error.email')
-            },
-            "eligible": {
-                "type": "boolean",
-                "title": "Eligible for awesome things"
-            },
-            "code": {
-                "type":"string",
-                "title": "The Code"
+            {
+                "type": "actions",
+                "items": [
+                    { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
+                ]
             }
-        },
-        "required": [
-            "name",
-            "email",
-            "comment"
-        ]
-    };
+        ];
+    }
 
-    $scope.form = [
-        "name",
-        "email",
-        {
-            "key": "comment",
-            "type": "textarea",
-            "placeholder": "Make a comment"
-        },
-        "eligible",
-        {
-            "type": "conditional",
-            "condition": "mapModel.eligible",
-            "items": [
-                {
-                    "key": "code",
-                    "placeholder": "ex. 666"
-                }
-            ]
-        },
-        {
-            "type": "submit",
-            "style": "btn-info",
-            "title": "OK"
-        }
-    ];
-
-
-    $scope.submitForm = function(form, model) {
+    function validateForm(form, model) {
         // First we broadcast an event so all fields validate themselves
         $scope.$broadcast('schemaFormValidate');
 
         // Then we check if the form is valid
-        if (form.$valid) {
+        if ($scope.mapForm.$valid) {
             console.log("form is ", $scope.form);
             console.log("model is ", $scope.model);
         }
     }
 
+    function validate(form, model) {
+        const key = model.key[0];
+        stateManager.setValidity('map', key, $scope.mapForm[`mapForm-${key}`].$valid);
+    }
 }

@@ -1,6 +1,7 @@
 angular
     .module('app.core')
-    .run(init);
+    .run(init)
+    .run(uploadSchema);
 
 /**
  * @function init
@@ -23,4 +24,17 @@ function init($translate, $rootElement) {
     }
 
     $translate.use(languages[0]);
+}
+
+/**
+ * Starts file upload.
+ * @function uploadSchema
+ * @param  {Object} $http Angular object to read file
+ */
+function uploadSchema($http, constants, stateManager) {
+
+    constants.schemas.forEach(file => {
+        let location = `./schemaForm/${file}`;
+        return $http.get(location).then(obj => stateManager.setSchema(obj.data.schema, obj.data));
+    });
 }

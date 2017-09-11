@@ -11,14 +11,21 @@
     </head>
 
     <body>
-        <div class="av-tools" av-langs='["en-CA", "fr-CA"]'>
+        <div class="fgpa" av-langs='["en-CA", "fr-CA"]'>
 
             <av-header></av-header>
 
-            <a href="#!map" translate>app.section.map</a>
-            <a href="#!ui" translate>app.section.ui</a>
+            <div class="av-tools">
+                <div class="av-section">
+                    <a href="#!map" translate>app.section.map</a>
+                    <a href="#!ui" translate>app.section.ui</a>
 
-            <div ng-view></div>
+                    <div ng-view></div>
+                </div>
+                <div class="av-summary">
+                    <av-summary></av-summary>
+                </div>
+            </div>
         </div>
 
         <% for (var index in htmlWebpackPlugin.files.js) { %>
