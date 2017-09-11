@@ -1,0 +1,284 @@
+@mixin buttons {
+    @include icon-button;
+    @include button-sizes;
+    @include icon-sizes;
+    @include button-group;
+    @include button-effects;
+    @include button-divider;
+    @include toggle-button;
+
+    .av-switch {
+        flex-direction: row-reverse;
+
+        > .md-ink-ripple {
+            right: 0;
+            left: auto;
+        }
+
+        > .md-label {
+            margin-left: 0;
+            flex: 1;
+
+            @include icon-size(20px);
+
+            > md-icon {
+                margin-right: 10px;
+            }
+        }
+
+        > .md-container {
+            margin-left: 16px;
+        }
+    }
+}
+
+@mixin toggle-button {
+    .av-toggle-button {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        md-icon {
+            margin-right: 10px;
+        }
+
+        span {
+            flex: 1;
+        }
+
+        .md-button {
+            margin: 0;
+        }
+    }
+}
+
+@mixin icon-button {
+    .md-icon-button {
+        @include icon;
+
+        &.black {
+            @include icon(black);
+        }
+
+        &.accent {
+            @include icon($accent-color);
+        }
+
+        &.primary {
+            @include icon($primary-color);
+        }
+    }
+}
+
+// set the size of the icon button; the ripple stays of the standar size; the icon maximum size is set to the button size;
+@mixin button-sizes {
+    .av-button-32 {
+        @include button-size(32px);
+    }
+
+    .av-button-24 {
+        @include button-size(24px);
+    }
+
+    .av-button-20 {
+        @include button-size(20px);
+    }
+
+    .av-button-16 {
+        @include button-size(16px);
+    }
+
+    .av-button-14 {
+        @include button-size(14px);
+    }
+}
+
+
+@mixin button-size($size) {
+    // adjust size of the button container to fit around the icon
+
+    &.md-button,
+    > .md-button {
+        overflow: visible;
+        height: $size;
+        line-height: $size;
+        min-height: $size;
+        width: $size;
+        min-width: $size;
+
+        md-icon {
+            max: {
+                height: $size;
+                width: $size;
+            }
+        }
+        // when the button-icon is focused, it shows a shaded background; if the icon is resized, the background is also resized and might not be well visible; we would the shaded background to match button's ripple shape
+        &.md-focused {
+            background: none;
+
+            &:before {
+                content: "";
+                position: absolute;
+                background: rgba(158,158,158,0.2);
+                border-radius: 50%;
+                @include icon-ripple-shape($size);
+            }
+        }
+        // keep a normal size ripple
+        > .md-ripple-container {
+            @include icon-ripple-shape($size);
+        }
+    }
+}
+// keeps button-icon ripple default size (48px) when the icon itself is resized; also used to resize on-focus effect
+@mixin icon-ripple-shape($size) {
+    width: $icon-button-width;
+    height: $icon-button-height;
+    left: - ($icon-button-width - $size) / 2; // shift ripple so it's still centered over the icon
+    top: - ($icon-button-height - $size) / 2;
+}
+
+// sets the icon size in the icon button independently of the button size; can be used with `av-button-x` classes;
+@mixin icon-sizes {
+    .av-icon-40 {
+        @include icon-size(40px);
+    }
+
+    .av-icon-32 {
+        @include icon-size(32px);
+    }
+
+    .av-icon-24 {
+        @include icon-size(24px);
+    }
+
+    .av-icon-20 {
+        @include icon-size(20px);
+    }
+
+    .av-icon-16 {
+        @include icon-size(16px);
+
+    }
+
+    .av-icon-14 {
+        @include icon-size(14px);
+    }
+}
+
+
+@mixin icon-size($size) {
+    &md-icon,
+    > md-icon,
+    &.md-button > md-icon,
+    > .md-button > md-icon {
+        height: $size;
+        width: $size;
+    }
+}
+
+@mixin icon($color: auto, $opacity-from: 0.62, $opacity-to: 0.9, $opacity-full: 1) {
+    padding: 0;
+
+    md-icon {
+        @if $color != auto {
+            color: $color;
+        }
+
+        opacity: $opacity-from;
+        //&:not([disabled]):focus,
+    }
+
+    &:not([disabled]):hover,
+    &:not([disabled]).md-focused {
+        md-icon {
+            opacity: $opacity-to;
+        }
+    }
+
+    &:not([disabled]).selected {
+        md-icon {
+            opacity: $opacity-full;
+        }
+    }
+
+    &[disabled] {
+        md-icon {
+            color: rgba(0,0,0,0.38);
+        }
+    }
+}
+
+@mixin button-group {
+    $border-radius: 2px;
+
+    .av-button-group {
+        margin: 2px 0;
+        position: relative;
+        border-radius: $border-radius;
+        background-color: white;
+        padding: 0;
+        // round corners on the first and last elements
+        > *:first-child {
+            border-radius: $border-radius $border-radius 0 0;
+        }
+
+        > *:last-child {
+            border-radius: 0 0 $border-radius $border-radius;
+        }
+
+        md-divider {
+            margin: 0 6px;
+        }
+    }
+}
+
+@mixin button-effects {
+    .md-button {
+        // makes the button and its ripple square, no cheesy rounded corners
+        &.av-button-square {
+            border-radius: 0;
+
+            .md-ripple-container {
+                border-radius: 0;
+            }
+        }
+    }
+
+    .av-body-button {
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+    }
+}
+
+$button-sizes: 32, 24, 20, 16, 14;
+$icon-sizes: 40, 32, 24, 20, 16, 14;
+
+@mixin button-divider {
+    %button-divider {
+        border-right: $divider-color 1px solid;
+        margin: {
+            right: 10px;
+            left: 10px;
+        }
+    }
+
+    // defaults to 24px
+    .av-button-divider {
+        @extend %button-divider;
+        height: 24px + 2px;
+    }
+
+    @each $item in $icon-sizes {
+        .av-button-divider-#{$item} {
+            @extend %button-divider;
+            height: $item + 2px;
+        }
+    }
+}

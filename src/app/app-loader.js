@@ -22,6 +22,8 @@ import './core/core.module.js';
 import './ui/ui.module.js';
 import './route/route.module.js';
 import './route/route-loader.js';
+import './layout/layout.module.js';
+import './layout/layout-loader.js';
 import './ui/ui-loader.js';
 import './core/core-loader.js';
 import './app.module.js';

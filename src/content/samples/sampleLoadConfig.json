@@ -1,0 +1,15 @@
+{
+    "map": {
+        "name": "test",
+        "email": "myEmail",
+        "comment": "no comment for the moment",
+        "eligible": true,
+        "code": "666"
+    },
+    "ui": {
+        "fullscreen": true,
+        "theme": "default",
+        "logoUrl": "my logo",
+        "title": "my title"
+    }
+}

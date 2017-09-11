@@ -11,6 +11,7 @@ angular
         'app.core',
         'app.templates',
         'app.ui',
+        'app.layout',
         'app.route'
     ])
     .config(($compileProvider, $mdInkRippleProvider, $mdAriaProvider) => {

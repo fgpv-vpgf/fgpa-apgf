@@ -7,3 +7,51 @@ Things like mixin declarations, functions, and variables. */
 
 $font-family: Roboto, 'Helvetica Neue', sans-serif !default;
 $font-size:   rem(1.0);
+
+$icon-button-width: 40px;
+$icon-button-height: 40px;
+
+$toolbar-height: $icon-button-height + rem(0.8);
+
+@mixin include-size($name) {
+    @if $name == av-gt-sm {
+        @at-root {
+            #{selector-append('.av-medium', &)},
+            #{selector-append('.av-large', &)} {
+                @content;
+            }
+        }
+    } @else if $name == av-sm {
+        @at-root #{selector-append('.av-small', &)} {
+            @content;
+        }
+    } @else if $name == av-lt-lg {
+        @at-root {
+            #{selector-append('.av-small', &)},
+            #{selector-append('.av-medium', &)} {
+                @content;
+            }
+        }
+    } @else if $name == av-md {
+        @at-root #{selector-append('.av-medium', &)} {
+            @content;
+        }
+    } @else if $name == av-lg {
+        @at-root #{selector-append('.av-large', &)} {
+            @content;
+        }
+    } @else if $name == av-st {
+        @at-root #{selector-append('.av-short', &)} {
+            @content;
+        }
+    }
+}
+
+.av-small .av-gt-sm,
+.av-large .av-lt-lg,
+.av-small .av-lg,
+.av-medium .av-lg,
+.av-small .av-lt-lg-hide,
+.av-medium .av-lt-lg-hide {
+    display: none !important;
+}

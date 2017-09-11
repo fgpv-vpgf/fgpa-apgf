@@ -1,7 +1,11 @@
-md-icon, .av-good{
-    fill: $good-color;
+md-icon {
+    &.av-good {
+        fill: $good-color;
+    }
 }
 
-md-icon, .av-alert{
-    fill: $alert-color;
+md-icon {
+    &.av-alert {
+        fill: $alert-color;
+    }
 }

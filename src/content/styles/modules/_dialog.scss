@@ -1,0 +1,31 @@
+@mixin dialog {
+    .av-save-dialog {
+        height: 225px;
+        width: 400px;
+        border-radius: 0;
+
+        md-input-container {
+
+            input {
+                font-size: 1.2em;
+                text-overflow: ellipsis;
+            }
+
+            .av-hint {
+                position: relative;
+                left: rem(0.2);
+                right: auto;
+                top: rem(0.3);
+                /* Copy styles from ng-messages */
+                font-size: 12px;
+                line-height: 14px;
+                color: $secondary-text-color;
+                float: right;
+            }
+        }
+
+        button {
+            float: right;
+        }
+    }
+}
