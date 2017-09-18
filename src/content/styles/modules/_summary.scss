@@ -1,6 +1,10 @@
 .av-summary {
     width: 20%;
     border: 1px solid black;
+
+    ul {
+        list-style-type: none;
+    }
 }
 
 .av-summary-icon {

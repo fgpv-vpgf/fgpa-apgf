@@ -40,7 +40,7 @@ function avHeader() {
     return directive;
 }
 
-function Controller(events, $q, stateManager, $mdDialog, $translate) {
+function Controller(events, $q, modelManager, $mdDialog, $translate) {
     'ngInject';
     const self = this;
 
@@ -61,7 +61,7 @@ function Controller(events, $q, stateManager, $mdDialog, $translate) {
         if (files.length > 0) {
             const file = files[0];
 
-            _readFile(file.file).then(data => stateManager.setModels(JSON.parse(data))
+            _readFile(file.file).then(data => modelManager.setModels(JSON.parse(data))
             ).catch(error => {
                 console.log('error upload');
             });
@@ -113,12 +113,13 @@ function Controller(events, $q, stateManager, $mdDialog, $translate) {
 
         function save() {
             const models = {
-                'map': stateManager.getModel('map'),
-                'ui': stateManager.getModel('ui')
+                'map': modelManager.getModel('map'),
+                'ui': modelManager.getModel('ui')
             };
 
             const file = new File([JSON.stringify(models)], `${self.fileName}.json`, { type: 'text/plain' });
             FileSaver.saveAs(file);
+            self.close();
         }
     }
 }

@@ -33,7 +33,7 @@ function avMap(schemaForm) {
     return directive;
 }
 
-function Controller($scope, stateManager, debounceService, constants, events, $timeout) {
+function Controller($scope, modelManager, debounceService, constants, events, $timeout) {
     'ngInject';
     const self = this;
 
@@ -50,49 +50,63 @@ function Controller($scope, stateManager, debounceService, constants, events, $t
     events.$on(events.avLoadModel, () => updateModel());
 
     function init() {
-        $scope.model = stateManager.getModel(self.modelName);
-        $scope.schema = stateManager.getSchema(self.modelName);
+        $scope.model = modelManager.getModel(self.modelName);
+        $scope.schema = modelManager.getSchema(self.modelName);
 
-        $scope.form = [
-            {
-                "key": "name",
-                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false),
-                "feedback": "{'glyphicon': true, 'glyphicon-ok': hasSuccess(), 'glyphicon-star': !hasSuccess() }"
-            }, {
-                "key": "email",
-                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-            }, {
-                "key": "comment",
-                "type": "textarea",
-                "placeholder": "Make a comment",
-                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-            }, {
-                "key": "eligible",
-                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-            }, {
-                "type": "conditional",
-                "condition": "model.eligible",
-                "items": [
-                    {
-                        "key": "code",
-                        "placeholder": "ex. 666",
-                        "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-                    }
-                ]
-            },
-            {
+        $scope.form = ['*', {
                 "type": "actions",
                 "items": [
                     { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
                 ]
-            }
-        ];
+            }];
+        //     {
+        //         "key": "info",
+        //         "items": [
+        //             { "key": "info.name", "onChange": debounceService.registerDebounce(validate, constants.debSummary, false) },
+        //             { "key": "info.subname",
+        //                 "startEmpty": true,
+        //                 "items": [
+        //                     { "key": "info.subname[].sub1", "placeholder": "Make a comment" },
+        //                     { "key": "info.subname[].sub2" }
+        //                 ]
+        //             }
+        //         ]
+        //     }, {
+        //         "key": "email",
+        //         "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+        //     }, {
+        //         "key": "comment",
+        //         "type": "textarea",
+        //         "placeholder": "Make a comment",
+        //         "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+        //     }, {
+        //         "key": "eligible",
+        //         "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+        //     }, {
+        //         "type": "conditional",
+        //         "condition": "model.eligible",
+        //         "items": [
+        //             {
+        //                 "key": "code",
+        //                 "placeholder": "ex. 666",
+        //                 "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+        //             }
+        //         ]
+        //     },
+        //     {
+        //         "type": "actions",
+        //         "items": [
+        //             { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
+        //         ]
+        //     }
+        // ];
     }
 
     function validateForm(form, model) {
-        // First we broadcast an event so all fields validate themselves
+        // First we broadcast an event so all fields validate themselves then we validate the model to update
+        // summary panel
         $scope.$broadcast('schemaFormValidate');
-        stateManager.validateModel(self.modelName, $scope.activeForm);
+        modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
 
         // Then we check if the form is valid
         if ($scope.activeForm.$valid) {
@@ -102,19 +116,28 @@ function Controller($scope, stateManager, debounceService, constants, events, $t
     }
 
     function validate(form, model) {
-        const key = model.key[0];
-        stateManager.setValidity(self.modelName, key, $scope.activeForm[`activeForm-${key}`].$valid);
+        console.log(model);
+
+        // need to determine what type of object it is
+        // const type = model.schema.type;
+        //
+        // if (type !== 'array') {
+        //     const key = model.key.join('-');
+        //     modelManager.setValidity(self.modelName, model.key, $scope.activeForm[`activeForm-${key}`].$valid);
+        // } else {
+        //     console.log('array');
+        // }
     }
 
     function resetModel() {
         $scope.$broadcast('schemaFormRedraw');
-        $scope.model = stateManager.resetModel(self.modelName);
-        stateManager.resetValidity(self.modelName);
+        $scope.model = modelManager.resetModel(self.modelName);
+        modelManager.resetValidity(self.modelName);
     }
 
     function updateModel() {
-        $scope.model = stateManager.getModel(self.modelName);
+        $scope.model = modelManager.getModel(self.modelName);
         $scope.$broadcast('schemaFormValidate');
-        $timeout(() => { stateManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
+        $timeout(() => { modelManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
     }
 }
