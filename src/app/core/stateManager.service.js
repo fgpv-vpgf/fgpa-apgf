@@ -15,14 +15,23 @@ function stateManager($rootElement, events, $translate) {
     const service = {
         setSchema,
         getSchema,
+        resetModel,
+        setModels,
+        getModel,
         getState,
         setValidity,
-        getValidity
+        getValidity,
+        resetValidity,
+        validateModel
     };
 
     const _state = {};
-    const _form ={};
-    const _schema ={}
+    const _form = {};
+    const _schema = {};
+    const _model = {
+        "map": {},
+        "ui": {}
+    };
 
     return service;
 
@@ -37,7 +46,7 @@ function stateManager($rootElement, events, $translate) {
         _schema[formName] = schema;
 
         // set value for translations
-        traverse(schema);
+        translateSchema(schema);
 
         // create state object used by the summary section
         let mapObj = {};
@@ -51,6 +60,23 @@ function stateManager($rootElement, events, $translate) {
 
     function getSchema(formName) {
         return _schema[formName];
+    }
+
+    function resetModel(formName) {
+        _model[formName] = {};
+        return _model[formName];
+    }
+
+    function setModels(models) {
+        $.each(models, function(k,v) {
+            _model[k] = v;
+        });
+
+        events.$broadcast(events.avLoadModel, 'new');
+    }
+
+    function getModel(formName) {
+        return _model[formName];
     }
 
     function getState(formName) {
@@ -72,7 +98,7 @@ function stateManager($rootElement, events, $translate) {
         return _state[formName][key].valid
     }
 
-    function traverse(json) {
+    function translateSchema(json) {
         if (typeof json === 'object') {
             $.each(json, function(k,v) {
 
@@ -81,8 +107,32 @@ function stateManager($rootElement, events, $translate) {
                 }
 
                 // k is either an array index or object key
-                traverse(v);
+                translateSchema(v);
             });
         }
+    }
+
+    function validateModel(model, form) {
+        if (typeof form === 'object') {
+            $.each(form, function(k,v) {
+
+                if (k.startsWith(`activeForm-`)) {
+                    _state[model][k.split('-')[1]].valid = form[k].$valid;
+                }
+
+                // k is either an array index or object key
+                // translateSchema(v);
+            });
+        }
+    }
+
+    function resetValidity(model) {
+        $.each(_state[model], function(k,v) {
+
+            _state[model][k] = { "key": k, "valid": null };
+
+            // k is either an array index or object key
+            translateSchema(v);
+        });
     }
 }

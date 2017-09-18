@@ -7,6 +7,15 @@ Language name (native),lang.native,English,1,Français,1
 app title,app.title,Federal Geospatial Platform Author,0,Auteur pour la plateforme geospatial federal,0
 app section map,app.section.map,Maps,1,Cartes,1
 app section ui,app.section.ui,UI,0,UI,0
-app summary,app.summary,Summary,1,Sommaire,1
-,map.message,Okidouki,0,Tiguidou,1
+app summary,app.summary,Summary,0,Sommaire,0
+Content panel tooltip,contentPanel.tooltip.close,Close,1,Fermer,1
+Content panel aria label for close button,contentPanel.aria.close,Close,1,Fermer,1
+header create file,header.create,Create new file,0,Créer un nouveau fichier,0
+header open file,header.open,Open existing file,0,Ouvrir un fichier existant,0
+header save file,header.save,Save file,0,Sauvegarder fichier,0
+header save dialog title,header.savedialog.title,Save Configuration File,0,Sauvegarder le fichier de configuration,0
+header save dialog desc,header.savedialog.desc,Enter file name, it will be save inside your download folder,0,Entrez un fnom de fichier. Il sera sauvegardé dans le répertoire téléchargement,0
+header save dialog hint,header.savedialog.hint,* no extension,0,* sans extension,0
+,button.save,Save,0,Sauvegarder,0
+,button.cancel,Cancel,0,Canceller,0
 ,error.email,Email not valid,1,Courriel non valide,1

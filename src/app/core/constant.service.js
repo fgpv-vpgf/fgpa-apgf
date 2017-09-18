@@ -43,7 +43,9 @@ function events($rootScope) {
 
         avReady: 'avReady', // Fired when author is ready
         avFormUpdate: 'avFormUpdate', // Fired when user update a field inside a form
-        avSchemaUpdate: 'avSchemaUpdate' // Fired when there is an update to the state
+        avSchemaUpdate: 'avSchemaUpdate', // Fired when there is an update to the state
+        avNewModel: 'avNewModel', // Fired when user create a new for
+        avLoadModel: 'avLoadModel' // Fired when a user load an existing form
     };
 }
 

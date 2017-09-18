@@ -27,25 +27,31 @@ function avMap(schemaForm) {
         controller: Controller,
         controllerAs: 'self',
         bindToController: true
+
     };
 
     return directive;
 }
 
-function Controller($scope, stateManager, debounceService, constants, events) {
+function Controller($scope, stateManager, debounceService, constants, events, $timeout) {
     'ngInject';
     const self = this;
 
+    self.modelName = 'map';
     self.buttonClick = validate;
 
-    init();
-
     // when schema is loaded, initialize the form
-    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === 'map') init(); });
+    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === self.modelName) init(); });
+
+    // when user create a new config, reset the form
+    events.$on(events.avNewModel, () => resetModel());
+
+    // when user load a config file, set model
+    events.$on(events.avLoadModel, () => updateModel());
 
     function init() {
-        $scope.model = {};
-        $scope.schema = stateManager.getSchema('map');
+        $scope.model = stateManager.getModel(self.modelName);
+        $scope.schema = stateManager.getSchema(self.modelName);
 
         $scope.form = [
             {
@@ -65,7 +71,7 @@ function Controller($scope, stateManager, debounceService, constants, events) {
                 "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
             }, {
                 "type": "conditional",
-                "condition": "mapModel.eligible",
+                "condition": "model.eligible",
                 "items": [
                     {
                         "key": "code",
@@ -86,9 +92,10 @@ function Controller($scope, stateManager, debounceService, constants, events) {
     function validateForm(form, model) {
         // First we broadcast an event so all fields validate themselves
         $scope.$broadcast('schemaFormValidate');
+        stateManager.validateModel(self.modelName, $scope.activeForm);
 
         // Then we check if the form is valid
-        if ($scope.mapForm.$valid) {
+        if ($scope.activeForm.$valid) {
             console.log("form is ", $scope.form);
             console.log("model is ", $scope.model);
         }
@@ -96,6 +103,18 @@ function Controller($scope, stateManager, debounceService, constants, events) {
 
     function validate(form, model) {
         const key = model.key[0];
-        stateManager.setValidity('map', key, $scope.mapForm[`mapForm-${key}`].$valid);
+        stateManager.setValidity(self.modelName, key, $scope.activeForm[`activeForm-${key}`].$valid);
+    }
+
+    function resetModel() {
+        $scope.$broadcast('schemaFormRedraw');
+        $scope.model = stateManager.resetModel(self.modelName);
+        stateManager.resetValidity(self.modelName);
+    }
+
+    function updateModel() {
+        $scope.model = stateManager.getModel(self.modelName);
+        $scope.$broadcast('schemaFormValidate');
+        $timeout(() => { stateManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
     }
 }

@@ -1,3 +1,34 @@
 <div class="av-title">
     <h2 class="md-headline" translate>app.title</h2>
+    <div>
+        <md-button
+            translate
+            aria-label="{{ 'header.create' | translate }}"
+            class="md-icon-button av-button-32 black"
+            ng-click="self.create()">
+            <md-tooltip>{{ 'header.create' | translate }}</md-tooltip>
+            <md-icon md-svg-src="content:add"></md-icon>
+        </md-button>
+
+        <md-button
+            flow-init="{ singleFile: true }"
+            flow-files-submitted="self.filesSubmitted($files, $event, $flow)"
+            class="md-icon-button av-button-32 black"
+            aria-label="{{ 'header.open' | translate }}"
+            flow-btn
+            flow-progress="console.log()"
+            flow-attrs="{ accept: '.json' }">
+            <md-tooltip>{{ 'header.open' | translate }}</md-tooltip>
+            <md-icon md-svg-src="file:file_upload"></md-icon>
+        </md-button>
+
+        <md-button
+            translate
+            aria-label="{{ 'header.save' | translate }}"
+            class="md-icon-button av-button-32 black"
+            ng-click="self.save()">
+            <md-tooltip>{{ 'header.save' | translate }}</md-tooltip>
+            <md-icon md-svg-src="content:save"></md-icon>
+        </md-button>
+    </div>
 </div>

@@ -32,20 +32,25 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope, stateManager, debounceService, constants, events) {
+function Controller($scope, stateManager, debounceService, constants, events, $timeout) {
     'ngInject';
     const self = this;
 
+    self.modelName = 'ui';
     self.buttonClick = validate;
 
-    init();
-
     // when schema is loaded, initialize the form
-    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === 'ui') init(); });
+    events.$on(events.avSchemaUpdate, (evt, schema) => { if (schema === self.modelName) init(); });
+
+    // when user create a new config, reset the form
+    events.$on(events.avNewModel, () => resetModel());
+
+    // when user load a config file, set model
+    events.$on(events.avLoadModel, () => updateModel());
 
     function init() {
-        $scope.model = {};
-        $scope.schema = stateManager.getSchema('ui');
+        $scope.model = stateManager.getModel(self.modelName);
+        $scope.schema = stateManager.getSchema(self.modelName);
 
         $scope.form = [
             {
@@ -69,9 +74,10 @@ function Controller($scope, stateManager, debounceService, constants, events) {
     function validateForm(form, model) {
         // First we broadcast an event so all fields validate themselves
         $scope.$broadcast('schemaFormValidate');
+        stateManager.validateModel(self.modelName, $scope.activeForm);
 
         // Then we check if the form is valid
-        if ($scope.mapForm.$valid) {
+        if ($scope.activeForm.$valid) {
             console.log("form is ", $scope.form);
             console.log("model is ", $scope.model);
         }
@@ -79,6 +85,18 @@ function Controller($scope, stateManager, debounceService, constants, events) {
 
     function validate(form, model) {
         const key = model.key[0];
-        stateManager.setValidity('ui', key, $scope.uiForm[`uiForm-${key}`].$valid);
+        stateManager.setValidity(self.modelName, key, $scope.activeForm[`activeForm-${key}`].$valid);
+    }
+
+    function resetModel() {
+        $scope.$broadcast('schemaFormRedraw');
+        $scope.model = stateManager.resetModel(self.modelName);
+        stateManager.resetValidity(self.modelName);
+    }
+
+    function updateModel() {
+        $scope.model = stateManager.getModel(self.modelName);
+        $scope.$broadcast('schemaFormValidate');
+        $timeout(() => { stateManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
     }
 }

@@ -1,0 +1,49 @@
+<div class="av-content-panel layout-padding">
+
+    <div class="av-header" ng-show="self.titleValue && !self.floatingHeader" ng-switch on="self.titleStyle">
+        <!-- display an appropriate header based on `headline` value -->
+        <!-- hide header if no title text provided -->
+        <div class="av-header-content" layout="column">
+
+            <h2 class="md-headline" ng-switch-when="headline">{{ self.titleValue }}</h2>
+            <h3 class="md-title" ng-switch-when="headline" ng-if="self.subTitleValue">{{ self.subTitleValue }}</h3>
+
+            <h3 class="md-title" ng-switch-when="title">{{ self.titleValue }}</h3>
+            <h4 class="md-subhead" ng-switch-when="title" ng-if="self.subTitleValue">{{ self.subTitleValue }}</h4>
+
+            <h4 class="md-subhead" ng-switch-when="subhead">{{ self.titleValue }}</h4>
+            <h5 class="md-caption" ng-switch-when="subhead" ng-if="self.subTitleValue">{{ self.subTitleValue }}</h5>
+
+            <h5 class="md-caption" ng-switch-when="caption">{{ self.titleValue }}</h5>
+
+        </div>
+
+        <span flex class="av-spacer"></span>
+
+        <!-- show close button if there is a closePanel function -->
+        <md-button
+            aria-label="{{ 'contentPanel.aria.close' | translate }}"
+            class="av-close md-icon-button black av-button-24"
+            ng-click="self.closePanel()"
+            ng-if="self.closePanel"
+            av-close-button
+            md-autofocus>
+            <md-tooltip>{{' contentPanel.tooltip.close ' | translate}}</md-tooltip>
+            <md-icon class="av-lt-lg" md-svg-src="navigation:arrow_back"></md-icon>
+            <md-icon class="av-lg" md-svg-src="navigation:close"></md-icon>
+        </md-button>
+    </div>
+
+    <md-content class="av-content" ng-if="!self.staticContent" av-detect-scrollbar>
+        <!-- hide content when it's loading and hideWhenLoading is "true" -->
+        <ng-transclude class="av-hide-animate" ng-class="{ 'av-hide': self.isLoading && self.hideWhenLoading }"></ng-transclude>
+    </md-content>
+
+    <div class="av-content" ng-if="self.staticContent">
+        <ng-transclude class="av-hide-animate" ng-class="{ 'av-hide': self.isLoading && self.hideWhenLoading }"></ng-transclude>
+    </div>
+
+    <div class="av-footer" ng-show="self.footer"></div>
+
+    <md-progress-linear class="av-progress-top" md-mode="indeterminate" ng-show="self.isLoading"></md-progress-linear>
+</div>
