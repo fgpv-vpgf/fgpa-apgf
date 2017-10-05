@@ -31,10 +31,10 @@ function init($translate, $rootElement) {
  * @function uploadSchema
  * @param  {Object} $http Angular object to read file
  */
-function uploadSchema($http, constants, stateManager) {
+function uploadSchema($http, constants, modelManager) {
 
     constants.schemas.forEach(file => {
         let location = `./schemaForm/${file}`;
-        return $http.get(location).then(obj => stateManager.setSchema(obj.data.schema, obj.data));
+        return $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data));
     });
 }

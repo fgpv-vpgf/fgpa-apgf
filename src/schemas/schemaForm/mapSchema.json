@@ -4,19 +4,54 @@
     "description": "A set of service endpoints used by the viewer",
     "type": "object",
     "properties": {
-        "name": {
-            "title": "Name",
-            "type": "string"
+        "info": {
+            "title": "Info",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "default": "",
+                    "type": "string"
+                },
+                "subname": {
+                    "type": "array",
+                    "title":"Nested Title",
+                    "default": [],
+                    "items": {
+                        "type": "object",
+                        "title": "Subnames",
+                        "properties": {
+                            "sub1": {
+                                "title": "First sub",
+                                "type": "string",
+                                "default": "",
+                                "required": true
+                            },
+                            "sub2": {
+                                "title": "Second sub",
+                                "type": "string",
+                                "default": "",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "name"
+            ]
         },
         "email": {
             "title": "Email",
             "type": "string",
+            "default": "",
             "pattern": "^\\S+@\\S+$",
             "description": "Email will be used for evil."
         },
         "comment": {
             "title": "Comment",
             "type": "string",
+            "default": "",
             "maxLength": 20,
             "validationMessage": "error.email"
         },
@@ -27,7 +62,8 @@
         },
         "code": {
             "type":"string",
-            "title": "The Code"
+            "title": "The Code",
+            "default": ""
         }
     },
     "required": [

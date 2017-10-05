@@ -32,7 +32,7 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope, stateManager, debounceService, constants, events, $timeout) {
+function Controller($scope, modelManager, debounceService, constants, events, $timeout) {
     'ngInject';
     const self = this;
 
@@ -49,8 +49,8 @@ function Controller($scope, stateManager, debounceService, constants, events, $t
     events.$on(events.avLoadModel, () => updateModel());
 
     function init() {
-        $scope.model = stateManager.getModel(self.modelName);
-        $scope.schema = stateManager.getSchema(self.modelName);
+        $scope.model = modelManager.getModel(self.modelName);
+        $scope.schema = modelManager.getSchema(self.modelName);
 
         $scope.form = [
             {
@@ -74,7 +74,7 @@ function Controller($scope, stateManager, debounceService, constants, events, $t
     function validateForm(form, model) {
         // First we broadcast an event so all fields validate themselves
         $scope.$broadcast('schemaFormValidate');
-        stateManager.validateModel(self.modelName, $scope.activeForm);
+        modelManager.validateModel(self.modelName, $scope.activeForm);
 
         // Then we check if the form is valid
         if ($scope.activeForm.$valid) {
@@ -85,18 +85,18 @@ function Controller($scope, stateManager, debounceService, constants, events, $t
 
     function validate(form, model) {
         const key = model.key[0];
-        stateManager.setValidity(self.modelName, key, $scope.activeForm[`activeForm-${key}`].$valid);
+        modelManager.setValidity(self.modelName, key, $scope.activeForm[`activeForm-${key}`].$valid);
     }
 
     function resetModel() {
         $scope.$broadcast('schemaFormRedraw');
-        $scope.model = stateManager.resetModel(self.modelName);
-        stateManager.resetValidity(self.modelName);
+        $scope.model = modelManager.resetModel(self.modelName);
+        modelManager.resetValidity(self.modelName);
     }
 
     function updateModel() {
-        $scope.model = stateManager.getModel(self.modelName);
+        $scope.model = modelManager.getModel(self.modelName);
         $scope.$broadcast('schemaFormValidate');
-        $timeout(() => { stateManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
+        $timeout(() => { modelManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
     }
 }

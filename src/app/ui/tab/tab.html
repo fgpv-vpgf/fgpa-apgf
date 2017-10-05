@@ -8,6 +8,12 @@
                 <li ng-class="{ active: self.isSet(2) }">
                     <a href ng-click="self.setTab(2)">{{ 'app.section.ui' | translate }}</a>
                 </li>
+                <li ng-class="{ active: self.isSet(3) }">
+                    <a href ng-click="self.setTab(3)">{{ 'app.section.service' | translate }}</a>
+                </li>
+                <li ng-class="{ active: self.isSet(4) }">
+                    <a href ng-click="self.setTab(4)">TEST</a>
+                </li>
             </ul>
         </div>
         <div class="col-md-8">
@@ -16,6 +22,12 @@
             </div>
             <div ng-show="self.isSet(2)">
                 <av-ui></av-ui>
+            </div>
+            <div ng-show="self.isSet(3)">
+                <av-service></av-service>
+            </div>
+            <div ng-show="self.isSet(4)">
+                <av-formtest></av-formtest>
             </div>
         </div>
     </div>
