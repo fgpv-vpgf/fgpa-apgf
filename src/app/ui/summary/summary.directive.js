@@ -1,4 +1,7 @@
-const templateUrl = require('./summary.html');
+const templateUrls = {
+    summary: require('./summary.html'),
+    preview: require('./preview-dialog.html')
+}
 
 /**
  * @module avSummary
@@ -22,7 +25,7 @@ angular
 function avSummary() {
     const directive = {
         restrict: 'E',
-        templateUrl,
+        templateUrl: templateUrls.summary,
         scope: { },
         controller: Controller,
         controllerAs: 'self',
@@ -32,12 +35,15 @@ function avSummary() {
     return directive;
 }
 
-function Controller($scope, modelManager, events) {
+function Controller($scope, modelManager, events, $mdDialog, $sce) {
     'ngInject';
     const self = this;
 
     self.expandTree = expand;
     self.collapseTree = collapse;
+    self.openPreview = openPreview;
+
+    self.http = './index-one.html'; //('http://www.google.com') $sce.trustAsResourceUrl('./index-one.html');
 
     events.$on(events.avSchemaUpdate, (evt, schema) => { self[schema] = modelManager.getState(schema); });
 
@@ -57,5 +63,26 @@ function Controller($scope, modelManager, events) {
                 walkTree(tree[obj], key, value);
             }
         }
+    }
+
+    function openPreview() {
+        localStorage.setItem('configpreview', 'config/config-preview.json');
+
+        $mdDialog.show({
+            controller: previewController,
+            controllerAs: 'self',
+            templateUrl: templateUrls.preview,
+            parent: $('.fgpa'),
+            disableParentScroll: false,
+            clickOutsideToClose: true,
+            fullscreen: false
+        });
+    }
+
+    function previewController($mdDialog) {
+        'ngInject';
+        const self = this;
+
+        self.close = $mdDialog.hide;
     }
 }
