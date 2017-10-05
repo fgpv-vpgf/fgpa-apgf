@@ -15,19 +15,6 @@
 
             <av-header></av-header>
 
-            <!-- TODO: remove route because it controller is fired every time oage is refresh and it creates problem. use tab instead -->
-            <!-- <div class="av-tools">
-                <div class="av-section">
-                    <a href="#!map" translate>app.section.map</a>
-                    <a href="#!ui" translate>app.section.ui</a>
-
-                    <div ng-view></div>
-                </div>
-                <div class="av-summary">
-                    <av-summary></av-summary>
-                </div>
-            </div> -->
-
             <div class="av-tools">
                 <av-tab></av-tab>
                 <div class="av-summary">

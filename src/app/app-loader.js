@@ -5,7 +5,6 @@ import 'angular-aria';
 import 'angular-animate';
 import 'angular-material';
 import 'angular-messages';
-import 'angular-route';
 import 'angular-sanitize';
 import 'angular-translate';
 import 'dotjem-angular-tree/src/directives/dxTree.js';
@@ -20,8 +19,6 @@ import Flow from '@flowjs/ng-flow/dist/ng-flow-standalone'
 import './bootstrap.js';
 import './core/core.module.js';
 import './ui/ui.module.js';
-import './route/route.module.js';
-import './route/route-loader.js';
 import './layout/layout.module.js';
 import './layout/layout-loader.js';
 import './ui/ui-loader.js';
