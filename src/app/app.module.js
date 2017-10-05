@@ -11,8 +11,7 @@ angular
         'app.core',
         'app.templates',
         'app.ui',
-        'app.layout',
-        'app.route'
+        'app.layout'
     ])
     .config(($compileProvider, $mdInkRippleProvider, $mdAriaProvider) => {
         // to improve IE performance disable ripple effects globally and debug info
