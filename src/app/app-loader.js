@@ -27,8 +27,8 @@ import './app.module.js';
 import './app-seed.js';
 import '../content/styles/main.scss';
 
-
+// TODO: see if needed...
 // HACKS
 // hoverintent is a function consuming the jQuery object where it adds a prototype method hoverIntent.
-import hoverintent from 'jquery-hoverintent';
-hoverintent($);
+// import hoverintent from 'jquery-hoverintent';
+// hoverintent($);

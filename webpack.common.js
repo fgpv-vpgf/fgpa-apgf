@@ -109,7 +109,9 @@ module.exports = function (env) {
             ]),
 
             // need to add angular-schema-form inside html with HtmlWebpackIncludeAssetsPlugin... https://github.com/json-schema-form/json-schema-form-core/pull/5
-            new HtmlWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                filename: 'samples/index-author.html'
+            }),
             new HtmlWebpackIncludeAssetsPlugin({
                 assets: ['form/tv4.js'],
                 append: false
