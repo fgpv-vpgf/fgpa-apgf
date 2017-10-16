@@ -136,7 +136,7 @@ function Controller($scope, modelManager, debounceService, constants, events, $t
     }
 
     function updateModel() {
-        $scope.model = modelManager.getModel(self.modelName);
+        $scope.model = modelManager.getModel(self.modelName, false);
         $scope.$broadcast('schemaFormValidate');
         $timeout(() => { modelManager.validateModel(self.modelName, $scope.activeForm); }, 2000);
     }

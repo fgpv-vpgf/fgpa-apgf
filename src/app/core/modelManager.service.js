@@ -22,7 +22,8 @@ function modelManager($rootElement, events, $translate, commonService) {
         setValidity,
         getValidity,
         resetValidity,
-        validateModel
+        validateModel,
+        setDefault
     };
 
     const _state = {};
@@ -33,6 +34,7 @@ function modelManager($rootElement, events, $translate, commonService) {
         'ui': {},
         'service': {}
     };
+    const _default = {};
 
     return service;
 
@@ -82,7 +84,7 @@ function modelManager($rootElement, events, $translate, commonService) {
     }
 
     function resetModel(formName) {
-        _model[formName] = {};
+        _model[formName] = applyDefault(formName, {});
         return _model[formName];
     }
 
@@ -94,8 +96,14 @@ function modelManager($rootElement, events, $translate, commonService) {
         events.$broadcast(events.avLoadModel, 'new');
     }
 
-    function getModel(formName) {
+    function getModel(formName, newModel = true) {
+        if (newModel) { _model[formName] = applyDefault(formName, _model[formName]); }
         return _model[formName];
+    }
+
+    function applyDefault(modelName, model) {
+        const defaults = $.extend(true, model, _default[commonService.getLang()][modelName]);
+        return defaults;
     }
 
     function getState(formName) {
@@ -151,7 +159,7 @@ function modelManager($rootElement, events, $translate, commonService) {
                 let keys = key.split('-').filter(n => n !== '' && n!== 'activeForm');
 
                 // remove duplicate keys. They are introduce by array in schema form
-                const unique = commonService.uniq(keys);
+                const unique = commonService.setUniq(keys);
 
                 // then get the index for array items
                 // only work with one level array for now so reduce the array to 1 Number. When the number change
@@ -229,5 +237,9 @@ function modelManager($rootElement, events, $translate, commonService) {
             // k is either an array index or object key
             translateSchema(v);
         });
+    }
+
+    function setDefault(defaultValues, lang) {
+        _default[lang] = defaultValues;
     }
 }

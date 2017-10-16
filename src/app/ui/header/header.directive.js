@@ -112,9 +112,10 @@ function Controller(events, $q, modelManager, $mdDialog, $translate) {
         self.fileName = '';
 
         function save() {
+            // TODO use constant model too loop
             const models = {
-                'map': modelManager.getModel('map'),
-                'ui': modelManager.getModel('ui')
+                'map': modelManager.getModel('map', false),
+                'ui': modelManager.getModel('ui', false)
             };
 
             const file = new File([JSON.stringify(models)], `${self.fileName}.json`, { type: 'text/plain' });
