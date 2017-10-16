@@ -29,7 +29,7 @@ module.exports = function(env) {
 
             new ZipPlugin({
                 path:  path.resolve(__dirname, 'dist'),
-                filename:  path.resolve(__dirname, `dist/fgpv-${pkg.version}.zip`),
+                filename:  path.resolve(__dirname, `dist/fgpa-${pkg.version}.zip`),
                 exclude: [/samples/]
             }),
 
