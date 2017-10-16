@@ -10,7 +10,7 @@ angular
     .module('app.core')
     .factory('commonService', commonService);
 
-function commonService($translate) {
+function commonService($translate, events) {
 
     const service = {
         parseJSON,
@@ -18,8 +18,12 @@ function commonService($translate) {
         isObject,
         setUniq,
         setLang,
-        getLang
+        getLang,
+        setLangs,
+        getLangs
     };
+
+    let languages;
 
     return service;
 
@@ -53,8 +57,8 @@ function commonService($translate) {
      * @param {String} value language value to be set
      */
     function setLang(value) {
-        $translate.use(value);
-        // events.$broadcast(events.rvCfgInitialized);
+        // broadcast event to fired a schema change wihtout reloading model
+        $translate.use(value).then(() => events.$broadcast(events.avSwitchLanguage));
     }
 
     /**
@@ -64,5 +68,13 @@ function commonService($translate) {
      */
     function getLang() {
         return ($translate.proposedLanguage() || $translate.use());
+    }
+
+    function setLangs(langs) {
+        languages = langs;
+    }
+
+    function getLangs() {
+        return languages;
     }
 }

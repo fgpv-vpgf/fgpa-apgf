@@ -23,7 +23,7 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debSummary: 500, // time for debouncing when user enter value
-        schemas: ['uiSchema.json', 'mapSchema.json'] // TODO: add new schema as they come
+        schemas: ['uiSchema.[lang].json', 'mapSchema.[lang].json'] // TODO: add new schema as they come
     });
 
 function events($rootScope) {
@@ -44,6 +44,7 @@ function events($rootScope) {
         avReady: 'avReady', // Fired when author is ready
         avFormUpdate: 'avFormUpdate', // Fired when user update a field inside a form
         avSchemaUpdate: 'avSchemaUpdate', // Fired when there is an update to the state
+        avSwitchLanguage: 'avSwitchLanguage', // Fired when there is a language switch
         avNewModel: 'avNewModel', // Fired when user create a new for
         avLoadModel: 'avLoadModel' // Fired when a user load an existing form
     };

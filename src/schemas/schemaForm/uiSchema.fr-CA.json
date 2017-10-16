@@ -1,0 +1,16 @@
+{
+    "schema": "ui",
+    "title": "UI",
+    "description": "Des services",
+    "type": "object",
+    "properties": {
+        "fullscreen": {
+            "type": "boolean",
+            "default": false,
+            "description": "Indique si prend toute la vue"
+        },
+        "theme": { "type": "string", "enum": [ "default" ], "default": "default", "description": "Le theme du visualisateur" },
+        "logoUrl": { "type": "string", "default": "", "description": "Option pour mettre une image", "minLength": 2, "validationMessage": "Probleme de mail" },
+        "title": { "type": "string", "default": "", "description": "Option pour un titre" }
+    }
+}

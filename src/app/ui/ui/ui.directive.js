@@ -32,7 +32,7 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope, modelManager, debounceService, constants, events, $timeout) {
+function Controller($scope, $translate, modelManager, debounceService, constants, events, $timeout) {
     'ngInject';
     const self = this;
 
@@ -48,11 +48,23 @@ function Controller($scope, modelManager, debounceService, constants, events, $t
     // when user load a config file, set model
     events.$on(events.avLoadModel, () => updateModel());
 
+    // when user change language
+    events.$on(events.avSwitchLanguage, () => {
+        $scope.schema = modelManager.getSchema(self.modelName);
+        $scope.form = setForm();
+
+        $scope.$broadcast('schemaFormRedraw');
+    });
+
     function init() {
         $scope.model = modelManager.getModel(self.modelName);
         $scope.schema = modelManager.getSchema(self.modelName);
 
-        $scope.form = [
+        $scope.form = setForm();
+    }
+
+    function setForm() {
+        return [
             {
                 "key": "fullscreen",
                 "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
@@ -65,7 +77,7 @@ function Controller($scope, modelManager, debounceService, constants, events, $t
             }, {
                 "type": "actions",
                 "items": [
-                    { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
+                    { "type": 'button', "style": 'btn-info', "title": $translate.instant('button.validate'), "onClick": validateForm }
                 ]
             }
         ];

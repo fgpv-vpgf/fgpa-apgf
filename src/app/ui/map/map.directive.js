@@ -33,7 +33,7 @@ function avMap(schemaForm) {
     return directive;
 }
 
-function Controller($scope, modelManager, debounceService, constants, events, $timeout) {
+function Controller($scope, modelManager, debounceService, constants, events, $timeout, $translate) {
     'ngInject';
     const self = this;
 
@@ -49,57 +49,66 @@ function Controller($scope, modelManager, debounceService, constants, events, $t
     // when user load a config file, set model
     events.$on(events.avLoadModel, () => updateModel());
 
+    // when user change language
+    events.$on(events.avSwitchLanguage, () => {
+        $scope.schema = modelManager.getSchema(self.modelName);
+        $scope.form = setForm();
+
+        $scope.$broadcast('schemaFormRedraw');
+    });
+
     function init() {
         $scope.model = modelManager.getModel(self.modelName);
         $scope.schema = modelManager.getSchema(self.modelName);
 
-        $scope.form = ['*', {
+        $scope.form = setForm();
+    }
+
+    function setForm() {
+        return [
+            {
+                "key": "info",
+                "items": [
+                    { "key": "info.name", "onChange": debounceService.registerDebounce(validate, constants.debSummary, false) },
+                    { "key": "info.subname",
+                        "startEmpty": true,
+                        "add": $translate.instant('button.add'),
+                        "style": { "add": "btn-success" },
+                        "items": [
+                            { "key": "info.subname[].sub1", "placeholder": "Make a comment" },
+                            { "key": "info.subname[].sub2" }
+                        ]
+                    }
+                ]
+            }, {
+                "key": "email",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "comment",
+                "type": "textarea",
+                "placeholder": "Make a comment",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "key": "eligible",
+                "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+            }, {
+                "type": "conditional",
+                "condition": "model.eligible",
+                "items": [
+                    {
+                        "key": "code",
+                        "placeholder": "ex. 666",
+                        "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
+                    }
+                ]
+            },
+            {
                 "type": "actions",
                 "items": [
-                    { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
+                    { "type": 'button', "style": 'btn-info', "title": $translate.instant('button.validate'), "onClick": validateForm }
                 ]
-            }];
-        //     {
-        //         "key": "info",
-        //         "items": [
-        //             { "key": "info.name", "onChange": debounceService.registerDebounce(validate, constants.debSummary, false) },
-        //             { "key": "info.subname",
-        //                 "startEmpty": true,
-        //                 "items": [
-        //                     { "key": "info.subname[].sub1", "placeholder": "Make a comment" },
-        //                     { "key": "info.subname[].sub2" }
-        //                 ]
-        //             }
-        //         ]
-        //     }, {
-        //         "key": "email",
-        //         "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-        //     }, {
-        //         "key": "comment",
-        //         "type": "textarea",
-        //         "placeholder": "Make a comment",
-        //         "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-        //     }, {
-        //         "key": "eligible",
-        //         "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-        //     }, {
-        //         "type": "conditional",
-        //         "condition": "model.eligible",
-        //         "items": [
-        //             {
-        //                 "key": "code",
-        //                 "placeholder": "ex. 666",
-        //                 "onChange": debounceService.registerDebounce(validate, constants.debSummary, false)
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         "type": "actions",
-        //         "items": [
-        //             { "type": 'button', "style": 'btn-info', "title": 'Validate', "onClick": validateForm }
-        //         ]
-        //     }
-        // ];
+            }
+        ];
     }
 
     function validateForm(form, model) {

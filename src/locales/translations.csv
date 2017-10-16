@@ -10,6 +10,7 @@ app section ui,app.section.ui,UI,0,UI,0
 app section service,app.section.service,Services,0,Services,0
 app summary,app.summary,Summary,0,Sommaire,0
 Content panel tooltip,contentPanel.tooltip.close,Close,0,Fermer,0
+header language selection,header.language,Language,0,Langue,0
 Content panel aria label for close button,contentPanel.aria.close,Close,0,Fermer,0
 header create file,header.create,Create new file,0,Créer un nouveau fichier,0
 header open file,header.open,Open existing file,0,Ouvrir un fichier existant,0
@@ -23,4 +24,5 @@ summary preview,summary.preview,Preview,0,Aperçu,0
 summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Canceller,0
-,error.email,Email not valid,0,Courriel non valide,0
+,button.add,Add,0,Ajouter,0
+,button.validate,Validate,0,Valider,0

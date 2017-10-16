@@ -14,9 +14,9 @@ angular
 const DEFAULT_LANGS = ['en-CA', 'fr-CA'];
 let languages = DEFAULT_LANGS;
 
-function init($rootElement, commonService) {
-    // TODO: set language as global and use it inside uploadSchema
+function init($rootElement, $translate, commonService) {
     const langAttr = $rootElement.attr('data-av-langs');
+
     if (langAttr) {
         try {
             languages = angular.fromJson(langAttr);
@@ -26,7 +26,8 @@ function init($rootElement, commonService) {
         }
     }
 
-    commonService.setLang(languages[0]);
+    $translate.use(languages[0]);
+    commonService.setLangs(languages);
 }
 
 /**
@@ -35,10 +36,11 @@ function init($rootElement, commonService) {
  * @param  {Object} $http Angular object to read file
  */
 function uploadSchema($http, constants, modelManager) {
-
-    constants.schemas.forEach(file => {
-        let location = `./schemaForm/${file}`;
-        $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data));
+    languages.forEach(lang => {
+        constants.schemas.forEach(file => {
+            let location = `./schemaForm/${file.replace('[lang]', lang)}`;
+            $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data, lang));
+        });
     });
 }
 

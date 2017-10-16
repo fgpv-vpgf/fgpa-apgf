@@ -1,0 +1,74 @@
+{
+    "schema": "map",
+    "title": "Carte",
+    "description": "Services",
+    "type": "object",
+    "properties": {
+        "info": {
+            "title": "Info",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Nom",
+                    "default": "",
+                    "type": "string"
+                },
+                "subname": {
+                    "type": "array",
+                    "title":"Title embriquer",
+                    "default": [],
+                    "items": {
+                        "type": "object",
+                        "title": "Sous noms",
+                        "properties": {
+                            "sub1": {
+                                "title": "Premier sub",
+                                "type": "string",
+                                "default": "",
+                                "required": true
+                            },
+                            "sub2": {
+                                "title": "Deuxieme sub",
+                                "type": "string",
+                                "default": "",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "email": {
+            "title": "Courriel",
+            "type": "string",
+            "default": "",
+            "pattern": "^\\S+@\\S+$",
+            "description": "Pas bon."
+        },
+        "comment": {
+            "title": "Commentaire",
+            "type": "string",
+            "default": "",
+            "maxLength": 20,
+            "validationMessage": "Courriel pas bon"
+        },
+        "eligible": {
+            "type": "boolean",
+            "title": "Eligible pour du bon",
+            "default": true
+        },
+        "code": {
+            "type":"string",
+            "title": "Le code",
+            "default": ""
+        }
+    },
+    "required": [
+        "name",
+        "email",
+        "comment"
+    ]
+}

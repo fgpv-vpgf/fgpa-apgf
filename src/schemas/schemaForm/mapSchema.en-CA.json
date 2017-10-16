@@ -53,7 +53,7 @@
             "type": "string",
             "default": "",
             "maxLength": 20,
-            "validationMessage": "error.email"
+            "validationMessage": "Email not valid"
         },
         "eligible": {
             "type": "boolean",
