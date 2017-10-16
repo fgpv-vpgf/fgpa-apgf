@@ -23,7 +23,7 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debSummary: 500, // time for debouncing when user enter value
-        schemas: ['uiSchema.json', 'serviceSchema.json', 'mapSchema.json']
+        schemas: ['uiSchema.json', 'mapSchema.json'] // TODO: add new schema as they come
     });
 
 function events($rootScope) {

@@ -19,6 +19,8 @@ header save dialog desc,header.savedialog.desc,Enter file name, it will be save 
 header save dialog hint,header.savedialog.hint,* no extension,0,* sans extension,0
 summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
+summary preview,summary.preview,Preview,0,Aperçu,0
+summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Canceller,0
 ,error.email,Email not valid,0,Courriel non valide,0

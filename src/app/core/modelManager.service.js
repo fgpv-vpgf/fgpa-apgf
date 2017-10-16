@@ -137,7 +137,7 @@ function modelManager($rootElement, events, $translate, commonService) {
     function validateModel(modelName, form, scope) {
         // recreate state object used by the summary section
         // remove angular $$hashkey inserted inside array by angularschemaform
-        _state[modelName].items = updateSummaryModel([], commonService.parseJSON(_model.map));
+        _state[modelName].items = updateSummaryModel([], commonService.parseJSON(_model[modelName]));
 
         const cleanForm = commonService.parseJSON(form);
         let arrIndex = -1;
