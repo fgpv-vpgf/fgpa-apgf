@@ -14,7 +14,8 @@ const templateUrls = {
  * @restrict E
  * @description
  *
- * The `avHeader`
+ * The `avHeader` directive holds the header logic of create, load and save config file. It is also responsible
+ * for language switch
  *
  */
 angular
@@ -25,7 +26,7 @@ angular
  * `avHeader` directive body.
  *
  * @function avHeader
- * @return {object} directive body
+ * @return {Object} directive body
  */
 function avHeader() {
     const directive = {
@@ -40,22 +41,31 @@ function avHeader() {
     return directive;
 }
 
-function Controller(events, $q, modelManager, $mdDialog, $translate, commonService) {
+function Controller($q, $mdDialog, events, modelManager, commonService) {
     'ngInject';
     const self = this;
 
     self.create = create;
     self.filesSubmitted = filesSubmitted;
     self.save = save;
-
-    self.languages = commonService.getLangs();
-    self.language = self.languages[0];
     self.setLanguage = setLanguage;
 
+    // get all avialable languages and set the first one as current
+    self.languages = commonService.getLangs();
+    self.language = self.languages[0];
+
+    /**
+     * When create is clicked, broadcast a newModel event
+     * @function create
+     */
     function create() {
-        events.$broadcast(events.avNewModel);
+        events.$broadcast(events.avSchemaUpdate);
     }
 
+    /**
+     * Set the current language
+     * @function create
+     */
     function setLanguage() {
         commonService.setLang(self.language);
     }
@@ -98,6 +108,10 @@ function Controller(events, $q, modelManager, $mdDialog, $translate, commonServi
         }
     }
 
+    /**
+     * Open a dialog window to save current model
+     * @function save
+     */
     function save() {
         $mdDialog.show({
             controller: SaveController,
@@ -110,7 +124,7 @@ function Controller(events, $q, modelManager, $mdDialog, $translate, commonServi
         });
     }
 
-    function SaveController($mdDialog) {
+    function SaveController($mdDialog, constants) {
         'ngInject';
         const self = this;
 
@@ -119,13 +133,20 @@ function Controller(events, $q, modelManager, $mdDialog, $translate, commonServi
         self.save = save;
         self.fileName = '';
 
+        /**
+         * Save current models to file
+         * @function save
+         */
         function save() {
-            // TODO use constant model too loop
-            const models = {
-                'map': modelManager.getModel('map', false),
-                'ui': modelManager.getModel('ui', false)
-            };
+            const models = {};
 
+            // loop schemas to get model values
+            constants.schemas.forEach(schema => {
+                const name = schema.split('.')[0];
+                models[name] = modelManager.getModel(name, false);
+            });
+
+            // save the file
             const file = new File([JSON.stringify(models)], `${self.fileName}.json`, { type: 'text/plain' });
             FileSaver.saveAs(file);
             self.close();

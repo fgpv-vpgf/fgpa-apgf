@@ -15,10 +15,9 @@ angular
     ])
     .config(($compileProvider, $mdInkRippleProvider, $mdAriaProvider) => {
         // to improve IE performance disable ripple effects globally and debug info
-        // TODO check if needed
-        // if (RV.isIE) {
-        //     $mdInkRippleProvider.disableInkRipple();
-        // }
+        if (window.AV.isIE) {
+            $mdInkRippleProvider.disableInkRipple();
+        }
     });
 
 // a separate templates module is needed to facilitate directive unit testing

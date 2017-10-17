@@ -4,17 +4,8 @@
  * @memberof app.core
  * @description
  *
- * The `configDefaults` constant service provides default config values.
+ * The `configDefaults` constant service provides default configuration values.
  */
-/**
- * @name templateRegistry
- * @constant
- * @memberof app.core
- * @description
- *
- * The `templateRegistry` constant service provides template URLs.
- */
-
 
 angular
     .module('app.core')
@@ -23,7 +14,7 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debSummary: 500, // time for debouncing when user enter value
-        schemas: ['uiSchema.[lang].json', 'mapSchema.[lang].json'] // TODO: add new schema as they come
+        schemas: ['map.[lang].json', 'ui.[lang].json', 'service.[lang].json'] // TODO: add new schema as they come, list as they should appear in the tab menu
     });
 
 function events($rootScope) {
@@ -34,15 +25,13 @@ function events($rootScope) {
          * @function $on
          * @param {String} eventName event name to listen once
          * @param {Function} listener a callback function to execute
-         * @return {Function} a deregister function
+         * @return {Function}         a deregister function
          */
         $on: (...args) =>
             $rootScope.$on(...args),
         $broadcast: (...args) =>
             $rootScope.$broadcast(...args),
 
-        avReady: 'avReady', // Fired when author is ready
-        avFormUpdate: 'avFormUpdate', // Fired when user update a field inside a form
         avSchemaUpdate: 'avSchemaUpdate', // Fired when there is an update to the state
         avSwitchLanguage: 'avSwitchLanguage', // Fired when there is a language switch
         avNewModel: 'avNewModel', // Fired when user create a new for

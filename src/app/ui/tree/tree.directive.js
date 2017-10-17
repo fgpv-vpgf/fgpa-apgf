@@ -6,7 +6,7 @@ const templateUrl = require('./tree.html');
  * @restrict E
  * @description
  *
- * The `avTree`
+ * The `avTree` manage a tree structure. Use for summary panel.
  *
  */
 angular
@@ -25,18 +25,15 @@ function avTree(recursionService) {
         restrict: 'E',
         templateUrl,
         scope: { tree: '=' },
-        compile: function(element) {
-            return recursionService.compile(element, function(scope, iElement, iAttrs, controller, transcludeFn) {
-                // Define your normal link function here.
-                // Alternative: instead of passing a function,
-                // you can also pass an object with
-                // a 'pre'- and 'post'-link function.
-
+        compile: element =>
+            recursionService.compile(element, (scope, iElement, iAttrs, controller, transcludeFn) => {
+                // define your normal link function here.
+                // alternative: instead of a function, you can pass an object with a 'pre'- and 'post'-link function.
                 scope.expand = item => {
                     item.expand = !item.expand;
                 }
-            });
-        }
+            })
+
     };
 
     return directive;

@@ -1,9 +1,8 @@
 /**
- *
  * @name recursionService
  * @module app.core
  *
- * @description ....
+ * @description recursion service to update html tree
  *
  */
 angular
@@ -22,13 +21,14 @@ function recursionService($compile) {
 
     /**
      * Manually compiles the element, fixing the recursion loop.
-     * @param element
-     * @param [link] A post-link function, or an object with function(s) registered via pre and post properties.
-     * @returns An object containing the linking functions.
+     * @function compile
+     * @param {Object} element element for recursion
+     * @param {Object} link A post-link function, or an object with function(s) registered via pre and post properties.
+     * @returns {Object}    An object containing the linking functions.
      */
     function compile(element, link) {
         // Normalize the link parameter
-        if(angular.isFunction(link)){
+        if (angular.isFunction(link)) {
             link = { post: link };
         }
 
@@ -39,19 +39,19 @@ function recursionService($compile) {
             pre: (link && link.pre) ? link.pre : null,
             /**
              * Compiles and re-adds the contents
+             * @param {Object} scope Angular scope
+             * @param {Object} element element for recursion
              */
-            post: function(scope, element){
+            post: (scope, element) => {
                 // Compile the contents
-                if(!compiledContents){
+                if (!compiledContents) {
                     compiledContents = $compile(contents);
                 }
                 // Re-add the compiled contents to the element
-                compiledContents(scope, function(clone){
-                    element.append(clone);
-                });
+                compiledContents(scope, clone => element.append(clone));
 
                 // Call the post-linking function, if any
-                if(link && link.post){
+                if (link && link.post) {
                     link.post.apply(null, arguments);
                 }
             }

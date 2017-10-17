@@ -1,10 +1,13 @@
 import './common/button.decorator';
+import './common/compile.directive';
+
+import './ui.module.js';
 
 // forms
-import './ui.module.js';
-import './map/map.directive.js';
-import './service/service.directive.js';
-import './ui/ui.directive.js';
+import './forms/map/map.directive.js';
+import './forms/service/service.directive.js';
+import './forms/ui/ui.directive.js';
+import './forms/test/test.directive.js'; // use for test forms
 
 // application header
 import './header/header.directive.js';
@@ -16,6 +19,3 @@ import './summary/summary.directive.js';
 import './tab/tab.directive.js';
 import './tree/tree.directive.js';
 import './panels/content-panel.directive.js';
-
-// test the form
-import './formtest/formtest.directive.js';

@@ -1,7 +1,7 @@
 {
     "schema": "map",
-    "title": "Carte",
-    "description": "Services",
+    "title": "Map",
+    "description": "A set of service endpoints used by the viewer",
     "type": "object",
     "properties": {
         "info": {
@@ -9,26 +9,26 @@
             "type": "object",
             "properties": {
                 "name": {
-                    "title": "Nom",
+                    "title": "Name",
                     "default": "",
                     "type": "string"
                 },
                 "subname": {
                     "type": "array",
-                    "title":"Title embriquer",
+                    "title":"Nested Title",
                     "default": [],
                     "items": {
                         "type": "object",
-                        "title": "Sous noms",
+                        "title": "Subnames",
                         "properties": {
                             "sub1": {
-                                "title": "Premier sub",
+                                "title": "First sub",
                                 "type": "string",
                                 "default": "",
                                 "required": true
                             },
                             "sub2": {
-                                "title": "Deuxieme sub",
+                                "title": "Second sub",
                                 "type": "string",
                                 "default": "",
                                 "required": true
@@ -42,27 +42,26 @@
             ]
         },
         "email": {
-            "title": "Courriel",
+            "title": "Email",
             "type": "string",
             "default": "",
-            "pattern": "^\\S+@\\S+$",
-            "description": "Pas bon."
+            "description": "Email will be used for evil."
         },
         "comment": {
-            "title": "Commentaire",
+            "title": "Comment",
             "type": "string",
             "default": "",
             "maxLength": 20,
-            "validationMessage": "Courriel pas bon"
+            "validationMessage": "Email not valid"
         },
         "eligible": {
             "type": "boolean",
-            "title": "Eligible pour du bon",
+            "title": "Eligible for awesome things",
             "default": true
         },
         "code": {
             "type":"string",
-            "title": "Le code",
+            "title": "The Code",
             "default": ""
         }
     },

@@ -1,11 +1,10 @@
 angular
     .module('app.core')
-    .run(init)
+    .run(initLanguages)
     .run(uploadDefault)
     .run(uploadSchema);
 
 /**
- * @function init
  * @private
  * @memberof app.core
  * @description
@@ -14,7 +13,15 @@ angular
 const DEFAULT_LANGS = ['en-CA', 'fr-CA'];
 let languages = DEFAULT_LANGS;
 
-function init($rootElement, $translate, commonService) {
+/**
+ * Initialize author by setting the languages.
+ * @function initLanguages
+ * @private
+ * @param  {Object} $rootElement Angular object
+ * @param  {Object} $translate Angular object
+ * @param  {Object} commonService Common service
+ */
+function initLanguages($rootElement, $translate, commonService) {
     const langAttr = $rootElement.attr('data-av-langs');
 
     if (langAttr) {
@@ -22,40 +29,55 @@ function init($rootElement, $translate, commonService) {
             languages = angular.fromJson(langAttr);
         } catch (e) {
             console.warn(`Could not parse langs, defaulting to ${DEFAULT_LANGS}`);
-            // TODO: better way to handle when no languages are specified?
         }
     }
 
+    // set language and array of languages to use
+    // we set the language directly instead of using setLang to avoid switchLanguage event
     $translate.use(languages[0]);
     commonService.setLangs(languages);
 }
 
 /**
- * Starts schema upload.
- * @function uploadSchema
- * @param  {Object} $http Angular object to read file
- */
-function uploadSchema($http, constants, modelManager) {
-    languages.forEach(lang => {
-        constants.schemas.forEach(file => {
-            let location = `./schemaForm/${file.replace('[lang]', lang)}`;
-            $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data, lang));
-        });
-    });
-}
-
-/**
  * Starts default configuration upload.
  * @function uploadDefault
+ * @private
+ * @param  {Object} $rootElement Angular object
  * @param  {Object} $http Angular object to read file
+ * @param  {Object} modelManager Model Manager sdrvice
  */
 function uploadDefault($rootElement, $http, modelManager) {
     const configAttr = $rootElement.attr('data-av-config');
 
     if (configAttr) {
+        // load default configuration for all available languages
         languages.forEach(lang => {
             let location = `./config/${configAttr.replace('[lang]', lang)}`;
             $http.get(location).then(obj => modelManager.setDefault(obj.data, lang));
         });
     }
+}
+
+/**
+ * Starts schema upload.
+ * @function uploadSchema
+ * @private
+ * @param  {Object} $http Angular object to read file
+ * @param  {Object} $timeout Angular object to read file
+ * @param  {Object} events Angular object
+ * @param  {Object} constants Constants service
+ * @param  {Object} modelManager Model Manager service
+ */
+function uploadSchema($http, $timeout, events, constants, modelManager) {
+    // load schemas for all available languages
+    languages.forEach(lang => {
+        // loop trought all available schemas
+        constants.schemas.forEach(file => {
+            let location = `./schemaForm/${file.replace('[lang]', lang)}`;
+            $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data, lang));
+        });
+    });
+
+    // TODO: use better way instead of timeout
+    $timeout(() => events.$broadcast(events.avSchemaUpdate), 1000);
 }

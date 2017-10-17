@@ -75,6 +75,10 @@ function avContentPanel($compile) {
     /**
      * Sets defaults; binds the `closePanel` method from the panel plug controller; compiles footer and extra header controls.
      * @function link
+     * @param {Object} scope Angular scope
+     * @param {Object} element HTML element
+     * @param {Object} attr Attributes
+     * @param {Object} ctrl Angular controller
      */
     function link(scope, element, attr, ctrl) {
         const self = scope.self;
@@ -118,6 +122,11 @@ function avContentPanel($compile) {
             }
         }
 
+        /**
+        * Initialize footer
+        * @private
+        * @function initFooter
+        */
         function initFooter() {
             // `self.footer` is a name string of a directive; if specified, directive is compiled and inserted into the pane template
             if (self.footer) {

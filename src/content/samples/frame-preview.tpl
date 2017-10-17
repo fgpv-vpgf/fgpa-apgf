@@ -18,37 +18,37 @@
         }
     </style>
 
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/dojox/gfx/svg.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/dijit/Basemap.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/dijit/BasemapGallery.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/dijit/BasemapLayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/dijit/OverviewMap.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/dijit/Scalebar.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/layers/ArcGISImageServiceLayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/layers/WMSLayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/IdentifyParameters.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/IdentifyTask.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/ProjectParameters.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/PrintParameters.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/PrintTask.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/PrintTemplate.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/dojox/gfx/filters.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/dojox/gfx/svgext.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/virtualearth/VETiledLayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/IdentifyResult.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/Geoprocessor.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/dojox/gfx/canvas.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/dojox/json/query.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/LegendLayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/JobInfo.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/GPMessage.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/LinearUnit.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/DataFile.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/RasterData.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/Date.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/ParameterValue.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/esri/tasks/GPResultImageLayer.js"></script>
-    <script type="text/javascript" charset="utf-8" src="http://js.arcgis.com/3.20/dojox/main.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/dojox/gfx/svg.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/dijit/Basemap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/dijit/BasemapGallery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/dijit/BasemapLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/dijit/OverviewMap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/dijit/Scalebar.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/layers/ArcGISImageServiceLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/layers/WMSLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/IdentifyParameters.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/IdentifyTask.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/ProjectParameters.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/PrintParameters.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/PrintTask.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/PrintTemplate.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/dojox/gfx/filters.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/dojox/gfx/svgext.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/virtualearth/VETiledLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/IdentifyResult.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/Geoprocessor.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/dojox/gfx/canvas.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/dojox/json/query.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/LegendLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/JobInfo.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/GPMessage.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/LinearUnit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/DataFile.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/RasterData.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/Date.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/ParameterValue.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/esri/tasks/GPResultImageLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://js.arcgis.com/3.20/dojox/main.js"></script>
     <script type="text/javascript" src="//js.arcgis.com/3.20/"></script>
 </head>
 

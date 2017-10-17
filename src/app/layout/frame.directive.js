@@ -2,7 +2,7 @@
  * @module avFrame
  * @memberof app.layout
  * @restrict E
- * @description
+ * @description handle iFrame use
  *
  * The `avFrame`
  *
@@ -15,7 +15,8 @@ angular
  * `avFrame` directive body.
  *
  * @function avFrame
- * @return {object} directive body
+ * @param {Object} $sce Angular object
+ * @return {Object}     directive body
  */
 function avFrame($sce) {
     const directive = {

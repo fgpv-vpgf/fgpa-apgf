@@ -19,8 +19,5 @@
         <md-tooltip>{{ 'summary.preview' | translate }}</md-tooltip>
     </md-button>
     <md-divider></md-divider>
-    <av-tree tree="self.map"></av-tree>
-    <av-tree tree="self.ui"></av-tree>
-    <!-- <av-tree tree="self.service"></av-tree>
-    <av-tree tree="self.test"></av-tree> -->
+    <div ng-repeat="tab in self.tabs" av-compile-html="tab.model"></div>
 </div>

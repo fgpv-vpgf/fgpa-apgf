@@ -22,6 +22,10 @@ angular
  * @memberof app.core
  * @function configBlock
  * @private
+ * @param  {Object} $translateProvider Angular object
+ * @param  {Object} $mdThemingProvider Angular objec
+ * @param  {Object} $mdIconProvider Angular object
+ * @param  {Object} $parseProvider Angular object
  * @description
  *
  * The `configBlock` does three things right now:

@@ -1,5 +1,4 @@
 /**
- *
  * @name debounceService
  * @module app.core
  *

@@ -3,37 +3,33 @@
  * @memberof app.common
  * @description
  *
- * The `modelManager` factory is a service controlling states form and model content.
+ * The `modelManager` factory is a service controlling schema, states and model content.
  *
  */
 angular
     .module('app.core')
     .factory('modelManager', modelManager);
 
-function modelManager($rootElement, events, $translate, commonService) {
+function modelManager($timeout, events, constants, commonService) {
 
     const service = {
         setSchema,
         getSchema,
-        resetModel,
         setModels,
         getModel,
+        updateModel,
+        setDefault,
         getState,
-        setValidity,
-        getValidity,
-        resetValidity,
-        validateModel,
-        setDefault
+        validateModel
     };
 
     const _state = {};
     const _form = {};
     const _schema = {};
-    const _model = {
-        'map': {},
-        'ui': {},
-        'service': {}
-    };
+    const _model = constants.schemas.map(item => ({
+        [item.split('.')[0]]: {}
+    }));
+
     const _default = {};
 
     return service;
@@ -41,93 +37,112 @@ function modelManager($rootElement, events, $translate, commonService) {
     /*********/
 
     /**
-     * Set initial state for form fields;
+     * Set initial schema
      * @function setSchema
-     * @param {String} formName the form name to set schema for
+     * @param {String} modelName the model/form name to set schema for
      * @param {Object} schema the schema JSON object
      * @param {String} lang the language to set
      */
-    function setSchema(formName, schema, lang) {
+    function setSchema(modelName, schema, lang) {
         if (!_schema[lang]) {
             _schema[lang] = {};
         }
-        _schema[lang][formName] = schema;
-
-        // create state object used by the summary section
-        let stateObj = { 'key': formName, 'valid': null, 'expand': false, items: [] };
-        _state[formName] = stateObj;
-
-        events.$broadcast(events.avSchemaUpdate, formName);
+        _schema[lang][modelName] = schema;
     }
 
-    function getSchema(formName) {
-        return _schema[commonService.getLang()][formName];
+    /**
+     * Get the schema for a model/form
+     * @function getSchema
+     * @param {String} modelName the model/form name to get schema for
+     * @return {String}          the schema
+     */
+    function getSchema(modelName) {
+        return _schema[commonService.getLang()][modelName];
     }
 
-    function resetModel(formName) {
-        _model[formName] = applyDefault(formName, {});
-        return _model[formName];
-    }
-
+    /**
+     * Set all the models when user load an existing config file
+     * @function setModels
+     * @param {Object} models all the models loaded from the configuration file in JSON
+     */
     function setModels(models) {
-        $.each(models, function(k, v) {
-            _model[k] = v;
-        });
+        $.each(models, (k, v) => { _model[k] = v; });
 
-        events.$broadcast(events.avLoadModel, 'new');
+        // broadcast event so form can update themselves
+        events.$broadcast(events.avLoadModel);
     }
 
-    function getModel(formName, newModel = true) {
-        if (newModel) { _model[formName] = applyDefault(formName, _model[formName]); }
-        return _model[formName];
+    /**
+     * Get a model
+     * @function getSchema
+     * @param {String} modelName the model/form name to get model for
+     * @param {String} newModel optional: true if it is a new model so we apply default
+     * @return {Object}          the model
+     */
+    function getModel(modelName, newModel = true) {
+        // if it is a new model, we apply default configuration value
+        _model[modelName] = (newModel) ? applyDefault(modelName, {}) : _model[modelName];
+        return _model[modelName];
     }
 
+    /**
+     * Update model after avLoadModel events
+     * @function updateModel
+     * @param {Object} scope controller scope
+     * @param {String} modelName the model/form name to update model
+     */
+    function updateModel(scope, modelName) {
+        scope.model = getModel(modelName, false);
+
+        scope.$broadcast('schemaFormValidate');
+        $timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
+    }
+
+    /**
+     * Apply default configuration to a model
+     * @function applyDefault
+     * @private
+     * @param {String} modelName the model/form name to apply default on
+     * @param {Object} model the model
+     * @return {Object}      updated model
+     */
     function applyDefault(modelName, model) {
         const defaults = $.extend(true, model, _default[commonService.getLang()][modelName]);
         return defaults;
     }
 
-    function getState(formName) {
-        return _state[formName];
+    /**
+     * Set default configuration values to apply on new model
+     * @function setDefault
+     * @param {Object} defaultValues the default values in JSON
+     * @param {String} lang language to apply the values on
+     */
+    function setDefault(defaultValues, lang) {
+        _default[lang] = defaultValues;
     }
 
     /**
-     * Set validity state for one field in a form;
-     * @function setState
-     * @param {Array} items the form and model for a section
+     * Get state object
+     * @function getState
+     * @param {Object} modelName the model/form name to get state on
+     * @return {Object}          the state object in JSON
      */
-    function setValidity(formName, keys, value) {
-        // const keys = key.split('-');
-        // const item = walk(_state[formName].items, keys);
-        // item.valid = value;
+    function getState(modelName) {
+        // create state object used by the summary section
+        _state[modelName] = { 'key': modelName, 'valid': null, 'expand': false, items: [] };
 
-        events.$broadcast(events.avFormUpdate, formName);
+        return _state[modelName];
     }
 
-    function getValidity(formName, keys) {
-        // const keys = key.split('-');
-        // return walk(_state[formName].items, keys).valid;
-    }
-
-    // TODO: remove, this is now inside the schema itself
-    function translateSchema(json) {
-        if (typeof json === 'object') {
-            $.each(json, function(k, v) {
-
-                if (json.hasOwnProperty('validationMessage')) {
-                    json.validationMessage = $translate.instant(json.validationMessage);
-                }
-
-                // k is either an array index or object key
-                translateSchema(v);
-            });
-        }
-    }
-
-    function validateModel(modelName, form, scope) {
+    /**
+     * Set state object with valid values from the form field validity
+     * @function validateModel
+     * @param {String} modelName the model/form name to get state on
+     * @param {Object} form      the angular schema form active form
+     */
+    function validateModel(modelName, form) {
         // recreate state object used by the summary section
-        // remove angular $$hashkey inserted inside array by angularschemaform
-        _state[modelName].items = updateSummaryModel([], commonService.parseJSON(_model[modelName]));
+        _state[modelName].items = updateSummaryModel([], _model[modelName]);
 
         const cleanForm = commonService.parseJSON(form);
         let arrIndex = -1;
@@ -165,11 +180,25 @@ function modelManager($rootElement, events, $translate, commonService) {
         });
     }
 
+    /**
+     * Create state object from model/form for the summary panel
+     * @function updateSummaryModel
+     * @private
+     * @param {Object} state the state object in JSON
+     * @param {Object} model the model object in JSON
+     * @param {Number} array optional number to specify the array index. Minus one if it is not an array
+     * @return {Object}      updated state
+     */
     function updateSummaryModel(state, model, array = -1) {
         Object.keys(model).forEach((key, index) => {
-            if (array === -1) {
+            // undefined are introduce inside the model by AngularSchemaForm when user empty a field
+            // replace undefined be "" value
+            model[key] = typeof model[key] === 'undefined' ? "" : model[key];
+
+            // TODO: remove angular $$hashkey inserted inside array by angularschemaform
+            if (array === -1 && key !== '$$hashKey') {
                 state[index] = { 'key': key, 'valid': null, 'expand': false, 'type': 'object' };
-            } else {
+            } else if (key !== '$$hashKey') {
                 state.push({ 'key': key, 'valid': null, 'expand': false, 'type': 'array' });
             }
 
@@ -189,6 +218,15 @@ function modelManager($rootElement, events, $translate, commonService) {
         return state;
     }
 
+    /**
+     * Walk the object to return the proper item
+     * @function walk
+     * @private
+     * @param {Object} model the model object in JSON
+     * @param {Array} keys the array of keys
+     * @param {Number} index the index for array members
+     * @return {Object}      the item
+     */
     function walk(model, keys, index) {
         // walk json tree to return the proper object
         const key = keys.shift();
@@ -208,20 +246,7 @@ function modelManager($rootElement, events, $translate, commonService) {
 
         // if there is key in the array, walk a level deeper
         item = (keys.length > 0) ? walk(item.items, keys, index): item;
+
         return item;
-    }
-
-    function resetValidity(model) {
-        $.each(_state[model], function(k, v) {
-            let item = _state[model].items.find(obj => obj.key === k);
-            item = { 'key': k, 'valid': null };
-
-            // k is either an array index or object key
-            translateSchema(v);
-        });
-    }
-
-    function setDefault(defaultValues, lang) {
-        _default[lang] = defaultValues;
     }
 }
