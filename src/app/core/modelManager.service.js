@@ -22,7 +22,8 @@ function modelManager($rootElement, events, $translate, commonService) {
         setValidity,
         getValidity,
         resetValidity,
-        validateModel
+        validateModel,
+        setDefault
     };
 
     const _state = {};
@@ -33,6 +34,7 @@ function modelManager($rootElement, events, $translate, commonService) {
         'ui': {},
         'service': {}
     };
+    const _default = {};
 
     return service;
 
@@ -40,49 +42,30 @@ function modelManager($rootElement, events, $translate, commonService) {
 
     /**
      * Set initial state for form fields;
-     * @function setState
-     * @param {Array} items the form and model for a section
+     * @function setSchema
+     * @param {String} formName the form name to set schema for
+     * @param {Object} schema the schema JSON object
+     * @param {String} lang the language to set
      */
-    function setSchema(formName, schema) {
-        _schema[formName] = schema;
-
-        // set value for translations
-        translateSchema(schema);
+    function setSchema(formName, schema, lang) {
+        if (!_schema[lang]) {
+            _schema[lang] = {};
+        }
+        _schema[lang][formName] = schema;
 
         // create state object used by the summary section
         let stateObj = { 'key': formName, 'valid': null, 'expand': false, items: [] };
-        // stateObj = rec(stateObj, schema);
         _state[formName] = stateObj;
 
         events.$broadcast(events.avSchemaUpdate, formName);
     }
 
-    function rec(state, schema) {
-        if (schema.hasOwnProperty('properties')) {
-            Object.keys(schema.properties).forEach((key, index) => {
-                state.items[index] = { 'key': key, 'valid': null, 'expand': false };
-
-                // first deal with object, they have properties key
-                // second deal with array of objects
-                if (schema.properties[key].hasOwnProperty('properties')) {
-                    state.items[index].items = [];
-                    rec(state.items[index], schema.properties[key]);
-                } else if (schema.properties[key].hasOwnProperty('type') && schema.properties[key].type ==='array') {
-                    state.items[index].items = [];
-                    rec(state.items[index], schema.properties[key].items);
-                }
-            });
-        }
-
-        return state
-    }
-
     function getSchema(formName) {
-        return _schema[formName];
+        return _schema[commonService.getLang()][formName];
     }
 
     function resetModel(formName) {
-        _model[formName] = {};
+        _model[formName] = applyDefault(formName, {});
         return _model[formName];
     }
 
@@ -94,8 +77,14 @@ function modelManager($rootElement, events, $translate, commonService) {
         events.$broadcast(events.avLoadModel, 'new');
     }
 
-    function getModel(formName) {
+    function getModel(formName, newModel = true) {
+        if (newModel) { _model[formName] = applyDefault(formName, _model[formName]); }
         return _model[formName];
+    }
+
+    function applyDefault(modelName, model) {
+        const defaults = $.extend(true, model, _default[commonService.getLang()][modelName]);
+        return defaults;
     }
 
     function getState(formName) {
@@ -120,6 +109,7 @@ function modelManager($rootElement, events, $translate, commonService) {
         // return walk(_state[formName].items, keys).valid;
     }
 
+    // TODO: remove, this is now inside the schema itself
     function translateSchema(json) {
         if (typeof json === 'object') {
             $.each(json, function(k, v) {
@@ -151,7 +141,7 @@ function modelManager($rootElement, events, $translate, commonService) {
                 let keys = key.split('-').filter(n => n !== '' && n!== 'activeForm');
 
                 // remove duplicate keys. They are introduce by array in schema form
-                const unique = commonService.uniq(keys);
+                const unique = commonService.setUniq(keys);
 
                 // then get the index for array items
                 // only work with one level array for now so reduce the array to 1 Number. When the number change
@@ -229,5 +219,9 @@ function modelManager($rootElement, events, $translate, commonService) {
             // k is either an array index or object key
             translateSchema(v);
         });
+    }
+
+    function setDefault(defaultValues, lang) {
+        _default[lang] = defaultValues;
     }
 }

@@ -1,6 +1,7 @@
 angular
     .module('app.core')
     .run(init)
+    .run(uploadDefault)
     .run(uploadSchema);
 
 /**
@@ -9,11 +10,13 @@ angular
  * @memberof app.core
  * @description
  */
-function init($translate, $rootElement) {
-    const DEFAULT_LANGS = ['en-CA', 'fr-CA'];
 
-    const langAttr = $rootElement.attr('av-langs');
-    let languages = DEFAULT_LANGS;
+const DEFAULT_LANGS = ['en-CA', 'fr-CA'];
+let languages = DEFAULT_LANGS;
+
+function init($rootElement, $translate, commonService) {
+    const langAttr = $rootElement.attr('data-av-langs');
+
     if (langAttr) {
         try {
             languages = angular.fromJson(langAttr);
@@ -24,17 +27,35 @@ function init($translate, $rootElement) {
     }
 
     $translate.use(languages[0]);
+    commonService.setLangs(languages);
 }
 
 /**
- * Starts file upload.
+ * Starts schema upload.
  * @function uploadSchema
  * @param  {Object} $http Angular object to read file
  */
 function uploadSchema($http, constants, modelManager) {
-
-    constants.schemas.forEach(file => {
-        let location = `./schemaForm/${file}`;
-        return $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data));
+    languages.forEach(lang => {
+        constants.schemas.forEach(file => {
+            let location = `./schemaForm/${file.replace('[lang]', lang)}`;
+            $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data, lang));
+        });
     });
+}
+
+/**
+ * Starts default configuration upload.
+ * @function uploadDefault
+ * @param  {Object} $http Angular object to read file
+ */
+function uploadDefault($rootElement, $http, modelManager) {
+    const configAttr = $rootElement.attr('data-av-config');
+
+    if (configAttr) {
+        languages.forEach(lang => {
+            let location = `./config/${configAttr.replace('[lang]', lang)}`;
+            $http.get(location).then(obj => modelManager.setDefault(obj.data, lang));
+        });
+    }
 }

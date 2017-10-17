@@ -1,5 +1,16 @@
-<div class="av-title">
-    <h2 class="md-headline" translate>app.title</h2>
+<div>
+    <div class="av-title">
+        <h2 class="md-headline" translate>app.title</h2>
+
+        <md-input-container>
+          <label>{{ 'header.language' | translate }}</label>
+          <md-select ng-model="self.language" ng-change="self.setLanguage()">
+            <md-option ng-repeat="lang in self.languages" ng-value="lang" ng-selected="$index === 0">
+              {{ lang }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+    </div>
     <div>
         <md-button
             translate

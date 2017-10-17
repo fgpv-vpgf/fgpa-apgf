@@ -40,7 +40,7 @@ function avHeader() {
     return directive;
 }
 
-function Controller(events, $q, modelManager, $mdDialog, $translate) {
+function Controller(events, $q, modelManager, $mdDialog, $translate, commonService) {
     'ngInject';
     const self = this;
 
@@ -48,8 +48,16 @@ function Controller(events, $q, modelManager, $mdDialog, $translate) {
     self.filesSubmitted = filesSubmitted;
     self.save = save;
 
+    self.languages = commonService.getLangs();
+    self.language = self.languages[0];
+    self.setLanguage = setLanguage;
+
     function create() {
         events.$broadcast(events.avNewModel);
+    }
+
+    function setLanguage() {
+        commonService.setLang(self.language);
     }
 
     /**
@@ -112,9 +120,10 @@ function Controller(events, $q, modelManager, $mdDialog, $translate) {
         self.fileName = '';
 
         function save() {
+            // TODO use constant model too loop
             const models = {
-                'map': modelManager.getModel('map'),
-                'ui': modelManager.getModel('ui')
+                'map': modelManager.getModel('map', false),
+                'ui': modelManager.getModel('ui', false)
             };
 
             const file = new File([JSON.stringify(models)], `${self.fileName}.json`, { type: 'text/plain' });
