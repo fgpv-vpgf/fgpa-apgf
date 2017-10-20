@@ -7,9 +7,10 @@ import 'angular-material';
 import 'angular-messages';
 import 'angular-sanitize';
 import 'angular-translate';
-import 'dotjem-angular-tree/src/directives/dxTree.js';
 import 'angular-translate-loader-static-files';
+import 'dotjem-angular-tree/src/directives/dxTree.js';
 
+// angular schema form: https://github.com/json-schema-form/angular-schema-form
 import 'angular-schema-form';
 
 // TODO: import inside needed file and remove
@@ -17,18 +18,21 @@ import Flow from '@flowjs/ng-flow/dist/ng-flow-standalone'
 
 // APPLICATION MAIN IMPORTS
 import './bootstrap.js';
-import './core/core.module.js';
-import './ui/ui.module.js';
-import './layout/layout.module.js';
-import './layout/layout-loader.js';
-import './ui/ui-loader.js';
-import './core/core-loader.js';
 import './app.module.js';
 import './app-seed.js';
+
+import './core/core.module.js';
+import './core/core-loader.js';
+
+import './ui/ui.module.js';
+import './ui/ui-loader.js';
+import './layout/layout.module.js';
+import './layout/layout-loader.js';
+
+// styles
 import '../content/styles/main.scss';
 
-// TODO: see if needed...
 // HACKS
 // hoverintent is a function consuming the jQuery object where it adds a prototype method hoverIntent.
-// import hoverintent from 'jquery-hoverintent';
-// hoverintent($);
+import hoverintent from 'jquery-hoverintent';
+// hoverintent($); // TODO: see if needed...

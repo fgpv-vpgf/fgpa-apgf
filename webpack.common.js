@@ -132,8 +132,8 @@ module.exports = function (env) {
             new TranslationPlugin('./src/locales/translations.csv'),
 
             new WrapperPlugin({
-                header: fileName => /^rv-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/header.js', 'utf8') : '',
-                footer: fileName => /^rv-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/footer.js', 'utf8') : ''
+                header: fileName => /^av-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/header.js', 'utf8') : '',
+                footer: fileName => /^av-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/footer.js', 'utf8') : ''
             }),
 
             new VersionPlugin(),

@@ -35,7 +35,7 @@ function avSummary() {
     return directive;
 }
 
-function Controller($scope, modelManager, events, $mdDialog, $sce) {
+function Controller($mdDialog, events, constants, modelManager) {
     'ngInject';
     const self = this;
 
@@ -43,18 +43,29 @@ function Controller($scope, modelManager, events, $mdDialog, $sce) {
     self.collapseTree = collapse;
     self.openPreview = openPreview;
 
-    self.http = './index-one.html'; //('http://www.google.com') $sce.trustAsResourceUrl('./index-one.html');
+    // set tree directive tag
+    self.tabs = constants.schemas.map(item => ({
+        model: `<av-tree tree="self.${item.split('.')[0]}"></av-tree>`
+    }));
 
-    events.$on(events.avSchemaUpdate, (evt, schema) => { self[schema] = modelManager.getState(schema); });
+    // on schema update, rebuild the tree (state object)
+    events.$on(events.avSchemaUpdate, () => {
+        constants.schemas.forEach(schema => {
+            self[schema.split('.')[0]] = modelManager.getState(schema.split('.')[0]);
+        });
+    });
 
-    function expand() {
-        walkTree(self, 'expand', true);
-    }
+    function expand() { walkTree(self, 'expand', true); }
+    function collapse() { walkTree(self, 'expand', false); }
 
-    function collapse() {
-        walkTree(self, 'expand', false);
-    }
-
+    /**
+     * Walk the tree to set expand or collapse
+     *
+     * @function walkTree
+     * @param {Object} tree Tree to walk
+     * @param {String} key Key to set value for
+     * @param {Boolean} value Value to set
+     */
     function walkTree(tree, key, value) {
         for (let obj in tree) {
             if (tree.hasOwnProperty(key)) { tree[key] = value; }
@@ -65,7 +76,12 @@ function Controller($scope, modelManager, events, $mdDialog, $sce) {
         }
     }
 
+    /**
+     * Open a dialog window to show current configuration
+     * @function openPreview
+     */
     function openPreview() {
+        // set the config file to use by the preview window/iFrame
         localStorage.setItem('configpreview', 'config/config-preview.json');
 
         $mdDialog.show({

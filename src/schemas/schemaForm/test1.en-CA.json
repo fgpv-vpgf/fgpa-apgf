@@ -1,0 +1,81 @@
+{
+    "schema": "test",
+    "title": "Map",
+    "description": "A set of service endpoints used by the viewer",
+    "type": "object",
+    "properties": {
+        "favorites": {
+            "type": "object",
+            "properties": {
+                "favfirst": {
+                    "title": "My first favorite",
+                    "type": "string"
+                },
+                "favsecond": {
+                    "title": "My second favorite",
+                    "type": "string"
+                },
+                "subfav": {
+                    "title": "Sub Fav",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "propOne": {
+                                "title": "Prop One",
+                                "type": "string",
+                                "maxLength": 8,
+                                "validationMessage": "Max length is {{schema.maxLength}}"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "layers": {
+            "type": "object",
+            "title": "My layers",
+            "properties": {
+                "firstArray": {
+                    "title": "First Array",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "propOne": {
+                                "title": "Prop One",
+                                "type": "string",
+                                "maxLength": 8,
+                                "validationMessage": "Max length is {{schema.maxLength}}"
+                            },
+                            "propTwo": {
+                                "title": "Prop Two",
+                                "type": "string",
+                                "maxLength": 128,
+                                "validationMessage": "Max length is {{schema.maxLength}}"
+                            },
+                            "nestedArray": {
+                                "title": "Nested Array",
+                                "type": "array",
+                                "default": [],
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nestedPropOne": {
+                                            "title": "Nested Prop One",
+                                            "type": "string"
+                                        },
+                                        "nestedPropTwo": {
+                                            "title": "Nested Prop Two",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

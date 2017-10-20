@@ -10,6 +10,14 @@ angular
     .module('app.core')
     .factory('translationService', translationService);
 
+/**
+ * Translate service
+ * @function compile
+ * @param {Object} $q Angular object
+ * @param {Object} translations Translation object who contains one properties for every language
+ * @param {Object} $translate Angular object
+ * @returns {Function}    Function who contain translation data
+ */
 function translationService($q, translations, $translate) {
     const translationData = translations;
 

@@ -1,4 +1,4 @@
-// check if window.RV has been created by ie-polyfills already, otherwise init
+// check if window.AV has been created by ie-polyfills already, otherwise init
 const AV = window.AV = window.AV ? window.AV : {};
 
 // test user browser, true if IE false otherwise

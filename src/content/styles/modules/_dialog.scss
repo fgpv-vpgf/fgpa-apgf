@@ -27,7 +27,7 @@
 @mixin dialog {
     .av-save-dialog {
         height: 225px;
-        width: 400px;
+        width: 600px;
         border-radius: 0;
 
         @extend %container;
