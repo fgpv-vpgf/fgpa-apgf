@@ -12,7 +12,6 @@
 
     <body>
         <div class="fgpa av-large" data-av-langs='["en-CA", "fr-CA"]' data-av-config="config-author.[lang].json">
-
             <av-header></av-header>
 
             <div class="av-tools" layout="row">

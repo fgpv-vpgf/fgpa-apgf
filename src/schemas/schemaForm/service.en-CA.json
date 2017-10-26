@@ -1,58 +1,341 @@
 {
-    "schema": "service",
-    "title": "Service",
-    "description": "A set of service endpoints used by the viewer",
-    "type": "object",
-    "properties": {
-        "proxyUrl": { "type": "string", "default": "", "description": "An optional proxy to be used for dealing with same-origin issues.  URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers." },
-        "exportMapUrl": { "type": "string", "default": "", "description": "An ESRI service endpoint for generating map images.  Should point directly to an endpoint that can be consumed by ESRI PrintTask." },
-        "geometryUrl": { "type": "string", "default": "","description": "A URL to an ESRI ArcGIS geometry service REST endpoint." },
-        "googleAPIKey": { "type": "string", "default": "", "description": "Google API key to enable geo location and share link shortening." },
-        "geolocation": { "type": "object", "additionalProperties": true, "description": "FIXME" },
-        "coordInfo": { "type": "object", "additionalProperties": true, "description": "FIXME" },
-        "print": { "type": "object", "additionalProperties": true, "description": "FIXME" },
-        "search": {
-            "type": "object",
-            "description": "Search properties including ability to disable certain types of searches (NTS, FSA, and/or LAT/LNG) and to set service endpoint urls",
-            "properties": {
-                "disabledSearches": {
-                    "type": "array",
-                    "items": { "type": "string", "default": "", "enum": [ "NTS", "FSA", "LAT/LNG" ] },
-                    "minItems": 1,
-                    "uniqueItems": true,
-                    "description": "Disable specific types of searches including NTS, FSA, or LAT/LNG"
-                },
-                "serviceUrls": {
-                    "type": "object",
-                    "description": "Service endpoint urls",
-                    "properties": {
-                        "geoNames": { "type": "string", "default": "", "description": "Endpoint url for geoNames service" },
-                        "geoLocation": { "type": "string", "default": "", "description": "Endpoint url for geoLocation service" },
-                        "geoSuggest": { "type": "string", "default": "", "description": "Endpoint url for geoSuggest service" },
-                        "provinces": { "type": "string", "default": "", "description": "Endpoint url for provinces service" },
-                        "types": { "type": "string", "default": "", "description": "Endpoint url for types service" }
-                    },
-                    "additionalProperties": false,
-                    "required": ["geoNames", "geoLocation", "geoSuggest", "provinces", "types"]
-                }
-            },
-            "additionalProperties": false,
-            "required": ["serviceUrls"]
-        },
-        "export": {
-            "type": "object",
-            "description": "Export properties",
-            "properties": {
-                "title": { "$ref": "#/definitions/exportComponent", "description": "Title of the export graphic." },
-                "map": { "$ref": "#/definitions/exportComponent", "description": "Map component." },
-                "mapElements": { "$ref": "#/definitions/exportComponent", "description": "North arrow and scalebar component." },
-                "legend": { "$ref": "#/definitions/exportComponent", "description": "Legend component." },
-                "footnote": { "$ref": "#/definitions/exportComponent", "description": "Foot notice to add to exported map" },
-                "timestamp":  { "$ref": "#/definitions/exportComponent", "description": "Timestamp component." }
-            },
-            "additionalProperties": false
-        }
+  "description": "A set of service endpoints used by the viewer",
+  "type": "object",
+  "schema": "service",
+  "title": "Service",
+  "properties": {
+    "proxyUrl": {
+      "type": "string",
+      "description": "An optional proxy to be used for dealing with same-origin issues.  URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.",
+      "title": "Proxy URL",
+      "help": "",
+      "default": ""
     },
-    "additionalProperties": false,
-    "required": ["serviceUrls"]
+    "exportMapUrl": {
+      "type": "string",
+      "description": "An ESRI service endpoint for generating map images.  Should point directly to an endpoint that can be consumed by ESRI PrintTask.",
+      "title": "Export Map URL",
+      "help": "",
+      "default": ""
+    },
+    "geometryUrl": {
+      "type": "string",
+      "description": "A URL to an ESRI ArcGIS geometry service REST endpoint.",
+      "title": "Geometry URL",
+      "help": "",
+      "default": ""
+    },
+    "googleAPIKey": {
+      "type": "string",
+      "description": "Google API key to enable geo location and share link shortening.",
+      "title": "Google API URL",
+      "help": "Do we really need this?",
+      "default": ""
+    },
+    "geolocation": {
+      "type": "object",
+      "description": "FIXME",
+      "title": "Geolocation API URL",
+      "help": "",
+      "default": ""
+    },
+    "coordInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "FIXME",
+      "title": "Coordinates Info URL",
+      "help": "",
+      "default": ""
+    },
+    "print": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "FIXME",
+      "title": "Print URL",
+      "help": "hummmmm sert a quoi",
+      "default": ""
+    },
+    "search": {
+      "type": "object",
+      "description": "Search properties including ability to disable certain types of searches (NTS, FSA, and/or LAT/LNG) and to set service endpoint urls",
+      "properties": {
+        "disabledSearches": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "NTS",
+              "FSA",
+              "LAT/LNG"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Disable specific types of searches including NTS, FSA, or LAT/LNG",
+          "title": "Geo Search",
+          "help": "",
+          "default": ["NTS"]
+        },
+        "serviceUrls": {
+          "type": "object",
+          "description": "Service endpoint urls",
+          "properties": {
+            "geoNames": {
+              "type": "string",
+              "description": "Endpoint url for geoNames service",
+              "title": "Geo Names URL",
+              "default": ""
+            },
+            "geoLocation": {
+              "type": "string",
+              "description": "Endpoint url for geoLocation service",
+              "title": "Geo Location URL",
+              "help": "",
+              "default": ""
+            },
+            "geoSuggest": {
+              "type": "string",
+              "description": "Endpoint url for geoSuggest service",
+              "title": "Geo Suggest URL",
+              "help": "",
+              "default": ""
+            },
+            "provinces": {
+              "type": "string",
+              "description": "Endpoint url for provinces service",
+              "title": "Provinces URL",
+              "help": "",
+              "default": ""
+            },
+            "types": {
+              "type": "string",
+              "description": "Endpoint url for types service",
+              "title": "Type URL",
+              "help": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "geoNames",
+            "geoLocation",
+            "geoSuggest",
+            "provinces",
+            "types"
+          ],
+          "title": "",
+          "help": ""
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "serviceUrls"
+      ],
+      "title": "Geo Search"
+    },
+    "export": {
+      "type": "object",
+      "description": "Export properties",
+      "properties": {
+        "title": {
+          "description": "Title of the export graphic.",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": true,
+              "description": "",
+              "title": "is present",
+              "help": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": true,
+              "description": "",
+              "title": "is customizable",
+              "help": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "Value to appear by default",
+              "title": "",
+              "help": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "Title",
+          "help": ""
+        },
+        "map": {
+          "description": "Map component.",
+          "type": "object",
+          "properties": {
+              "isSelected": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is present",
+                "help": ""
+              },
+              "isSelectable": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is customizable",
+                "help": ""
+              },
+            "value": {
+              "type": "string",
+              "description": "services.export.footnote.value.description",
+              "title": "",
+              "help": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "Map",
+          "help": ""
+        },
+        "mapElements": {
+          "description": "North arrow and scalebar component.",
+          "type": "object",
+          "properties": {
+              "isSelected": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is present",
+                "help": ""
+              },
+              "isSelectable": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is customizable",
+                "help": ""
+              },
+            "value": {
+              "type": "string",
+              "description": "services.export.footnote.value.description",
+              "title": "",
+              "help": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "Map Elements",
+          "help": ""
+        },
+        "legend": {
+          "description": "Legend component.",
+          "type": "object",
+          "properties": {
+              "isSelected": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is present",
+                "help": ""
+              },
+              "isSelectable": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is customizable",
+                "help": ""
+              },
+            "value": {
+              "type": "string",
+              "description": "Value to be passed to the generation function of this export component.",
+              "title": "",
+              "help": "",
+              "default": ""
+            },
+            "showInfoSymbology": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether symbology from info sections should be included in export legend",
+              "title": "",
+              "help": ""
+            },
+            "showControlledSymbology": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indicates whether symbology from controlled layers should be included in export legend",
+              "title": "",
+              "help": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "Legend",
+          "help": ""
+        },
+        "footnote": {
+          "description": "Foot notice to add to exported map",
+          "type": "object",
+          "properties": {
+              "isSelected": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is present",
+                "help": ""
+              },
+              "isSelectable": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is customizable",
+                "help": ""
+              },
+            "value": {
+              "type": "string",
+              "description": "Value to appear by default",
+              "title": "",
+              "help": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "Footnote",
+          "help": ""
+        },
+        "timestamp": {
+          "description": "Timestamp component.",
+          "type": "object",
+          "properties": {
+              "isSelected": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is present",
+                "help": ""
+              },
+              "isSelectable": {
+                "type": "boolean",
+                "default": true,
+                "description": "",
+                "title": "is customizable",
+                "help": ""
+              },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "Value to appear by default",
+              "help": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "Timestamp",
+          "help": ""
+        }
+      },
+      "additionalProperties": false,
+      "title": "This is the Export section",
+      "help": ""
+    }
+  },
+  "additionalProperties": false
 }

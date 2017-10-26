@@ -4,7 +4,7 @@
     "description": "Point sortie service",
     "type": "object",
     "properties": {
-        "proxyUrl": { "type": "string", "default": "", "description": "An optional proxy to be used for dealing with same-origin issues.  URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers." },
+        "proxyUrl": { "type": "string", "default": "", "description": "En francais svp." },
         "exportMapUrl": { "type": "string", "default": "", "description": "An ESRI service endpoint for generating map images.  Should point directly to an endpoint that can be consumed by ESRI PrintTask." },
         "geometryUrl": { "type": "string", "default": "","description": "A URL to an ESRI ArcGIS geometry service REST endpoint." },
         "googleAPIKey": { "type": "string", "default": "", "description": "Google API key to enable geo location and share link shortening." },
@@ -38,19 +38,6 @@
             },
             "additionalProperties": false,
             "required": ["serviceUrls"]
-        },
-        "export": {
-            "type": "object",
-            "description": "Export properties",
-            "properties": {
-                "title": { "$ref": "#/definitions/exportComponent", "description": "Title of the export graphic." },
-                "map": { "$ref": "#/definitions/exportComponent", "description": "Map component." },
-                "mapElements": { "$ref": "#/definitions/exportComponent", "description": "North arrow and scalebar component." },
-                "legend": { "$ref": "#/definitions/exportComponent", "description": "Legend component." },
-                "footnote": { "$ref": "#/definitions/exportComponent", "description": "Foot notice to add to exported map" },
-                "timestamp":  { "$ref": "#/definitions/exportComponent", "description": "Timestamp component." }
-            },
-            "additionalProperties": false
         }
     },
     "additionalProperties": false,

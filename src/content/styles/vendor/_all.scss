@@ -3,3 +3,6 @@ jQuery UI and a color picker override styles are examples of CSS that you might 
 This should make it easy to update my third-party stylesheets to more current versions in the future. */
 
 // import all vendor override files
+@import "_bootstrap.scss";
+
+@include bootstrap;

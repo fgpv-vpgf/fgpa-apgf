@@ -4,8 +4,10 @@
 @import "_buttons.scss";
 @import "_content-panel.scss";
 @import "_dialog.scss";
+@import "_effects.scss";
 @import "_forms.scss";
 @import "_header.scss";
+@import "_loading.scss";
 
 @include buttons;
 @include content-panel;
@@ -13,3 +15,5 @@
 @include header;
 @include summary;
 @include forms;
+@include loading;
+@include effects;

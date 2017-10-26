@@ -4,6 +4,7 @@ import './common/compile.directive';
 import './ui.module.js';
 
 // forms
+import './forms/form.service.js';
 import './forms/map/map.directive.js';
 import './forms/service/service.directive.js';
 import './forms/ui/ui.directive.js';
