@@ -1,14 +1,12 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="{ active: self.isSet($index + 1) }" ng-repeat="tab in self.tabs">
-                    <a href ng-click="self.setTab($index + 1)">{{ tab.name }}</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-8">
-            <div ng-show="self.isSet($index + 1)" ng-repeat="tab in self.tabs" av-compile-html="tab.tag"></div>
-        </div>
+<div layout="row">
+    <div flex="10">
+        <ul class="av-main-tab nav nav-pills nav-stacked">
+            <li class="{ active: self.isSet($index + 1) }" ng-repeat="tab in self.tabs">
+                <a href ng-click="self.setTab($index + 1)">{{ tab.name }}</a>
+            </li>
+        </ul>
+    </div>
+    <div flex>
+        <div ng-show="self.isSet($index + 1)" ng-repeat="tab in self.tabs" av-compile-html="tab.tag"></div>
     </div>
 </div>

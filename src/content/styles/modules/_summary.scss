@@ -1,19 +1,22 @@
-.av-summary {
-    width: 20%;
-    border: 1px solid black;
+@mixin summary {
+    .av-summary {
+        border: 1px solid black;
+        padding: 0 15px 0 15px;
+        margin: 0 15px 0 15px;
 
-    ul {
-        list-style-type: none;
-    }
-}
-
-.av-summary-icon {
-        max: {
-            height: 20px;
-            width: 20px;
+        ul {
+            list-style-type: none;
         }
-}
+    }
 
-.av-summary-item {
-    display: flex;
+    .av-summary-icon {
+            max: {
+                height: 20px;
+                width: 20px;
+            }
+    }
+
+    .av-summary-item {
+        display: flex;
+    }
 }
