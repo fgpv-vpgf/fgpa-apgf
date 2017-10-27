@@ -1,7 +1,5 @@
-.av-title {
-    display: flex;
-
-    md-input-container {
-        margin-left: 50%;
+@mixin header {
+    .av-title {
+        padding: 0 15px 0 15px;
     }
 }

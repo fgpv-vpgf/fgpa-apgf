@@ -15,9 +15,9 @@
 
             <av-header></av-header>
 
-            <div class="av-tools">
-                <av-tab></av-tab>
-                <div class="av-summary">
+            <div class="av-tools" layout="row">
+                <av-tab flex="70"></av-tab>
+                <div class="av-summary" flex="30">
                     <av-summary></av-summary>
                 </div>
             </div>
