@@ -9,8 +9,6 @@
 angular.element(document)
     .ready(() => {
         'use strict';
-        // NOTE: let and const cannot be used in this file due to protractor problems
-        // FIXME:
 
         // the app nodes in the dom
         const node = document.getElementsByClassName('fgpa')[0];
@@ -19,7 +17,7 @@ angular.element(document)
         // we need to create an explicit child under app's root node, otherwise animation
         // doesnt' work; see this plunk: http://plnkr.co/edit/7EIM71IOwC8h1HdguIdD
         // or this one: http://plnkr.co/edit/Ds8e8d?p=preview
-        // node.appendChild(angular.element('<rv-shell class="md-body-1">')[0]);
+        node.append(angular.element('<av-shell class="md-body-1">')[0]);
 
         // bootstrap each node as an Angular app
         // strictDi enforces explicit dependency names on each component: ngAnnotate should find most automatically
@@ -27,6 +25,10 @@ angular.element(document)
         angular.bootstrap(node, ['app'], {
             strictDi: true
         });
-        // delete window.angular;
-        // FIXME: window.angular = existingWindowDotAngular;
+
+        // only do this if there is another version present - protractor needs angular reference otherwise
+        if (existingWindowDotAngular) {
+            delete window.angular;
+            window.angular = existingWindowDotAngular;
+        }
     });

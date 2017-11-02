@@ -202,14 +202,14 @@ function modelManager($timeout, events, constants, commonService) {
                 state.push({ 'key': key, 'valid': null, 'expand': false, 'type': 'array' });
             }
 
-            if (commonService.isArray(model[key])) {
+            if (commonService.isArray(model[key]) && commonService.isObject(model[key][0])) {
                 state[index].items = [];
                 let i = 0;
                 for (let value of model[key]) {
                     updateSummaryModel(state[index].items, value, i);
                     i++;
                 }
-            } else if (Object.keys(model[key]).length && commonService.isObject(model[key])) {
+            } else if (Object.keys(model[key]).length && commonService.isObject(model[key]) && !commonService.isArray(model[key])) {
                 state[index].items = [];
                 updateSummaryModel(state[index].items, model[key]);
             }
