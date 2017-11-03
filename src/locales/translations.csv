@@ -22,6 +22,10 @@ summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
 summary preview,summary.preview,Preview,0,Aperçu,0
 summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
+form ui,form.ui.general,General,0,Générale,0
+form ui,form.ui.appbar,Application Bar,0,Barre d'application,0
+form ui,form.ui.navbar,Navigation Bar,0,Barre de navigation,0
+form ui,form.ui.sidemenu,Side Menu,0,Menu de coté,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par endroits,0
 form service,form.service.export,Export Map,0,Exporter la carte,0

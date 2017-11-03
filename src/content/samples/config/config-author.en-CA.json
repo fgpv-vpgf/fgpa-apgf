@@ -15,5 +15,10 @@
             "types": "http://geogratis.gc.ca/services/geoname/en/codes/concise.json"
           }
         }
+    },
+    "ui": {
+        "sideMenu": {
+                "items": [["layers","basemap"],["fullscreen","export","share","touch","help","about"],["language"],["plugins"]]
+            }
     }
 }
