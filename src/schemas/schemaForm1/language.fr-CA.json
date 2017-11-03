@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "enum": [
+    "",
+    "",
+    ""
+  ],
+  "description": "",
+  "schema": "language",
+  "title": "",
+  "default": ""
+}

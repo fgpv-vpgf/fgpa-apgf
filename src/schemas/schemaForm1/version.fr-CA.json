@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "enum": [
+    ""
+  ],
+  "description": "",
+  "schema": "version",
+  "title": "",
+  "default": ""
+}
