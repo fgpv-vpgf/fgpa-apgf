@@ -1,0 +1,312 @@
+{
+  "description": "",
+  "type": "object",
+  "properties": {
+    "proxyUrl": {
+      "type": "string",
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "exportMapUrl": {
+      "type": "string",
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "geometryUrl": {
+      "type": "string",
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "googleAPIKey": {
+      "type": "string",
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "geolocation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "coordInfo": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "print": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "search": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "disabledSearches": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "",
+              "",
+              ""
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "",
+          "title": "",
+          "default": ""
+        },
+        "serviceUrls": {
+          "type": "object",
+          "description": "",
+          "properties": {
+            "geoNames": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            },
+            "geoLocation": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            },
+            "geoSuggest": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            },
+            "provinces": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            },
+            "types": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "geoNames",
+            "geoLocation",
+            "geoSuggest",
+            "provinces",
+            "types"
+          ],
+          "title": "",
+          "default": ""
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "serviceUrls"
+      ],
+      "title": "",
+      "default": ""
+    },
+    "export": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "title": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        },
+        "map": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        },
+        "mapElements": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        },
+        "legend": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            },
+            "showInfoSymbology": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "showControlledSymbology": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        },
+        "footnote": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        },
+        "timestamp": {
+          "description": "",
+          "type": "object",
+          "properties": {
+            "isSelected": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "isSelectable": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "",
+              "title": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        }
+      },
+      "additionalProperties": false,
+      "title": "",
+      "default": ""
+    }
+  },
+  "additionalProperties": false,
+  "schema": "services",
+  "title": "",
+  "default": ""
+}
