@@ -25,7 +25,10 @@ summary preview dialog title,summary.previewdialog.title,Preview Viewer Configur
 form ui,form.ui.general,General,0,Générale,0
 form ui,form.ui.appbar,Application Bar,0,Barre d'application,0
 form ui,form.ui.navbar,Navigation Bar,0,Barre de navigation,0
-form ui,form.ui.sidemenu,Side Menu,0,Menu de coté,0
+form ui,form.ui.sidemenu,Side Menu,0,Menu latéral,0
+form ui,form.ui.about,About Map,0,A propos de cette carte,0
+form ui,form.ui.aboutstring,String content,0,Contenue dans du texte,0
+form ui,form.ui.aboutfile,File content,0,Contenue dans un fichier,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par endroits,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
