@@ -35,7 +35,6 @@ function avService($timeout, formService) {
                 }
             });
         }
-
     };
 
     return directive;
@@ -47,7 +46,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
     self.modelName = 'service';
     self.sectionName = $translate.instant('app.section.service');
 
-    // manage the show advance configuration (add "htmlClass": "av-form-advance hidden" to fields who need advance config)
+    // manage the show advance configuration (add 'htmlClass': 'av-form-advance hidden' to fields who need advance config)
     self.advance = false;
     self.formService = formService;
 
@@ -83,109 +82,85 @@ function Controller($scope, $translate, events, modelManager, formService) {
 
     function setForm() {
         return [
-            {"type": "tabs", "tabs": [
-                {"title": $translate.instant('form.service.urls'), "items": [
-                    {"key": "proxyUrl", "readonly": true},
-                    {"key": "exportMapUrl", "htmlClass": "av-form-advance hidden"},
-                    {"key": "geometryUrl", "htmlClass": "av-form-advance hidden"},
-                    {"key": "googleAPIKey", "htmlClass": "av-form-advance hidden"},
-                    {"key": "geolocation", "htmlClass": "av-form-advance hidden"},
-                    {"key": "coordInfo"},
-                    {"key": "print"}
+            { 'type': 'tabs', 'tabs': [
+                { 'title': $translate.instant('form.service.urls'), 'items': [
+                    { 'key': 'proxyUrl', 'readonly': true },
+                    { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden' },
+                    { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden' },
+                    { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden' },
+                    { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden' },
+                    { 'key': 'coordInfo' },
+                    { 'key': 'print' }
                 ]},
-                {"title": $translate.instant('form.service.geosearch'), "items": [
-                    {"key": "search", "items": [
-                        {"key": "search.disabledSearches", "titleMap": {
-                            "NTS": "SNRC",
-                            "FSA": "Postal Code",
-                            "LAT/LNG": "Latitude / Longitude"
-                        }},
-                        {"key": "search.serviceUrls", "readonly": true}
-                    ]}
-                ]},
-                {"title": $translate.instant('form.service.export'), "items": [
-                    {"key": "export", "items": [
-                        {"key": "export.title", "items": [
-                            {"key": "export.title.value", "notitle": true},
+                { 'title': $translate.instant('form.service.geosearch'), 'items': [
+                    { 'key': 'search', 'items': [
+                        { 'key': 'search.disabledSearches', 'titleMap': {
+                            'NTS': 'SNRC',
+                            'FSA': 'Postal Code',
+                            'LAT/LNG': 'Latitude / Longitude'
+                        } },
+                        { 'key': 'search.serviceUrls', 'readonly': true }
+                    ] }
+                ] },
+                { 'title': $translate.instant('form.service.export'), 'items': [
+                    { 'key': 'export', 'items': [
+                        { 'key': 'export.title', 'items': [
+                            { 'key': 'export.title.value', 'notitle': true },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.title.isSelected"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.title.isSelected' }]
                             },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.title.isSelectable"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.title.isSelectable' }]
                             }
-                        ]},
-                        {"key": "export.map", "items": [
+                        ] },
+                        { 'key': 'export.map', 'items': [
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.map.isSelected"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.map.isSelected' }]
                             },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.map.isSelectable"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.map.isSelectable' }]
                             }
-                        ]},
-                        {"key": "export.legend", "items": [
+                        ] },
+                        { 'key': 'export.legend', 'items': [
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.legend.isSelected"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.legend.isSelected' }]
                             },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.legend.isSelectable"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.legend.isSelectable' }]
                             }
-                        ]},
-                        {"key": "export.mapElements", "items": [
+                        ] },
+                        { 'key': 'export.mapElements', 'items': [
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.mapElements.isSelected"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelected' }]
                             },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.mapElements.isSelectable"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelectable' }]
                             }
-                        ]},
-                        {"key": "export.footnote", "items": [
-                            {"key": "export.footnote.value", "notitle": true},
+                        ] },
+                        { 'key': 'export.footnote', 'items': [
+                            { 'key': 'export.footnote.value', 'notitle': true },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.footnote.isSelected"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.footnote.isSelected' }]
                             },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.footnote.isSelectable"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.footnote.isSelectable' }]
                             }
-                        ]},
-                        {"key": "export.timestamp", "items": [
+                        ] },
+                        { 'key': 'export.timestamp', 'items': [
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.timestamp.isSelected"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelected' }]
                             },
                             {
-                                "type": "section", "items": [
-                                    {"key": "export.timestamp.isSelectable"}
-                                ]
+                                'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelectable' }]
                             }
-                        ]}
-                    ]}
-                ]}
-            ]},
+                        ] }
+                    ] }
+                ] }
+            ] },
             {
-                "type": "actions",
-                "items": [
-                    { "type": 'button', "style": 'btn-info', "title": $translate.instant('button.validate'), "onClick": validateForm }
+                'type': 'actions',
+                'items': [
+                    { 'type': 'button', 'style': 'btn-info', 'title': $translate.instant('button.validate'), 'onClick': validateForm }
                 ]
             }]
     }
