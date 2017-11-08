@@ -8,6 +8,8 @@
 -------------------------------------------------------------------
 # Authoring tool for Federal Geospatial Platform (FGP) viewer
 
+[Working Demo](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)
+
 ## Getting Started
 
 Requirements:
@@ -24,7 +26,9 @@ Running a local build:
 We use a fork and pull model for contributions, see our [contributing guidelines](https://github.com/fgpv-vpgf/fgpv-vpgf/blob/develop/CONTRIBUTING.md) for more details.
 
 -------------------------------------------------------------------
-# Auteur pour le visualisateur de la Plateforme géospatiale fédérale (PGF)
+# Auteur pour le visualisateur de la Plateforme géospatiale fédérale (PGF){Page d
+
+[Page démonstration](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)
 
 ## Pour commencer
 
