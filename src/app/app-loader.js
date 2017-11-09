@@ -29,6 +29,9 @@ import './ui/ui-loader.js';
 import './layout/layout.module.js';
 import './layout/layout-loader.js';
 
+// schema form custom add on
+import './addon/addon-loader.js';
+
 // styles
 import '../content/styles/main.scss';
 

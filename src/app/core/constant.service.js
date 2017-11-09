@@ -13,7 +13,7 @@ angular
     .constant('translations', AUTOFILLED_TRANSLATIONS)
     .factory('appInfo', appInfo)
     .constant('constants', {
-        debSummary: 500, // time for debouncing when user enter value
+        debInput: 500, // time for debouncing when user enter value
         schemas: ['map.[lang].json', 'ui.[lang].json', 'service.[lang].json'] // TODO: add new schema as they come, list as they should appear in the tab menu
     });
 
@@ -35,7 +35,8 @@ function events($rootScope) {
         avSchemaUpdate: 'avSchemaUpdate', // Fired when there is an update to the state
         avSwitchLanguage: 'avSwitchLanguage', // Fired when there is a language switch
         avNewModel: 'avNewModel', // Fired when user create a new for
-        avLoadModel: 'avLoadModel' // Fired when a user load an existing form
+        avLoadModel: 'avLoadModel', // Fired when a user load an existing form
+        avNewItems: 'avNewItems' // Fired when a user add a new item inside an array (e.g. layer of layers)
     };
 }
 

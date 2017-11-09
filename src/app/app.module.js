@@ -9,7 +9,8 @@
 angular
     .module('app', [
         'app.core',
-        'app.templates',
+        'app.addon.sampleSchema',
+        'app.addon.sampleForm',
         'app.ui',
         'app.layout'
     ])
@@ -19,6 +20,3 @@ angular
             $mdInkRippleProvider.disableInkRipple();
         }
     });
-
-// a separate templates module is needed to facilitate directive unit testing
-angular.module('app.templates', []);
