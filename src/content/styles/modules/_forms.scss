@@ -10,4 +10,20 @@
     .av-section-label {
         padding-top: 20px;
     }
+
+    .av-check-center {
+        span {
+            text-align: left;
+        }
+    }
+
+    .av-accordion-toggle > legend {
+        padding-left: 30px;
+    }
+
+    .av-accordion-icon {
+        top: -37px;
+        position: relative;
+        cursor: pointer;
+    }
 }
