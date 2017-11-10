@@ -146,24 +146,10 @@ function Controller($q, $mdDialog, events, modelManager, commonService) {
                 models[name] = modelManager.getModel(name, false);
             });
 
-            models = manageOneOf(models);
-
             // save the file
             const file = new File([JSON.stringify(models)], `${self.fileName}.json`, { type: 'text/plain' });
             FileSaver.saveAs(file);
             self.close();
-        }
-
-        /**
-         * Manage the case where we need to use oneOf. Use the choice value to apply the good object
-         * @function manageOneOf
-         * @param {Object} models all models
-         * @return {Object} models the updated model
-         */
-        function manageOneOf(models) {
-            models.ui.about = models.ui.aboutChoice ? models.ui.aboutString : models.ui.aboutFolder;
-
-            return models;
         }
     }
 }

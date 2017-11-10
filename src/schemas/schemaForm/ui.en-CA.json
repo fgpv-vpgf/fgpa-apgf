@@ -149,40 +149,35 @@
             "description": "Will restrict the user from panning beyond the maximum extent.",
             "title": "Restrict Navigation"
         },
+        "about": {
+          "description": "About properties from configuration file or Markdown folder",
+          "title": "About Map",
+          "type": "object",
+          "subtype": "oneof",
+          "properties": {
+            "content": {
+                "description": "About properties from string content",
+                "title": "Content",
+                "type": "string",
+                "required": true
+            },
+            "folderName": {
+                "description": "About properties from configuration file or Markdown folder",
+                "title": "Folder Name",
+                "type": "string",
+                "required": true
+            },
+            "additionalProperties": false
+            }
+        },
         "aboutChoice": {
           "description": "",
-          "type": "bolean",
-          "enum": [true, false],
+          "type": "enum",
+          "enum": ["string", "folder"],
           "title": "About properties",
-          "default": true,
+          "default": "string",
           "required": true
-        },
-        "aboutString": {
-            "description": "About properties from configuration file or Markdown folder",
-            "type": "object",
-            "properties": {
-                "content": {
-                    "type": "string",
-                    "default": ""
-                }
-            },
-            "required": ["content"],
-            "additionalProperties": false,
-            "title": "About from String"
-        },
-        "aboutFolder": {
-            "description": "About properties from configuration file or Markdown folder",
-            "type": "object",
-                "properties": {
-                    "folderName": {
-                        "type": "string",
-                        "default": ""
-                    }
-            },
-            "required": ["folderName"],
-            "additionalProperties": false,
-            "title": "About from Folder"
-        },
+      },
         "help": {
             "type": "object",
             "description": "Help properties",

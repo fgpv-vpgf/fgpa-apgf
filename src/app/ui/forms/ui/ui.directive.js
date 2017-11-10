@@ -80,12 +80,24 @@ function Controller($scope, $translate, events, modelManager, formService) {
         modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
     }
 
+    // FIXME: when we use condition, the item is remove from the model. When the item come back it looses all the
+    // previously set info. We need a way to persist this info.
     function checkMenu(model, form) {
         self.showHelp = false;
         self.showAbout = false;
         model.forEach(item => {
-            if (item.includes('help')) self.showHelp = true;
-            if (item.includes('about')) self.showAbout = true;
+            if (item.includes('help')) {
+                self.showHelp = true;
+
+                // reset value to default beacuse when we remove about from the array aboutChoice is emptied
+                $scope.model.help = { 'folderName': 'default' };
+            }
+            if (item.includes('about')) {
+                self.showAbout = true;
+
+                // reset value to default beacuse when we remove about from the array aboutChoice is emptied
+                $scope.model.aboutChoice = 'string';
+            }
         })
     }
 
@@ -98,11 +110,11 @@ function Controller($scope, $translate, events, modelManager, formService) {
     }
 
     function isAboutString() {
-        return self.showAbout && $scope.model.aboutChoice === true;
+        return self.showAbout && $scope.model.aboutChoice === 'string';
     }
 
     function isAboutFolder() {
-        return self.showAbout && $scope.model.aboutChoice === false;
+        return self.showAbout && $scope.model.aboutChoice === 'folder';
     }
 
     function setForm() {
@@ -136,18 +148,19 @@ function Controller($scope, $translate, events, modelManager, formService) {
                     { 'key': 'sideMenu.logo' },
                     { 'key': 'logoUrl', 'condition': 'model.sideMenu.logo' },
                     { 'key': 'title' },
-                    { 'key': 'sideMenu.items', "add": $translate.instant('button.add'), 'onChange': checkMenu },
+                    { 'key': 'sideMenu.items', 'add': $translate.instant('button.add'), 'onChange': checkMenu },
                     { 'key': 'help', 'condition': isHelp },
-                    {   'key': 'aboutChoice',
-                        'type': 'radios',
-                        'condition': isAbout,
-                        'titleMap': [
-                            { 'value': true, 'name': "No I don't understand these cryptic terms" },
-                            { 'value': false, 'name': "Yes this makes perfect sense to me" }
-                        ]
-                    },
-                    { 'key': 'aboutString', 'condition': isAboutString },
-                    { 'key': 'aboutFolder', 'condition': isAboutFolder }
+                    { 'type': 'fieldset', 'title': $translate.instant('form.ui.about'), 'condition': isAbout,'items': [
+                        {   'key': 'aboutChoice',
+                            'type': 'select',
+                            'titleMap': [
+                                { 'value': "string", 'name': $translate.instant('form.ui.aboutstring') },
+                                { 'value': "folder", 'name': $translate.instant('form.ui.aboutfile') }
+                            ]
+                        },
+                        { 'key': 'about.content', 'condition': isAboutString },
+                        { 'key': 'about.folderName', 'condition': isAboutFolder }
+                    ]}
                 ] }
             ] }, {
                 'type': 'actions',
