@@ -1,0 +1,314 @@
+{
+  "description": "",
+  "type": "object",
+  "properties": {
+    "fullscreen": {
+      "type": "boolean",
+      "default": "",
+      "description": "",
+      "title": ""
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        ""
+      ],
+      "default": "",
+      "description": "",
+      "title": ""
+    },
+    "logoUrl": {
+      "type": "string",
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "failureFeedback": {
+      "failureMessage": {
+        "type": "string",
+        "description": ""
+      },
+      "failureImageUrl": {
+        "type": "string",
+        "description": ""
+      },
+      "title": "",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "appBar": {
+      "default": {
+        "sideMenu": "",
+        "geoSearch": "",
+        "layers": ""
+      },
+      "description": "",
+      "type": "object",
+      "properties": {
+        "sideMenu": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "geoSearch": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "basemap": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "layers": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        }
+      },
+      "additionalProperties": false,
+      "title": ""
+    },
+    "navBar": {
+      "type": "object",
+      "properties": {
+        "zoom": {
+          "type": "string",
+          "enum": [
+            "",
+            "",
+            ""
+          ],
+          "default": "",
+          "title": ""
+        },
+        "extra": {
+          "default": "",
+          "title": "",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      },
+      "required": [
+        "zoom"
+      ],
+      "additionalProperties": false,
+      "title": "",
+      "default": ""
+    },
+    "sideMenu": {
+      "type": "object",
+      "properties": {
+        "logo": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+              ]
+            },
+            "title": "",
+            "default": ""
+          },
+          "default": "",
+          "title": ""
+        }
+      },
+      "additionalProperties": false,
+      "description": "",
+      "title": "",
+      "default": ""
+    },
+    "restrictNavigation": {
+      "type": "boolean",
+      "default": "",
+      "description": "",
+      "title": ""
+    },
+    "about": {
+      "description": "",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "folderName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "folderName"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "title": "",
+      "default": ""
+    },
+    "help": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "folderName": {
+          "type": "string",
+          "description": "",
+          "title": "",
+          "default": ""
+        }
+      },
+      "required": [
+        "folderName"
+      ],
+      "additionalProperties": false,
+      "title": "",
+      "default": ""
+    },
+    "legend": {
+      "type": "object",
+      "properties": {
+        "reorderable": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "allowImport": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "isOpen": {
+          "type": "object",
+          "description": "",
+          "properties": {
+            "large": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "medium": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            },
+            "small": {
+              "type": "boolean",
+              "default": "",
+              "description": "",
+              "title": ""
+            }
+          },
+          "additionalProperties": false,
+          "title": "",
+          "default": ""
+        }
+      },
+      "additionalProperties": false,
+      "title": "",
+      "default": ""
+    },
+    "tableIsOpen": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "",
+          "title": "",
+          "default": ""
+        },
+        "large": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "medium": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        },
+        "small": {
+          "type": "boolean",
+          "default": "",
+          "description": "",
+          "title": ""
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "title": "",
+      "default": ""
+    },
+    "widgetsWidget": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "",
+      "title": "",
+      "default": ""
+    }
+  },
+  "schema": "ui",
+  "title": "",
+  "default": ""
+}
