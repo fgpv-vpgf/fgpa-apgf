@@ -40,7 +40,7 @@
               },
               "wkt": {
                 "type": "string",
-                "title": "",
+                "title": "Well-known text (WKT)",
                 "default": ""
               }
             },
@@ -74,29 +74,29 @@
             "additionalProperties": false
           },
           "default": {
-            "description": "The default (starting) extent.",
+            "description": "The default extent is the extent the map uses when first loaded.",
             "title": "",
             "default": "",
             "type": "object",
             "properties": {
               "xmin": {
                 "type": "number",
-                "title": "",
+                "title": "X min",
                 "default": ""
               },
               "ymin": {
                 "type": "number",
-                "title": "",
+                "title": "Y min",
                 "default": ""
               },
               "xmax": {
                 "type": "number",
-                "title": "",
+                "title": "X max",
                 "default": ""
               },
               "ymax": {
                 "type": "number",
-                "title": "",
+                "title": "Y max",
                 "default": ""
               }
             },
@@ -109,29 +109,29 @@
             "additionalProperties": false
           },
           "full": {
-            "description": "The full extent (should give good view of the whole map, not necessarily the maximum extent); default will be used if not supplied.",
+            "description": "The full extent is the extent to be used when the user clicks on the Home button. ␣The default extent will be used if no full extent is supplied.",
             "title": "",
             "default": "",
             "type": "object",
             "properties": {
               "xmin": {
                 "type": "number",
-                "title": "",
+                "title": "X min",
                 "default": ""
               },
               "ymin": {
                 "type": "number",
-                "title": "",
+                "title": "Y min",
                 "default": ""
               },
               "xmax": {
                 "type": "number",
-                "title": "",
+                "title": "X max",
                 "default": ""
               },
               "ymax": {
                 "type": "number",
-                "title": "",
+                "title": "Y max",
                 "default": ""
               }
             },
@@ -144,29 +144,29 @@
             "additionalProperties": false
           },
           "maximum": {
-            "description": "The maximum extent; full or default extents will be used if not supplied.",
+            "description": "The maximum extent can be set to limit how far out and away the user is allowed to zoom and pan. The default or full extent will be used if no maximum extent is supplied.",
             "title": "",
             "default": "",
             "type": "object",
             "properties": {
               "xmin": {
                 "type": "number",
-                "title": "",
+                "title": "X min",
                 "default": ""
               },
               "ymin": {
                 "type": "number",
-                "title": "",
+                "title": "Y min",
                 "default": ""
               },
               "xmax": {
                 "type": "number",
-                "title": "",
+                "title": "X max",
                 "default": ""
               },
               "ymax": {
                 "type": "number",
-                "title": "",
+                "title": "Y max",
                 "default": ""
               }
             },
@@ -322,22 +322,22 @@
                 "properties": {
                   "xmin": {
                     "type": "number",
-                    "title": "",
+                    "title": "X min",
                     "default": ""
                   },
                   "ymin": {
                     "type": "number",
-                    "title": "",
+                    "title": "Y min",
                     "default": ""
                   },
                   "xmax": {
                     "type": "number",
-                    "title": "",
+                    "title": "X max",
                     "default": ""
                   },
                   "ymax": {
                     "type": "number",
-                    "title": "",
+                    "title": "Y max",
                     "default": ""
                   },
                   "spatialReference": {
@@ -367,7 +367,7 @@
                       },
                       "wkt": {
                         "type": "string",
-                        "title": "",
+                        "title": "Well-known text (WKT)",
                         "default": ""
                       }
                     },
@@ -582,7 +582,7 @@
                 },
                 "wkt": {
                   "type": "string",
-                  "title": "",
+                  "title": "Well-known text (WKT)",
                   "default": ""
                 }
               },
@@ -621,7 +621,7 @@
         },
         "northArrow": {
           "type": "object",
-          "title": "",
+          "title": "North arrow",
           "default": ""
         },
         "overviewMap": {
@@ -638,17 +638,17 @@
               "title": ""
             }
           },
-          "title": "",
+          "title": "Overview",
           "default": ""
         },
         "scaleBar": {
           "type": "object",
-          "title": "",
+          "title": "Scale bar",
           "default": ""
         },
         "basemap": {
           "type": "object",
-          "title": "",
+          "title": "Basemap",
           "default": ""
         }
       },
@@ -659,7 +659,7 @@
     "initialBasemapId": {
       "type": "string",
       "description": "Initial basemap to load. If not supplied viewer will select any basemap.",
-      "title": "",
+      "title": "Initial basemap ID",
       "default": ""
     },
     "baseMaps": {
@@ -834,7 +834,7 @@
       },
       "minItems": 1,
       "description": "A list of basemaps to be made available via the basemap selector.",
-      "title": "",
+      "title": "Basemap",
       "default": ""
     },
     "layers": {
@@ -893,22 +893,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -938,7 +938,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -1150,22 +1150,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -1195,7 +1195,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -1673,22 +1673,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -1718,7 +1718,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -1949,22 +1949,22 @@
                           "properties": {
                             "xmin": {
                               "type": "number",
-                              "title": "",
+                              "title": "X min",
                               "default": ""
                             },
                             "ymin": {
                               "type": "number",
-                              "title": "",
+                              "title": "Y min",
                               "default": ""
                             },
                             "xmax": {
                               "type": "number",
-                              "title": "",
+                              "title": "X max",
                               "default": ""
                             },
                             "ymax": {
                               "type": "number",
-                              "title": "",
+                              "title": "Y max",
                               "default": ""
                             },
                             "spatialReference": {
@@ -1994,7 +1994,7 @@
                                 },
                                 "wkt": {
                                   "type": "string",
-                                  "title": "",
+                                  "title": "Well-known text (WKT)",
                                   "default": ""
                                 }
                               },
@@ -2282,22 +2282,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -2327,7 +2327,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -2481,7 +2481,7 @@
         ]
       },
       "minItems": 0,
-      "title": "",
+      "title": "Layers",
       "default": ""
     },
     "legend": {
@@ -2925,7 +2925,7 @@
         }
       ],
       "description": "A structured or automatically generated legend",
-      "title": "",
+      "title": "Legend",
       "default": ""
     }
   },

@@ -80,9 +80,9 @@
             "properties": {
                 "id": { "type": "string" },
                 "spatialReference": { "$ref": "#/definitions/spatialReferenceNode", "description": "The projection for the given extents" },
-                "default": { "$ref": "#/definitions/extentNode", "description": "The default (starting) extent." },
-                "full": { "$ref": "#/definitions/extentNode", "description": "The full extent (should give good view of the whole map, not necessarily the maximum extent); default will be used if not supplied." },
-                "maximum": { "$ref": "#/definitions/extentNode", "description": "The maximum extent; full or default extents will be used if not supplied." }
+                "default": { "$ref": "#/definitions/extentNode", "description": "The default extent is the extent the map uses when first loaded." },
+                "full": { "$ref": "#/definitions/extentNode", "description": "The full extent is the extent to be used when the user clicks on the Home button. The default extent will be used if no full extent is supplied." },
+                "maximum": { "$ref": "#/definitions/extentNode", "description": "The maximum extent can be set to limit how far out and away the user is allowed to zoom and pan. The default or full extent will be used if no maximum extent is supplied." }
             },
             "required": [ "id", "default", "spatialReference" ],
             "additionalProperties": false

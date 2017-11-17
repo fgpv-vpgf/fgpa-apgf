@@ -46,6 +46,7 @@
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
+    "daff": "^1.3.25",
     "docdash": "github:fgpv-vpgf/docdash",
     "dot-prop": "^4.2.0",
     "eslint": "^4.0.0",
