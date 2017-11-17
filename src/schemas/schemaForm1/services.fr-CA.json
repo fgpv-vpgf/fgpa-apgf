@@ -5,13 +5,13 @@
     "proxyUrl": {
       "type": "string",
       "description": "",
-      "title": "",
+      "title": "URL du proxy",
       "default": ""
     },
     "exportMapUrl": {
       "type": "string",
       "description": "",
-      "title": "",
+      "title": "URL de la carte à exporter",
       "default": ""
     },
     "geometryUrl": {
@@ -44,7 +44,7 @@
       "type": "object",
       "additionalProperties": true,
       "description": "",
-      "title": "",
+      "title": "Imprimer",
       "default": ""
     },
     "search": {
@@ -56,9 +56,9 @@
           "items": {
             "type": "string",
             "enum": [
-              "",
-              "",
-              ""
+              "SNRC",
+              "RTA",
+              "LAT/LNG"
             ]
           },
           "minItems": 1,
@@ -92,7 +92,7 @@
             "provinces": {
               "type": "string",
               "description": "",
-              "title": "",
+              "title": "Provinces",
               "default": ""
             },
             "types": {
@@ -118,7 +118,7 @@
       "required": [
         "serviceUrls"
       ],
-      "title": "",
+      "title": "Recherche",
       "default": ""
     },
     "export": {
@@ -149,7 +149,7 @@
             }
           },
           "additionalProperties": false,
-          "title": "",
+          "title": "Titre",
           "default": ""
         },
         "map": {
@@ -269,7 +269,7 @@
             }
           },
           "additionalProperties": false,
-          "title": "",
+          "title": "Note en bas de page",
           "default": ""
         },
         "timestamp": {
@@ -301,12 +301,12 @@
         }
       },
       "additionalProperties": false,
-      "title": "",
+      "title": "Exporter",
       "default": ""
     }
   },
   "additionalProperties": false,
   "schema": "services",
-  "title": "",
+  "title": "Services",
   "default": ""
 }

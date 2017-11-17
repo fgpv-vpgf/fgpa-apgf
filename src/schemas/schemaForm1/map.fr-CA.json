@@ -40,7 +40,7 @@
               },
               "wkt": {
                 "type": "string",
-                "title": "",
+                "title": "Well-known text (WKT)",
                 "default": ""
               }
             },
@@ -81,22 +81,22 @@
             "properties": {
               "xmin": {
                 "type": "number",
-                "title": "",
+                "title": "X min",
                 "default": ""
               },
               "ymin": {
                 "type": "number",
-                "title": "",
+                "title": "Y min",
                 "default": ""
               },
               "xmax": {
                 "type": "number",
-                "title": "",
+                "title": "X max",
                 "default": ""
               },
               "ymax": {
                 "type": "number",
-                "title": "",
+                "title": "Y max",
                 "default": ""
               }
             },
@@ -116,22 +116,22 @@
             "properties": {
               "xmin": {
                 "type": "number",
-                "title": "",
+                "title": "X min",
                 "default": ""
               },
               "ymin": {
                 "type": "number",
-                "title": "",
+                "title": "Y min",
                 "default": ""
               },
               "xmax": {
                 "type": "number",
-                "title": "",
+                "title": "X max",
                 "default": ""
               },
               "ymax": {
                 "type": "number",
-                "title": "",
+                "title": "Y max",
                 "default": ""
               }
             },
@@ -151,22 +151,22 @@
             "properties": {
               "xmin": {
                 "type": "number",
-                "title": "",
+                "title": "X min",
                 "default": ""
               },
               "ymin": {
                 "type": "number",
-                "title": "",
+                "title": "Y min",
                 "default": ""
               },
               "xmax": {
                 "type": "number",
-                "title": "",
+                "title": "X max",
                 "default": ""
               },
               "ymax": {
                 "type": "number",
-                "title": "",
+                "title": "Y max",
                 "default": ""
               }
             },
@@ -322,22 +322,22 @@
                 "properties": {
                   "xmin": {
                     "type": "number",
-                    "title": "",
+                    "title": "X min",
                     "default": ""
                   },
                   "ymin": {
                     "type": "number",
-                    "title": "",
+                    "title": "Y min",
                     "default": ""
                   },
                   "xmax": {
                     "type": "number",
-                    "title": "",
+                    "title": "X max",
                     "default": ""
                   },
                   "ymax": {
                     "type": "number",
-                    "title": "",
+                    "title": "Y max",
                     "default": ""
                   },
                   "spatialReference": {
@@ -367,7 +367,7 @@
                       },
                       "wkt": {
                         "type": "string",
-                        "title": "",
+                        "title": "Well-known text (WKT)",
                         "default": ""
                       }
                     },
@@ -582,7 +582,7 @@
                 },
                 "wkt": {
                   "type": "string",
-                  "title": "",
+                  "title": "Well-known text (WKT)",
                   "default": ""
                 }
               },
@@ -621,7 +621,7 @@
         },
         "northArrow": {
           "type": "object",
-          "title": "",
+          "title": "Flèche du Nord",
           "default": ""
         },
         "overviewMap": {
@@ -638,17 +638,17 @@
               "title": ""
             }
           },
-          "title": "",
+          "title": "Aperçu",
           "default": ""
         },
         "scaleBar": {
           "type": "object",
-          "title": "",
+          "title": " Échelle",
           "default": ""
         },
         "basemap": {
           "type": "object",
-          "title": "",
+          "title": "Carte de base",
           "default": ""
         }
       },
@@ -659,7 +659,7 @@
     "initialBasemapId": {
       "type": "string",
       "description": "",
-      "title": "",
+      "title": "ID de la carte de base initiale",
       "default": ""
     },
     "baseMaps": {
@@ -834,7 +834,7 @@
       },
       "minItems": 1,
       "description": "",
-      "title": "",
+      "title": "Carte de base",
       "default": ""
     },
     "layers": {
@@ -893,22 +893,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -938,7 +938,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -1150,22 +1150,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -1195,7 +1195,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -1673,22 +1673,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -1718,7 +1718,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -1949,22 +1949,22 @@
                           "properties": {
                             "xmin": {
                               "type": "number",
-                              "title": "",
+                              "title": "X min",
                               "default": ""
                             },
                             "ymin": {
                               "type": "number",
-                              "title": "",
+                              "title": "Y min",
                               "default": ""
                             },
                             "xmax": {
                               "type": "number",
-                              "title": "",
+                              "title": "X max",
                               "default": ""
                             },
                             "ymax": {
                               "type": "number",
-                              "title": "",
+                              "title": "Y max",
                               "default": ""
                             },
                             "spatialReference": {
@@ -1994,7 +1994,7 @@
                                 },
                                 "wkt": {
                                   "type": "string",
-                                  "title": "",
+                                  "title": "Well-known text (WKT)",
                                   "default": ""
                                 }
                               },
@@ -2282,22 +2282,22 @@
                     "properties": {
                       "xmin": {
                         "type": "number",
-                        "title": "",
+                        "title": "X min",
                         "default": ""
                       },
                       "ymin": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y min",
                         "default": ""
                       },
                       "xmax": {
                         "type": "number",
-                        "title": "",
+                        "title": "X max",
                         "default": ""
                       },
                       "ymax": {
                         "type": "number",
-                        "title": "",
+                        "title": "Y max",
                         "default": ""
                       },
                       "spatialReference": {
@@ -2327,7 +2327,7 @@
                           },
                           "wkt": {
                             "type": "string",
-                            "title": "",
+                            "title": "Well-known text (WKT)",
                             "default": ""
                           }
                         },
@@ -2481,7 +2481,7 @@
         ]
       },
       "minItems": 0,
-      "title": "",
+      "title": "Couches",
       "default": ""
     },
     "legend": {
@@ -2925,7 +2925,7 @@
         }
       ],
       "description": "",
-      "title": "",
+      "title": "Légende",
       "default": ""
     }
   },
