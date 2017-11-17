@@ -7,6 +7,7 @@ const csvDir = './scripts/'
 const $RefParser = require('json-schema-ref-parser');
 const $DotProp = require('dot-prop');
 const $PapaParse = require('papaparse');
+const $daff = require('daff');
 
 // nodejs library
 const $FS = require('fs');
@@ -14,7 +15,7 @@ const $Promise = require('promise');
 
 
 const lang = ['en-CA', 'fr-CA'];
-let csvString = '';
+let csvString = 'TITLE,LABEL,ENG_DESC,ENG_TRA,FR_DESC,FR_TRA\n';
 
 
 /**
@@ -37,7 +38,8 @@ let csvString = '';
  *  - addEnumLabel: save existing enum aray values in a csv like blob
  *                  and replace them with labels.
  *  - insideQuotesCSV: Deal with double quotes inside double quotes.
- *  - saveCSV: save csv like blob in a csv (comma-separated values) file
+ *  - saveCSV: save csv like string in a csv (comma-separated values) file
+ *  - updateCSV: update csv like string with current csv file
  *  - saveSchema: save schema in local file.
  *  - saveParseConfigSchema: save $ref resolved main properties of the schema
  *                            in separated JSON files.
@@ -84,20 +86,31 @@ const LabelMyDef = () => {
                     );
 
                     // call our promise
+                    const updateMyCSV = new $Promise(
+                        (resolve, reject) => {
+                            insideQuotesCSV();
+                            if (updateCSV(`${csvDir}genSchemas.csv`)) {
+                                resolve(vSchema);
+                            } else {
+                                const reason = new Error('updating CSV went wrong');
+                                reject(reason);
+                            }
+                        }
+                    );
+
                     const splitMe = () => {
                         labellingSchemaProp
-                            .then(() => {
-                                insideQuotesCSV();
-                                saveCSV(csvString, `${csvDir}genSchemas.csv`);
-                                saveSchema(vSchema, `${schemasDir}schemaAuthor.json`);
-                                saveParseConfigSchema(vSchema, `${csvDir}genSchemas.csv`);
-                                console.log('This is the END');
-                            })
+                            .then(
+                                updateMyCSV
+                                .then(() => {
+                                    saveCSV(csvString, `${csvDir}genSchemas.csv`, vSchema);
+                                    saveSchema(vSchema, `${schemasDir}schemaAuthor.json`);
+                                })
+                            )
                             .catch(error => console.log(error.message));
                     };
 
                     splitMe();
-
                 })
                 .catch(err => {
                     console.error(err);
@@ -427,14 +440,67 @@ function insideQuotesCSV() {
 }
 
 /**
- * Save csv info in a local file
+ * Save csv info in a local file and call saveParseConfigSchema
+ * in case of success
  * @function saveCSV
  * @private
- * @param {Object} csv contains commas-separeted blob
+ * @param {String} csv contains commas-separeted string
  * @param {String} filename filename
+ * @param {object} schema schema
  */
-function saveCSV(csv, filename) {
-    $FS.writeFileSync(filename, csv);
+function saveCSV(csv, filename, schema) {
+
+    $FS.writeFile(filename, csv, (err) => {
+        if (err) {
+            throw err;
+            console.log(`${filename} has been saved!`);
+        } else {
+            saveParseConfigSchema(schema, filename);
+        }
+    });
+}
+
+/**
+ * update csv info
+ * @function updateCSV
+ * @private
+ * @param {String} filename existing csv filename
+ * @return {Boolean} always return true
+ */
+function updateCSV(filename) {
+
+    const currentCSV = $FS.readFileSync(filename, 'utf8');
+
+    const configPasrse = {
+        delimiter: ","
+    };
+
+    const newData = $PapaParse.parse(csvString, configPasrse);
+    const currentData = $PapaParse.parse(currentCSV, configPasrse);
+
+    let newTbl = new $daff.TableView(newData.data);
+    let currentTbl = new $daff.TableView(currentData.data);
+    
+    let alignment = $daff.compareTables(newTbl,currentTbl).align();
+
+    let data_diff = [];
+    const table_diff = new $daff.TableView(data_diff);
+    const flags = new $daff.CompareFlags();
+
+    // HEADER: TITLE,LABEL,ENG_DESC,ENG_TRA,FR_DESC,FR_TRA
+    flags.addPrimaryKey('LABEL');
+
+    let highlighter = new $daff.TableDiff(alignment,flags);
+    highlighter.hilite(table_diff);
+
+    let patcher = new $daff.HighlightPatch(newTbl,table_diff);
+    patcher.apply();
+
+    // Put back as csv like string
+    csvString = $PapaParse.unparse(newTbl);
+
+    return true;
+
 }
 
 /**
@@ -446,7 +512,11 @@ function saveCSV(csv, filename) {
  */
 function saveSchema(schema, filename) {
     const schemaString = JSON.stringify(schema, null, 2);
-    $FS.writeFileSync(filename, schemaString);
+
+    $FS.writeFile(filename, schemaString, (err) => {
+        if (err) throw err;
+            console.log(`${filename} has been saved!`);
+    });
 }
 
 /**
@@ -475,7 +545,11 @@ function saveParseConfigSchema(schema, csvFilename) {
 
     for (let i = 0; i < nbrLang; i++) {
         const headerWr  = resolveLabels(header, csvJSON, i);
-        $FS.writeFileSync(`${schemasDir}header.${lang[i]}.json`, headerWr);
+
+        $FS.writeFile(`${schemasDir}header.${lang[i]}.json`, headerWr, (err) => {
+            if (err) throw err;
+                console.log(`${schemasDir}header.${lang[i]}.json has been saved!`);
+        });
     }
 
     //*********Save properties
@@ -487,7 +561,11 @@ function saveParseConfigSchema(schema, csvFilename) {
 
         for (let i = 0; i < nbrLang; i++) {
             const blobWr = resolveLabels(blob, csvJSON, i);
-            $FS.writeFileSync(`${schemasDir}${prop}.${lang[i]}.json`, blobWr);
+
+            $FS.writeFile(`${schemasDir}${prop}.${lang[i]}.json`, blobWr, (err) => {
+                if (err) throw err;
+                    console.log(`${schemasDir}${prop}.${lang[i]}.json has been saved!`);
+            });
         }
     });
 
@@ -503,7 +581,11 @@ function saveParseConfigSchema(schema, csvFilename) {
 
     for (let i = 0; i < nbrLang; i++) {
         const defRefWr = resolveLabels(defRef, csvJSON, i);
-        $FS.writeFileSync(`${schemasDir}circular.${lang[i]}.json`, defRefWr);
+
+        $FS.writeFile(`${schemasDir}circular.${lang[i]}.json`, defRefWr, (err) => {
+            if (err) throw err;
+                console.log(`${schemasDir}circular.${lang[i]}.json has been saved!`);
+        });
     }
 }
 
@@ -570,13 +652,4 @@ function resolveLabels(schemaString, csvJSON, langIdx) {
         }
     });
     return newString;
-}
-
-/**
- * Update CSV file.
- * @function updateCSV
- * @private
- */
-function updateCSV() {
-
 }

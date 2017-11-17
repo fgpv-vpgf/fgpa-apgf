@@ -6,7 +6,7 @@
       "type": "boolean",
       "default": "",
       "description": "",
-      "title": ""
+      "title": "Plein écran"
     },
     "theme": {
       "type": "string",
@@ -15,12 +15,12 @@
       ],
       "default": "",
       "description": "",
-      "title": ""
+      "title": "Thème"
     },
     "logoUrl": {
       "type": "string",
       "description": "",
-      "title": "",
+      "title": "URL du logo",
       "default": ""
     },
     "failureFeedback": {
@@ -32,13 +32,13 @@
         "type": "string",
         "description": ""
       },
-      "title": "",
+      "title": "Rétroaction concernant la défaillance",
       "default": ""
     },
     "title": {
       "type": "string",
       "description": "",
-      "title": "",
+      "title": "Titre",
       "default": ""
     },
     "appBar": {
@@ -54,29 +54,29 @@
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Menu latéral"
         },
         "geoSearch": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Géorecherche"
         },
         "basemap": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Carte de base"
         },
         "layers": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Couches"
         }
       },
       "additionalProperties": false,
-      "title": ""
+      "title": "Barre d'applications"
     },
     "navBar": {
       "type": "object",
@@ -89,11 +89,11 @@
             ""
           ],
           "default": "",
-          "title": ""
+          "title": "Zoom"
         },
         "extra": {
           "default": "",
-          "title": "",
+          "title": "Suppléments",
           "type": "array",
           "uniqueItems": true,
           "items": {
@@ -117,7 +117,7 @@
         "zoom"
       ],
       "additionalProperties": false,
-      "title": "",
+      "title": "Barre de navigation",
       "default": ""
     },
     "sideMenu": {
@@ -127,7 +127,7 @@
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "logo"
         },
         "items": {
           "type": "array",
@@ -154,19 +154,19 @@
             "default": ""
           },
           "default": "",
-          "title": ""
+          "title": "Éléments"
         }
       },
       "additionalProperties": false,
       "description": "",
-      "title": "",
+      "title": "Menu latéral",
       "default": ""
     },
     "restrictNavigation": {
       "type": "boolean",
       "default": "",
       "description": "",
-      "title": ""
+      "title": "Navigation restreinte"
     },
     "about": {
       "description": "",
@@ -196,7 +196,7 @@
           "additionalProperties": false
         }
       ],
-      "title": "",
+      "title": "À propos",
       "default": ""
     },
     "help": {
@@ -206,7 +206,7 @@
         "folderName": {
           "type": "string",
           "description": "",
-          "title": "",
+          "title": "Nom du dossier",
           "default": ""
         }
       },
@@ -214,7 +214,7 @@
         "folderName"
       ],
       "additionalProperties": false,
-      "title": "",
+      "title": "Aide",
       "default": ""
     },
     "legend": {
@@ -224,13 +224,13 @@
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Réordonnable"
         },
         "allowImport": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Permettre l'importation"
         },
         "isOpen": {
           "type": "object",
@@ -240,28 +240,28 @@
               "type": "boolean",
               "default": "",
               "description": "",
-              "title": ""
+              "title": "Étendu"
             },
             "medium": {
               "type": "boolean",
               "default": "",
               "description": "",
-              "title": ""
+              "title": "Moyen"
             },
             "small": {
               "type": "boolean",
               "default": "",
               "description": "",
-              "title": ""
+              "title": "Restreint"
             }
           },
           "additionalProperties": false,
-          "title": "",
+          "title": "Ouverture de la légende",
           "default": ""
         }
       },
       "additionalProperties": false,
-      "title": "",
+      "title": "Légende",
       "default": ""
     },
     "tableIsOpen": {
@@ -271,44 +271,44 @@
         "id": {
           "type": "string",
           "description": "",
-          "title": "",
+          "title": "ID",
           "default": ""
         },
         "large": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Étende"
         },
         "medium": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Moyenne"
         },
         "small": {
           "type": "boolean",
           "default": "",
           "description": "",
-          "title": ""
+          "title": "Restreinte"
         }
       },
       "additionalProperties": false,
       "required": [
         "id"
       ],
-      "title": "",
+      "title": "Ouverture de la table",
       "default": ""
     },
     "widgetsWidget": {
       "type": "object",
       "additionalProperties": true,
       "description": "",
-      "title": "",
+      "title": "Widget",
       "default": ""
     }
   },
   "schema": "ui",
-  "title": "",
+  "title": "Interface utilisateur",
   "default": ""
 }
