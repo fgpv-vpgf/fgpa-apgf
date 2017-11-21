@@ -5,6 +5,6 @@
   ],
   "description": "",
   "schema": "version",
-  "title": "",
+  "title": "Version",
   "default": ""
 }

@@ -5,6 +5,6 @@
   ],
   "description": "The schema version used to validate the configuration file.  The schema should enumerate the list of versions accepted by this version of the viewer.",
   "schema": "version",
-  "title": "",
+  "title": "Version",
   "default": ""
 }

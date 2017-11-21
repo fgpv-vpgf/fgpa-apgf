@@ -1,12 +1,12 @@
 {
   "type": "string",
   "enum": [
-    "",
-    "",
-    ""
+    "en",
+    "fr",
+    "es"
   ],
   "description": "",
   "schema": "language",
-  "title": "",
+  "title": "Langue",
   "default": ""
 }

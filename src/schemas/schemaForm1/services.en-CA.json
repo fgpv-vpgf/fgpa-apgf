@@ -5,13 +5,13 @@
     "proxyUrl": {
       "type": "string",
       "description": "An optional proxy to be used for dealing with same-origin issues.  URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.",
-      "title": "",
+      "title": "Proxy URL",
       "default": ""
     },
     "exportMapUrl": {
       "type": "string",
       "description": "An ESRI service endpoint for generating map images.  Should point directly to an endpoint that can be consumed by ESRI PrintTask.",
-      "title": "",
+      "title": "Export map URL",
       "default": ""
     },
     "geometryUrl": {
@@ -44,7 +44,7 @@
       "type": "object",
       "additionalProperties": true,
       "description": "FIXME",
-      "title": "",
+      "title": "Print",
       "default": ""
     },
     "search": {
@@ -92,7 +92,7 @@
             "provinces": {
               "type": "string",
               "description": "Endpoint url for provinces service",
-              "title": "",
+              "title": "Provinces",
               "default": ""
             },
             "types": {
@@ -118,7 +118,7 @@
       "required": [
         "serviceUrls"
       ],
-      "title": "",
+      "title": "Search",
       "default": ""
     },
     "export": {
@@ -149,7 +149,7 @@
             }
           },
           "additionalProperties": false,
-          "title": "",
+          "title": "Title",
           "default": ""
         },
         "map": {
@@ -269,7 +269,7 @@
             }
           },
           "additionalProperties": false,
-          "title": "",
+          "title": "Footnote",
           "default": ""
         },
         "timestamp": {
@@ -296,17 +296,17 @@
             }
           },
           "additionalProperties": false,
-          "title": "",
+          "title": "Timestamp",
           "default": ""
         }
       },
       "additionalProperties": false,
-      "title": "",
+      "title": "Export",
       "default": ""
     }
   },
   "additionalProperties": false,
   "schema": "services",
-  "title": "",
+  "title": "Services",
   "default": ""
 }
