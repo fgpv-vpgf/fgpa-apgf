@@ -67,12 +67,10 @@ function Controller($scope, $translate, events, modelManager, formService, debou
         $scope.form = setForm();
     }
 
-    function validateForm() {
-        // First we broadcast an event so all fields validate themselves then we validate the model to update
-        // summary panel
+    events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
         modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
-    }
+    });
 
     function copyValueToForm(model, item) {
         // change the $scope.form on the fly. May not work with specific index because it will change all of them at the same time
@@ -261,12 +259,7 @@ function Controller($scope, $translate, events, modelManager, formService, debou
                 { 'title': $translate.instant('form.map.legend'), 'items': [
 
                 ] }
-            ] }, {
-                'type': 'actions',
-                'items': [
-                    { 'type': 'button', 'style': 'btn-info', 'title': $translate.instant('button.validate'), 'onClick': validateForm }
-                ]
-            }
+            ] }
         ];
     }
 }

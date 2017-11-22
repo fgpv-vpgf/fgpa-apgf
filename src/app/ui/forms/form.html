@@ -1,8 +1,8 @@
 <div>
     <h3>{{ self.sectionName }}</h3>
     <md-checkbox aria-label="{{ 'form.showadvance' | translate }}" class="md-primary"
-        ng-model="self.advance"
-        ng-change="self.formService.showAdvance(self.modelName)">
+        ng-model="self.formService.advanceModel"
+        ng-change="self.formService.showAdvance()">
         {{ 'form.showadvance' | translate }}
     </md-checkbox>
     <form class="av-main-form av-form-{{ self.modelName }}" name="activeForm" sf-schema="schema" sf-form="form" sf-model="model" av-accordion></form>

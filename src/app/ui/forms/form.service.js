@@ -14,6 +14,7 @@ function formService(events, commonService) {
 
     const service = {
         showAdvance,
+        advanceModel: false,
         toggleSection,
         addToggleArraySection,
         copyValueToForm,
@@ -26,7 +27,8 @@ function formService(events, commonService) {
     /***/
 
     function showAdvance(form) {
-        const elems = document.getElementsByTagName(`av-${form}`)[0].getElementsByClassName('av-form-advance');
+        // manage the show advance configuration (add 'htmlClass': 'av-form-advance hidden' to fields who need advance config)
+        const elems = document.getElementsByClassName('av-form-advance');
 
         for (let elem of elems) {
             elem.classList.toggle('hidden');

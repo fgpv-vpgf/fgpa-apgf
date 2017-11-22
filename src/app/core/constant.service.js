@@ -36,7 +36,8 @@ function events($rootScope) {
         avSwitchLanguage: 'avSwitchLanguage', // Fired when there is a language switch
         avNewModel: 'avNewModel', // Fired when user create a new for
         avLoadModel: 'avLoadModel', // Fired when a user load an existing form
-        avNewItems: 'avNewItems' // Fired when a user add a new item inside an array (e.g. layer of layers)
+        avNewItems: 'avNewItems', // Fired when a user add a new item inside an array (e.g. layer of layers)
+        avValidateForm: 'avValidateForm' // Fired when a user click on validate to validate all forms
     };
 }
 
