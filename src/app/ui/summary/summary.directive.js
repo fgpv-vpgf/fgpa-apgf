@@ -35,13 +35,14 @@ function avSummary() {
     return directive;
 }
 
-function Controller($mdDialog, events, constants, modelManager) {
+function Controller($mdDialog, $rootScope, events, constants, modelManager) {
     'ngInject';
     const self = this;
 
     self.expandTree = expand;
     self.collapseTree = collapse;
     self.openPreview = openPreview;
+    self.validateForm = validateForm;
 
     // set tree directive tag
     self.tabs = constants.schemas.map(item => ({
@@ -74,6 +75,10 @@ function Controller($mdDialog, events, constants, modelManager) {
                 walkTree(tree[obj], key, value);
             }
         }
+    }
+
+    function validateForm() {
+        $rootScope.$broadcast(events.avValidateForm);
     }
 
     /**

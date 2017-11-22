@@ -45,9 +45,6 @@ function Controller($scope, $translate, events, modelManager, formService) {
     const self = this;
     self.modelName = 'service';
     self.sectionName = $translate.instant('app.section.service');
-
-    // manage the show advance configuration (add 'htmlClass': 'av-form-advance hidden' to fields who need advance config)
-    self.advance = false;
     self.formService = formService;
 
     // when schema is loaded or create new config is hit, initialize the schema, form and model
@@ -73,12 +70,10 @@ function Controller($scope, $translate, events, modelManager, formService) {
         $scope.form = setForm();
     }
 
-    function validateForm() {
-        // first we broadcast an event so all fields validate themselves then we validate the model to update
-        // summary panel
+    events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
         modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
-    }
+    });
 
     function setForm() {
         return [
@@ -156,12 +151,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
                         ] }
                     ] }
                 ] }
-            ] },
-            {
-                'type': 'actions',
-                'items': [
-                    { 'type': 'button', 'style': 'btn-info', 'title': $translate.instant('button.validate'), 'onClick': validateForm }
-                ]
-            }]
+            ] }
+        ];
     }
 }
