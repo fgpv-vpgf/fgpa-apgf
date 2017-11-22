@@ -68,23 +68,23 @@
         "showInfo": true
       },
       "mouseInfo": {
-        "enabled": true,
+        "enabled": false,
         "spatialReference": {
           "wkid": 102100
         }
       },
       "northArrow": {
-        "enabled": true
+        "enabled": false
       },
       "basemap": {
-        "enabled": true
+        "enabled": false
       },
       "overviewMap": {
         "enabled": true,
-        "layerType": "imagery"
+        "expandFactor": 10
       },
       "scaleBar": {
-        "enabled": true
+        "enabled": false
       }
     },
     "extentSets": [
@@ -95,7 +95,7 @@
           "xmin": -2681457,
           "ymax": 3482193,
           "ymin": -883440
-        },
+      },
         "spatialReference": {
           "wkid": 3978
         }

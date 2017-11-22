@@ -5,5 +5,5 @@
         ng-change="self.formService.showAdvance(self.modelName)">
         {{ 'form.showadvance' | translate }}
     </md-checkbox>
-    <form class="av-main-form" name="activeForm" sf-schema="schema" sf-form="form" sf-model="model"></form>
+    <form class="av-main-form av-form-{{ self.modelName }}" name="activeForm" sf-schema="schema" sf-form="form" sf-model="model" av-accordion></form>
 </div>

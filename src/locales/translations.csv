@@ -32,7 +32,18 @@ form ui,form.ui.aboutfile,File content,0,Contenue dans un fichier,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par endroits,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
-form show advance,form.showadvance,Show Advance Configurations,0,Afficher la configuration avancée,0
+form map,form.map.extentlods,Extents and Levels of detail,0,Etendues et details,0
+form map,form.map.mapcomp,Map Components,0,Composantes carte,0
+form map,form.map.basemaps,Basemaps,0,Cartes de base,0
+form map,form.map.extentset,Extents,0,Jeu d'etendues,0
+form map,form.map.lodset,Level of Detail Sets,0,Jeu de niveau de detail,0
+form map,form.map.tileschema,Tile Schema,0,Schema des tuiles,0
+form map,form.map.initialid,Initial Basemap ID,0,Initial Basemap ID,0
+form map,form.map.basemap,Basemap,0,Carte de base,0
+form map,form.map.layers,Layers,0,Couches,0
+form map,form.map.layer,Layer,0,Couche,0
+form map,form.map.legend,Legend,0,Légende,0
+form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Canceller,0
 ,button.add,Add,0,Ajouter,0
