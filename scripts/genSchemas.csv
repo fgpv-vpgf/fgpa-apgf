@@ -712,6 +712,9 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,services.proxyUrl.title,Proxy URL,1,URL du proxy,1
 ,services.exportMapUrl.title,Export map URL,1,URL de la carte à exporter,1
 ,services.geometryUrl.title,,0,,0
+,ui.about.content.title,,0,,0
+,ui.about.folderName.title,,0,,0
+,ui.aboutChoice.title,,0,,0
 ,services.googleAPIKey.title,,0,,0
 ,services.geolocation.title,,0,,0
 ,services.coordInfo.title,,0,,0
@@ -778,6 +781,14 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,map.layers.title,Layers,1,Couches,1
 ,map.legend.title,Legend,1,Légende,1
 ,version.description,The schema version used to validate the configuration file.  The schema should enumerate the list of versions accepted by this version of the viewer.,1,,0
+,map.legend.type.title,,0,,0
+,map.legend.root.title,,0,,0
+,map.legend.root.name.title,,0,,0
+,map.legend.root.expanded.title,,0,,0
+,map.legend.root.children.title,,0,,0
+,map.legend.root.controls.title,,0,,0
+,map.legend.root.disabledControls.title,,0,,0
+,map.legendChoice.title,,0,,0
 ,language.description,ISO 639-1 code indicating the language of strings in the schema file,1,,0
 ,ui.description,A set of service endpoints used by the viewer,1,,0
 ,ui.fullscreen.description,Indicates viewer takes up entire viewport,1,,0
@@ -803,6 +814,7 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,ui.tableIsOpen.medium.description,Whether the table panel is opened by default on initial loading of the map for medium viewports,1,,0
 ,ui.tableIsOpen.small.description,Whether the table panel is opened by default on initial loading of the map for small viewports,1,,0
 ,ui.widgetsWidget.description,FIXME,1,,0
+,ui.aboutChoice.description,,1,,0
 ,services.description,A set of service endpoints used by the viewer,1,,0
 ,services.proxyUrl.description,An optional proxy to be used for dealing with same-origin issues.  URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.,1,,0
 ,services.exportMapUrl.description,An ESRI service endpoint for generating map images.  Should point directly to an endpoint that can be consumed by ESRI PrintTask.,1,,0
@@ -834,6 +846,7 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,map.baseMaps.description,A list of basemaps to be made available via the basemap selector.,1,,0
 ,map.layers.description,Layer list in the order which they should be added to the map.  NOTE: ESRI JSAPI v3 cannot draw imagery layers over feature layers.,1,,0
 ,map.legend.description,A structured or automatically generated legend,1,,0
+,map.legendChoice.description,,1,,0
 ,version.default,,0,,0
 ,language.default,,0,,0
 ,ui.default,,0,,0
@@ -847,6 +860,8 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,ui.appBar.default.layers,true,1,,0
 ,ui.restrictNavigation.default,false,1,,0
 ,ui.about.default,,0,,0
+,ui.about.content.default,,0,,0
+,ui.about.folderName.default,,0,,0
 ,ui.help.default,,0,,0
 ,ui.help.folderName.default,,0,,0
 ,ui.legend.default,,0,,0
@@ -862,6 +877,7 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,ui.tableIsOpen.medium.default,false,1,,0
 ,ui.tableIsOpen.small.default,false,1,,0
 ,ui.widgetsWidget.default,,0,,0
+,ui.aboutChoice.default,content,1,,0
 ,services.default,,0,,0
 ,services.proxyUrl.default,,0,,0
 ,services.exportMapUrl.default,,0,,0
@@ -886,6 +902,7 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,map.initialBasemapId.default,,0,,0
 ,map.baseMaps.default,,0,,0
 ,map.legend.default,,0,,0
+,map.legendChoice.default,type,1,,0
 ,version.enum.2.0,2.0,1,,0
 ,language.enum.en,en,1,en,1
 ,language.enum.fr,fr,1,fr,1
@@ -894,3 +911,8 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,services.search.disabledSearches.items.enum.NTS,NTS,1,SNRC,1
 ,services.search.disabledSearches.items.enum.FSA,FSA,1,RTA,1
 ,services.search.disabledSearches.items.enum.LAT/LNG,LAT/LNG,1,LAT/LNG,1
+,ui.aboutChoice.enum.content,content,1,,0
+,ui.aboutChoice.enum.folderName,folderName,1,,0
+,map.legendChoice.enum.type,type,1,,0
+,map.legendChoice.enum.type,type,1,,0
+,map.legendChoice.enum.root,root,1,,0

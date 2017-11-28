@@ -170,32 +170,23 @@
     },
     "about": {
       "description": "",
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "content": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "content"
-          ],
-          "additionalProperties": false
+      "type": "object",
+      "subtype": "oneof",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "required": true,
+          "type": "string",
+          "title": "",
+          "default": ""
         },
-        {
-          "type": "object",
-          "properties": {
-            "folderName": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "folderName"
-          ],
-          "additionalProperties": false
+        "folderName": {
+          "required": true,
+          "type": "string",
+          "title": "",
+          "default": ""
         }
-      ],
+      },
       "title": "À propos",
       "default": ""
     },
@@ -306,6 +297,17 @@
       "description": "",
       "title": "Widget",
       "default": ""
+    },
+    "aboutChoice": {
+      "description": "",
+      "type": "enum",
+      "enum": [
+        "",
+        ""
+      ],
+      "title": "",
+      "default": "",
+      "required": true
     }
   },
   "schema": "ui",
