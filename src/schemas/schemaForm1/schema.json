@@ -632,7 +632,7 @@
 
         "layerList": {
             "type": "array",
-            "items": { "oneOf": [ { "$ref": "#/definitions/layerNode" } ] },
+            "items": { "$ref": "#/definitions/layerNode" },
             "minItems": 0
         },
 
