@@ -60,7 +60,6 @@
     }
   },
   "map": {
-    "initialBasemapId": "baseNrCan",
     "components": {
       "geoSearch": {
         "enabled": true,
@@ -349,6 +348,7 @@
         "lodSetId": "LOD_ESRI_World_AuxMerc_3857"
       }
     ],
+    "initialBasemapId": "baseNrCan",
     "baseMaps": [
       {
         "id": "baseNrCan",

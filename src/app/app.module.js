@@ -11,6 +11,7 @@ angular
         'app.core',
         'app.addon.sampleSchema',
         'app.addon.sampleForm',
+        'app.addon.dynamicSelect',
         'app.ui',
         'app.layout'
     ])
