@@ -43,6 +43,9 @@ form map,form.map.basemap,Basemap,0,Carte de base,0
 form map,form.map.layers,Layers,0,Couches,0
 form map,form.map.layer,Layer,0,Couche,0
 form map,form.map.legend,Legend,0,Légende,0
+form map layer controls,form.map.layerconstrols,Layer Controls,0,Controle de la couche,0
+form map,form.map.legendauto,Autopopulate,0,Automatique,0
+form map,form.map.legendstruct,Structured,0,Structure,0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Canceller,0

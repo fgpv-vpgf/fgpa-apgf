@@ -87,17 +87,17 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
     function setCollapsibleHeader() {
         // set collapsible element from model value when first load
         const itemBasemap = { 'link': 'av-baseMaps.legend.0', 'model': 'baseMaps.name' };
-        const itemLayer = { 'link': 'av-layers.legend.0', 'model': 'layers.layer.name' };
+        const itemLayer = { 'link': 'av-layers.legend.0', 'model': 'layers.name' };
         $timeout(() => {
             for (let base of $scope.model.baseMaps) {
                 self.formService.copyValueToFormIndex($scope.model, itemBasemap, base.name);
             }
             if (typeof $scope.model.layers !== 'undefined') {
                 for (let layer of $scope.model.layers) {
-                    self.formService.copyValueToFormIndex($scope.model, itemLayer, layer.layer.name);
+                    self.formService.copyValueToFormIndex($scope.model, itemLayer, layer.name);
                 }
             }
-        }, 2000);
+        }, 3000);
     }
 
     function copyValueToForm(model, item) {
@@ -289,25 +289,54 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                 { 'title': $translate.instant('form.map.layers'), 'items': [
                     { 'key': 'layers', 'startEmpty': true, 'onChange': self.formService.addToggleArraySection, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
-                            { 'key': 'layers[].layer', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
-                                { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layer.layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },
-                                { 'key': 'layers[].layer.id' },
-                                { 'key': 'layers[].layer.name', 'link': 'av-layers.legend.0', 'model': 'layers.layer.name', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(copyValueToFormIndex, constants.debInput, false) },
-                                { 'key': 'layers[].layer.url' },
-                                { 'key': 'layers[].layer.metadataUrl' },
-                                { 'key': 'layers[].layer.catalogUrl' },
-                                { 'key': 'layers[].layer.layerType', 'readonly': true },
-                                { 'key': 'layers[].layer.toggleSymbology', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].layer.tolerance', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].layer.singleEntryCollapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\''  },
-                                { 'key': 'layers[].layer.featureInfoMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
-                                { 'key': 'layers[].layer.legendMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  }
-                            ]}
+                            { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
+                                { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },
+                                { 'key': 'layers[].id' },
+                                { 'key': 'layers[].name', 'link': 'av-layers.legend.0', 'model': 'layers.name', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(copyValueToFormIndex, constants.debInput, false) },
+                                { 'key': 'layers[].url' },
+                                { 'key': 'layers[].metadataUrl' },
+                                { 'key': 'layers[].catalogUrl' },
+                                { 'key': 'layers[].layerType', 'readonly': true },
+                                { 'key': 'layers[].toggleSymbology', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
+                                { 'key': 'layers[].tolerance', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
+                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'items': [
+                                    // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
+                                    { 'key': 'layers[].layerEntries[].index' },
+                                    { 'key': 'layers[].layerEntries[].name' },
+                                    { 'key': 'layers[].layerEntries[].outfields' },
+                                    { 'key': 'layers[].layerEntries[].stateOnly' }
+                                ] },
+                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'items': [
+                                    // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
+                                    { 'key': 'layers[].layerEntries[].id' },
+                                    { 'key': 'layers[].layerEntries[].name' },
+                                    { 'key': 'layers[].layerEntries[].allStyles' },
+                                    { 'key': 'layers[].layerEntries[].currentStyle' }
+                                ] },
+                                { 'key': 'layers[].singleEntryCollapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\''  },
+                                { 'key': 'layers[].featureInfoMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
+                                { 'key': 'layers[].legendMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
+                                { 'type': 'fieldset', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
+                                    { 'key': 'layers[].controls' },
+                                    { 'key': 'layers[].disabledControls' }
+                                ] },
+                                { 'key': 'layers[].state' }
+                            ] }
                         ] }
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.legend'), 'items': [
-
+                    { 'key': 'legend', 'items': [
+                        {   'key': 'legend.legendChoice',
+                            'type': 'select',
+                            'titleMap': [
+                                { 'value': "autopopulate", 'name': $translate.instant('form.map.legendauto') },
+                                { 'value': "structured", 'name': $translate.instant('form.map.legendstruct') }
+                            ],
+                            'copyValueTo': ['legend.type']
+                        },
+                        {   'key': 'legend.type', 'readonly': true }
+                    ]}
                 ] }
             ] }
         ];
