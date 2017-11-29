@@ -19,7 +19,8 @@ function formService(events, commonService) {
         addToggleArraySection,
         copyValueToForm,
         copyValueToFormIndex,
-        copyValueToModelIndex
+        copyValueToModelIndex,
+        updateLinkValues
     };
 
     return service;
@@ -178,5 +179,64 @@ function formService(events, commonService) {
 
         // set value
         model[lastKey] = value;
+    }
+
+    /**
+    * Update scope element use inside a dynamic-select drop dowm. The value is use to link field together
+    * e.g. in TitleSchema, we have extentSetId who is the value of one extent set id. This function Will
+    * populate the scope element with all extent set id so user don't have to type them in
+    *
+    * Need an item to have the selection dropdown:
+    * { 'key': 'tileSchemas[].extentSetId', 'type': 'dynamic-select', 'optionData': 'extentId', 'model': 'extentSetId' }
+    * 'type' must be type-select, it will trigger the add on.
+    * 'optionData' is the variable name to create on scope object
+    * 'model' must be the last key in the path for this element (it is use inside dynamicSelect.module for ngModel)
+    *
+    * Need items with an values to updateModel
+    * { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); } },
+    * 'onChange' function to use the self.formService.updateLinkValues where
+    * scope is the form scope
+    * Array of keys made from key element
+    * The same variable name created for the first element
+    *
+    * Known issue: onChange is not fired on the last item delete inside an array. Will need to find a workaround if need be
+    * @function updateLinkValues
+    * @param  {Object} scope  form scope
+    * @param  {Array} keys the path to the key to get value from
+    * @param  {String} link the value to update (need to be the same on optionData as the the field who receive the link)
+    */
+    function updateLinkValues(scope, keys, link) {
+        scope[link] = findValues(scope.model, keys, 0, []);
+    }
+
+    /**
+    * Find values from the model element
+    * @function findValues
+    * @private
+    * @param  {Object} model  model to find from
+    * @param  {Array} keys the path to key
+    * @param  {Integer} index index in the array
+    * @param  {Array} returnValues array of values
+    * @return {Array} returnValues array of values
+    */
+    function findValues(model, keys, index, returnValues) {
+        // get the key to check for
+        const key = keys.shift();
+
+        // deal differently if it is an array or not
+        if (commonService.isArray(model[key])) {
+            for (let i = 0; i < model[key].length; i++) {
+                // loop the array. Make a copy of keys so we don't empty it on first element
+                findValues(model[key][i], keys.slice(0), i, returnValues);
+            }
+        } else {
+            // if there is key in the array of keys, walk a level deeper
+            let item = keys.length > 0 ? findValues(model[key], keys, index, returnValues) : model[key];
+
+            // if the item equal the value to search, add the index to the return value
+            returnValues.push(item);
+        }
+
+        return returnValues;
     }
 }

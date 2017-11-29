@@ -11,6 +11,9 @@ import './forms/ui/ui.directive.js';
 import './forms/test/test.directive.js'; // use for test forms
 import './forms/bindValues.directive.js' // use to test schema form add on
 
+// schema form addon directives
+import './forms/dynamicSelect.directive.js';
+
 // application header
 import './header/header.directive.js';
 
