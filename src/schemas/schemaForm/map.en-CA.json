@@ -518,136 +518,207 @@
                         "default": "esriDynamic",
                         "required": true
                     },
-                    "layer": {
-                        "description": "",
-                        "title": "",
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service)"
-                            },
-                            "name": {
-                                "type": "string",
-                                "description": "The display name of the layer. If it is not present the viewer will make an attempt to scrape this information."
-                            },
-                            "url": {
-                                "type": "string",
-                                "description": "The service endpoint of the layer. It should match the type provided in layerType."
-                            },
-                            "metadataUrl": {
-                                "type": "string",
-                                "description": "The metadata url of the layer service"
-                            },
-                            "catalogueUrl": {
-                                "type": "string",
-                                "description": "The catalogue url of the layer service"
-                            },
-                            "layerType": {
-                                "type": "string",
-                                "default": "esriDynamic"
-                            },
-                            "toggleSymbology": {
-                                "type": "boolean",
-                                "default": true,
-                                "description": "Allows individual symbols to have visibility toggled on/off."
-                            },
-                            "tolerance": {
-                                "type": "number",
-                                "default": 5,
-                                "description": "Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer"
-                            },
-                            "singleEntryCollapse": {
-                                "type": "boolean",
-                                "default": false,
-                                "description": "Indicates that the dynamic layer with a single layer entry should be rendered without the root group."
-                            },
-                            "featureInfoMimeType": {
-                                "type": "string",
-                                "enum": [ "text/html;fgpv=summary", "text/html", "text/plain", "application/json" ],
-                                "description": "If specified indicates that GetFeatureInfo should be enabled for this WMS and indicates the format that should be requested."
-                            },
-                            "legendMimeType": {
-                                "type": "string",
-                                "enum": [ "image/png", "image/gif", "image/jpeg", "image/svg", "image/svg+xml" ],
-                                "description": "If specified indicates that GetLegendGraphic should be enabled for this WMS and indicates the format that should be requested.  FIXME check legendUrl for additional requirements"
-                            },
-                            "additionalProperties": false
-                        }
+                    "id": {
+                        "type": "string",
+                        "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service)"
                     },
-                    "layer_dynamic": {
-                        "description": "",
-                        "title": "",
-                        "type": "object",
-                        "subtype": "oneof",
-                        "properties": {
-
-
-                            "layerEntries": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "index": {
-                                            "type": "number",
-                                            "description": "The index of the layer in the map service."
-                                        },
-                                        "name": {
-                                            "type": "string",
-                                            "description": "A descriptive name for the layer, can override the name coming from the service."
-                                        },
-                                        "outfields": {
-                                            "type": "string",
-                                            "default": "*",
-                                            "description": "A comma separated list of attribute names that should be requested on query."
-                                        },
-                                        "stateOnly": {
-                                            "type": "boolean",
-                                            "default": false,
-                                            "description": "A flag indicating this entry is only for state tracking (i.e. it should not be displayed on the UI and all of the controls will be ignored, but the layer itself will be displayed on the map with the given state settings)."
-                                        }
-                                    },
-                                     "minItems": 1
+                    "name": {
+                        "type": "string",
+                        "description": "The display name of the layer. If it is not present the viewer will make an attempt to scrape this information."
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The service endpoint of the layer. It should match the type provided in layerType."
+                    },
+                    "metadataUrl": {
+                        "type": "string",
+                        "description": "The metadata url of the layer service"
+                    },
+                    "catalogueUrl": {
+                        "type": "string",
+                        "description": "The catalogue url of the layer service"
+                    },
+                    "layerType": {
+                        "type": "string",
+                        "default": "esriDynamic"
+                    },
+                    "toggleSymbology": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Allows individual symbols to have visibility toggled on/off."
+                    },
+                    "tolerance": {
+                        "type": "number",
+                        "default": 5,
+                        "description": "Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer"
+                    },
+                    "singleEntryCollapse": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Indicates that the dynamic layer with a single layer entry should be rendered without the root group."
+                    },
+                    "featureInfoMimeType": {
+                        "type": "string",
+                        "enum": [ "text/html;fgpv=summary", "text/html", "text/plain", "application/json" ],
+                        "description": "If specified indicates that GetFeatureInfo should be enabled for this WMS and indicates the format that should be requested."
+                    },
+                    "legendMimeType": {
+                        "type": "string",
+                        "enum": [ "image/png", "image/gif", "image/jpeg", "image/svg", "image/svg+xml" ],
+                        "description": "If specified indicates that GetLegendGraphic should be enabled for this WMS and indicates the format that should be requested.  FIXME check legendUrl for additional requirements"
+                    },
+                    "controls": {
+                      "title": "",
+                      "default": "",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "opacity",
+                          "visibility",
+                          "boundingBox",
+                          "query",
+                          "snapshot",
+                          "metadata",
+                          "boundaryZoom",
+                          "refresh",
+                          "reload",
+                          "remove",
+                          "settings",
+                          "data",
+                          "styles"
+                        ]
+                      },
+                      "uniqueItems": true,
+                      "description": "A list of all controls to be enabled on the specified layer"
+                    },
+                    "disabledControls": {
+                      "description": "A list of controls which are visible, but disabled for user modification",
+                      "title": "",
+                      "default": "",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "opacity",
+                          "visibility",
+                          "boundingBox",
+                          "query",
+                          "snapshot",
+                          "metadata",
+                          "boundaryZoom",
+                          "refresh",
+                          "reload",
+                          "remove",
+                          "settings",
+                          "data",
+                          "styles"
+                        ]
+                      },
+                      "uniqueItems": true
+                    },
+                    "state": {
+                      "title": "",
+                      "type": "object",
+                      "properties": {
+                        "opacity": {
+                          "type": "number",
+                          "default": 1,
+                          "description": "Initial opacity",
+                          "title": ""
+                        },
+                        "visibility": {
+                          "type": "boolean",
+                          "default": true,
+                          "description": "Initial visibility setting",
+                          "title": ""
+                        },
+                        "boundingBox": {
+                          "type": "boolean",
+                          "default": false,
+                          "description": "Display bounding box",
+                          "title": ""
+                        },
+                        "query": {
+                          "type": "boolean",
+                          "default": true,
+                          "description": "Allow querying",
+                          "title": ""
+                        },
+                        "snapshot": {
+                          "type": "boolean",
+                          "default": false,
+                          "description": "Retrieve all feature data immediately on load",
+                          "title": ""
+                        },
+                        "hovertips": {
+                          "type": "boolean",
+                          "default": true,
+                          "description": "Disable hover tips",
+                          "title": ""
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "layerEntries": {
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": "number",
+                                    "description": "The index of the layer in the map service."
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "A descriptive name for the layer, can override the name coming from the service."
+                                },
+                                "outfields": {
+                                    "type": "string",
+                                    "default": "*",
+                                    "description": "A comma separated list of attribute names that should be requested on query."
+                                },
+                                "stateOnly": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "description": "A flag indicating this entry is only for state tracking (i.e. it should not be displayed on the UI and all of the controls will be ignored, but the layer itself will be displayed on the map with the given state settings)."
+                                },
+                                "id": {
+                                    "type": "string",
+                                    "description": "The id of the layer entry in the WMS"
+                                },
+                                "allStyles": {
+                                    "type": "array",
+                                    "description": "All the styles for the layer entry in the WMS",
+                                    "items": { "type": "string" }
+                                },
+                                "currentStyle": {
+                                    "type": "string",
+                                    "description": "The current style for the layer entry in the WMS"
                                 }
                             },
-                            "additionalProperties": false
-                        }
-                    },
-                    "layer_wms": {
-                        "description": "",
-                        "title": "",
-                        "type": "object",
-                        "subtype": "oneof",
-                        "properties": {
-                            "layerEntries": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "description": "The id of the layer entry in the WMS"
-                                        },
-                                        "name": {
-                                            "type": "string",
-                                            "description": "A descriptive name for the layer.  To be used in the legend."
-                                        },
-                                        "allStyles": {
-                                            "type": "array",
-                                            "description": "All the styles for the layer entry in the WMS",
-                                            "items": { "type": "string" }
-                                        },
-                                        "currentStyle": {
-                                            "type": "string",
-                                            "description": "The current style for the layer entry in the WMS"
-                                        }
-                                    },
-                                     "minItems": 1
-                                    }
-                            },
-                            "additionalProperties": false
+                             "minItems": 1
                         }
                     }
+                }
+            }
+        },
+        "legend": {
+            "type": "object",
+            "properties": {
+                "legendChoice": {
+                    "description": "",
+                    "type": "string",
+                    "enum": ["autopopulate", "structured"],
+                    "title": "Legend type selector",
+                    "default": "autopopulate",
+                    "required": true
+                },
+                "type": {
+                    "type": "string",
+                    "title": "",
+                    "default": "autopopulate"
                 }
             }
         }

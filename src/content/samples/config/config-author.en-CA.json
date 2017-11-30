@@ -393,6 +393,7 @@
       ],
       "layers": [
       {
+        "layerChoice": "esriDynamic",
         "id": "somepowerplants",
         "name": "Power Plants with visibility disabled initially",
         "layerType": "esriDynamic",
@@ -411,7 +412,19 @@
           "opacity"
         ],
         "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer"
-      }
+    },
+    {
+      "layerChoice": "esriFeature",
+      "id": "somepowerplants1",
+      "name": "Feat",
+      "layerType": "esriFeature",
+      "layerEntries": [
+      ],
+      "disabledControls": [
+        "opacity"
+      ],
+      "url": "http://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer"
+    }
     ]
     },
     "service": {
