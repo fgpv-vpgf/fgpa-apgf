@@ -1,25 +1,25 @@
 const templateUrl = require('../form.html');
 
 /**
- * @module avService
+ * @module avServices
  * @memberof app.ui
  * @restrict E
  * @description
  *
- * The `avService` directive for the service form
+ * The `avServices` directive for the services form
  *
  */
 angular
     .module('app.ui')
-    .directive('avService', avService);
+    .directive('avServices', avServices);
 
 /**
- * `avService` directive body.
+ * `avServices` directive body.
  *
- * @function avService
+ * @function avServices
  * @return {object} directive body
  */
-function avService($timeout, formService) {
+function avServices($timeout, formService) {
     const directive = {
         restrict: 'E',
         templateUrl,
@@ -43,8 +43,8 @@ function avService($timeout, formService) {
 function Controller($scope, $translate, events, modelManager, formService) {
     'ngInject';
     const self = this;
-    self.modelName = 'service';
-    self.sectionName = $translate.instant('app.section.service');
+    self.modelName = 'services';
+    self.sectionName = $translate.instant('app.section.services');
     self.formService = formService;
 
     // when schema is loaded or create new config is hit, initialize the schema, form and model
@@ -55,7 +55,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
 
     // when user change language, reset schema and form
     events.$on(events.avSwitchLanguage, () => {
-        self.sectionName = $translate.instant('app.section.service');
+        self.sectionName = $translate.instant('app.section.services');
         $scope.schema = modelManager.getSchema(self.modelName);
 
         $scope.form = angular.copy($scope.form);
@@ -79,11 +79,11 @@ function Controller($scope, $translate, events, modelManager, formService) {
         return [
             { 'type': 'tabs', 'tabs': [
                 { 'title': $translate.instant('form.service.urls'), 'items': [
-                    { 'key': 'proxyUrl', 'readonly': true },
-                    { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden' },
-                    { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden' },
-                    { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden' },
-                    { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden' },
+                    { 'key': 'proxyUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'coordInfo' },
                     { 'key': 'print' }
                 ]},

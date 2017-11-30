@@ -1,6 +1,6 @@
 {
-    "schema": "service",
-    "title": "Service",
+    "schema": "services",
+    "title": "Services",
     "description": "Point sortie service",
     "type": "object",
     "properties": {

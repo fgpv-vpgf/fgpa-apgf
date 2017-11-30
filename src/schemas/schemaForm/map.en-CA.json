@@ -569,7 +569,7 @@
                     },
                     "controls": {
                       "title": "",
-                      "default": "",
+                      "default": [],
                       "type": "array",
                       "items": {
                         "type": "string",
@@ -595,7 +595,7 @@
                     "disabledControls": {
                       "description": "A list of controls which are visible, but disabled for user modification",
                       "title": "",
-                      "default": "",
+                      "default": [],
                       "type": "array",
                       "items": {
                         "type": "string",
