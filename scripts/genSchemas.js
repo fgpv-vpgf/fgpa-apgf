@@ -28,6 +28,8 @@ let csvString = 'TITLE,LABEL,ENG_DESC,ENG_TRA,FR_DESC,FR_TRA\n';
  * by the fgpa authoring tool.
  * Provides six functions:
  *  - replaceCircularRef: manage circular references ($ref).
+ *  - findKey: find key in object
+ *  - replaceOneOf: replace oneOf statement by custom object.
  *  - addLabels: add all labels.
  *  - addSchemaLabel: add schema attribute to main properties.
  *  - addCustomLabel: add custom attribute to properties.
@@ -71,7 +73,21 @@ const LabelMyDef = () => {
             const parser = new $RefParser();
             parser.dereference(viewerSchema)
                 .then(vSchema => {
-                    saveSchema(viewerSchema, `${schemasDir}schemaAuthorBefProp.json`);
+                    saveSchema(vSchema, `${schemasDir}schemaAuthorBefProp.json`);
+
+                    // Promise
+                    const replaceOneOfProp = new $Promise(
+                        (resolve, reject) => {
+                            if (findKey(vSchema, 'schema', 'properties', 'oneOf', replaceOneOf)) {
+                                resolve(vSchema);
+                            } else {
+                                const reason = new Error('Replacing oneOf properties went wrong');
+                                reject(reason);
+                            }
+
+                        }
+                    );
+
                     // Promise
                     const labellingSchemaProp = new $Promise(
                         (resolve, reject) => {
@@ -99,13 +115,16 @@ const LabelMyDef = () => {
                     );
 
                     const splitMe = () => {
-                        labellingSchemaProp
+                        replaceOneOfProp
                             .then(
-                                updateMyCSV
-                                .then(() => {
-                                    saveCSV(csvString, `${csvDir}genSchemas.csv`, vSchema);
-                                    saveSchema(vSchema, `${schemasDir}schemaAuthor.json`);
-                                })
+                                labellingSchemaProp
+                                    .then(
+                                        updateMyCSV
+                                            .then(() => {
+                                                saveCSV(csvString, `${csvDir}genSchemas.csv`, vSchema);
+                                                saveSchema(vSchema, `${schemasDir}schemaAuthor.json`);
+                                            })
+                                    )
                             )
                             .catch(error => console.log(error.message));
                     };
@@ -147,6 +166,80 @@ function replaceCircularRef(schema) {
     enumArray2.shift();
     enumArray2.unshift({ "$ref": "#/definitions/circular" });
     $DotProp.set(schema, target2, enumArray2);
+}
+
+/**
+ * Find key in object.
+ * @function findKey
+ * @private
+ * @param {Object} schema parent schema
+ * @param {String} parKey parent key in hierarchy
+ * @param {String} currKey current key in the hierarchy
+ * @param {String} key2Fnd key to find
+ * @param {Function} fct function to be called
+ * @return {Boolean} always return true
+ */
+function findKey(schema, parKey, currKey, key2Fnd, fct) {
+
+    let found = schema[currKey].hasOwnProperty(key2Fnd);
+
+    if (found) {
+        fct(schema, parKey, currKey);
+    } else {
+        const propNames = Object.getOwnPropertyNames(schema[currKey]);
+        propNames.forEach(prop => {
+            // Object type Object
+            if (prop !== key2Fnd && whatsThat(schema[currKey][prop]) === 'OBJECT') {
+                findKey(schema[currKey], currKey, prop, key2Fnd, fct)
+            }
+        });
+    }
+    return true;
+}
+
+/**
+ * Replace key statement by custom object.
+ * This function exist because ASF doesn't deal well with oneOf statement.
+ * @function replaceOneOf
+ * @private
+ * @param {Object} schema parent schema
+ * @param {String} parKey parent key in hierarchy
+ * @param {String} currKey current key in the hierarchy
+ */
+function replaceOneOf(schema, parKey, currKey) {
+
+    const keyName = `${currKey}Choice`;
+    const oneOf = schema[currKey].oneOf;
+
+    schema[currKey]['type'] = 'object';
+    schema[currKey]['subtype'] = 'oneof';
+    schema[currKey]['additionalProperties'] = false;
+    schema[currKey]['properties'] = {};
+
+    schema[keyName] = {
+        'description': '',
+        'type': 'enum',
+        'enum': [],
+        'title': '',
+        'default': '',
+        'required': true
+    };
+
+    // Assign new properties
+    oneOf.forEach(obj => {
+        const properties = Object.getOwnPropertyNames(obj.properties);
+        properties.forEach(prop => {
+            schema[keyName].enum.push(prop);
+
+            schema[currKey]['properties'][prop] = { 'required': true };
+            Object.assign(schema[currKey]['properties'][prop], obj['properties'][prop]);
+        });
+    });
+
+    schema[keyName].default = schema[keyName].enum[0];
+
+    // delete oneOf property
+    delete schema[currKey].oneOf;
 }
 
 /**
@@ -193,19 +286,19 @@ function addSchemaLabel(schema) {
  */
 function addCustomLabel(schema, attName, parent = '', customPrefix = '') {
     
-        const propNames = Object.getOwnPropertyNames(schema);
-        let prefix = `${customPrefix}${parent}`;
+    const propNames = Object.getOwnPropertyNames(schema);
+    let prefix = `${customPrefix}${parent}`;
     
-        propNames.forEach(prop => {
-            const label = `${prefix}${prop}.${attName}`;
-            $DotProp.set(schema, `${prop}.${attName}`, label);
-            csvString = `${csvString},${label},"",0,"",0\n`;
-            // go deeper ???
-            if ($DotProp.has(schema, `${prop}.properties`)) {
-                addCustomLabel($DotProp.get(schema, `${prop}.properties`), attName, `${prefix}${prop}.`);
-            }
-        });
-    }
+    propNames.forEach(prop => {
+        const label = `${prefix}${prop}.${attName}`;
+        $DotProp.set(schema, `${prop}.${attName}`, label);
+        csvString = `${csvString},${label},"",0,"",0\n`;
+        // go deeper ???
+        if ($DotProp.has(schema, `${prop}.properties`)) {
+            addCustomLabel($DotProp.get(schema, `${prop}.properties`), attName, `${prefix}${prop}.`);
+        }
+    });
+}
 
 /**
  * Add to all properties an attribute named `default`, if it doesn't already exist,
@@ -453,8 +546,8 @@ function saveCSV(csv, filename, schema) {
     $FS.writeFile(filename, csv, err => {
         if (err) {
             throw err;
-            console.log(`${filename} has been saved!`);
         } else {
+            console.log(`${filename} has been saved!`);
             saveParseConfigSchema(schema, filename);
         }
     });
@@ -478,20 +571,42 @@ function updateCSV(filename) {
     const newData = $PapaParse.parse(csvString, configPasrse);
     const currentData = $PapaParse.parse(currentCSV, configPasrse);
 
+    // For whatever reason there's an empty record at the end.
+    // So pop it please
+    newData.data.pop();
+
+
     let newTbl = new $daff.TableView(newData.data);
     let currentTbl = new $daff.TableView(currentData.data);
     
     let alignment = $daff.compareTables(newTbl,currentTbl).align();
 
     let data_diff = [];
-    const table_diff = new $daff.TableView(data_diff);
-    const flags = new $daff.CompareFlags();
+    let table_diff = new $daff.TableView(data_diff);
 
+    const flags = new $daff.CompareFlags();
+    
     // HEADER: TITLE,LABEL,ENG_DESC,ENG_TRA,FR_DESC,FR_TRA
     flags.addPrimaryKey('LABEL');
 
     let highlighter = new $daff.TableDiff(alignment,flags);
     highlighter.hilite(table_diff);
+
+    // skip '---' tag 
+    // (the delete tag marks a removed row (present in L, not present in R))
+    let tableDiffFilt = [];
+
+    for (let i = 0; i < table_diff.data.length; i++) {
+        if (table_diff.data[i][0] !== '---' &&
+            table_diff.data[i][0] !== '+++') {
+            tableDiffFilt.push(table_diff.data[i]);
+        }
+    }
+
+    table_diff.data = [];
+    table_diff.data = tableDiffFilt;
+    table_diff.height = table_diff.data.length;
+
 
     let patcher = new $daff.HighlightPatch(newTbl,table_diff);
     patcher.apply();
@@ -515,7 +630,7 @@ function saveSchema(schema, filename) {
 
     $FS.writeFile(filename, schemaString, err => {
         if (err) throw err;
-            console.log(`${filename} has been saved!`);
+        console.log(`${filename} has been saved!`);
     });
 }
 
@@ -548,7 +663,7 @@ function saveParseConfigSchema(schema, csvFilename) {
 
         $FS.writeFile(`${schemasDir}header.${lang[i]}.json`, headerWr, err => {
             if (err) throw err;
-                console.log(`${schemasDir}header.${lang[i]}.json has been saved!`);
+            console.log(`${schemasDir}header.${lang[i]}.json has been saved!`);
         });
     }
 
@@ -564,7 +679,7 @@ function saveParseConfigSchema(schema, csvFilename) {
 
             $FS.writeFile(`${schemasDir}${prop}.${lang[i]}.json`, blobWr, err => {
                 if (err) throw err;
-                    console.log(`${schemasDir}${prop}.${lang[i]}.json has been saved!`);
+                console.log(`${schemasDir}${prop}.${lang[i]}.json has been saved!`);
             });
         }
     });
@@ -584,7 +699,7 @@ function saveParseConfigSchema(schema, csvFilename) {
 
         $FS.writeFile(`${schemasDir}circular.${lang[i]}.json`, defRefWr, err => {
             if (err) throw err;
-                console.log(`${schemasDir}circular.${lang[i]}.json has been saved!`);
+            console.log(`${schemasDir}circular.${lang[i]}.json has been saved!`);
         });
     }
 }
