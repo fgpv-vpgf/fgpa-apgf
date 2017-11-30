@@ -126,7 +126,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
         return [
             { 'type': 'tabs', 'tabs': [
                 { 'title': $translate.instant('form.map.extentlods'), 'items': [
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.tileschema'), 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
                         { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'tileSchemas[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), constants.debInput, false); } },
                             { 'key': 'tileSchemas[].name' },
@@ -143,7 +143,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                             }
                         ] }
                     ] },
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.extentset'), 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.extentset'), 'items': [
                         { 'key': 'extentSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); }  },
                             { 'type': 'section', 'htmlClass': 'row', 'items': [
@@ -213,7 +213,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                             ] }
                         ] }
                     ] },
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.lodset'), 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.lodset'), 'items': [
                         { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'); },'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), constants.debInput, false); } },
                             { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
