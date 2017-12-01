@@ -138,16 +138,8 @@ function Controller($q, $mdDialog, events, modelManager, commonService) {
          * @function save
          */
         function save() {
-            let models = {};
-
-            // loop schemas to get model values
-            constants.schemas.forEach(schema => {
-                const name = schema.split('.')[0];
-                models[name] = modelManager.getModel(name, false);
-            });
-
             // save the file
-            const file = new File([JSON.stringify(models)], `${self.fileName}.json`, { type: 'text/plain' });
+            const file = new File([modelManager.save()], `${self.fileName}.json`, { type: 'text/plain' });
             FileSaver.saveAs(file);
             self.close();
         }

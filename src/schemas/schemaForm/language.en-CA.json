@@ -1,0 +1,16 @@
+{
+    "schema": "language",
+    "title": "Language",
+    "type": "object",
+    "properties": {
+        "language": {
+            "type": "string",
+            "enum": [
+                "en-CA",
+                "fr-CA"
+            ],
+            "description": "ISO 639-1 code indicating the language of strings in the schema file",
+            "default": "en-CA"
+        }
+    }
+}

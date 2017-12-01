@@ -2,16 +2,12 @@
 @mixin loading {
     // takes the entire viewer viewport
     .av-loading-screen {
+        overflow-x: hidden;
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-
-        //color: white;
-        //background-color: darkgrey;
-        //text-align: center;
-        //vertical-align: middle;
         z-index: 10000;
         $reveal-duration: 0.7s;
 
@@ -21,8 +17,6 @@
             width: 51%;
             height: 100%;
             background: #222222;
-
-            //z-index: 1000;
             transition: transform $reveal-duration $swift-ease-in-out-timing-function;
 
             &.av-left {
@@ -61,6 +55,10 @@
             .av-right {
                 transition-delay: $swift-ease-in-duration;
                 transform: translate3d(100%, 0%, 0);
+            }
+
+            .av-right-none {
+                transition: display, 2s;
             }
         }
     }

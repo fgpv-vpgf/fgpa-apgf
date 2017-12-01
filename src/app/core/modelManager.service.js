@@ -13,6 +13,7 @@ angular
 function modelManager($timeout, events, constants, commonService) {
 
     const service = {
+        save,
         setSchema,
         getSchema,
         setModels,
@@ -35,6 +36,29 @@ function modelManager($timeout, events, constants, commonService) {
     return service;
 
     /*********/
+
+    /**
+     * Return the schema as a string to be save
+     * @function save
+     * @return {String} the schema as a string to be save
+     */
+    function save() {
+        // loop schemas to get model values
+        const models = { };
+        constants.schemas.forEach(schema => {
+            const name = schema.split('.')[0];
+            models[name] = getModel(name, false);
+        });
+
+        // TODO solve initialBasemap as part of #90
+        // version and language are one item model so we have to recreate the string
+        models.version = $.map(models['version'], value => [value] ).join('');
+        models.language = $.map(models['language'], value => [value] ).join('');
+        models.map.initialBasemapId = '';
+
+        // return the config as a string
+        return JSON.stringify(models);
+    }
 
     /**
      * Set initial schema

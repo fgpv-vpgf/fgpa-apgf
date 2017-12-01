@@ -1,0 +1,16 @@
+{
+    "schema": "version",
+    "title": "Version",
+    "type": "string",
+    "description": "The schema version used to validate the configuration file.  The schema should enumerate the list of versions accepted by this version of the viewer.",
+    "properties": {
+        "version": {
+            "type": "string",
+            "enum": [
+                "2.0"
+            ],
+            "default": "2.0",
+            "description": "The schema version used to validate the configuration file."
+        }
+    }
+}

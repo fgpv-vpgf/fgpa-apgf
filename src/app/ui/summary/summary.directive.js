@@ -86,21 +86,8 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager) {
      * @function openPreview
      */
     function openPreview() {
-        // loop schemas to get model values
-        const models = { };
-        constants.schemas.forEach(schema => {
-            const name = schema.split('.')[0];
-            models[name] = modelManager.getModel(name, false);
-        });
-
-        // TODO: set language and version selection from a select box as part of #91 #92
-        // TODO solve initialBasemap as part of #90
-        models.version = '2.0';
-        models.language = 'en-CA';
-        models.map.initialBasemapId = '';
-
         // set the config to use by the preview window/iFrame
-        localStorage.setItem('configpreview', JSON.stringify(models));
+        localStorage.setItem('configpreview', modelManager.save());
 
         $mdDialog.show({
             controller: previewController,
