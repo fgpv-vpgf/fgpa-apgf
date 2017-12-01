@@ -61,9 +61,9 @@
               "LAT/LNG"
             ]
           },
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
-          "description": "Disable specific types of searches including NTS, FSA, or LAT/LNG",
+          "description": "Enable specific types of searches including NTS, FSA, or LAT/LNG",
           "title": "",
           "default": ""
         },

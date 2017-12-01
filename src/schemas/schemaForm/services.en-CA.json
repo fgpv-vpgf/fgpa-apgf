@@ -1,8 +1,8 @@
 {
   "description": "A set of service endpoints used by the viewer",
   "type": "object",
-  "schema": "service",
-  "title": "Service",
+  "schema": "services",
+  "title": "Services",
   "properties": {
     "proxyUrl": {
       "type": "string",
