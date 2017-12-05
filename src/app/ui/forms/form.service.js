@@ -10,7 +10,7 @@ angular
     .module('app.ui')
     .factory('formService', formService);
 
-function formService(events, commonService) {
+function formService($timeout, events, commonService, constants) {
 
     const service = {
         showAdvance,
@@ -23,11 +23,20 @@ function formService(events, commonService) {
         updateLinkValues
     };
 
+    // if show advance is true we need to toggle the hidden because the form has been reset
+    events.$on(events.avSchemaUpdate, () => { resestShowAdvance(); });
+    events.$on(events.avLoadModel, () => { resestShowAdvance(); });
+    events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
+
     return service;
 
     /***/
 
-    function showAdvance(form) {
+    function resestShowAdvance() {
+        if (service.advanceModel) { $timeout(() => showAdvance(), constants.delayAccordion); }
+    }
+
+    function showAdvance() {
         // manage the show advance configuration (add 'htmlClass': 'av-form-advance hidden' to fields who need advance config)
         const elems = document.getElementsByClassName('av-form-advance');
 

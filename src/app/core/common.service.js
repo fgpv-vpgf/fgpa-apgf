@@ -75,8 +75,8 @@ function commonService($translate, events) {
      * @param {String} value language value to be set
      */
     function setLang(value) {
-        // broadcast event to fired a schema change wihtout reloading model
-        $translate.use(value).then(() => events.$broadcast(events.avSwitchLanguage));
+        // show splash with language switch event as parameter
+        $translate.use(value).then(() => events.$broadcast(events.avShowSplash, events.avSwitchLanguage));
     }
 
     /**

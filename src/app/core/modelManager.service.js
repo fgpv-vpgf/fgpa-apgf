@@ -27,9 +27,7 @@ function modelManager($timeout, events, constants, commonService) {
     const _state = {};
     const _form = {};
     const _schema = {};
-    const _model = constants.schemas.map(item => ({
-        [item.split('.')[0]]: {}
-    }));
+    const _model = {};
 
     const _default = {};
 
@@ -50,10 +48,11 @@ function modelManager($timeout, events, constants, commonService) {
             models[name] = getModel(name, false);
         });
 
-        // TODO solve initialBasemap as part of #90
         // version and language are one item model so we have to recreate the string
-        models.version = $.map(models['version'], value => [value] ).join('');
-        models.language = $.map(models['language'], value => [value] ).join('');
+        models.version = models.version.version;
+        models.language = models.language.language;
+
+        // TODO solve initialBasemap as part of #90
         models.map.initialBasemapId = '';
 
         // return the config as a string
@@ -105,7 +104,10 @@ function modelManager($timeout, events, constants, commonService) {
      */
     function getModel(modelName, newModel = true) {
         // if it is a new model, we apply default configuration value
-        _model[modelName] = (newModel) ? applyDefault(modelName, {}) : _model[modelName];
+        // check if it is only a string (version and language) and return default values
+        // it is { map: {..}, version: "en-ca" } we need to set it { map: {..}, version: { version: "en-ca" } }
+        _model[modelName] = (newModel) ? applyDefault(modelName, {}) :
+            (typeof _model[modelName] !== 'string') ? _model[modelName] : { [modelName]: _model[modelName] };
         return _model[modelName];
     }
 
@@ -119,7 +121,8 @@ function modelManager($timeout, events, constants, commonService) {
         scope.model = getModel(modelName, false);
 
         scope.$broadcast('schemaFormValidate');
-        $timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
+        // TODO: when summary panel will work again, re-enable validation
+        //$timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
     }
 
     /**
@@ -131,7 +134,14 @@ function modelManager($timeout, events, constants, commonService) {
      * @return {Object}      updated model
      */
     function applyDefault(modelName, model) {
-        const defaults = $.extend(true, model, _default[commonService.getLang()][modelName]);
+        // get default model values
+        const defaultModel = _default[commonService.getLang()][modelName];
+
+        // check if it is only a string (version and language) and return default values
+        // it is { map: {..}, version: "en-ca" } we need to set it { map: {..}, version: { version: "en-ca" } }
+        const defaults = (typeof defaultModel !== 'string') ?
+            $.extend(true, model, _default[commonService.getLang()][modelName]) : { [modelName]: defaultModel };
+
         return defaults;
     }
 

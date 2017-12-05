@@ -63,20 +63,24 @@ function avShell() {
     }
 }
 
-function Controller($timeout, events) {
+function Controller($timeout, events, constants) {
     'ngInject';
     const self = this;
 
     self.isReady = false;
     hideSplash();
 
-    // when user change language, show splash
-    events.$on(events.avSwitchLanguage, () => {
+    // show splash
+    events.$on(events.avShowSplash, (evt, param) => {
         self.isReady = false;
+
+        // if we need to broadcast a new event, just wait a little bit to let the animation start
+        if (typeof param !== 'undefined') { $timeout(() => { events.$broadcast(param) }, constants.delayEventSplash); }
+
         hideSplash();
     });
 
     function hideSplash() {
-        $timeout(() => { self.isReady = true }, 2000);
+        $timeout(() => { self.isReady = true }, constants.delaySplash);
     }
 }

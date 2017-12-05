@@ -14,6 +14,10 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debInput: 500, // time for debouncing when user enter value
+        delayAccordion: 2500,
+        delayCollapseLink: 2800,
+        delaySplash: 3500,
+        delayEventSplash: 750,
         schemas: [
             'map.[lang].json',
             'ui.[lang].json',
@@ -40,10 +44,10 @@ function events($rootScope) {
 
         avSchemaUpdate: 'avSchemaUpdate', // Fired when there is an update to the state
         avSwitchLanguage: 'avSwitchLanguage', // Fired when there is a language switch
-        avNewModel: 'avNewModel', // Fired when user create a new for
         avLoadModel: 'avLoadModel', // Fired when a user load an existing form
         avNewItems: 'avNewItems', // Fired when a user add a new item inside an array (e.g. layer of layers)
-        avValidateForm: 'avValidateForm' // Fired when a user click on validate to validate all forms
+        avValidateForm: 'avValidateForm', // Fired when a user click on validate to validate all forms
+        avShowSplash: 'avShowSplash'
     };
 }
 
