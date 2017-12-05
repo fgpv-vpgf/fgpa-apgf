@@ -14,7 +14,13 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debInput: 500, // time for debouncing when user enter value
-        schemas: ['map.[lang].json', 'ui.[lang].json', 'services.[lang].json'] // TODO: add new schema as they come, list as they should appear in the tab menu
+        schemas: [
+            'map.[lang].json',
+            'ui.[lang].json',
+            'services.[lang].json',
+            'version.[lang].json',
+            'language.[lang].json'
+        ] // TODO: add new schema as they come, list as they should appear in the tab menu
     });
 
 function events($rootScope) {
