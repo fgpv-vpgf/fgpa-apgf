@@ -67,12 +67,6 @@ function Controller($scope, sfSelect) {
             scope.form.options = enumTitleMap;
         }
 
-        scope.$watch('item[form.model]', (newValue, oldValue) => {
-            sfSelect(scope.form.key, parent.model, newValue);
-        });
-
-        sfSelect(scope.form.key, parent.model, 'null');
-
         return;
     }
 }
