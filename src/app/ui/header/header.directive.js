@@ -41,7 +41,7 @@ function avHeader() {
     return directive;
 }
 
-function Controller($q, $mdDialog, events, modelManager, commonService) {
+function Controller($q, $mdDialog, $timeout, events, modelManager, commonService, constants) {
     'ngInject';
     const self = this;
 
@@ -59,12 +59,13 @@ function Controller($q, $mdDialog, events, modelManager, commonService) {
      * @function create
      */
     function create() {
-        events.$broadcast(events.avSchemaUpdate);
+        // show splash with update event as parameter
+        events.$broadcast(events.avShowSplash, events.avSchemaUpdate);
     }
 
     /**
      * Set the current language
-     * @function create
+     * @function setLanguage
      */
     function setLanguage() {
         commonService.setLang(self.language);
@@ -77,12 +78,17 @@ function Controller($q, $mdDialog, events, modelManager, commonService) {
      */
     function filesSubmitted(files) {
         if (files.length > 0) {
-            const file = files[0];
+            // show splash when new model load
+            events.$broadcast(events.avShowSplash);
 
-            _readFile(file.file).then(data => modelManager.setModels(JSON.parse(data))
-            ).catch(error => {
-                console.log('error upload');
-            });
+            // read the file but add a timeout for the animation to start
+            const file = files[0];
+            $timeout(() => {
+                _readFile(file.file).then(data => modelManager.setModels(JSON.parse(data))
+                ).catch(error => {
+                    console.log('error upload');
+                });
+            }, constants.delayEventSplash);
         }
 
         /**

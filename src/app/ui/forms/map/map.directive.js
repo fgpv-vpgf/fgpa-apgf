@@ -29,7 +29,6 @@ function avMap() {
         bindToController: true,
         link: (scope, element, attrs) => {
             scope.$on('sf-render-finished', (scope, element) => {
-
             });
         }
     };
@@ -45,26 +44,24 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
     self.formService = formService;
 
     // when schema is loaded or create new config is hit, initialize the schema, form and model
-    events.$on(events.avSchemaUpdate, () => init());
+    events.$on(events.avSchemaUpdate, () => {
+        $scope.model = modelManager.getModel(self.modelName);
+        init();
+    });
 
     // when user load a config file, set form and model
     events.$on(events.avLoadModel, () => {
-        setCollapsibleHeader();
-
-        modelManager.updateModel($scope, self.modelName)
+        modelManager.updateModel($scope, self.modelName);
+        init();
     });
 
     // when user change language, reset schema and form
     events.$on(events.avSwitchLanguage, () => {
         self.sectionName = $translate.instant('app.section.map');
-        $scope.schema = modelManager.getSchema(self.modelName);
-
-        $scope.form = angular.copy($scope.form);
-        $scope.form = setForm();
+        init();
     });
 
     function init() {
-        $scope.model = modelManager.getModel(self.modelName);
         $scope.schema = modelManager.getSchema(self.modelName);
 
         $scope.form = angular.copy($scope.form);
@@ -76,7 +73,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
         self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId');
         self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId');
 
-        setCollapsibleHeader();
+        $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
     }
 
     events.$on(events.avValidateForm, () => {
@@ -287,7 +284,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
-                    { 'key': 'layers', 'startEmpty': true, 'onChange': self.formService.addToggleArraySection, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'startEmpty': true, 'onChange': self.formService.addToggleArraySection(), 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },

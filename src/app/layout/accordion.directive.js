@@ -17,13 +17,28 @@ angular
  * @function avAccordion
  * @return {Object}     directive body
  */
-function avAccordion($compile, $timeout, events) {
+function avAccordion($compile, $timeout, events, constants) {
     const directive = {
         restrict: 'A',
         link
     }
 
     function link(scope, element) {
+        // when model is updated, we need to recreate the accordion
+        events.$on(events.avSwitchLanguage, () => { setAccordion(scope, element); });
+        events.$on(events.avSchemaUpdate, () => { setAccordion(scope, element); });
+        events.$on(events.avLoadModel, () => { setAccordion(scope, element); });
+
+        events.$on(events.avNewItems, (event, args) => {
+            if (element[0].classList.contains(args.form)) {
+                $timeout(() => {
+                    addIcon($(element.find(`.av-accordion-toggle${args.class}`)[args.index]).not(':has(>md-icon)'), scope);
+                }, 100);
+            }
+        });
+    }
+
+    function setAccordion(scope, element) {
         $timeout(() => {
             element.find('.av-accordion-toggle').each((index, element) => {
                 // check if the element need to be collapse by default
@@ -38,15 +53,7 @@ function avAccordion($compile, $timeout, events) {
 
                 addIcon($(element), scope, isOpen);
             });
-        }, 2100);
-
-        events.$on(events.avNewItems, (event, args) => {
-            if (element[0].classList.contains(args.form)) {
-                $timeout(() => {
-                    addIcon($(element.find(`.av-accordion-toggle${args.class}`)[args.index]).not(':has(>md-icon)'), scope);
-                }, 100);
-            }
-        });
+        }, constants.delayAccordion);
     }
 
     function addIcon(element, scope, open) {
