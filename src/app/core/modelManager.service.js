@@ -52,9 +52,6 @@ function modelManager($timeout, events, constants, commonService) {
         models.version = models.version.version;
         models.language = models.language.language;
 
-        // TODO solve initialBasemap as part of #90
-        models.map.initialBasemapId = '';
-
         // return the config as a string
         return JSON.stringify(models);
     }

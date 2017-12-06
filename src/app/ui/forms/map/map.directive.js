@@ -131,12 +131,14 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                                 'key': 'tileSchemas[].extentSetId',
                                 'type': 'dynamic-select',
                                 'optionData': 'extentId',
-                                'model': 'extentSetId'
+                                'model': 'extentSetId',
+                                'array': true
                             }, {
                                 'key': 'tileSchemas[].lodSetId',
                                 'type': 'dynamic-select',
                                 'optionData': 'lodId',
-                                'model': 'lodSetId'
+                                'model': 'lodSetId',
+                                'array': true
                             }
                         ] }
                     ] },
@@ -259,6 +261,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                             'type': 'dynamic-select',
                             'optionData': 'initBaseId',
                             'model': 'initialBasemapId',
+                            'array': false,
                             'notitle': true
                         }
                     ] },
@@ -275,7 +278,8 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                                     'key': 'baseMaps[].tileSchemaId',
                                     'type': 'dynamic-select',
                                     'optionData': 'tileId',
-                                    'model': 'tileSchemaId'
+                                    'model': 'tileSchemaId',
+                                    'array': true
                                 },
                                 { 'key': 'baseMaps[].layers' },
                                 { 'key': 'baseMaps[].attribution' }

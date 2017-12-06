@@ -27,17 +27,31 @@ angular.module('app.addon.dynamicSelect').run(['$templateCache', $templateCache 
                 <label class="control-label {{::form.labelHtmlClass}}" ng-show="showTitle()" for="{{::fieldId(true, false)}}">
                     {{form.title}}
                 </label>
-                <select ng-model="item[form.model]"
-                      ng-model-options="form.ngModelOptions"
-                      ng-disabled="form.readonly"
-                      sf-changed="form"
-                      ng-change="changed()"
-                      class="form-control"
-                      schema-validate="form"
-                      dynamic-select
-                      model="model"
-                      form="form"
-                      ng-options="item.value as item.name for item in form.options" destroy-hidden-data>
+                <select ng-if="form.array === false"
+                    ng-model="model[form.model]"
+                    ng-model-options="form.ngModelOptions"
+                    ng-disabled="form.readonly"
+                    sf-changed="form"
+                    ng-change="changed()"
+                    class="form-control"
+                    schema-validate="form"
+                    dynamic-select
+                    model="model"
+                    form="form"
+                    ng-options="item.value as item.name for item in form.options" destroy-hidden-data>
+                </select>
+                <select ng-if="form.array === true"
+                    ng-model="item[form.model]"
+                    ng-model-options="form.ngModelOptions"
+                    ng-disabled="form.readonly"
+                    sf-changed="form"
+                    ng-change="changed()"
+                    class="form-control"
+                    schema-validate="form"
+                    dynamic-select
+                    model="model"
+                    form="form"
+                    ng-options="item.value as item.name for item in form.options" destroy-hidden-data>
                 </select>
                 <div class="help-block" sf-message="form.description"></div>
         </div>`);
