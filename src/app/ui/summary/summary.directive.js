@@ -35,7 +35,7 @@ function avSummary() {
     return directive;
 }
 
-function Controller($mdDialog, $rootScope, events, constants, modelManager) {
+function Controller($mdDialog, $rootScope, events, constants, modelManager, commonService) {
     'ngInject';
     const self = this;
 
@@ -88,6 +88,10 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager) {
     function openPreview() {
         // set the config to use by the preview window/iFrame
         localStorage.setItem('configpreview', modelManager.save());
+
+        // set the array of languages to use by the preview window/iFrame
+        const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
+        localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
 
         $mdDialog.show({
             controller: previewController,
