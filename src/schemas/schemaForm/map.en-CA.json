@@ -244,6 +244,24 @@
                     "description": "Optional.  The level of details set to be used for this basemap (should reference map.lod.id)",
                     "title": "",
                     "default": ""
+                  },
+                  "overviewUrl": {
+                      "type": "object",
+                      "title": "Static Overview Map",
+                      "Description": "If not set, overview map will be tha same as the selected basemap",
+                      "properties": {
+                          "layerType": {
+                              "title": "Layer Type",
+                              "type": "string",
+                              "enum": ["esriImage", "esriTile"],
+                              "default": "esriTile"
+                          },
+                          "url": {
+                              "type": "string",
+                              "description": "The service endpoint of the layer. It should match the type provided in layerType.",
+                              "default": ""
+                          }
+                      }
                   }
               },
               "required": [
@@ -328,6 +346,11 @@
                             "type": "number",
                             "default": 2,
                             "title": "Expand Factor"
+                        },
+                        "initiallyExpanded": {
+                            "type": "boolean",
+                            "title": "Visible",
+                            "default": true
                         }
                     },
                     "title": "Overview Map"
