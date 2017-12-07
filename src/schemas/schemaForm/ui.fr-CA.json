@@ -151,35 +151,33 @@
         },
         "about": {
           "description": "About properties from configuration file or Markdown folder",
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "content"
-              ],
-              "additionalProperties": false
+          "title": "About Map",
+          "type": "object",
+          "subtype": "oneof",
+          "properties": {
+            "content": {
+                "description": "About properties from string content",
+                "title": "Content",
+                "type": "string",
+                "required": true
             },
-            {
-              "type": "object",
-              "properties": {
-                "folderName": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "folderName"
-              ],
-              "additionalProperties": false
+            "folderName": {
+                "description": "About properties from configuration file or Markdown folder",
+                "title": "Folder Name",
+                "type": "string",
+                "required": true
+            },
+            "additionalProperties": false
             }
-          ],
-          "title": "",
-          "default": ""
         },
+        "aboutChoice": {
+          "description": "",
+          "type": "enum",
+          "enum": ["string", "folder"],
+          "title": "About properties",
+          "default": "string",
+          "required": true
+      },
         "help": {
             "type": "object",
             "description": "Help properties",

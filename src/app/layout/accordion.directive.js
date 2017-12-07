@@ -32,7 +32,7 @@ function avAccordion($compile, $timeout, events, constants) {
         events.$on(events.avNewItems, (event, args) => {
             if (element[0].classList.contains(args.form)) {
                 $timeout(() => {
-                    addIcon($(element.find(`.av-accordion-toggle${args.class}`)[args.index]).not(':has(>md-icon)'), scope);
+                    addIcon($(element.find(`.av-accordion-toggle.${args.class}`)[args.index]).not(':has(>md-icon)'), scope);
                 }, 100);
             }
         });

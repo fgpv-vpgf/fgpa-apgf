@@ -44,18 +44,18 @@ function initLanguages($rootElement, $translate, commonService) {
  * @private
  * @param  {Object} $rootElement Angular object
  * @param  {Object} $http Angular object to read file
- * @param  {Object} modelManager Model Manager sdrvice
+ * @param  {Object} modelManager Model Manager service
  */
 function uploadDefault($rootElement, $http, modelManager) {
-    const configAttr = $rootElement.attr('data-av-config');
+    // check if there is user define template. If not, use default one
+    // we need a default one to make sure model object exist. At the same time we need to defined
+    // readonly field inside it
+    const configAttr = (typeof $rootElement.data('av-config') !== 'undefined') ?
+        $rootElement.data('av-config') : ['config-default.json'];
 
-    if (configAttr) {
-        // load default configuration for all available languages
-        languages.forEach(lang => {
-            let location = `./config/${configAttr.replace('[lang]', lang)}`;
-            $http.get(location).then(obj => modelManager.setDefault(obj.data, lang));
-        });
-    }
+    // load default configuration
+    const location = `./config/${configAttr[0]}`;
+    $http.get(location).then(obj => modelManager.setDefault(obj.data));
 }
 
 /**

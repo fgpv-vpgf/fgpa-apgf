@@ -41,7 +41,7 @@ function avHeader() {
     return directive;
 }
 
-function Controller($q, $mdDialog, $timeout, events, modelManager, commonService, constants) {
+function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelManager, commonService, constants) {
     'ngInject';
     const self = this;
 
@@ -49,10 +49,15 @@ function Controller($q, $mdDialog, $timeout, events, modelManager, commonService
     self.filesSubmitted = filesSubmitted;
     self.save = save;
     self.setLanguage = setLanguage;
+    self.setTemplate = setTemplate;
 
     // get all avialable languages and set the first one as current
     self.languages = commonService.getLangs();
     self.language = self.languages[0];
+
+    // get al value for templateUrls
+    self.templates = getTemplates();
+    self.template = self.templates[0];
 
     /**
      * When create is clicked, broadcast a newModel event
@@ -69,6 +74,26 @@ function Controller($q, $mdDialog, $timeout, events, modelManager, commonService
      */
     function setLanguage() {
         commonService.setLang(self.language);
+    }
+
+    /**
+     * Get templates available for the user from data-av-config attribute on html page
+     * @function getTemplates
+     * @return {Array} templates templates available for the user
+     */
+    function getTemplates() {
+        const templates = (typeof $rootElement.data('av-config') !== 'undefined') ?
+            $rootElement.data('av-config').map(item => item.split('.')[0]) : [];
+        return templates;
+    }
+
+    /**
+     * Set the current template
+     * @function setTemplate
+     */
+    function setTemplate() {
+        // load selected configuration
+        $http.get(`./config/${self.template}.json`).then(obj => modelManager.setDefault(obj.data));
     }
 
     /**

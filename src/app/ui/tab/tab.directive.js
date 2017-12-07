@@ -2,7 +2,7 @@ const templateUrl = require('./tab.html');
 
 /**
  * @module avTab
- * @memberof app.layout
+ * @memberof app.ui
  * @restrict E
  * @description
  *
@@ -14,7 +14,7 @@ angular
     .directive('avTab', avTab);
 
 /**
- * `avUi` directive body.
+ * `avTab` directive body.
  *
  * @function avTab
  * @return {object} directive body

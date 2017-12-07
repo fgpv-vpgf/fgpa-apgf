@@ -225,7 +225,7 @@
                     "type": "string",
                     "description": "A unique id identifying a tile schema (combination of an extent set and a zoom scale)",
                     "title": "",
-                    "default": "test"
+                    "default": ""
                   },
                   "name": {
                     "type": "string",

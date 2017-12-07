@@ -267,7 +267,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                             'notitle': true
                         }
                     ] },
-                    { 'key': 'baseMaps', 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); self.formService.addToggleArraySection(); }, 'startEmpty': true, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); self.formService.addToggleArraySection(scope.model.baseMaps, 'av-baseMaps'); }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMaps', 'linkTo': 'basemapName', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'baseMaps[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false); } },
@@ -290,7 +290,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
-                    { 'key': 'layers', 'startEmpty': true, 'onChange': self.formService.addToggleArraySection(), 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'startEmpty': true, 'onChange': () => { self.formService.addToggleArraySection(scope.model.layers, 'av-layers'); }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },

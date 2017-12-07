@@ -1,0 +1,17 @@
+{
+    "language": "",
+    "version": "",
+    "map": {
+        "components": {},
+        "initialBasemapId": "",
+        "extentSets": [],
+        "lodSets": [{
+            "lods": []
+        }],
+        "tileSchemas": [],
+      "baseMaps": [],
+      "layers": []
+    },
+    "services": {},
+    "ui": {}
+}

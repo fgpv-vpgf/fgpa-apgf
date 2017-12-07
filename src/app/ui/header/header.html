@@ -11,6 +11,15 @@
         </md-input-container>
     </div>
     <div>
+        <md-input-container class="md-subhead" ng-if="self.template.length">
+          <label>{{ 'header.template' | translate }}</label>
+          <md-select ng-model="self.template" ng-change="self.setTemplate()">
+            <md-option ng-repeat="temp in self.templates" ng-value="temp" ng-selected="$index === 0">
+              {{ temp }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
         <md-button
             translate
             aria-label="{{ 'header.create' | translate }}"
