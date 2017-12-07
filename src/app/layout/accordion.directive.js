@@ -25,22 +25,18 @@ function avAccordion($compile, $timeout, events, constants) {
 
     function link(scope, element) {
         // when model is updated, we need to recreate the accordion
-        events.$on(events.avSwitchLanguage, () => { setAccordion(scope, element); });
-        events.$on(events.avSchemaUpdate, () => { setAccordion(scope, element); });
-        events.$on(events.avLoadModel, () => { setAccordion(scope, element); });
+        events.$on(events.avSwitchLanguage, () => { setAccordion(scope, element, constants.delayAccordion); });
+        events.$on(events.avSchemaUpdate, () => { setAccordion(scope, element, constants.delayAccordion); });
+        events.$on(events.avLoadModel, () => { setAccordion(scope, element, constants.delayAccordion); });
 
-        events.$on(events.avNewItems, (event, args) => {
-            if (element[0].classList.contains(args.form)) {
-                $timeout(() => {
-                    addIcon($(element.find(`.av-accordion-toggle.${args.class}`)[args.index]).not(':has(>md-icon)'), scope);
-                }, 100);
-            }
+        events.$on(events.avNewItems, () => {
+            setAccordion(scope, element, 100);
         });
     }
 
-    function setAccordion(scope, element) {
+    function setAccordion(scope, element, delay) {
         $timeout(() => {
-            element.find('.av-accordion-toggle').each((index, element) => {
+            element.find('.av-accordion-toggle').not(':has(>md-icon)').each((index, element) => {
                 // check if the element need to be collapse by default
                 // default behaviour of collapsible element is to be open by default
                 let isOpen = true;
@@ -53,7 +49,7 @@ function avAccordion($compile, $timeout, events, constants) {
 
                 addIcon($(element), scope, isOpen);
             });
-        }, constants.delayAccordion);
+        }, delay);
     }
 
     function addIcon(element, scope, open) {
@@ -67,5 +63,6 @@ function avAccordion($compile, $timeout, events, constants) {
                     <md-icon class='av-accordion-icon ${isClose}' md-svg-src='hardware:keyboard_arrow_down'
                 ng-click="self.formService.toggleSection($event)"></md-icon>`)(scope));
     }
+
     return directive;
 }

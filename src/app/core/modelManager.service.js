@@ -38,9 +38,10 @@ function modelManager($timeout, events, constants, commonService) {
     /**
      * Return the schema as a string to be save
      * @function save
+     * @param {Boolean} preview [optional = false] if save is for preview
      * @return {String} the schema as a string to be save
      */
-    function save() {
+    function save(preview = false) {
         // loop schemas to get model values
         const models = { };
         constants.schemas.forEach(schema => {
@@ -52,11 +53,49 @@ function modelManager($timeout, events, constants, commonService) {
         models.version = models.version.version;
         models.language = models.language.language;
 
+        // when we try to remove the table columns directly in ASF, there is an error
+        // remove it here but only when we save the file. In preview author can change it's mind
+        if (!preview) { cleanColumns(models.map.layers); }
+
         // remove $$haskkey from model
         const cleanModels = JSON.parse(angular.toJson(models));
 
         // return the config as a string
         return JSON.stringify(cleanModels);
+    }
+
+    /**
+     * If the config is save to file, clean the columns array by removing not needed column
+     * @function cleanColumns
+     * @private
+     * @param {Object} model model (array of layers) to clean
+     */
+    function cleanColumns(model) {
+        for (let layer in model) {
+            if (model[layer].layerType === 'esriFeature') {
+                model[layer] = deleteColumns(model[layer]);
+            } else if (model[layer].layerType === 'esriDynamic') {
+                model[layer].layerEntries.forEach((entry, index) => {
+                    model[layer].layerEntries[index] = deleteColumns(model[layer].layerEntries[index]);
+                })
+            }
+        }
+    }
+
+    /**
+     * Delete colunms for a particular layer
+     * @function deleteColumns
+     * @private
+     * @param {Object} entry model (layer) to clean
+     * @return {Object} entry the clean entry with removed columns
+     */
+    function deleteColumns(entry) {
+        // if there is table and columns define, remove the one with remove = true
+        if (typeof entry.table !== 'undefined' && typeof entry.table.columns !== 'undefined') {
+            entry.table.columns = entry.table.columns.filter(item => !item.remove);
+        }
+
+        return entry;
     }
 
     /**

@@ -7,7 +7,25 @@
             "enabled": true,
             "showGraphic": true,
             "showInfo": true
+        },
+        "mouseInfo": {
+          "enabled": true,
+          "spatialReference": {
+            "wkid": 4269
           }
+        },
+        "northArrow": {
+          "enabled": true
+        },
+        "basemap": {
+          "enabled": true
+        },
+        "overviewMap": {
+          "enabled": true
+        },
+        "scaleBar": {
+          "enabled": true
+        }
       },
         "initialBasemapId": "baseNrCan",
         "extentSets": [
@@ -271,7 +289,15 @@
                 "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
+            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": false
+                }
+            }
           },
           {
             "id": "baseSimple",
@@ -285,7 +311,15 @@
                 "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Simple/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
+            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": false
+                }
+            }
           },
           {
             "id": "baseCBME_CBCE_HS_RO_3978",
@@ -299,7 +333,15 @@
                 "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
+            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": false
+                }
+            }
           },
           {
             "id": "baseCBMT_CBCT_GEOM_3978",
@@ -313,7 +355,15 @@
                 "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
+            "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": false
+                }
+            }
           },
           {
             "id": "baseEsriWorld",
@@ -327,7 +377,15 @@
                 "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
+            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": true
+                }
+            }
           },
           {
             "id": "baseEsriPhysical",
@@ -341,7 +399,15 @@
                 "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
+            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": true
+                }
+            }
           },
           {
             "id": "baseEsriRelief",
@@ -355,7 +421,15 @@
                 "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
+            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": true
+                }
+            }
           },
           {
             "id": "baseEsriStreet",
@@ -369,7 +443,15 @@
                 "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
+            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": true
+                }
+            }
           },
           {
             "id": "baseEsriTerrain",
@@ -383,7 +465,15 @@
                 "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
+            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": true
+                }
+            }
           },
           {
             "id": "baseEsriTopo",
@@ -397,7 +487,15 @@
                 "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"
               }
             ],
-            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
+            "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
+            "attribution": {
+                "text": {
+                    "enabled": true
+                },
+                "logo": {
+                    "enabled": true
+                }
+            }
           }
       ],
       "layers": [
@@ -432,7 +530,10 @@
       "disabledControls": [
         "opacity"
       ],
-      "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer"
+      "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer/20",
+      "table": {
+          "title": "my custom table"
+      }
     }
     ]
     },

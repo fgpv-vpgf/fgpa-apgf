@@ -20,9 +20,13 @@ import Flow from '@flowjs/ng-flow/dist/ng-flow-standalone'
 import './bootstrap.js';
 import './app.module.js';
 import './app-seed.js';
+import './global-registry.js';
 
 import './core/core.module.js';
 import './core/core-loader.js';
+
+import './geo/geo.module.js';
+import './geo/geo-loader.js';
 
 import './ui/ui.module.js';
 import './ui/ui-loader.js';

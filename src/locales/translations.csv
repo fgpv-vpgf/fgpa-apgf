@@ -45,8 +45,15 @@ form map,form.map.initialid,Initial Basemap ID,0,Initial Basemap ID,0
 form map,form.map.basemap,Basemap,0,Carte de base,0
 form map,form.map.layers,Layers,0,Couches,0
 form map,form.map.layer,Layer,0,Couche,0
+form map,form.map.layerentry,Layer Entry,0,Entree de couche,0
 form map,form.map.legend,Legend,0,Légende,0
-form map layer controls,form.map.layerconstrols,Layer Controls,0,Controle de la couche,0
+form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Controle et etat de la couche,0
+form map layer table,form.map.layertable,Table,0,Table,0
+form map layer table columns,form.map.layertablecols,Fields,0,Champs,0
+form map layer table columns,form.map.layertablecol,Field,0,Champ,0
+form map layer table filter,form.map.layertablefilter,Filter,0,Filtre,0
+form map layer table columns set,form.map.layertablesetcol,Customize Fields,0,Personaliser les champs,0
+form map basemap attribution,form.map.basemapattrib,Attribution,0,Credit,0
 form map,form.map.legendauto,Autopopulate,0,Automatique,0
 form map,form.map.legendstruct,Structured,0,Structure,0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0

@@ -683,6 +683,108 @@
                       },
                       "additionalProperties": false
                     },
+                    "table": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string",
+                                "default": "",
+                                "description": "Specifies the table title to apply."
+                            },
+                            "description": {
+                                "type": "string",
+                                "description": "Specifies the additional information to display in the setting panel to give more information about a table."
+                            },
+                            "maximize": {
+                                "type": "boolean",
+                                "default": false,
+                                "description": "Specifies the default table size when first open. True: maximize view; False: split view."
+                            },
+                            "search": {
+                                "enabled": { "type": "boolean", "default": true },
+                                "value": {
+                                    "type": "string",
+                                    "default": null,
+                                    "description": "Specifies the default filter to apply to a table (for global search)."
+                                }
+                            },
+                            "applyMap": {
+                                "type": "boolean",
+                                "default": false,
+                                "description": "Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied."
+                            },
+                            "columns": {
+                                "type": "array",
+                                "default": [],
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "remove": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "description": "Specifies the field name (data) to use to link to the layer column. Must exist in the layer."
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "description": "Specifies the column title, uses the layer column name or alias if missing."
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing."
+                                        },
+                                        "visible": {
+                                            "type": "boolean",
+                                            "default": true,
+                                            "description": "Specifies if column is visible by default. True: column is visible; False: column is hidden."
+                                        },
+                                        "width": {
+                                            "type": "number",
+                                            "description": "Specifies the column width. If missing, calculated column width will be use."
+                                        },
+                                        "sort": {
+                                            "type": "string",
+                                            "enum": ["asc", "desc"],
+                                            "description": "Specifies if column is sort. If missing, no sort is applied."
+                                        },
+                                        "searchable": {
+                                            "type": "boolean",
+                                            "default": true,
+                                            "description": "Specifies if column can be filter. True: column can be filter; False: no filter can be applied from global search or filter. If this is false, do not set a filter because it will not be use."
+                                        },
+                                        "filter": {
+                                            "type": "object",
+                                            "description": "Specifies the filter information for a column.",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": ["string", "number", "date", "selector"],
+                                                    "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails."
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "default": "",
+                                                    "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100). For selector it needs an array like [\"Fire\", \"Fatality\"]"
+                                                },
+                                                "static": {
+                                                    "type": "boolean",
+                                                    "default": false,
+                                                    "description": "Specifies if filter is modifiable. True: filter value can't be modified; False: filter value can be modified."
+                                                }
+                                            },
+                                            "required": ["type"],
+                                            "additionalProperties": false
+                                        }
+                                    }
+                                },
+                                "description": "Specifies the array of columns for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                            }
+                        },
+                        "description": "Specifies how layers columns and global search are set",
+                        "additionalProperties": false
+                    },
                     "layerEntries": {
                         "type": "array",
                         "default": [],
@@ -719,6 +821,201 @@
                                 "currentStyle": {
                                     "type": "string",
                                     "description": "The current style for the layer entry in the WMS"
+                                },
+                                "table": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "default": "",
+                                            "description": "Specifies the table title to apply."
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "description": "Specifies the additional information to display in the setting panel to give more information about a table."
+                                        },
+                                        "maximize": {
+                                            "type": "boolean",
+                                            "default": false,
+                                            "description": "Specifies the default table size when first open. True: maximize view; False: split view."
+                                        },
+                                        "search": {
+                                            "enabled": { "type": "boolean", "default": true },
+                                            "value": {
+                                                "type": "string",
+                                                "default": null,
+                                                "description": "Specifies the default filter to apply to a table (for global search)."
+                                            }
+                                        },
+                                        "applyMap": {
+                                            "type": "boolean",
+                                            "default": false,
+                                            "description": "Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied."
+                                        },
+                                        "columns": {
+                                            "type": "array",
+                                            "default": [],
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "remove": {
+                                                        "type": "boolean",
+                                                        "default": false
+                                                    },
+                                                    "data": {
+                                                        "type": "string",
+                                                        "description": "Specifies the field name (data) to use to link to the layer column. Must exist in the layer."
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "description": "Specifies the column title, uses the layer column name or alias if missing."
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "description": "Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing."
+                                                    },
+                                                    "visible": {
+                                                        "type": "boolean",
+                                                        "default": true,
+                                                        "description": "Specifies if column is visible by default. True: column is visible; False: column is hidden."
+                                                    },
+                                                    "width": {
+                                                        "type": "number",
+                                                        "description": "Specifies the column width. If missing, calculated column width will be use."
+                                                    },
+                                                    "sort": {
+                                                        "type": "string",
+                                                        "enum": ["asc", "desc"],
+                                                        "description": "Specifies if column is sort. If missing, no sort is applied."
+                                                    },
+                                                    "searchable": {
+                                                        "type": "boolean",
+                                                        "default": true,
+                                                        "description": "Specifies if column can be filter. True: column can be filter; False: no filter can be applied from global search or filter. If this is false, do not set a filter because it will not be use."
+                                                    },
+                                                    "filter": {
+                                                        "type": "object",
+                                                        "description": "Specifies the filter information for a column.",
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string",
+                                                                "enum": ["string", "number", "date", "selector"],
+                                                                "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails."
+                                                            },
+                                                            "value": {
+                                                                "type": "string",
+                                                                "default": "",
+                                                                "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100). For selector it needs an array like [\"Fire\", \"Fatality\"]"
+                                                            },
+                                                            "static": {
+                                                                "type": "boolean",
+                                                                "default": false,
+                                                                "description": "Specifies if filter is modifiable. True: filter value can't be modified; False: filter value can be modified."
+                                                            }
+                                                        },
+                                                        "required": ["type"],
+                                                        "additionalProperties": false
+                                                    }
+                                                }
+                                            },
+                                            "description": "Specifies the array of columns for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                                        }
+                                    },
+                                    "description": "Specifies how layers columns and global search are set",
+                                    "additionalProperties": false
+                                },
+                                "controls": {
+                                  "title": "",
+                                  "default": [],
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "enum": [
+                                      "opacity",
+                                      "visibility",
+                                      "boundingBox",
+                                      "query",
+                                      "snapshot",
+                                      "metadata",
+                                      "boundaryZoom",
+                                      "refresh",
+                                      "reload",
+                                      "remove",
+                                      "settings",
+                                      "data",
+                                      "styles"
+                                    ]
+                                  },
+                                  "uniqueItems": true,
+                                  "description": "A list of all controls to be enabled on the specified layer"
+                                },
+                                "disabledControls": {
+                                  "description": "A list of controls which are visible, but disabled for user modification",
+                                  "title": "",
+                                  "default": [],
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "enum": [
+                                      "opacity",
+                                      "visibility",
+                                      "boundingBox",
+                                      "query",
+                                      "snapshot",
+                                      "metadata",
+                                      "boundaryZoom",
+                                      "refresh",
+                                      "reload",
+                                      "remove",
+                                      "settings",
+                                      "data",
+                                      "styles"
+                                    ]
+                                  },
+                                  "uniqueItems": true
+                                },
+                                "state": {
+                                  "title": "",
+                                  "type": "object",
+                                  "properties": {
+                                    "opacity": {
+                                      "type": "number",
+                                      "default": 1,
+                                      "description": "Initial opacity",
+                                      "title": ""
+                                    },
+                                    "visibility": {
+                                      "type": "boolean",
+                                      "default": true,
+                                      "description": "Initial visibility setting",
+                                      "title": ""
+                                    },
+                                    "boundingBox": {
+                                      "type": "boolean",
+                                      "default": false,
+                                      "description": "Display bounding box",
+                                      "title": ""
+                                    },
+                                    "query": {
+                                      "type": "boolean",
+                                      "default": true,
+                                      "description": "Allow querying",
+                                      "title": ""
+                                    },
+                                    "snapshot": {
+                                      "type": "boolean",
+                                      "default": false,
+                                      "description": "Retrieve all feature data immediately on load",
+                                      "title": ""
+                                    },
+                                    "hovertips": {
+                                      "type": "boolean",
+                                      "default": true,
+                                      "description": "Disable hover tips",
+                                      "title": ""
+                                    }
+                                  },
+                                  "additionalProperties": false
                                 }
                             },
                              "minItems": 1

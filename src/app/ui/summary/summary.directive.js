@@ -87,7 +87,7 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, comm
      */
     function openPreview() {
         // set the config to use by the preview window/iFrame
-        localStorage.setItem('configpreview', modelManager.save());
+        localStorage.setItem('configpreview', modelManager.save(true));
 
         // set the array of languages to use by the preview window/iFrame
         const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
