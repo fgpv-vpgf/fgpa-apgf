@@ -139,6 +139,8 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                                 'optionData': 'lodId',
                                 'model': 'lodSetId',
                                 'array': true
+                            }, {
+                                'key': 'tileSchemas[].overviewUrl'
                             }
                         ] }
                     ] },

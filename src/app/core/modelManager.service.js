@@ -52,8 +52,11 @@ function modelManager($timeout, events, constants, commonService) {
         models.version = models.version.version;
         models.language = models.language.language;
 
+        // remove $$haskkey from model
+        const cleanModels = JSON.parse(angular.toJson(models));
+
         // return the config as a string
-        return JSON.stringify(models);
+        return JSON.stringify(cleanModels);
     }
 
     /**
