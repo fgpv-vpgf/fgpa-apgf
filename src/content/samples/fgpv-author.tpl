@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <div class="fgpa av-large" data-av-langs='["en-CA", "fr-CA"]' data-av-config="config-author.[lang].json">
+        <div class="fgpa av-large" data-av-langs='["en-CA", "fr-CA"]' data-av-config='["config-authorA.json", "config-authorB.json"]'>
             <av-header></av-header>
 
             <div class="av-tools" layout="row">

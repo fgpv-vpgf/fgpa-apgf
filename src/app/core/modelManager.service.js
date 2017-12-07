@@ -29,7 +29,7 @@ function modelManager($timeout, events, constants, commonService) {
     const _schema = {};
     const _model = {};
 
-    const _default = {};
+    let _default = {};
 
     return service;
 
@@ -135,12 +135,12 @@ function modelManager($timeout, events, constants, commonService) {
      */
     function applyDefault(modelName, model) {
         // get default model values
-        const defaultModel = _default[commonService.getLang()][modelName];
+        const defaultModel = _default[modelName];
 
         // check if it is only a string (version and language) and return default values
         // it is { map: {..}, version: "en-ca" } we need to set it { map: {..}, version: { version: "en-ca" } }
         const defaults = (typeof defaultModel !== 'string') ?
-            $.extend(true, model, _default[commonService.getLang()][modelName]) : { [modelName]: defaultModel };
+            $.extend(true, model, _default[modelName]) : { [modelName]: defaultModel };
 
         return defaults;
     }
@@ -149,10 +149,9 @@ function modelManager($timeout, events, constants, commonService) {
      * Set default configuration values to apply on new model
      * @function setDefault
      * @param {Object} defaultValues the default values in JSON
-     * @param {String} lang language to apply the values on
      */
-    function setDefault(defaultValues, lang) {
-        _default[lang] = defaultValues;
+    function setDefault(defaultValues) {
+        _default = defaultValues;
     }
 
     /**

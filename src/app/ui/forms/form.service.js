@@ -58,7 +58,7 @@ function formService($timeout, events, commonService, constants) {
     function addToggleArraySection(model, itemClass) {
         if (typeof model !== 'undefined' && model.length) {
             events.$broadcast(events.avNewItems,
-                { 'form': 'av-form-map', 'class': `.av-${itemClass.key[0]}`, 'index': model.length - 1 });
+                { 'form': 'av-form-map', 'class': itemClass, 'index': model.length - 1 });
         }
     }
 
