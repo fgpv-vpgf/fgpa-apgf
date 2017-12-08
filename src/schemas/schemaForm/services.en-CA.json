@@ -57,7 +57,7 @@
     },
     "search": {
       "type": "object",
-      "description": "Search properties including ability to disable certain types of searches (NTS, FSA, and/or LAT/LNG) and to set service endpoint urls",
+      "description": "Search properties including ability to disable certain types of searches (NTS, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls",
       "properties": {
         "disabledSearches": {
           "type": "array",
@@ -71,8 +71,8 @@
           },
           "minItems": 1,
           "uniqueItems": true,
-          "description": "Disable specific types of searches including NTS, FSA, or LAT/LNG",
-          "title": "Geo Search",
+          "description": "Disable specific types of searches including NTS, Postal Code/FSA, or LAT/LNG",
+          "title": "Search type to disable",
           "help": "",
           "default": ["NTS"]
         },
@@ -123,7 +123,7 @@
             "provinces",
             "types"
           ],
-          "title": "",
+          "title": "Service URLs",
           "help": ""
         }
       },
@@ -145,20 +145,20 @@
               "type": "boolean",
               "default": true,
               "description": "",
-              "title": "is present",
+              "title": "Is present",
               "help": ""
             },
             "isSelectable": {
               "type": "boolean",
               "default": true,
               "description": "",
-              "title": "is customizable",
+              "title": "Is customizable",
               "help": ""
             },
             "value": {
               "type": "string",
               "description": "Value to appear by default",
-              "title": "",
+              "title": "Value",
               "help": "",
               "default": ""
             }
@@ -175,20 +175,20 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is present",
+                "title": "Is present",
                 "help": ""
               },
               "isSelectable": {
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is customizable",
+                "title": "Is customizable",
                 "help": ""
               },
             "value": {
               "type": "string",
               "description": "services.export.footnote.value.description",
-              "title": "",
+              "title": "Value",
               "help": "",
               "default": ""
             }
@@ -205,20 +205,20 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is present",
+                "title": "Is present",
                 "help": ""
               },
               "isSelectable": {
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is customizable",
+                "title": "Is customizable",
                 "help": ""
               },
             "value": {
               "type": "string",
               "description": "services.export.footnote.value.description",
-              "title": "",
+              "title": "Value",
               "help": "",
               "default": ""
             }
@@ -235,14 +235,14 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is present",
+                "title": "Is present",
                 "help": ""
               },
               "isSelectable": {
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is customizable",
+                "title": "Is customizable",
                 "help": ""
               },
             "value": {
@@ -279,14 +279,14 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is present",
+                "title": "Is present",
                 "help": ""
               },
               "isSelectable": {
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is customizable",
+                "title": "Is customizable",
                 "help": ""
               },
             "value": {
@@ -309,14 +309,14 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is present",
+                "title": "Is present",
                 "help": ""
               },
               "isSelectable": {
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "is customizable",
+                "title": "Is customizable",
                 "help": ""
               },
             "value": {
@@ -333,7 +333,7 @@
         }
       },
       "additionalProperties": false,
-      "title": "This is the Export section",
+      "title": "Export section",
       "help": ""
     }
   },

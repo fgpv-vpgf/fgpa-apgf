@@ -8,7 +8,7 @@
           "type": "boolean",
           "default": false,
           "description": "Indicates viewer takes up entire viewport",
-          "title": ""
+          "title": "Fullscreen"
         },
         "theme": {
           "type": "string",
@@ -17,12 +17,12 @@
           ],
           "default": "default",
           "description": "UI theme of the viewer",
-          "title": ""
+          "title": "Theme"
         },
         "logoUrl": {
           "type": "string",
           "description": "An optional image to be used in the place of the default viewer logo",
-          "title": "",
+          "title": "Logo URL",
           "default": ""
         },
         "failureFeedback": {
@@ -149,35 +149,6 @@
             "description": "Will restrict the user from panning beyond the maximum extent.",
             "title": "Restrict Navigation"
         },
-        "about": {
-          "description": "About properties from configuration file or Markdown folder",
-          "title": "About Map",
-          "type": "object",
-          "subtype": "oneof",
-          "properties": {
-            "content": {
-                "description": "About properties from string content",
-                "title": "Content",
-                "type": "string",
-                "required": true
-            },
-            "folderName": {
-                "description": "About properties from configuration file or Markdown folder",
-                "title": "Folder Name",
-                "type": "string",
-                "required": true
-            },
-            "additionalProperties": false
-            }
-        },
-        "aboutChoice": {
-          "description": "",
-          "type": "enum",
-          "enum": ["string", "folder"],
-          "title": "About properties",
-          "default": "string",
-          "required": true
-      },
         "help": {
             "type": "object",
             "description": "Help properties",
@@ -197,6 +168,7 @@
         },
         "legend": {
             "type": "object",
+            "title": "Legend",
             "properties": {
                 "reorderable": {
                   "type": "boolean",
@@ -234,10 +206,39 @@
                         }
                     },
                 "additionalProperties": false,
-                "title": "Legend"
+                "title": "Legend openning options"
                 }
             }
         },
+        "about": {
+            "description": "About properties from configuration file or Markdown folder",
+            "title": "About Map",
+            "type": "object",
+            "subtype": "oneof",
+            "properties": {
+              "content": {
+                  "description": "About properties from string content",
+                  "title": "Content",
+                  "type": "string",
+                  "required": true
+              },
+              "folderName": {
+                  "description": "About properties from configuration file or Markdown folder",
+                  "title": "Folder Name",
+                  "type": "string",
+                  "required": true
+              },
+              "aboutChoice": {
+                  "description": "",
+                  "type": "enum",
+                  "enum": ["string", "folder"],
+                  "title": "About source",
+                  "default": "string",
+                  "required": true
+              },
+              "additionalProperties": false
+              }
+          },
         "tableIsOpen": {
             "type": "object",
             "description": "Specifies whether the table panel is opened by default on initial loading of the map for small, medium, and large viewports",
@@ -269,7 +270,7 @@
             },
             "additionalProperties": false,
             "required": ["id"],
-            "title": "Table"
+            "title": "Table openning options"
         },
         "widgetsWidget": {
             "type": "object",

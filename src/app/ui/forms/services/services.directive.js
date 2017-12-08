@@ -70,7 +70,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
+        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
     });
 
     function setForm() {
@@ -85,20 +85,21 @@ function Controller($scope, $translate, events, modelManager, formService) {
                     { 'key': 'coordInfo' },
                     { 'key': 'print' }
                 ]},
-                { 'title': $translate.instant('form.service.geosearch'), 'items': [
-                    { 'key': 'search', 'items': [
+                { 'title': $translate.instant('form.service.geosearch'),
+                    'key': 'search', 'items': [
+                        { 'key': 'search.serviceUrls', 'readonly': true },
                         { 'key': 'search.disabledSearches', 'titleMap': {
-                            'NTS': 'SNRC',
-                            'FSA': 'Postal Code',
+                            'NTS': $translate.instant('form.service.nts'),
+                            'FSA': $translate.instant('form.service.fsa'),
                             'LAT/LNG': 'Latitude / Longitude'
-                        } },
-                        { 'key': 'search.serviceUrls', 'readonly': true }
-                    ] }
-                ] },
-                { 'title': $translate.instant('form.service.export'), 'items': [
-                    { 'key': 'export', 'items': [
+                        } }
+                    ] },
+                { 'title': $translate.instant('form.service.export'),
+                    'key': 'export', 'items': [
                         { 'key': 'export.title', 'items': [
-                            { 'key': 'export.title.value', 'notitle': true },
+                            {
+                                'type': 'section', 'items': [{ 'key': 'export.title.value' }]
+                            },
                             {
                                 'type': 'section', 'items': [{ 'key': 'export.title.isSelected' }]
                             },
@@ -148,7 +149,6 @@ function Controller($scope, $translate, events, modelManager, formService) {
                             }
                         ] }
                     ] }
-                ] }
             ] }
         ];
     }

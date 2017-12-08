@@ -4,6 +4,7 @@
     "type": "object",
     "properties": {
         "language": {
+            "title": "Language",
             "type": "string",
             "enum": [
                 "en-CA",
