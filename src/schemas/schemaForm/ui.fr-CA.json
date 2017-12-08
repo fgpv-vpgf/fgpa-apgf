@@ -1,14 +1,14 @@
 {
     "schema": "ui",
     "title": "UI",
-    "description": "A set of service endpoints used by the viewer",
+    "description": "Un lot de points de service utilisés par le visualisateur",
     "type": "object",
     "properties": {
         "fullscreen": {
           "type": "boolean",
           "default": false,
-          "description": "Indicates viewer takes up entire viewport",
-          "title": ""
+          "description": "Indique si le visualisateur utilise l'entièreté de la fenêtre d'affichage",
+          "title": "Plein écran"
         },
         "theme": {
           "type": "string",
@@ -16,37 +16,37 @@
             "default"
           ],
           "default": "default",
-          "description": "UI theme of the viewer",
-          "title": ""
+          "description": "Le thème de l'interface utilisateur du visualisateur.",
+          "title": "Thème"
         },
         "logoUrl": {
           "type": "string",
-          "description": "An optional image to be used in the place of the default viewer logo",
-          "title": "",
+          "description": "(Optionnel)- Une image pour remplacer le logo utilisé par défaut par le visualisateur.",
+          "title": "URL du logo",
           "default": ""
         },
         "failureFeedback": {
             "type": "object",
-            "title": "On Viewer Failure",
+            "title": "Lors de la défaillance du visualisateur",
             "properties": {
                 "failureMessage": {
                     "type": "string",
-                    "title": "Failure Message",
-                    "description": "An optional message to be used in place of the failure message",
+                    "title": "Message d'échec",
+                    "description": "(Optionnel) - Un message à afficher en cas de défaillance.",
                     "default": ""
                 },
                 "failureImageUrl": {
                     "type": "string",
-                    "title": "Failure Image Url",
-                    "description": "An optional image to be used in place of the failure Image",
+                    "title": "URL image d'échec",
+                    "description": "(Optionnel) - Une image à utiliser en cas de défaillance.",
                     "default": ""
                 }
             }
         },
         "title": {
             "type": "string",
-            "description": "An optional title to be used in the place of the default viewer title",
-            "title": "Title",
+            "description": "(Optionnel) - Un titre pour remplacer celui utilisé par défaut par le visualisateur.",
+            "title": "Titre",
             "default": ""
         },
         "appBar": {
@@ -56,30 +56,30 @@
                 "sideMenu": {
                     "type": "boolean",
                       "default": true,
-                      "description": "Shows the side menu button in the main app toolbar.",
-                      "title": "Side Menu"
+                      "description": "Affiche le bouton du menu latéral dans la barre d'application principale.",
+                      "title": "Menu latéral"
                     },
                     "geoSearch": {
                       "type": "boolean",
                       "default": true,
-                      "description": "Shows the geosearch button in the main app toolbar. The button will be hidden if geosearch component is disabled or no search service URLs are provided.",
-                      "title": "Geo Search"
+                      "description": "Affiche le bouton de la géorecherche dans la barre d'application principale. Le bouton sera cachée si la géorecherche est désactivée ou si aucun URL n'est fourni.",
+                      "title": "Géorecherche"
                     },
                     "basemap": {
                       "type": "boolean",
                       "default": true,
-                      "description": "Shows the basemap selector button in the main app toolbar.",
-                      "title": "Basemap Selector"
+                      "description": "Affiche le bouton du sélecteur de carte de base dans la barre d'application principale.",
+                      "title": "Sélecteur de carte de base"
                     },
                     "layers": {
                       "type": "boolean",
                       "default": true,
-                      "description": "Shows the layers button in the main app toolbar.",
-                      "title": "Layers Selector"
+                      "description": "Affiche le bouton du sélecteur de couches dans la barre d'application principale.",
+                      "title": "Sélecteur de couches"
                     }
                   },
               "additionalProperties": false,
-              "title": "Application Bar"
+              "title": "Barre d'application"
         },
         "navBar": {
             "type": "object",
@@ -92,7 +92,7 @@
                 },
                 "extra": {
                     "default": ["fullscreen","geoLocator","home","help"],
-                    "title": "Extra Navigation Components",
+                    "title": "Composantes de navigation en extra",
                     "type": "array",
                     "items": {
                         "type": "string",
@@ -103,7 +103,7 @@
             },
             "required": ["zoom"],
             "additionalProperties": false,
-            "title": "Navigation Bar"
+            "title": "Barre de navigation"
         },
         "sideMenu": {
             "type": "object",
@@ -111,8 +111,8 @@
                 "logo": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Indicates if the logo should be shown in the left side menu.",
-                    "title": "Show Logo"
+                    "description": "Indique si le logo doit être affiché dans le menu latéral à gauche.",
+                    "title": "Afficher le logo"
                 },
                 "items": {
                     "type": "array",
@@ -136,56 +136,56 @@
                             ]
                         }
                     },
-                    "title": "Side Menu Items"
+                    "title": "Éléments du menu latéral"
                 }
             },
             "additionalProperties": false,
-            "description": "Specifies which options are available in the left side menu.",
-            "title": "Side Menu"
+            "description": "Spécifie quelles options sont offertes dans le menu latéral à gauche.",
+            "title": "Menu latéral"
         },
         "restrictNavigation": {
             "type": "boolean",
             "default": false,
-            "description": "Will restrict the user from panning beyond the maximum extent.",
-            "title": "Restrict Navigation"
+            "description": "Empêche l'utilisateur d'effectuer des déplacements au delà de l'étendue maximale.",
+            "title": "Navigation restreinte"
         },
         "about": {
-          "description": "About properties from configuration file or Markdown folder",
-          "title": "About Map",
+          "description": "L'à propos de la carte provenant du fichier de configuration ou d'un répertoire contenant un fichier de type Markdown",
+          "title": "À propos de la carte",
           "type": "object",
           "subtype": "oneof",
           "properties": {
             "content": {
-                "description": "About properties from string content",
-                "title": "Content",
+                "description": "À propos provenant d'un texte fourni (chaîne de caractères).",
+                "title": "Texte",
                 "type": "string",
                 "required": true
             },
             "folderName": {
-                "description": "About properties from configuration file or Markdown folder",
-                "title": "Folder Name",
+                "description": "À propos provenant d'un fichier de type Markdown",
+                "title": "Dossier contenant le fichier Markdown",
                 "type": "string",
+                "required": true
+            },
+            "aboutChoice": {
+                "description": "",
+                "type": "enum",
+                "enum": ["string", "folder"],
+                "title": "Propriétés de l'à propos",
+                "default": "string",
                 "required": true
             },
             "additionalProperties": false
             }
         },
-        "aboutChoice": {
-          "description": "",
-          "type": "enum",
-          "enum": ["string", "folder"],
-          "title": "About properties",
-          "default": "string",
-          "required": true
-      },
         "help": {
             "type": "object",
-            "description": "Help properties",
+            "description": "Propriétés de l'aide",
             "properties": {
                 "folderName": {
                     "type": "string",
-                    "description": "Help folder name who contain the help description and images",
-                    "title": "Folder Name",
+                    "description": "Nom du dossier contenant les fichiers d'aide et les images connexes",
+                    "title": "Nom du dossier",
                     "default": "default"
                 }
           },
@@ -193,83 +193,84 @@
             "folderName"
           ],
           "additionalProperties": false,
-          "title": "Help File"
+          "title": "Fichier d'aide"
         },
         "legend": {
             "type": "object",
+            "title": "Légende",
             "properties": {
                 "reorderable": {
                   "type": "boolean",
                   "default": true,
-                  "description": "Specifies if the items in the legend can be reordered; structured legend ignores this property.",
-                  "title": "Is Reorderable"
+                  "description": "indique si les éléments de la légende sont réordonnables. Cette propriété est ignorée si la légende est du type structurée.",
+                  "title": "Est réordonnable"
                 },
                 "allowImport": {
                   "type": "boolean",
                   "default": true,
-                  "description": "Specifies if the user-added layers are allowed.",
-                  "title": "Allow Layers Import"
+                  "description": "Indique si l'utilisateur peut ajouter des couches à partir de l'interface.",
+                  "title": "Permettre l'importation de couches"
                 },
                 "isOpen": {
                     "type": "object",
-                    "description": "Specifies whether the legend is opened by default on initial loading of the map for small, medium, and large viewports",
+                    "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour les fenêtres d'affichage restreinte, moyenne et étendue.",
                     "properties": {
                         "large": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the legend is opened by default on initial loading of the map for large viewports",
-                              "title": "Open by default in large display"
+                              "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue",
+                              "title": "Ouvrir par défaut dans l'affichage étendu"
                         },
                         "medium": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the legend is opened by default on initial loading of the map for medium viewports",
-                              "title": "Open by default in medium display"
+                              "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne",
+                              "title": "Ouvrir par défaut dans l'affichage moyen"
                         },
                         "small": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the legend is opened by default on initial loading of the map for small viewports",
-                              "title": "Open by default in small display"
+                              "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte",
+                              "title": "Ouvrir par défaut dans l'affichage restreint"
                         }
                     },
                 "additionalProperties": false,
-                "title": "Legend"
+                "title": "Options d'ouverture de la légende"
                 }
             }
         },
         "tableIsOpen": {
             "type": "object",
-            "description": "Specifies whether the table panel is opened by default on initial loading of the map for small, medium, and large viewports",
+            "description": "Indique si la table est ouverte par défaut lors du chargement initial pour les fenêtres d'affichage restreinte, moyenne et étendue.",
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "The id of the layer for referencing within the viewer",
-                    "title": "Layer ID",
+                    "description": "L'ID de la couche pour des fins de référencement à l'intérieur du visualisateur",
+                    "title": "ID de la couche",
                     "default": ""
                 },
                 "large": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Whether the table panel is opened by default on initial loading of the map for large viewports",
-                    "title": "Open by default in large display"
+                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue",
+                    "title": "Ouvrir par défaut dans l'affichage étendu"
                 },
                 "medium": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Whether the table panel is opened by default on initial loading of the map for medium viewports",
-                    "title": "Open by default in medium display"
+                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne",
+                    "title": "Ouvrir par défaut dans l'affichage moyen"
                 },
                 "small": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Whether the table panel is opened by default on initial loading of the map for small viewports",
-                    "title": "Open by default in small display"
+                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte",
+                    "title": "Ouvrir par défaut dans l'affichage restreint"
                 }
             },
             "additionalProperties": false,
             "required": ["id"],
-            "title": "Table"
+            "title": "Options d'ouverture de la table"
         },
         "widgetsWidget": {
             "type": "object",

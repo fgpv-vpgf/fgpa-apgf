@@ -8,7 +8,7 @@ const VersionPlugin         = require('./scripts/webpack/version_plugin.js');
 const WrapperPlugin         = require('wrapper-webpack-plugin');
 const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const HtmlWebpackPlugin     = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 module.exports = function (env) {
 

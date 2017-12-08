@@ -59,7 +59,7 @@ function Controller($scope, $translate, events, modelManager) {
         // First we broadcast an event so all fields validate themselves then we validate the model to update
         // summary panel
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
+        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
     }
 
 

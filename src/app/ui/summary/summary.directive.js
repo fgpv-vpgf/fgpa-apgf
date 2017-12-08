@@ -51,10 +51,13 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, comm
 
     // on schema update, rebuild the tree (state object)
     events.$on(events.avSchemaUpdate, () => {
-        constants.schemas.forEach(schema => {
-            self[schema.split('.')[0]] = modelManager.getState(schema.split('.')[0]);
-        });
+        initState();
     });
+
+    events.$on(events.avSwitchLanguage, () => {
+        initState();
+    });
+
 
     function expand() { walkTree(self, 'expand', true); }
     function collapse() { walkTree(self, 'expand', false); }
@@ -78,7 +81,18 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, comm
     }
 
     function validateForm() {
+        initState();
         $rootScope.$broadcast(events.avValidateForm);
+    }
+
+    /**
+     * Open a dialog window to show current configuration
+     * @function initState
+     */
+    function initState() {
+        constants.schemas.forEach(schema => {
+            self[schema.split('.')[0]] = modelManager.getState(schema.split('.')[0]);
+        });
     }
 
     /**

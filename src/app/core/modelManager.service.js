@@ -10,7 +10,7 @@ angular
     .module('app.core')
     .factory('modelManager', modelManager);
 
-function modelManager($timeout, events, constants, commonService) {
+function modelManager($timeout, $translate, events, constants, commonService) {
 
     const service = {
         save,
@@ -161,7 +161,7 @@ function modelManager($timeout, events, constants, commonService) {
 
         scope.$broadcast('schemaFormValidate');
         // TODO: when summary panel will work again, re-enable validation
-        //$timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
+        // $timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
     }
 
     /**
@@ -201,7 +201,7 @@ function modelManager($timeout, events, constants, commonService) {
      */
     function getState(modelName) {
         // create state object used by the summary section
-        _state[modelName] = { 'key': modelName, 'valid': null, 'expand': false, items: [] };
+        _state[modelName] = { 'key': modelName, 'title': $translate.instant(`app.section.${modelName}`), 'valid': null, 'expand': false, items: [] };
 
         return _state[modelName];
     }
@@ -209,20 +209,186 @@ function modelManager($timeout, events, constants, commonService) {
     /**
      * Set state object with valid values from the form field validity
      * @function validateModel
-     * @param {String} modelName the model/form name to get state on
-     * @param {Object} form      the angular schema form active form
+     * @param {String}  modelName the model/form name to get state on
+     * @param {Object}  form      the angular schema form active form
+     * @param {Array}   arrForm   the form as an array of objects
      */
-    function validateModel(modelName, form) {
+    function validateModel(modelName, form, arrForm) {
+
         // recreate state object used by the summary section
-        _state[modelName].items = updateSummaryModel([], _model[modelName]);
-
+        // _state[modelName].items = updateSummaryModel([], _model[modelName]);
         const cleanForm = commonService.parseJSON(form);
-        let arrIndex = -1;
-        let lastIndex = -1;
 
-        // loop trough form keys to create state object
-        $.each(cleanForm, (key, v) => {
+        // for futur use
+        // let advHidden = [];
+        // listAdvanceHidden(arrForm, advHidden);
 
+        // Since map is much more complicated we isolate it
+        if (modelName === 'map') {
+            updateSummaryFormMap(_state[modelName],modelName, cleanForm);
+        } else {
+            updateSummaryForm(_state[modelName],modelName, cleanForm);
+        }
+
+        // Set each title
+        setTitle(_state[modelName], arrForm);
+
+        // Set custom title
+        setCustomTitles(_state[modelName], modelName);
+
+        // Set element hyperlink here
+        // TODO
+
+        // Set master element hyperlink here
+        // TODO
+
+        // Set master element validity
+        setMasterValidity(_state[modelName]);
+
+        // Set special style to hidden advance parameter
+        // TODO
+
+    }
+
+    /**
+     * List of hidden advance parameters
+     * @function listAdvanceHidden
+     * @private
+     * @param {Array}   arrForm   the form as an array of objects
+     * @param {Array}   list   list of hidden advance parameters
+     */
+    function listAdvanceHidden(arrForm, list) {
+
+        arrForm.forEach(item => {
+            if (item.hasOwnProperty('htmlClass') && item.htmlClass === 'av-form-advance hidden') {
+                list.push(item.key);
+            }
+            if (item.hasOwnProperty('items')) {
+                listAdvanceHidden(item.items, list);
+            }
+        });
+    }
+
+    /**
+     * Retrieve the title corresponding to the provided key
+     * @function setTitle
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Array}   arrForm   the form as an array of objects
+     */
+    function setTitle(stateModel, arrForm) {
+
+        if (stateModel.hasOwnProperty('key') && stateModel.title === ''){
+            findTitle(stateModel.key, stateModel, arrForm);
+        }
+        if (stateModel.hasOwnProperty('items')) {
+            stateModel.items.forEach(item => {
+                setTitle(item, arrForm);
+            });
+        }
+    }
+
+    /**
+     * Retrieve the title corresponding to the provided key
+     * @function setCustomTitles
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {String}   modelName modelName
+     */
+    function setCustomTitles(stateModel, modelName) {
+        const customTitles = {
+            'map': ['form.map.extentlods'],
+            'ui': ['form.ui.general', 'form.ui.nav', 'form.ui.sidemenu'],
+            'services': ['form.service.urls'],
+            'language': [],
+            'version': []
+        };
+        
+        customTitles[modelName].forEach(title => {
+            if (stateModel.hasOwnProperty('key') && stateModel.key === title){
+                stateModel.title = $translate.instant(title);
+            }
+            if (stateModel.hasOwnProperty('items')) {
+                stateModel.items.forEach(item => {
+                    setCustomTitles(item, modelName);
+                });
+            }
+        });
+    }
+
+    /**
+     * Search for the title corresponding to the provided key
+     * Ref: https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript?page=1&tab=votes#tab-top
+     * @function findTitle
+     * @private
+     * @param {key}     key the key to look for (could be an array)
+     * @param {Object}  itemForm a form item
+     * @param {Array}   arrForm the form as an array of objects
+     */
+    function findTitle(key, itemForm, arrForm) {
+
+        arrForm.forEach(item => {
+            if (item.hasOwnProperty('key')) {
+                if(Array.isArray(item.key)) {
+                    if(key === item.key[item.key.length - 1]) {
+                        itemForm.title =  item.title;
+                    }
+                } else if (key === item.key) {
+                    itemForm.title = item.title;
+                }
+            }
+            if(item.hasOwnProperty('items')) {
+                findTitle(key, itemForm, item.items);
+            }
+        });
+    }
+
+    /**
+     * Create state object from model/form for the map section of the summary panel
+     * @function updateSummaryFormMap
+     * @private
+     * @param {Object} state the state object in JSON
+     * @param {String} modelName the current model name
+     * @param {Object} form the model object in JSON
+     */
+    function updateSummaryFormMap(state, modelName, form) {
+
+        let keysArr = [];
+
+        // loop trough form keys to create set of keys
+        $.each(form, key => {
+            if (key.startsWith('activeForm-')) {
+                // get all the keys to find the object
+                let keys = key.replace('--', '-').split('-').filter(n => n !== '' && n!== 'activeForm');
+
+                // remove first element of keys set if it is '0'
+                if (keys [0] === '0') keys.shift();
+
+                keysArr.push([keys, form[key].$valid]);
+            }
+        });
+
+        // Simplify keys set
+        const keysArrRed = reduceMapArray(keysArr);
+        const keysArrUpd = addSpecific(keysArrRed, modelName);
+
+        buildStateTree(state, modelName, keysArrUpd);
+    }
+
+    /**
+     * Create state object from model/form for the summary panel
+     * @function updateSummaryForm
+     * @private
+     * @param {Object} state the state object in JSON
+     * @param {String} modelName the current model name
+     * @param {Object} form the model object in JSON
+     * @param {Object} list hidden advance parameters list
+     */
+    function updateSummaryForm(state, modelName, form) {
+
+        let keysArr = [];
+        // loop trough form keys to create set of keys
+        $.each(form, key => {
             if (key.startsWith('activeForm-')) {
                 // get all the keys to find the object
                 let keys = key.split('-').filter(n => n !== '' && n!== 'activeForm');
@@ -230,95 +396,190 @@ function modelManager($timeout, events, constants, commonService) {
                 // remove duplicate keys. They are introduce by array in schema form
                 const unique = commonService.setUniq(keys);
 
-                // then get the index for array items
-                // only work with one level array for now so reduce the array to 1 Number. When the number change
-                // it means it is a new item in the array. We can't rely on key index because they don't follow
-                // array index
-                let index = unique.map(Number).filter(n => !isNaN(n)).slice(-1)[0];
-                if (typeof index !== 'undefined') {
-                    arrIndex = (index !== lastIndex) ? arrIndex + 1 : arrIndex;
-                    lastIndex = index;
-                } else {
-                    arrIndex = -1;
-                }
-
-                // finally, remove index from unique keys
-                keys = unique.filter(n => isNaN(Number(n)));
-
-                // find the item in the state tree object for summary
-                const item = walk(_state[modelName].items, keys, arrIndex);
-                item.valid = cleanForm[key].$valid;
+                keysArr.push([unique, form[key].$valid]);
             }
         });
+
+        // Add specifis keys so the missing tabs can be represented in the summary
+        const keysArrUpdate = addSpecific(keysArr, modelName);
+
+        buildStateTree(state, modelName, keysArr);
     }
 
     /**
      * Create state object from model/form for the summary panel
-     * @function updateSummaryModel
+     * @function buildStateTree
      * @private
      * @param {Object} state the state object in JSON
-     * @param {Object} model the model object in JSON
-     * @param {Number} array optional number to specify the array index. Minus one if it is not an array
-     * @return {Object}      updated state
+     * @param {String} element the current element name
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
      */
-    function updateSummaryModel(state, model, array = -1) {
-        Object.keys(model).forEach((key, index) => {
-            // undefined are introduce inside the model by AngularSchemaForm when user empty a field
-            // replace undefined be "" value
-            model[key] = typeof model[key] === 'undefined' ? "" : model[key];
+    function buildStateTree(state, element, arrKeys) {
 
-            // TODO: remove angular $$hashkey inserted inside array by angularschemaform
-            if (array === -1 && key !== '$$hashKey') {
-                state[index] = { 'key': key, 'valid': null, 'expand': false, 'type': 'object' };
-            } else if (key !== '$$hashKey') {
-                state.push({ 'key': key, 'valid': null, 'expand': false, 'type': 'array' });
-            }
+        const firstItems = [];
+        arrKeys.forEach(arr => firstItems.push(arr[0][0]));
+        const firstItemsUniq = Array.from(new Set(firstItems));
 
-            if (commonService.isArray(model[key]) && commonService.isObject(model[key][0])) {
-                state[index].items = [];
-                let i = 0;
-                for (let value of model[key]) {
-                    updateSummaryModel(state[index].items, value, i);
-                    i++;
-                }
-            } else if (Object.keys(model[key]).length && commonService.isObject(model[key]) && !commonService.isArray(model[key])) {
-                state[index].items = [];
-                updateSummaryModel(state[index].items, model[key]);
+        firstItemsUniq.forEach(item => {
+
+            const validKey = arrKeys.filter(el => el[0][0] === item).slice();
+            const validArr = validKey.map(el => {
+                el = el.slice(1);
+                return el;
+            }).slice();
+
+            const maxLen = Math.max(arrKeys.filter(el => el[0][0] === item).length);
+            // Check if we need to add items attribute
+            if (maxLen > 1 && item !== 'items') {
+
+                const valid = [];
+                for (let i = 0; i < validArr.length; i++) valid.push(validArr[i][0]);
+                // const reducer = (validState, currValid) => validState && currValid;
+                // const validState = valid.reduce(reducer);
+                const validState = !valid.includes(false);
+                state.items.push({ 'key': item, 'title': '', items: [], 'valid': validState, 'expand': false, 'type': 'object' });
+
+                // Build new keys array
+                const newKeysArr = arrKeys.filter(el => {
+                    if (el[0][0] === item) {
+                        el[0].shift();
+                        return el;
+                    } 
+                });
+
+                const index = state.items.findIndex(el => el.key === item);
+                // Go deeper
+                buildStateTree(state.items[index], item, newKeysArr);
+            } else if (item !== 'items' && typeof item !== 'undefined') {
+                const valid = validArr[0][0];
+                state.items.push({ 'key': item, 'title': '', 'valid': valid, 'expand': false, 'type': 'object' });
             }
         });
-
-        return state;
     }
 
     /**
-     * Walk the object to return the proper item
-     * @function walk
+     * Reduce map array to simplify hierarchy
+     * @function reduceMapArray
      * @private
-     * @param {Object} model the model object in JSON
-     * @param {Array} keys the array of keys
-     * @param {Number} index the index for array members
-     * @return {Object}      the item
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     * @return {Array} reduced keys array
      */
-    function walk(model, keys, index) {
-        // walk json tree to return the proper object
-        const key = keys.shift();
-        let item = model.find(obj => obj.key === key);
+    function reduceMapArray(arrKeys) {
 
-        if (item.type === 'array') {
-            let loop = 0;
-            for (let i = 0; i < model.length; i++) {
-                if (model[i].key === key) {
-                    if (loop === index) {
-                        item = model[i];
-                    }
-                    loop++;
-                }
-            }
-        }
+        const arrLegend = arrKeys.filter(el => el[0][0] === 'legend');
+        const arrComp = arrKeys.filter(el => el[0][0] === 'components');
 
-        // if there is key in the array, walk a level deeper
-        item = (keys.length > 0) ? walk(item.items, keys, index): item;
+        const arr = reduceKey(arrKeys, ['tileSchemas'])
+            .concat(reduceKey(arrKeys, ['extentSets']),
+                reduceKey(arrKeys, ['lodSets']),
+                arrComp,
+                reduceKey(arrKeys, ['baseMaps']),
+                reduceKey(arrKeys, ['layers']),
+                arrLegend
+            );
 
-        return item;
+        return arr;
     }
+
+    /**
+     * Reduce map array to simplify hierarchy
+     * @function reduceKey
+     * @private
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     * @param {Array} keys keys
+     * @return {Array} reduced keys array
+     */
+    function reduceKey(arrKeys, keys) {
+
+        const arr = arrKeys.filter(el => el[0].length >= keys.length
+                                        && keys.every((v,i)=> v === el[0][i]));
+
+        const validSet = [];
+        for (let i = 0; i < arr.length; i++) validSet.push(arr[i][1]);
+        const valid = !validSet.includes(false);
+
+        return [[keys,valid]];
+    }
+
+    /**
+     * Add specific keys so missing tabs can be part of the summary
+     * @function addSpecific
+     * @private
+     * @param {Array}   arrKeys array of object {key: [], valid: true | false}
+     * @param {String}  modelName modelName
+     * @return {Array} updated keys array
+     */
+    function addSpecific(arrKeys, modelName) {
+        const keys = {
+            'map': { 'form.map.extentlods': ['tileSchemas', 'extentSets', 'lodSets'] },
+            'ui': { 'form.ui.general': ['fullscreen', 'theme', 'legend', 'tableIsOpen', 'failureFeedback'],
+                'form.ui.nav': ['restrictNavigation', 'navBar'],
+                'form.ui.sidemenu': ['logo', 'logoUrl', 'title', 'sideMenu.items', 'help', 'about']
+            },
+            'services': { 'form.service.urls': ['exportMapUrl', 'geometryUrl', 'googleAPIKey', 'proxyUrl'] },
+            'language': {},
+            'version': {}
+        };
+
+        arrKeys.forEach(key => {
+            Object.keys(keys[modelName]).forEach(skey => {
+                if (keys[modelName][skey].includes(key[0][0])) {
+                    key[0].unshift(skey);
+                }
+            });
+        });
+
+        return arrKeys;
+    }
+
+    /**
+     * Set validity on master element of the model
+     * @function setMasterValidity
+     * @private
+     * @param {Object} state the state object in JSON
+     */
+    function setMasterValidity(state) {
+
+        const validSet = [];
+
+        for (let i = 0; i < state.items.length; i++) validSet.push(state.items[i].valid);
+        // const reducer = (validState, currValid) => validState && currValid;
+        // state.valid = validSet.reduce(reducer);
+        state.valid = !validSet.includes(false);
+
+    }
+
+//     /**
+//      * Walk the object to return the proper item
+//      * @function walk
+//      * @private
+//      * @param {Object} model the model object in JSON
+//      * @param {Array} keys the array of keys
+//      * @param {Number} index the index for array members
+//      * @return {Object}      the item
+//      */
+//     function walk(model, keys, index) {
+
+//         // walk json tree to return the proper object
+//         const key = keys.shift();
+
+//         let item = model.find(obj => obj.key === key);
+
+//         if (item.type === 'array') {
+//             let loop = 0;
+//             for (let i = 0; i < model.length; i++) {
+//                 if (model[i].key === key) {
+//                     if (loop === index) {
+//                         item = model[i];
+//                     }
+//                     loop++;
+//                 }
+//             }
+//         }
+
+//         // if there is key in the array, walk a level deeper
+//         item = (keys.length > 0) ? walk(item.items, keys, index): item;
+
+//         return item;
+//     }
 }
