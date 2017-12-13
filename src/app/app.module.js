@@ -9,6 +9,7 @@
 angular
     .module('app', [
         'app.core',
+        'app.geo',
         'app.addon.sampleSchema',
         'app.addon.sampleForm',
         'app.addon.dynamicSelect',

@@ -36,7 +36,8 @@ function avMap() {
     return directive;
 }
 
-function Controller($scope, $translate, $timeout, events, modelManager, formService, debounceService, constants) {
+function Controller($scope, $translate, $timeout,
+    events, modelManager, formService, debounceService, constants, layerService) {
     'ngInject';
     const self = this;
     self.modelName = 'map';
@@ -115,6 +116,59 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
         // need 'link': 'layers[$index].layer.layerType', the model element to update with [$index] to specify when it is the array
         // 'model': 'layers.layerChoice'. We can't use key because it does't reflect the real path
         self.formService.copyValueToModelIndex($scope.model, item, model);
+    }
+
+    function setColumns(event, item) {
+        // get the element for dynamic and feature layer
+        const elementDyn = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+        const elementFeat = event.currentTarget.parentElement.parentElement.parentElement.parentElement;
+
+        // get the index of current layer to get the model and the layerEntry index to get the feature class
+        const indexLayer = (item.layerType === 'esriFeature') ?
+            elementFeat.getAttribute('sf-index') : elementDyn.getAttribute('sf-index');
+        const featClass = (item.layerType === 'esriFeature') ?
+            -1 : elementFeat.parentElement.childNodes[5].children[1].value;
+
+        // get model for specific layer
+        let model = $scope.model.layers[indexLayer];
+
+        // send the model to generate the config to query the layer
+        layerService.getLayer(model, featClass).then(data => {
+
+            // if it is a dynamic layer, use the index of the layer entry
+            model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementFeat.getAttribute('sf-index')];
+
+            // make sure table exist on layer object
+            if (typeof model.table === 'undefined') { model.table = { }; }
+
+            // set the columns from the layer field
+            model.table.columns = data.fields.map(field => {
+                // get field type, set number as default
+                let fieldType = 'number';
+                if (field.type === 'esriFieldTypeString') { fieldType = 'string'; }
+                else if (field.type === 'esriFieldTypeDate') { fieldType = 'date'; }
+
+                const item = {
+                    'remove': false,
+                    'data': field.name,
+                    'title': field.alias,
+                    'visible':  true,
+                    'searchable': true,
+                    'filter': {
+                        'type': fieldType
+                    }
+                };
+                return item;
+            });
+
+            // remove shape column if present
+            model.table.columns.map((field, index) => {
+                if (field.data === 'SHAPE') { model.table.columns.splice(index, 1) }
+            });
+
+            // broadcast event to generate accordion
+            events.$broadcast(events.avNewItems);
+        });
     }
 
     function setForm() {
@@ -267,8 +321,8 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                             'notitle': true
                         }
                     ] },
-                    { 'key': 'baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); self.formService.addToggleArraySection(scope.model.baseMaps, 'av-baseMaps'); }, 'add': $translate.instant('button.add'), 'items': [
-                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMaps', 'linkTo': 'basemapName', 'title': $translate.instant('form.map.basemap'), 'items': [
+                    { 'key': 'baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMaps', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'baseMaps[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false); } },
                                 { 'key': 'baseMaps[].name', 'link': 'av-baseMaps.legend.0', 'model': 'baseMaps.name', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce(copyValueToFormIndex, constants.debInput, false) },
@@ -284,13 +338,18 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                                     'array': true
                                 },
                                 { 'key': 'baseMaps[].layers' },
-                                { 'key': 'baseMaps[].attribution' }
+                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
+                                    { 'key': 'baseMaps[].attribution', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
+                                        { 'key': 'baseMaps[].attribution.text' },
+                                        { 'key': 'baseMaps[].attribution.logo' }
+                                    ] }
+                                ] }
                             ] }
                         ] }
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
-                    { 'key': 'layers', 'startEmpty': true, 'onChange': () => { self.formService.addToggleArraySection(scope.model.layers, 'av-layers'); }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },
@@ -304,26 +363,52 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                                 { 'key': 'layers[].tolerance', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'items': [
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
-                                    { 'key': 'layers[].layerEntries[].index' },
-                                    { 'key': 'layers[].layerEntries[].name' },
-                                    { 'key': 'layers[].layerEntries[].outfields' },
-                                    { 'key': 'layers[].layerEntries[].stateOnly' }
+                                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layersentries', 'title': $translate.instant('form.map.layerentry'), 'items': [
+                                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
+                                            { 'key': 'layers[].layerEntries[].index' },
+                                            { 'key': 'layers[].layerEntries[].name' },
+                                            { 'key': 'layers[].layerEntries[].outfields' },
+                                            { 'key': 'layers[].layerEntries[].stateOnly' },
+                                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
+                                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
+                                                    { 'key': 'layers[].layerEntries[].controls' },
+                                                    { 'key': 'layers[].layerEntries[].disabledControls' },
+                                                    { 'key': 'layers[].layerEntries[].state' }
+                                                ] }
+                                            ] },
+                                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].layerEntries[].table', 'esriDynamic') }
+                                        ] }
+                                    ] }
                                 ] },
                                 { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'items': [
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
-                                    { 'key': 'layers[].layerEntries[].id' },
-                                    { 'key': 'layers[].layerEntries[].name' },
-                                    { 'key': 'layers[].layerEntries[].allStyles' },
-                                    { 'key': 'layers[].layerEntries[].currentStyle' }
+                                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layersentries', 'title': $translate.instant('form.map.layerentry'), 'items': [
+                                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
+                                            { 'key': 'layers[].layerEntries[].id' },
+                                            { 'key': 'layers[].layerEntries[].name' },
+                                            { 'key': 'layers[].layerEntries[].allStyles' },
+                                            { 'key': 'layers[].layerEntries[].currentStyle' },
+                                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
+                                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
+                                                    { 'key': 'layers[].layerEntries[].controls' },
+                                                    { 'key': 'layers[].layerEntries[].disabledControls' },
+                                                    { 'key': 'layers[].layerEntries[].state' }
+                                                ] }
+                                            ] }
+                                        ] }
+                                    ] }
                                 ] },
                                 { 'key': 'layers[].singleEntryCollapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\''  },
                                 { 'key': 'layers[].featureInfoMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
                                 { 'key': 'layers[].legendMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
-                                { 'type': 'fieldset', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
-                                    { 'key': 'layers[].controls' },
-                                    { 'key': 'layers[].disabledControls' }
+                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
+                                    { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
+                                        { 'key': 'layers[].controls' },
+                                        { 'key': 'layers[].disabledControls' },
+                                        { 'key': 'layers[].state' }
+                                    ] }
                                 ] },
-                                { 'key': 'layers[].state' }
+                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].table', 'esriFeature') }
                             ] }
                         ] }
                     ] }
@@ -343,5 +428,36 @@ function Controller($scope, $translate, $timeout, events, modelManager, formServ
                 ] }
             ] }
         ];
+    }
+
+    function setTableSection(model, layerType) {
+        return [{ 'key': `${model}`, 'notitle': true, 'htmlClass': 'av-accordion-content', 'items': [
+            { 'key': `${model}.title` },
+            { 'key': `${model}.description` },
+            { 'key': `${model}.maximize` },
+            { 'key': `${model}.search` },
+            { 'key': `${model}.applyMap` },
+            { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
+                { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'layerType': layerType, 'onClick': setColumns },
+                { 'key': `${model}.columns`, 'add': null, 'remove': null, 'notitle': true, 'startEmpty': true, 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-columns', 'title': $translate.instant('form.map.layertablecol'), 'items': [
+                        { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
+                            { 'key': `${model}.columns[].remove` },
+                            { 'key': `${model}.columns[].title` },
+                            { 'key': `${model}.columns[].description` },
+                            { 'key': `${model}.columns[].visible` },
+                            { 'key': `${model}.columns[].width` },
+                            { 'key': `${model}.columns[].sort` },
+                            { 'key': `${model}.columns[].searchable` },
+                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablefilter'), 'items': [
+                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
+                                    { 'key': `${model}.columns[].filter`, 'notitle': true }
+                                ] }
+                            ] }
+                        ] }
+                    ] }
+                ] }
+            ] }
+        ] }]
     }
 }

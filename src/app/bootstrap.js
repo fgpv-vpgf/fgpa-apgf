@@ -1,3 +1,5 @@
+import geoapi from 'geoApi';
+
 // check if window.AV has been created by ie-polyfills already, otherwise init
 const AV = window.AV = window.AV ? window.AV : {};
 

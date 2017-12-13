@@ -16,7 +16,6 @@ function formService($timeout, events, commonService, constants) {
         showAdvance,
         advanceModel: false,
         toggleSection,
-        addToggleArraySection,
         copyValueToForm,
         copyValueToFormIndex,
         copyValueToModelIndex,
@@ -52,13 +51,6 @@ function formService($timeout, events, commonService, constants) {
         const icons = targetParent.getElementsByTagName('md-icon');
         for (let elem of icons) {
             elem.classList.toggle('hidden');
-        }
-    }
-
-    function addToggleArraySection(model, itemClass) {
-        if (typeof model !== 'undefined' && model.length) {
-            events.$broadcast(events.avNewItems,
-                { 'form': 'av-form-map', 'class': itemClass, 'index': model.length - 1 });
         }
     }
 
@@ -125,7 +117,7 @@ function formService($timeout, events, commonService, constants) {
      * @function findIndex
      * @private
      * @param  {Object} model   model to find the value from
-     * @param  {Array} keys   array of keys to walkthe model
+     * @param  {Array} keys   array of keys to walk the model
      * @param  {String} value   value for the key to find
      * @param  {Integer} index index inside the array
      * @param  {Array} returnIndexes array of indexes to update
@@ -141,7 +133,7 @@ function formService($timeout, events, commonService, constants) {
                 // loop the array. Make a copy of keys so we don't empty it on first element
                 findIndex(model[key][i], keys.slice(0), value, i, returnIndexes)
             }
-        } else {
+        } else if (typeof model[key] !== 'undefined'){
             // if there is key in the array of keys, walk a level deeper
             const item = (keys.length > 0) ? findIndex(model[key], keys, value, index, returnIndexes) : model[key];
 
