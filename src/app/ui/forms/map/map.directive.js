@@ -322,6 +322,7 @@ function Controller($scope, $translate, $timeout,
                         }
                     ] },
                     { 'key': 'baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
+                        { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMaps', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'baseMaps[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false); } },
@@ -350,6 +351,7 @@ function Controller($scope, $translate, $timeout,
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
                     { 'key': 'layers', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
+                        { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },
@@ -440,6 +442,7 @@ function Controller($scope, $translate, $timeout,
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'layerType': layerType, 'onClick': setColumns },
                 { 'key': `${model}.columns`, 'add': null, 'remove': null, 'notitle': true, 'startEmpty': true, 'items': [
+                    { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-columns', 'title': $translate.instant('form.map.layertablecol'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                             { 'key': `${model}.columns[].remove` },

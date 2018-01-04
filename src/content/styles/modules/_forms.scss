@@ -26,4 +26,20 @@
         position: relative;
         cursor: pointer;
     }
+
+    .av-state-highlight {
+        background-color: $drag-color;
+        height: 10em;
+        margin: 0.5em 1em 0.5em 1em;
+        list-style-type: none;
+    }
+
+    .list-group-item > div {
+        display: flex;
+    }
+
+    .av-drag-handle {
+        padding-top: 1px;
+        cursor: move;
+    }
 }
