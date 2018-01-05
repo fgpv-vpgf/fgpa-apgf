@@ -1,2 +1,3 @@
-import "babel-polyfill";
+import 'babel-polyfill';
 import './ie-svg.contains';
+import './ie.assign';
