@@ -69,15 +69,24 @@ function uploadDefault($rootElement, $http, modelManager) {
  * @param  {Object} modelManager Model Manager service
  */
 function uploadSchema($http, $timeout, events, constants, modelManager) {
+    const files = constants.schemas.length * languages.length;
+    let loop = 1;
+
     // load schemas for all available languages
     languages.forEach(lang => {
         // loop trought all available schemas
         constants.schemas.forEach(file => {
             let location = `./schemaForm/${file.replace('[lang]', lang)}`;
-            $http.get(location).then(obj => modelManager.setSchema(obj.data.schema, obj.data, lang));
+            $http.get(location).then(obj => {
+                modelManager.setSchema(obj.data.schema, obj.data, lang);
+
+                if (loop++ === files) {
+                    // TODO: use better way instead of timeout
+                    $timeout(() => events.$broadcast(events.avSchemaUpdate), 500);
+                }
+            });
         });
     });
 
-    // TODO: use better way instead of timeout
-    $timeout(() => events.$broadcast(events.avSchemaUpdate), 1000);
+
 }
