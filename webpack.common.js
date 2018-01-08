@@ -77,6 +77,10 @@ module.exports = function (env) {
                 {
                     test: /\.xsl$/,
                     use: 'raw-loader'
+                },
+                {
+                    test: /ui-sortable/,
+                    use: ['imports-loader?$UI=jquery-ui/ui/widgets/sortable']
                 }
             ]
         },

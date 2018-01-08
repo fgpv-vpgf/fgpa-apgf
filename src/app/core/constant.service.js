@@ -15,6 +15,7 @@ angular
     .constant('constants', {
         debInput: 500, // time for debouncing when user enter value
         delayAccordion: 2500,
+        delayHandle: 3500,
         delayCollapseLink: 2800,
         delaySplash: 3500,
         delayEventSplash: 750,
