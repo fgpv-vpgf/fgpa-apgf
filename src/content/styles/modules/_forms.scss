@@ -34,12 +34,7 @@
         list-style-type: none;
     }
 
-    .list-group-item > div {
-        display: flex;
-    }
-
     .av-drag-handle {
-        padding-top: 1px;
         cursor: move;
     }
 }

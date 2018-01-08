@@ -8,4 +8,16 @@
     legend {
         margin-bottom: 3px;
     }
+
+    .list-group-item {
+        padding: 0px 10px;
+    }
+
+    fieldset {
+        padding: 0px 10px;
+    }
+
+    .has-feedback label ~ .form-control-feedback {
+      right: 10px;
+    }
 }
