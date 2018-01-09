@@ -56,6 +56,10 @@ form map layer table columns set,form.map.layertablesetcol,Customize Fields,0,Pe
 form map basemap attribution,form.map.basemapattrib,Attribution,0,Credit,0
 form map,form.map.legendauto,Autopopulate,0,Automatique,0
 form map,form.map.legendstruct,Structured,0,Structure,0
+form map extent dialog,form.map.extentdialog,Set Extent: zoom and pan to the extent then close the window,Defenir etendue: zoomer et deplacer l'entdue et fermer la fenetre,
+form map set extent default,form.map.extentdefault,Set Extent (Default),Defenir etendue (default),
+form map set extent full,form.map.extentfull,Set Extent (Full),Defenir etendue (complet),
+form map set extent max,form.map.extentmax,Set Extent (Max),Defenir etendue (max),
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Canceller,0

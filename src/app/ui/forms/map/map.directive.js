@@ -199,74 +199,79 @@ function Controller($scope, $translate, $timeout,
                         ] }
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.extentset'), 'items': [
-                        { 'key': 'extentSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                            { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); }  },
-                            { 'type': 'section', 'htmlClass': 'row', 'items': [
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'extentSets[].spatialReference.wkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'extentSets[].spatialReference.vcsWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'extentSets[].spatialReference.latestWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'extentSets[].spatialReference.latestVcsWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'extentSets[].spatialReference.wkt' }
-                                ] }
-                            ] },
-                            { 'type': 'section', 'htmlClass': 'row', 'items': [
-                                { 'key': 'extentSets[].default', 'items': [
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].default.xmin' }
+                        { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
+                            { 'type': 'template', 'template': addSetExtent('extentdefault'), 'setExtent': () => { self.formService.setExtent('default', $scope.model.extentSets); } },
+                            { 'type': 'template', 'template': addSetExtent('extentfull'), 'setExtent': () => { self.formService.setExtent('full', $scope.model.extentSets); } },
+                            { 'type': 'template', 'template': addSetExtent('extentmax'), 'setExtent': () => { self.formService.setExtent('maximum', $scope.model.extentSets); } },
+                            { 'key': 'extentSets', 'onChange': () => { self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                                { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); }  },
+                                { 'type': 'section', 'htmlClass': 'row', 'items': [
+                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                        { 'key': 'extentSets[].spatialReference.wkid' }
                                     ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].default.ymin' }
+                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                        { 'key': 'extentSets[].spatialReference.vcsWkid' }
                                     ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].default.xmax' }
+                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                        { 'key': 'extentSets[].spatialReference.latestWkid' }
                                     ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].default.ymax' }
+                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                        { 'key': 'extentSets[].spatialReference.latestVcsWkid' }
+                                    ] },
+                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                        { 'key': 'extentSets[].spatialReference.wkt' }
                                     ] }
-                                ] }
-                            ] },
-                            { 'type': 'section', 'htmlClass': 'row', 'items': [
-                                { 'key': 'extentSets[].full', 'items': [
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].full.xmin' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].full.ymin' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].full.xmax' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].full.ymax' }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'row', 'items': [
+                                    { 'key': 'extentSets[].default', 'items': [
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].default.xmin' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].default.ymin' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].default.xmax' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].default.ymax' }
+                                        ] }
                                     ] }
-                                ] }
-                            ] },
-                            { 'type': 'section', 'htmlClass': 'row', 'items': [
-                                { 'key': 'extentSets[].maximum', 'items': [
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].maximum.xmin' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].maximum.ymin' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].maximum.xmax' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                        { 'key': 'extentSets[].maximum.ymax' }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'row', 'items': [
+                                    { 'key': 'extentSets[].full', 'items': [
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].full.xmin' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].full.ymin' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].full.xmax' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].full.ymax' }
+                                        ] }
+                                    ] }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'row', 'items': [
+                                    { 'key': 'extentSets[].maximum', 'items': [
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].maximum.xmin' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].maximum.ymin' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].maximum.xmax' }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'extentSets[].maximum.ymax' }
+                                        ] }
                                     ] }
                                 ] }
                             ] }
-                        ] }
+                        ]}
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.lodset'), 'items': [
                         { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'); },'notitle': true, 'add': $translate.instant('button.add'), 'items': [
@@ -367,7 +372,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].tolerance', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'items': [
+                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'items': [
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layersentries', 'title': $translate.instant('form.map.layerentry'), 'items': [
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
@@ -386,7 +391,7 @@ function Controller($scope, $translate, $timeout,
                                         ] }
                                     ] }
                                 ] },
-                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'items': [
+                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'items': [
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layersentries', 'title': $translate.instant('form.map.layerentry'), 'items': [
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
@@ -445,7 +450,7 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.applyMap` },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'layerType': layerType, 'onClick': setColumns },
-                { 'key': `${model}.columns`, 'add': null, 'remove': null, 'notitle': true, 'startEmpty': true, 'items': [
+                { 'key': `${model}.columns`, 'add': null, 'remove': null, 'notitle': true, 'htmlClass': 'av-accordion-all av-accordion-all-field', 'startEmpty': true, 'items': [
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-columns', 'title': $translate.instant('form.map.layertablecol'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
@@ -466,5 +471,13 @@ function Controller($scope, $translate, $timeout,
                 ] }
             ] }
         ] }]
+    }
+
+    function addSetExtent(type) {
+        return `<md-button class="av-button-square md-raised"
+                        ng-click="form.setExtent()">
+                    {{ 'form.map.${type}' | translate }}
+                    <md-tooltip>{{ 'summary.expand' | translate }}</md-tooltip>
+                </md-button>`;
     }
 }

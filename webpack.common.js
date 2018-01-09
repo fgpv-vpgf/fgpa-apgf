@@ -100,6 +100,10 @@ module.exports = function (env) {
                 from: '**/*.html',
                 to: 'samples'
             },{
+                context: 'src/content/samples',
+                from: '**/*.js',
+                to: 'samples'
+            },{
                 from: 'src/locales/help',
                 to: 'samples/help'
             },{
