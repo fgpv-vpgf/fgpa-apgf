@@ -25,24 +25,24 @@ The fix is based on the following hack: https://codepen.io/mkstix6/pen/pRbErK
     /* IE10 & IE11 CSS styles go here */
     _:-ms-input-placeholder, .av-drag-handle {
         position: relative;
-        top: 26px;
+        top: 22px;
     }
 
     _:-ms-input-placeholder, .av-accordion-icon {
-        top: 26px;
+        top: 22px;
         position: relative;
     }
 
     /* Microsoft EdgeV13&14 CSS styles go here */
     @supports (-ms-ime-align: auto) {
         .av-accordion-icon {
-            top: 26px;
+            top: 22px;
             position: relative;
         }
 
         .av-drag-handle {
             position: relative;
-            top: 26px;
+            top: 22px;
         }
     }
 }

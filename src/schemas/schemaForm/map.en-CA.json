@@ -425,6 +425,7 @@
                   },
                   "layers": {
                     "type": "array",
+                    "title": "Layers",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -449,8 +450,7 @@
                       ]
                     },
                     "minItems": 1,
-                    "description": "A set of URLs which should be composited to form a basemap entry",
-                    "title": ""
+                    "description": "A set of URLs which should be composited to form a basemap entry"
                   },
                   "attribution": {
                     "title": "Attribution",
@@ -528,7 +528,8 @@
               "title": "Basemaps Collection"
         },
         "layers": {
-            "description": "",
+            "description": "A list of layers to be added to the viewer.",
+            "title": "Layers Collection",
             "type": "array",
             "items": {
                 "type": "object",
@@ -787,6 +788,7 @@
                     },
                     "layerEntries": {
                         "type": "array",
+                        "title": "Layer Entries",
                         "default": [],
                         "items": {
                             "type": "object",
