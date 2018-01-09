@@ -7,6 +7,7 @@
 
     legend {
         margin-bottom: 3px;
+        font-size: 18px
     }
 
     .list-group-item {
@@ -19,5 +20,10 @@
 
     .has-feedback label ~ .form-control-feedback {
       right: 10px;
+    }
+
+    .schema-form-array > label {
+        font-size: 18px;
+        line-height: 2.5;
     }
 }

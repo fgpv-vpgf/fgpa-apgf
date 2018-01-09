@@ -22,7 +22,7 @@
     }
 
     .av-accordion-icon {
-        top: -32px;
+        top: -28px;
         position: relative;
         cursor: pointer;
     }
@@ -36,5 +36,9 @@
 
     .av-drag-handle {
         cursor: move;
+    }
+
+    .av-expcol-all {
+        float: right;
     }
 }

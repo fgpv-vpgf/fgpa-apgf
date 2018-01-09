@@ -425,6 +425,7 @@
                   },
                   "layers": {
                     "type": "array",
+                    "title": "Couches",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -449,8 +450,7 @@
                       ]
                     },
                     "minItems": 1,
-                    "description": "A set of URLs which should be composited to form a basemap entry",
-                    "title": ""
+                    "description": "A set of URLs which should be composited to form a basemap entry"
                   },
                   "attribution": {
                     "title": "Attribution",
@@ -530,6 +530,7 @@
         "layers": {
             "description": "",
             "type": "array",
+            "title": "Layers Collection",
             "items": {
                 "type": "object",
                 "properties": {
@@ -787,6 +788,7 @@
                     },
                     "layerEntries": {
                         "type": "array",
+                        "title": "Couches Utilisées",
                         "default": [],
                         "items": {
                             "type": "object",

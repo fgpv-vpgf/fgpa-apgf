@@ -16,6 +16,7 @@ function formService($timeout, events, commonService, constants) {
         showAdvance,
         advanceModel: false,
         toggleSection,
+        toggleAll,
         copyValueToForm,
         copyValueToFormIndex,
         copyValueToModelIndex,
@@ -31,10 +32,18 @@ function formService($timeout, events, commonService, constants) {
 
     /***/
 
+    /**
+     * Reset show advance fields if needed when there is a new model or language switch
+     * @function resestShowAdvance
+     */
     function resestShowAdvance() {
         if (service.advanceModel) { $timeout(() => showAdvance(), constants.delayAccordion); }
     }
 
+    /**
+     * Show advance fields
+     * @function showAdvance
+     */
     function showAdvance() {
         // manage the show advance configuration (add 'htmlClass': 'av-form-advance hidden' to fields who need advance config)
         const elems = document.getElementsByClassName('av-form-advance');
@@ -44,6 +53,11 @@ function formService($timeout, events, commonService, constants) {
         }
     }
 
+    /**
+     * Toggle one section of accordion panel
+     * @function toggleSection
+     * @param  {Object} event  event who trigger the action
+     */
     function toggleSection(event) {
         const targetParent = event.currentTarget.parentElement;
         $(targetParent.getElementsByClassName('av-accordion-content')).slideToggle(400, 'swing');
@@ -51,6 +65,36 @@ function formService($timeout, events, commonService, constants) {
         const icons = targetParent.getElementsByTagName('md-icon');
         for (let elem of icons) {
             elem.classList.toggle('hidden');
+        }
+    }
+
+    /**
+     * Toggle all sections of accordion panel (array of accordion items)
+     * @function toggleAll
+     * @param  {Object} event  event who trigger the action
+     * @param  {Bolean} collapse  true if collapse false if expand
+     */
+    function toggleAll(event, collapse) {
+        const targetParent = event.currentTarget.parentElement;
+        const iconsExp = targetParent.getElementsByClassName('av-accordion-expand');
+        const iconsCol = targetParent.getElementsByClassName('av-accordion-collapse');
+
+        if (collapse) {
+            $(targetParent.getElementsByClassName('av-accordion-content')).slideUp(400, 'swing');
+            for (let elem of iconsExp) {
+                elem.classList.remove('hidden');
+            }
+            for (let elem of iconsCol) {
+                elem.classList.add('hidden');
+            }
+        } else {
+            $(targetParent.getElementsByClassName('av-accordion-content')).slideDown(400, 'swing');
+            for (let elem of iconsExp) {
+                elem.classList.add('hidden');
+            }
+            for (let elem of iconsCol) {
+                elem.classList.remove('hidden');
+            }
         }
     }
 

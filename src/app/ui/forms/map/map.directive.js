@@ -321,7 +321,7 @@ function Controller($scope, $translate, $timeout,
                             'notitle': true
                         }
                     ] },
-                    { 'key': 'baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'baseMaps', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMaps', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
@@ -338,7 +338,11 @@ function Controller($scope, $translate, $timeout,
                                     'model': 'tileSchemaId',
                                     'array': true
                                 },
-                                { 'key': 'baseMaps[].layers' },
+                                { 'key': 'baseMaps[].layers', 'items': [
+                                    { 'key': 'baseMaps[].layers[].id' },
+                                    { 'key': 'baseMaps[].layers[].layerType' },
+                                    { 'key': 'baseMaps[].layers[].url' }
+                                ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
                                     { 'key': 'baseMaps[].attribution', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                         { 'key': 'baseMaps[].attribution.text' },
@@ -350,7 +354,7 @@ function Controller($scope, $translate, $timeout,
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
-                    { 'key': 'layers', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
