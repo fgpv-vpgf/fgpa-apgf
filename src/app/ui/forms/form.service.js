@@ -21,6 +21,7 @@ function formService($timeout, events, $mdDialog, commonService, constants, proj
         setExtent,
         copyValueToForm,
         copyValueToFormIndex,
+        initValueToFormIndex,
         copyValueToModelIndex,
         updateLinkValues
     };
@@ -179,27 +180,61 @@ function formService($timeout, events, $mdDialog, commonService, constants, proj
     }
 
     /**
-     * Copy a value from the model to a form element who contain index
+     * Assign the value to the form element. Use active element to get target tp update value for
      * @function copyValueToFormIndex
-     * @param  {Object} model  model
-     * @param  {String} item form item
-     * @param  {Object} value value to set
+     * @private
+     * @param  {Object} model  value to set
+     * @param  {String} item item from the form
      */
-    function copyValueToFormIndex(model, item, value) {
-        // IMPORTANT: use to update form inside array. It modify the html element, not the form
-        // get indexes to update
-        let indexes = findIndex(model, item.model.split('.'), value, 0, []);
+    function copyValueToFormIndex(model, item) {
+        // need 'targetLink': 'legend.0', the target tag inside inside target parent and the array index for children
+        // 'targetParent': 'av-accordion-toggle', the parent element target class
+        // 'default': a default value for the tag when model value is empty
 
-        // get the html document element root to update
-        const link = item.link.split('.');
-        const elem = document.getElementsByClassName(link[0]);
+        // get targetLink info
+        const itemLink = item.targetLink.split('.');
 
-        // loop trought the indexes and update with value or default if === ""
-        for (let ind of indexes) {
-            elem[ind].getElementsByTagName(link[1])[link[2]].innerText = (value !== "") ? value : item.default;
+        // get active element to retrieve targetParent (loop trought parent element to find the the target)
+        let flag = false;
+        let element = document.activeElement;
+
+        while(!flag) {
+            element = element.parentElement;
+            flag = element.classList.contains(item.targetParent);
         }
+
+        // update form html element
+        const modelValue = (model !== '') ? model : item.default;
+        element.getElementsByTagName(itemLink[0])[itemLink[1]].innerHTML = modelValue;
     }
 
+    /**
+     * Copy a value from the model to a form element who contain index when form loads
+     * @function initValueToFormIndex
+     * @param  {Array} modelArray  model array of values to apply
+     * @param  {Array} classEl array of classes/index on the form element to retrieve it
+     * @param  {String} field field on the model to get the value to apply
+     * @param  {String} targetLink target element info to apply value to
+     */
+    function initValueToFormIndex(modelArray, classEl, field, targetLink) {
+        // get targetLink info
+        const itemLink = targetLink.split('.');
+
+        // loop trought classEl elements to get proper html item
+        let elements = document;
+        for (let elemClass of classEl) {
+            // get the element from the class (all li elements (the html array))
+            elements = $(elements.getElementsByClassName(elemClass.cls)).children('ol').children('li');
+
+            // if needed, get the array index to set as the right element
+            elements = (elemClass.ind === -1) ? elements : elements[elemClass.ind];
+        }
+
+        // loop trought the model and assign value
+        for (let [index, model] of modelArray.entries()) {
+            elements[index].getElementsByTagName(itemLink[0])[itemLink[1]].innerHTML = model[field];
+        }
+    }
 
     /**
      * walk json tree to return the proper object indexes when value matches
