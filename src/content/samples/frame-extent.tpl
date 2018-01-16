@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs=''>
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="./config/config-extent.json" rv-extensions="extensions/extent.js">
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -46,19 +46,7 @@
     }
 </script>
 
-<script type="text/javascript">
-    // set window.config to pass the config object to the data-rv-config
-    // the object needs to be attach to the window object
-    window.config = JSON.parse(localStorage.getItem('configpreview'));
-
-    // set viewer array of languages
-    document.getElementById('fgpmap').setAttribute('data-rv-langs', localStorage.getItem('configlangs'));
-
-    localStorage.removeItem('configlangs');
-    localStorage.removeItem('configpreview');
-</script>
-
-<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.1.0_27-nov/prod/rv-main.js"></script>
+<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv_2.3.0/rv-main.js"></script>
 
 </body>
 </html>

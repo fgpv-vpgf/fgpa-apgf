@@ -44,4 +44,14 @@
 
         @extend %button;
     }
+
+    .av-extent-dialog {
+        height: 80%;
+        width: 80%;
+        border-radius: 0;
+
+        @extend %container;
+
+        @extend %button;
+    }
 }

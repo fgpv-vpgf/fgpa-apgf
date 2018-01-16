@@ -1,3 +1,4 @@
+const templateUrl = require('./map/extent/extent-dialog.html');
 /**
  *
  * @name formService
@@ -10,13 +11,14 @@ angular
     .module('app.ui')
     .factory('formService', formService);
 
-function formService($timeout, events, commonService, constants) {
+function formService($timeout, events, $mdDialog, commonService, constants, projectionService) {
 
     const service = {
         showAdvance,
         advanceModel: false,
         toggleSection,
         toggleAll,
+        setExtent,
         copyValueToForm,
         copyValueToFormIndex,
         copyValueToModelIndex,
@@ -95,6 +97,49 @@ function formService($timeout, events, commonService, constants) {
             for (let elem of iconsCol) {
                 elem.classList.remove('hidden');
             }
+        }
+    }
+
+    /**
+     * Set extent from the viewer itself open in an iFrame
+     * @function setExtent
+     * @param  {String} type  type of extent ('default', 'full' or 'maximum')
+     * @param  {Array} extentSets  array of extent set to set the extent for
+     */
+    function setExtent(type, extentSets) {
+        $mdDialog.show({
+            controller: extentController,
+            controllerAs: 'self',
+            templateUrl: templateUrl,
+            parent: $('.fgpa'),
+            disableParentScroll: false,
+            clickOutsideToClose: true,
+            fullscreen: false,
+            onRemoving: () => {
+                // get the extent from local storage
+                const extent = JSON.parse(localStorage.getItem('mapextent'));
+                localStorage.removeItem('mapextent');
+
+                // for each extent set, project the extent in the proper projection then set values
+                extentSets.forEach(extentSet => {
+                    // project extent
+                    const ext = projectionService.projectExtent(extent, extentSet.spatialReference);
+
+                    // itnitialze the value because it will not work if it doesn't exist then apply values
+                    extentSet[type] = {};
+                    extentSet[type].xmin = ext.x0;
+                    extentSet[type].ymin = ext.y0;
+                    extentSet[type].xmax = ext.x1;
+                    extentSet[type].ymax = ext.y1;
+                })
+            }
+        });
+
+        function extentController($mdDialog) {
+            'ngInject';
+            const self = this;
+
+            self.close = $mdDialog.hide;
         }
     }
 
