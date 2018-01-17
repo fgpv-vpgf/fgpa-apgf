@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <div class="fgpa av-large" data-av-langs='["en-CA", "fr-CA"]' data-av-config='["config-authorA.json", "config-authorB.json"]'>
+        <div class="fgpa av-large" data-av-langs='["en-CA", "fr-CA"]' data-av-config='["config-authorA.json", "config-authorB.json", "config-full.json"]'>
             <av-header></av-header>
 
             <div class="av-tools" layout="row">
@@ -39,7 +39,7 @@
                 document.write('<script src="../ie-polyfills.js"><\/script>');
             }
         </script>
-        
+
         <% for (var index in htmlWebpackPlugin.files.js) { %>
             <% if (webpackConfig.output.crossOriginLoading) { %>
                 <script src="<%= htmlWebpackPlugin.files.js[index] %>" integrity="<%= htmlWebpackPlugin.files.jsIntegrity[index] %>" crossorigin="<%= webpackConfig.output.crossOriginLoading %>"></script>

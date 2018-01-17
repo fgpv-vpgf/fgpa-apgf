@@ -36,6 +36,11 @@
 
     .av-drag-handle {
         cursor: move;
+        display: inline-block !important;
+    }
+
+    .av-drag-handle > md-icon {
+        display: inline-block !important;
     }
 
     .av-expcol-all {

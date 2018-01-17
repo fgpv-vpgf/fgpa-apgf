@@ -20,7 +20,8 @@ function commonService($translate, events) {
         setLang,
         getLang,
         setLangs,
-        getLangs
+        getLangs,
+        getUUID
     };
 
     let languages;
@@ -104,5 +105,21 @@ function commonService($translate, events) {
      */
     function getLangs() {
         return languages;
+    }
+
+    /**
+     * Get a unique UUID
+     * @function  getUUID
+     * @param {Boolean} short true: only first section will be returned; false: 4 sections will be returned
+     * @returns  {String}  generated UUID
+     * http://slavik.meltser.info/?p=142
+     */
+    function getUUID(short = true) {
+        function _p8(s) {
+            const p = (Math.random().toString(16) + '000000000').substr(2,8);
+            return s ? `-${p.substr(0,4)}-${p.substr(4,4)}` : p ;
+        }
+
+        return (short) ? _p8() : `${_p8()}${_p8(true)}${_p8(true)}${_p8()}`;
     }
 }

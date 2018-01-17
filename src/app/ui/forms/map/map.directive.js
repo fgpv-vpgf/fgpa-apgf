@@ -37,7 +37,7 @@ function avMap() {
 }
 
 function Controller($scope, $translate, $timeout,
-    events, modelManager, formService, debounceService, constants, layerService) {
+    events, modelManager, formService, debounceService, constants, layerService, commonService) {
     'ngInject';
     const self = this;
     self.modelName = 'map';
@@ -82,20 +82,74 @@ function Controller($scope, $translate, $timeout,
         modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
     });
 
+    /**
+     * Initialize header (collapsible element) value (form element) from model values when it loads.
+     * @function setCollapsibleHeader
+     */
     function setCollapsibleHeader() {
         // set collapsible element from model value when first load
-        const itemBasemap = { 'link': 'av-baseMaps.legend.0', 'model': 'baseMaps.name' };
-        const itemLayer = { 'link': 'av-layers.legend.0', 'model': 'layers.name' };
         $timeout(() => {
-            for (let base of $scope.model.baseMaps) {
-                self.formService.copyValueToFormIndex($scope.model, itemBasemap, base.name);
-            }
+            // set the class element to get { class, index in the array (-1 to get all) }
+            const baseClass = [{ 'cls': 'av-baseMaps', 'ind': -1 }];
+            const layerClass = [{ 'cls': 'av-layers', 'ind': -1 }];
+
+            // set basemaps and layers (model, class elements, field to use to update, item to update)
+            self.formService.initValueToFormIndex($scope.model.baseMaps, baseClass, 'name', 'legend.0')
+            self.formService.initValueToFormIndex($scope.model.layers, layerClass, 'name', 'legend.0')
+
+            // loop trought layers to set children (layer entry and columns for table)
             if (typeof $scope.model.layers !== 'undefined') {
-                for (let layer of $scope.model.layers) {
-                    self.formService.copyValueToFormIndex($scope.model, itemLayer, layer.name);
+                for (let [layerIndex, layer] of $scope.model.layers.entries()) {
+
+                    // set layer entries
+                    if (typeof layer.layerEntries !== 'undefined') {
+                        setCollapsibleHeaderEntry(layer.layerType, layerIndex, layer.layerEntries);
+                    }
+
+                    // set columns if need be
+                    if (typeof layer.table !== 'undefined' && typeof layer.table.columns !== 'undefined') {
+                        let columnClass = [
+                            { 'cls': 'av-layers', 'ind': layerIndex },
+                            { 'cls': 'av-columns', 'ind': -1 }
+                        ];
+                        self.formService.initValueToFormIndex(layer.table.columns, columnClass, 'title', 'legend.0');
+                    }
                 }
             }
         }, 3000);
+    }
+
+    /**
+     * Initialize header (collapsible element) value (form element) for layer entry from model values when it loads.
+     * @function setCollapsibleHeaderEntry
+     * @param  {String} layerType  type of layer
+     * @param  {Integer} layerIndex  index of the layer inside the array
+     * @param  {Array} entries  array of layer entries
+     */
+    function setCollapsibleHeaderEntry(layerType, layerIndex, entries) {
+        const entryClass = [
+            { 'cls': 'av-layers', 'ind': layerIndex },
+            { 'cls': 'av-layerEntries', 'ind': -1 }
+        ];
+
+        // set entry for esriDynamic and ogcWMS
+        if (layerType === 'esriDynamic') {
+            self.formService.initValueToFormIndex(entries, entryClass, 'index', 'legend.0');
+
+            // set columns if need be
+            for (let [entryIndex, entries] of entries.entries()) {
+                if (typeof entries.table !== 'undefined' && typeof entries.table.columns !== 'undefined') {
+                    let columnClass = [
+                        { 'cls': 'av-layers', 'ind': layerIndex },
+                        { 'cls': 'av-layerEntries', 'ind': entryIndex },
+                        { 'cls': 'av-columns', 'ind': -1 }
+                    ];
+                    self.formService.initValueToFormIndex(entries.table.columns, columnClass, 'title', 'legend.0');
+                }
+            }
+        } else if (layerType === 'ogcWms') {
+            self.formService.initValueToFormIndex(entries, entryClass, 'id', 'legend.0');
+        }
     }
 
     function copyValueToForm(model, item) {
@@ -103,19 +157,6 @@ function Controller($scope, $translate, $timeout,
         // need 'link': 'basemapName-title' on element with onChange (linkTo value - the attribute to modify)
         // 'linkTo': 'basemapName' on element to modify
         self.formService.copyValueToForm($scope.form[0], model, item);
-    }
-
-    function copyValueToFormIndex(model, item) {
-        // need 'link': 'av-layers.legend.0', the class to get element then the type of tag inside and the array index for children
-        // 'model': 'layers.layer.name', the model path. We can't use key because it does't reflect the real path
-        // 'default': a default value for the tag when model value is empty
-        self.formService.copyValueToFormIndex($scope.model, item, model);
-    }
-
-    function copyValueToModelIndex(model, item) {
-        // need 'link': 'layers[$index].layer.layerType', the model element to update with [$index] to specify when it is the array
-        // 'model': 'layers.layerChoice'. We can't use key because it does't reflect the real path
-        self.formService.copyValueToModelIndex($scope.model, item, model);
     }
 
     function setColumns(event, item) {
@@ -326,12 +367,12 @@ function Controller($scope, $translate, $timeout,
                             'notitle': true
                         }
                     ] },
-                    { 'key': 'baseMaps', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'baseMaps', 'htmlClass': 'av-accordion-all av-baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
-                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMaps', 'title': $translate.instant('form.map.basemap'), 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMap', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                 { 'key': 'baseMaps[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false); } },
-                                { 'key': 'baseMaps[].name', 'link': 'av-baseMaps.legend.0', 'model': 'baseMaps.name', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce(copyValueToFormIndex, constants.debInput, false) },
+                                { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'baseMaps[].description' },
                                 { 'key': 'baseMaps[].typeSummary' },
                                 { 'key': 'baseMaps[].altText' },
@@ -359,24 +400,25 @@ function Controller($scope, $translate, $timeout,
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
-                    { 'key': 'layers', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
-                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layers', 'title': $translate.instant('form.map.layer'), 'items': [
-                            { 'key': 'layers[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
-                                { 'key': 'layers[].layerChoice', 'type': 'select', 'link': 'layers[$index].layerType', 'model': 'layers.layerChoice', 'onChange': copyValueToModelIndex },
+                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
+                            { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                { 'key': 'layers[].layerChoice', 'type': 'select' },
                                 { 'key': 'layers[].id' },
-                                { 'key': 'layers[].name', 'link': 'av-layers.legend.0', 'model': 'layers.name', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(copyValueToFormIndex, constants.debInput, false) },
+                                { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'layers[].url' },
                                 { 'key': 'layers[].metadataUrl' },
                                 { 'key': 'layers[].catalogUrl' },
                                 { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].tolerance', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'items': [
+                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'items': [
+                                    { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
-                                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layersentries', 'title': $translate.instant('form.map.layerentry'), 'items': [
-                                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
-                                            { 'key': 'layers[].layerEntries[].index' },
+                                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
+                                        { 'type': 'fieldset', 'htmlClass': `av-accordion-content`, 'items': [
+                                            { 'key': 'layers[].layerEntries[].index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].outfields' },
                                             { 'key': 'layers[].layerEntries[].stateOnly' },
@@ -391,11 +433,12 @@ function Controller($scope, $translate, $timeout,
                                         ] }
                                     ] }
                                 ] },
-                                { 'key': 'layers[].layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'items': [
+                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'items': [
+                                    { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
-                                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layersentries', 'title': $translate.instant('form.map.layerentry'), 'items': [
+                                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
-                                            { 'key': 'layers[].layerEntries[].id' },
+                                            { 'key': 'layers[].layerEntries[].id', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].allStyles' },
                                             { 'key': 'layers[].layerEntries[].currentStyle' },
@@ -450,12 +493,12 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.applyMap` },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'layerType': layerType, 'onClick': setColumns },
-                { 'key': `${model}.columns`, 'add': null, 'remove': null, 'notitle': true, 'htmlClass': 'av-accordion-all av-accordion-all-field', 'startEmpty': true, 'items': [
+                { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-accordion-all-field av-columns', 'add': null, 'remove': null, 'notitle': true, 'startEmpty': true, 'items': [
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-columns', 'title': $translate.instant('form.map.layertablecol'), 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.layertablecol'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                             { 'key': `${model}.columns[].remove` },
-                            { 'key': `${model}.columns[].title` },
+                            { 'key': `${model}.columns[].title`, 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layertablecol'), 'onChange': debounceService.registerDebounce(formService.copyValueToFormIndex, constants.debInput, false) },
                             { 'key': `${model}.columns[].description` },
                             { 'key': `${model}.columns[].visible` },
                             { 'key': `${model}.columns[].width` },
