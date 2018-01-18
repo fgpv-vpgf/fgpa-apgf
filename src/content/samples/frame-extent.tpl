@@ -46,7 +46,7 @@
     }
 </script>
 
-<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv_2.3.0/rv-main.js"></script>
+<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.3.0/rv-main.js"></script>
 
 </body>
 </html>

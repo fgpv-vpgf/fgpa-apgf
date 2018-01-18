@@ -17,8 +17,10 @@ angular
         delayAccordion: 2500,
         delayHandle: 3500,
         delayCollapseLink: 2800,
+        delayCollapseHeader: 3000,
         delaySplash: 3500,
         delayEventSplash: 750,
+        delayUpdateColumns: 1000,
         schemas: [
             'map.[lang].json',
             'ui.[lang].json',
