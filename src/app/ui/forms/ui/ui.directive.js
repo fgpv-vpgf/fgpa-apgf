@@ -105,11 +105,13 @@ function Controller($scope, $translate, events, modelManager, formService) {
     }
 
     function isAboutString() {
-        return self.showAbout && $scope.model.about.aboutChoice === 'string';
+        const about = $scope.model.about;
+        return self.showAbout && typeof about !== 'undefined' && about.aboutChoice === 'string';
     }
 
     function isAboutFolder() {
-        return self.showAbout && $scope.model.about.aboutChoice === 'folder';
+        const about = $scope.model.about;
+        return self.showAbout && typeof about !== 'undefined' && about.aboutChoice === 'folder';
     }
 
     function setForm() {

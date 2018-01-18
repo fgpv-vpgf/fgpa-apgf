@@ -116,7 +116,7 @@ function Controller($scope, $translate, $timeout,
                     }
                 }
             }
-        }, 3000);
+        }, constants.delayCollapseHeader);
     }
 
     /**
@@ -161,20 +161,20 @@ function Controller($scope, $translate, $timeout,
 
     function setColumns(event, item) {
         // get the element for dynamic and feature layer
-        const elementDyn = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-        const elementFeat = event.currentTarget.parentElement.parentElement.parentElement.parentElement;
+        const currTarget  = $(event.currentTarget);
+        const elementDyn = currTarget.closest('.av-layer')[0];
+        const elementFeat = currTarget.closest('.av-layerEntry')[0];
 
         // get the index of current layer to get the model and the layerEntry index to get the feature class
-        const indexLayer = (item.layerType === 'esriFeature') ?
-            elementFeat.getAttribute('sf-index') : elementDyn.getAttribute('sf-index');
+        const indexLayer = elementDyn.getAttribute('sf-index');
         const featClass = (item.layerType === 'esriFeature') ?
-            -1 : elementFeat.parentElement.childNodes[5].children[1].value;
+            -1 : elementFeat.getElementsByClassName('av-feature-index')[0].getElementsByTagName('input')[0].value;
 
         // get model for specific layer
         let model = $scope.model.layers[indexLayer];
 
         // send the model to generate the config to query the layer
-        layerService.getLayer(model, featClass).then(data => {
+        layerService.getLayer(model, parseInt(featClass)).then(data => {
 
             // if it is a dynamic layer, use the index of the layer entry
             model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementFeat.getAttribute('sf-index')];
@@ -209,6 +209,20 @@ function Controller($scope, $translate, $timeout,
 
             // broadcast event to generate accordion
             events.$broadcast(events.avNewItems);
+
+            // update columns name with field title
+            $timeout(() => {
+                const columnClass = [{ 'cls': 'av-layers', 'ind': indexLayer }];
+
+                // if dynamic, set layer entry info
+                if (item.layerType === 'esriDynamic') {
+                    columnClass.push({ 'cls': 'av-layerEntries', 'ind': elementFeat.getAttribute('sf-index') });
+                }
+
+                // update columns
+                columnClass.push({ 'cls': 'av-columns', 'ind': -1 });
+                self.formService.initValueToFormIndex(model.table.columns, columnClass, 'title', 'legend.0');
+            }, constants.delayUpdateColumns);
         });
     }
 
@@ -418,8 +432,8 @@ function Controller($scope, $translate, $timeout,
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
-                                        { 'type': 'fieldset', 'htmlClass': `av-accordion-content`, 'items': [
-                                            { 'key': 'layers[].layerEntries[].index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
+                                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
+                                            { 'key': 'layers[].layerEntries[].index', 'htmlClass': 'av-feature-index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].outfields' },
                                             { 'key': 'layers[].layerEntries[].stateOnly' },
