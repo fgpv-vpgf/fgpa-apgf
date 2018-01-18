@@ -70,7 +70,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
+        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
     });
 
     // FIXME: when we use condition, the item is remove from the model. When the item come back it looses all the
@@ -88,8 +88,10 @@ function Controller($scope, $translate, events, modelManager, formService) {
             if (item.includes('about')) {
                 self.showAbout = true;
 
-                // reset value to default beacuse when we remove about from the array aboutChoice is emptied
-                $scope.model.aboutChoice = 'string';
+                // reset value to default because when we remove about from the array aboutChoice is emptied
+                $scope.model.about.aboutChoice = 'string';
+                $scope.model.about.content = '';
+                $scope.model.about.folderName = '';
             }
         })
     }
@@ -103,11 +105,11 @@ function Controller($scope, $translate, events, modelManager, formService) {
     }
 
     function isAboutString() {
-        return self.showAbout && $scope.model.aboutChoice === 'string';
+        return self.showAbout && $scope.model.about.aboutChoice === 'string';
     }
 
     function isAboutFolder() {
-        return self.showAbout && $scope.model.aboutChoice === 'folder';
+        return self.showAbout && $scope.model.about.aboutChoice === 'folder';
     }
 
     function setForm() {
@@ -118,33 +120,30 @@ function Controller($scope, $translate, events, modelManager, formService) {
                     { 'key': 'theme' },
                     { 'key': 'failureFeedback', 'htmlClass': 'av-form-advance hidden' },
                     {
-                        'type': 'fieldset', 'title': 'Legend', 'items': [
+                        'type': 'fieldset', 'key': 'legend', 'items': [
                             { 'key': 'legend.reorderable' },
-                            { 'key': 'legend.allowImport' }
+                            { 'key': 'legend.allowImport' },
+                            { 'key': 'legend.isOpen' }
                         ]
                     },
-                    {
-                        'type': 'fieldset', 'title': 'What is Open by Default', 'items': [
-                            { 'key': 'legend.isOpen' },
-                            { 'key': 'tableIsOpen' }
-                        ]
-                    }
+                    { 'key': 'tableIsOpen' }
                 ] },
                 { 'title': $translate.instant('form.ui.appbar'), 'items': [
                     { 'key': 'appBar', 'notitle': true }
                 ] },
-                { 'title': $translate.instant('form.ui.navbar'), 'items': [
-                    { 'key': 'navBar', 'notitle': true },
-                    { 'key': 'restrictNavigation' }
+                { 'title': $translate.instant('form.ui.nav'), 'items': [
+                    { 'key': 'restrictNavigation' },
+                    { 'key': 'navBar' }
                 ] },
                 { 'title': $translate.instant('form.ui.sidemenu'), 'items': [
+                    { 'key': 'title' },
                     { 'key': 'sideMenu.logo' },
                     { 'key': 'logoUrl', 'condition': 'model.sideMenu.logo' },
-                    { 'key': 'title' },
-                    { 'key': 'sideMenu.items', 'add': $translate.instant('button.add'), 'onChange': checkMenu },
+                    { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu },
                     { 'key': 'help', 'condition': isHelp },
-                    { 'type': 'fieldset', 'title': $translate.instant('form.ui.about'), 'condition': isAbout,'items': [
-                        {   'key': 'aboutChoice',
+                    { 'type': 'fieldset', 'key': 'about', 'condition': isAbout,'items': [
+                        {   'key': 'about.aboutChoice',
+                            'title': $translate.instant('form.ui.aboutChoice'),
                             'type': 'select',
                             'titleMap': [
                                 { 'value': "string", 'name': $translate.instant('form.ui.aboutstring') },

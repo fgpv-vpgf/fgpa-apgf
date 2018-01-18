@@ -79,7 +79,7 @@ function Controller($scope, $translate, $timeout,
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope);
+        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
     });
 
     /**
@@ -333,7 +333,8 @@ function Controller($scope, $translate, $timeout,
                     { 'key': 'components', 'notitle': true, 'items': [
                         { 'key': 'components.mouseInfo', 'items': [
                             { 'key': 'components.mouseInfo.enabled', 'htmlClass': 'accordion-content' },
-                            { 'type': 'section', 'htmlClass': 'row', 'items': [
+                            { 'type': 'help', 'helpvalue': '<h5>' + $translate.instant('form.map.spatialref') + '<h5>' },
+                            { 'key': 'components.mouseInfo.spatialReference', 'type': 'section', 'htmlClass': 'row', 'items': [
                                 { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
                                     { 'key': 'components.mouseInfo.spatialReference.wkid' }
                                 ] },

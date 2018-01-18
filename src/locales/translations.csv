@@ -4,7 +4,7 @@ Language direction,lang.dir,ltr,1,ltr,1
 Language name (English),lang.en,English,1,French,1
 Language name (French),lang.fr,anglais,1,français,1
 Language name (native),lang.native,English,1,Français,1
-app title,app.title,Federal Geospatial Platform Author,0,Auteur pour la plateforme geospatial federal,0
+app title,app.title,Federal Geospatial Platform Author,0,Auteur pour la plateforme géospatiale fédérale,0
 app section map,app.section.map,Map,0,Carte,0
 app section ui,app.section.ui,UI,0,UI,0
 app section service,app.section.services,Services,0,Services,0
@@ -18,50 +18,88 @@ header create file,header.create,Create new file,0,Créer un nouveau fichier,0
 header open file,header.open,Open existing file,0,Ouvrir un fichier existant,0
 header save file,header.save,Save file,0,Sauvegarder fichier,0
 header save dialog title,header.savedialog.title,Save Configuration File,0,Sauvegarder le fichier de configuration,0
-header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement,0
+header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement.,0
 header save dialog hint,header.savedialog.hint,* no extension,0,* sans extension,0
 header tempalte,header.template,Template,0,Gabarit,0
 summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
 summary preview,summary.preview,Preview,0,Aperçu,0
 summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
-form ui,form.ui.general,General,0,Générale,0
+form ui,form.ui.general,General,0,Général,0
 form ui,form.ui.appbar,Application Bar,0,Barre d'application,0
-form ui,form.ui.navbar,Navigation Bar,0,Barre de navigation,0
+form ui,form.ui.nav,Navigation,0,Navigation,0
 form ui,form.ui.sidemenu,Side Menu,0,Menu latéral,0
-form ui,form.ui.about,About Map,0,A propos de cette carte,0
-form ui,form.ui.aboutstring,String content,0,Contenue dans du texte,0
-form ui,form.ui.aboutfile,File content,0,Contenue dans un fichier,0
+form ui,form.ui.items,Side Menu Items,0,Items du menu latéral,0
+form ui,form.ui.about,About Map,0,À propos de cette carte,0
+form ui, form.ui.aboutChoice, About source,0,Source de l'à propos,0
+form ui,form.ui.aboutstring,String content,0,Texte,0
+form ui,form.ui.aboutfile,File content,0,Contenu dans un fichier,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
-form service,form.service.geosearch,Geo Search,0,Rechercher par endroits,0
+form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
-form map,form.map.extentlods,Extents and Levels of detail,0,Etendues et details,0
-form map,form.map.mapcomp,Map Components,0,Composantes carte,0
+form service,form.service.nts,NTS,0,SNRC,0
+form service,form.service.fsa,Postal Code,0,Code postal,0
+form map,form.map.extentlods,Extents and Levels of detail,0,Étendues et détails,0
+form map,form.map.mapcomp,Components,0,Composantes,0
+form.map,form.map.spatialref,Spatial Reference,0,Référence spatiale,0
 form map,form.map.basemaps,Basemaps,0,Cartes de base,0
-form map,form.map.extentset,Extents,0,Jeu d'etendues,0
-form map,form.map.lodset,Level of Detail Sets,0,Jeu de niveau de detail,0
-form map,form.map.tileschema,Tile Schema,0,Schema des tuiles,0
-form map,form.map.initialid,Initial Basemap ID,0,Initial Basemap ID,0
+form map,form.map.extentset,Spatial Extents Sets,0,"Lots d'étendues spatiales",0
+form map,form.map.lodset,Level of Detail Sets,0,Lots de niveaux de détail,0
+form map,form.map.tileschema,Tile Schemas,0,Schéma des tuiles,0
+form map,form.map.initialid,Initial Basemap ID,0,ID de la carte de base initiale,0
 form map,form.map.basemap,Basemap,0,Carte de base,0
 form map,form.map.layers,Layers,0,Couches,0
 form map,form.map.layer,Layer,0,Couche,0
-form map,form.map.layerentry,Layer Entry,0,Entree de couche,0
+form map,form.map.layerentry,Layer Entry,0,Entrée de couche,0
 form map,form.map.legend,Legend,0,Légende,0
-form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Controle et etat de la couche,0
+form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Contrôle et état de la couche,0
 form map layer table,form.map.layertable,Table,0,Table,0
 form map layer table columns,form.map.layertablecols,Fields,0,Champs,0
 form map layer table columns,form.map.layertablecol,Field,0,Champ,0
 form map layer table filter,form.map.layertablefilter,Filter,0,Filtre,0
-form map layer table columns set,form.map.layertablesetcol,Customize Fields,0,Personaliser les champs,0
-form map basemap attribution,form.map.basemapattrib,Attribution,0,Credit,0
+form map layer table columns set,form.map.layertablesetcol,Customize Fields,0,Personnaliser les champs,0
+form map basemap attribution,form.map.basemapattrib,Attribution,0,Crédit,0
 form map,form.map.legendauto,Autopopulate,0,Automatique,0
 form map,form.map.legendstruct,Structured,0,Structure,0
-form map extent dialog,form.map.extentdialog,Set Extent: zoom and pan to the extent then close the window,Defenir etendue: zoomer et deplacer l'entdue et fermer la fenetre,
-form map set extent default,form.map.extentdefault,Set Extent (Default),Defenir etendue (default),
-form map set extent full,form.map.extentfull,Set Extent (Full),Defenir etendue (complet),
-form map set extent max,form.map.extentmax,Set Extent (Max),Defenir etendue (max),
+form map extent dialog,form.map.extentdialog,Set Extent: zoom and pan to the extent then close the window,0,"Définir étendue: zoomer et déplacer l'étendue puis fermer la fenêtre",0
+form map set extent default,form.map.extentdefault,Set Extent (Default),0,"Définir l'étendue par défaut",0
+form map set extent full,form.map.extentfull,Set Extent (Full),0,"Définir l'étendue complète",0
+form map set extent max,form.map.extentmax,Set Extent (Max),0,"Définir l'étendue (maximale)",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 ,button.save,Save,0,Sauvegarder,0
-,button.cancel,Cancel,0,Canceller,0
+,button.cancel,Cancel,0,Annuler,0
 ,button.add,Add,0,Ajouter,0
 ,button.validate,Validate,0,Valider,0
+,ui.fullscreen.title,Fullscreen,1,Plein écran,1
+,ui.theme.title,Theme,1,Thème,1
+,ui.logoUrl.title,Logo URL,1,URL du logo,1
+,ui.failureFeedback.title,Failure feedback,1,Rétroaction concernant la défaillance,1
+,ui.title.title,Title,1,Titre,1
+,ui.appBar.title,Applications bar,1,Barre d'applications,1
+,ui.appBar.sideMenu.title,Side menu,1,Menu latéral,1
+,ui.appBar.geoSearch.title,Geo search,1,Géorecherche,1
+,ui.appBar.basemap.title,Basemap,1,Carte de base,1
+,ui.appBar.layers.title,Layers,1,Couches,1
+,ui.navBar.title,Navigation bar,1,Barre de navigation,1
+,ui.navBar.zoom.title,Zoom,1,Zoom,1
+,ui.navBar.extra.title,Extra,1,Suppléments,1
+,ui.sideMenu.title,Side menu,1,Menu latéral,1
+,ui.sideMenu.logo.title,Logo,1,logo,1
+,ui.sideMenu.items.title,Items,1,Éléments,1
+,ui.restrictNavigation.title,Restrict navigation,1,Navigation restreinte,1
+,ui.about.title,About,1,À propos,1
+,ui.help.title,Help,1,Aide,1
+,ui.help.folderName.title,Folder name,1,Nom du dossier,1
+,ui.legend.title,Legend,1,Légende,1
+,ui.legend.reorderable.title,Reorderable,1,Réordonnable,1
+,ui.legend.allowImport.title,Allow import,1,Permettre l'importation,1
+,ui.legend.isOpen.title,Legend openning,1,Ouverture de la légende,1
+,ui.legend.isOpen.large.title,Large,1,Étendu,1
+,ui.legend.isOpen.medium.title,Medium,1,Moyen,1
+,ui.legend.isOpen.small.title,Small,1,Restreint,1
+,ui.tableIsOpen.title,Table openning,1,Ouverture de la table,1
+,ui.tableIsOpen.id.title,ID,1,ID,1
+,ui.tableIsOpen.large.title,Large,1,Étendue,1
+,ui.tableIsOpen.medium.title,Medium,1,Moyenne,1
+,ui.tableIsOpen.small.title,Small,1,Restreinte,1
+,ui.widgetsWidget.title,Widget,1,Widget,1
