@@ -50,4 +50,21 @@
     .av-accordion-all-field > button {
         top: -55px;
     }
+
+    .av-legend-text > textarea {
+        height: 500px;
+    }
+
+    .av-legend-json {
+        margin: 20px;
+        font-weight: 500;
+    }
+
+    .av-legend-json-error {
+        color: $alert-color;
+    }
+
+    .av-legend-json-valid {
+        color: $good-color;
+    }
 }

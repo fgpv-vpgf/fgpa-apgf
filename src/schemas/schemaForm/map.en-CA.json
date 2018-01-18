@@ -1114,6 +1114,11 @@
                     "type": "string",
                     "title": "Type",
                     "default": "autopopulate"
+                },
+                "root": {
+                    "type": "string",
+                    "default": "{\"name\": \"root\", \"children\": []}",
+                    "additionalProperties": false
                 }
             }
         }

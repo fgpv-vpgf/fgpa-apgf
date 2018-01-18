@@ -75,6 +75,9 @@ function Controller($scope, $translate, $timeout,
         self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId');
 
         $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
+
+        // set default structure legend values
+        setDefaultStructureLegend();
     }
 
     events.$on(events.avValidateForm, () => {
@@ -224,6 +227,39 @@ function Controller($scope, $translate, $timeout,
                 self.formService.initValueToFormIndex(model.table.columns, columnClass, 'title', 'legend.0');
             }, constants.delayUpdateColumns);
         });
+    }
+
+    function validateLegend(event) {
+        const help = $(event.currentTarget).closest('.schema-form-fieldset')[0]
+            .getElementsByClassName('av-legend-json')[0];
+
+        try {
+            JSON.parse($scope.model.legend.root);
+
+            // set class and message
+            help.classList.remove('av-legend-json-error');
+            help.classList.add('av-legend-json-valid');
+            help.innerHTML = $translate.instant('form.map.legendtextvalid');
+        } catch (e) {
+
+            // set class
+            help.classList.add('av-legend-json-error');
+            help.classList.remove('av-legend-json-valid');
+
+            // set message
+            if (e instanceof SyntaxError) {
+                help.innerHTML = e;
+            } else {
+                help.innerHTML = e;
+            }
+        }
+    }
+
+    function setDefaultStructureLegend() {
+        // FIXME: this is a workaround to parse the legend string to JSON objects
+        $timeout(() => {
+            $scope.model.legend.root = JSON.stringify(JSON.parse('{\"name\": \"root\", \"children\": []}'), null, 4);
+        }, 1000);
     }
 
     function setForm() {
@@ -490,9 +526,15 @@ function Controller($scope, $translate, $timeout,
                                 { 'value': "autopopulate", 'name': $translate.instant('form.map.legendauto') },
                                 { 'value': "structured", 'name': $translate.instant('form.map.legendstruct') }
                             ],
-                            'copyValueTo': ['legend.type']
+                            'copyValueTo': ['legend.type'],
+                            'onChange': setDefaultStructureLegend
                         },
-                        {   'key': 'legend.type', 'readonly': true }
+                        { 'key': 'legend.type', 'readonly': true },
+                        { 'type': 'fieldset', 'title': $translate.instant('form.map.legendtext'), 'condition': 'model.legend.legendChoice === \'structured\'', 'items': [
+                            { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea' },
+                            { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
+                            { 'type': 'button', 'title': $translate.instant('form.map.legendtextvalidate'), 'onClick': validateLegend }
+                        ]}
                     ]}
                 ] }
             ] }

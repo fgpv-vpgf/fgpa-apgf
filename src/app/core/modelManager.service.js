@@ -53,12 +53,22 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         models.version = models.version.version;
         models.language = models.language.language;
 
+        // FIXME: this is a workaround to parse the legend string to JSON objects
+        // and set it back to string after save/preview
+        let root = models.map.legend.root;
+        if (typeof root === 'string') {
+            models.map.legend.root = JSON.parse(root);
+        }
+        $timeout(() => {
+            models.map.legend.root = JSON.stringify(models.map.legend.root, null, 4);
+        }, 1000);
+
         // when we try to remove the table columns directly in ASF, there is an error
         // remove it here but only when we save the file. In preview author can change it's mind
         if (!preview) { cleanColumns(models.map.layers); }
 
         // remove $$haskkey from model
-        const cleanModels = JSON.parse(angular.toJson(models));
+        const cleanModels = commonService.parseJSON(models);
 
         // return the config as a string
         return JSON.stringify(cleanModels);
@@ -301,7 +311,7 @@ function modelManager($timeout, $translate, events, constants, commonService) {
             'language': [],
             'version': []
         };
-        
+
         customTitles[modelName].forEach(title => {
             if (stateModel.hasOwnProperty('key') && stateModel.key === title){
                 stateModel.title = $translate.instant(title);
@@ -441,7 +451,7 @@ function modelManager($timeout, $translate, events, constants, commonService) {
                     if (el[0][0] === item) {
                         el[0].shift();
                         return el;
-                    } 
+                    }
                 });
 
                 const index = state.items.findIndex(el => el.key === item);
