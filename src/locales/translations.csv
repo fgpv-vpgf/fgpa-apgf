@@ -21,6 +21,7 @@ header save dialog title,header.savedialog.title,Save Configuration File,0,Sauve
 header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement.,0
 header save dialog hint,header.savedialog.hint,* no extension,0,* sans extension,0
 header tempalte,header.template,Template,0,Gabarit,0
+header file name,header.filename,File Name: ,0,Nom du fichier: ,0
 summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
 summary preview,summary.preview,Preview,0,Aperçu,0
@@ -31,8 +32,9 @@ form ui,form.ui.nav,Navigation,0,Navigation,0
 form ui,form.ui.sidemenu,Side Menu,0,Menu latéral,0
 form ui,form.ui.items,Side Menu Items,0,Items du menu latéral,0
 form ui,form.ui.about,About Map,0,À propos de cette carte,0
-form ui, form.ui.aboutChoice, About source,0,Source de l'à propos,0
+form ui,form.ui.aboutChoice, About source,0,Source de l'à propos,0
 form ui,form.ui.aboutstring,String content,0,Texte,0
+form ui,form.ui.titlevalidation,"String is too long ({viewValue.length} chars), maximum {schema.maxLength} chars.",0,"La chaîne est trop longue ({viewValue.length} caractères), maximum {schema.maxLength} caractères."
 form ui,form.ui.aboutfile,File content,0,Contenu dans un fichier,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0

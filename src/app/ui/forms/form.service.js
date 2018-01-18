@@ -11,7 +11,7 @@ angular
     .module('app.ui')
     .factory('formService', formService);
 
-function formService($timeout, events, $mdDialog, commonService, constants, projectionService) {
+function formService($timeout, events, $mdDialog, $translate, commonService, constants, projectionService) {
 
     const service = {
         showAdvance,
@@ -19,6 +19,7 @@ function formService($timeout, events, $mdDialog, commonService, constants, proj
         toggleSection,
         toggleAll,
         setExtent,
+        setErrorMessage,
         copyValueToForm,
         copyValueToFormIndex,
         initValueToFormIndex,
@@ -142,6 +143,30 @@ function formService($timeout, events, $mdDialog, commonService, constants, proj
 
             self.close = $mdDialog.hide;
         }
+    }
+
+    /**
+     * Set custom validation error message
+     * inside translation.csv the variable to replace needs to be there inside {}
+     * @function setErrorMessage
+     * @param  {Object} form  form object to get value from
+     * @param  {String} message  message to get from translation.csv
+     * @param  {Array} variables  variables to replace
+     * @return {String} mess the updated message
+     */
+    function setErrorMessage(form, message, variables) {
+        let mess = $translate.instant(message);
+
+        for (let variable of variables) {
+            // get the replacing value from form object
+            let replace = form;
+            variable.split('.').map(item => { replace = replace[item] });
+
+            // replace value in the message
+            mess = mess.replace(`{${variable}}`, replace);
+        }
+
+        return mess;
     }
 
     /**

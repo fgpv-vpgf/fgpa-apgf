@@ -59,6 +59,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     self.templates = getTemplates();
     self.template = self.templates[0];
 
+    // set active file name
+    self.saveName = self.template;
+
     /**
      * When create is clicked, broadcast a newModel event
      * @function create
@@ -66,6 +69,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     function create() {
         // show splash with update event as parameter
         events.$broadcast(events.avShowSplash, events.avSchemaUpdate);
+
+        // set active file name
+        self.saveName = self.template;
     }
 
     /**
@@ -106,6 +112,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             // show splash when new model load
             events.$broadcast(events.avShowSplash);
 
+            // set active file name
+            self.saveName = files[0].name.replace('.json', '');
+
             // read the file but add a timeout for the animation to start
             const file = files[0];
             $timeout(() => {
@@ -144,6 +153,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @function save
      */
     function save() {
+        // FIXME: we can't know the real saved file name because FileSaver.onwriteend doesn/t workaround
+        // so if there is duplicate name the name will become nyname(1) on disk but will be myname on display
         $mdDialog.show({
             controller: SaveController,
             controllerAs: 'self',
@@ -151,7 +162,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             parent: $('.fgpa'),
             disableParentScroll: false,
             clickOutsideToClose: true,
-            fullscreen: false
+            fullscreen: false,
+            onRemoving: element => { self.saveName = element[0].getElementsByTagName('input')[0].value; }
         });
     }
 

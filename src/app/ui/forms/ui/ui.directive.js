@@ -138,7 +138,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
                     { 'key': 'navBar' }
                 ] },
                 { 'title': $translate.instant('form.ui.sidemenu'), 'items': [
-                    { 'key': 'title' },
+                    { 'key': 'title', 'validationMessage': form => { return self.formService.setErrorMessage(form, 'form.ui.titlevalidation', ['viewValue.length', 'schema.maxLength']) } },
                     { 'key': 'sideMenu.logo' },
                     { 'key': 'logoUrl', 'condition': 'model.sideMenu.logo' },
                     { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu },

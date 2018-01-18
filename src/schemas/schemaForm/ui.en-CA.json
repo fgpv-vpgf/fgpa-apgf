@@ -47,6 +47,7 @@
             "type": "string",
             "description": "An optional title to be used in the place of the default viewer title",
             "title": "Title",
+            "maxLength": 20,
             "default": ""
         },
         "appBar": {

@@ -47,6 +47,7 @@
             "type": "string",
             "description": "(Optionnel) - Un titre pour remplacer celui utilisé par défaut par le visualisateur.",
             "title": "Titre",
+            "maxLength": 20,
             "default": ""
         },
         "appBar": {
