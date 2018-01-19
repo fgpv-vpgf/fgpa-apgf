@@ -258,6 +258,14 @@ function formService($timeout, events, $mdDialog, $translate, commonService, con
         // loop trought the model and assign value
         for (let [index, model] of modelArray.entries()) {
             elements[index].getElementsByTagName(itemLink[0])[itemLink[1]].innerHTML = model[field];
+
+            // FIXME: because we can't remove fields from array (ASF problem), we need to remove the hidden class
+            // if there is a field when we load a new model
+            if (typeof model.table !== 'undefined' && model.table.columns.length > 0) {
+                if (typeof model.table.columns[0].title === 'string') {
+                    elements[index].getElementsByClassName('av-columns')[0].classList.remove('hidden');
+                }
+            }
         }
     }
 

@@ -61,33 +61,11 @@ function modelManager($timeout, $translate, events, constants, commonService) {
             models.map.legend.root = JSON.stringify(models.map.legend.root, null, 4);
         }, 1000);
 
-        // when we try to remove the table columns directly in ASF, there is an error
-        // remove it here but only when we save the file. In preview author can change it's mind
-        if (!preview) { cleanColumns(models.map.layers); }
-
         // remove $$haskkey from model
         const cleanModels = commonService.parseJSON(models);
 
         // return the config as a string
         return JSON.stringify(cleanModels);
-    }
-
-    /**
-     * If the config is save to file, clean the columns array by removing not needed column
-     * @function cleanColumns
-     * @private
-     * @param {Object} model model (array of layers) to clean
-     */
-    function cleanColumns(model) {
-        for (let layer in model) {
-            if (model[layer].layerType === 'esriFeature') {
-                model[layer] = deleteColumns(model[layer]);
-            } else if (model[layer].layerType === 'esriDynamic') {
-                model[layer].layerEntries.forEach((entry, index) => {
-                    model[layer].layerEntries[index] = deleteColumns(model[layer].layerEntries[index]);
-                })
-            }
-        }
     }
 
     /**
