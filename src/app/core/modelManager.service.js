@@ -222,8 +222,9 @@ function modelManager($timeout, $translate, events, constants, commonService) {
      * @param {String}  modelName the model/form name to get state on
      * @param {Object}  form      the angular schema form active form
      * @param {Array}   arrForm   the form as an array of objects
+     * @param {Object}  model     the model
      */
-    function validateModel(modelName, form, arrForm) {
+    function validateModel(modelName, form, arrForm, model) {
 
         const cleanForm = commonService.parseJSON(form);
 
@@ -233,7 +234,10 @@ function modelManager($timeout, $translate, events, constants, commonService) {
 
         // Since map is much more complicated we isolate it
         if (modelName === 'map') {
-            updateSummaryFormMap(_state[modelName], modelName, cleanForm);
+            const arrKeys = updateSummaryFormMap(_state[modelName], modelName, cleanForm);
+
+            // Generate state records for basemaps, layers, tileSchemas, extentSets and lodSets
+            setMapItemsState(_state[modelName], model, arrKeys);
         } else {
             updateSummaryForm(_state[modelName], modelName, cleanForm);
         }
@@ -244,18 +248,79 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         // Set custom title
         setCustomTitles(_state[modelName], modelName);
 
+        // Set master element validity
+        setMasterValidity(_state[modelName]);
+
         // Set element hyperlink here
         // TODO
 
         // Set master element hyperlink here
         // TODO
 
-        // Set master element validity
-        setMasterValidity(_state[modelName]);
-
         // Set special style to hidden advance parameter
         // TODO
 
+    }
+
+    /**
+     * Set new record for map items in state model
+     * @function setMapItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setMapItemsState(stateModel, model, arrKeys) {
+
+        // baseMaps and layers
+        const setNames = [[2,'baseMaps'], [3, 'layers']];
+
+        for (let i of setNames) {
+            // const mapItems = model.baseMaps;
+            const items = model[i[1]];
+
+            stateModel.items[i[0]]['items'] = [];
+
+            for (let [j, item] of items.entries()) {
+                // const validState = getValidityValue('baseMaps', i, arrKeys);
+                stateModel.items[i[0]]['items'].push({ 'key': item.name, 'title': item.name, items: [], 'valid': '', 'expand': false, 'type': 'object' });
+            }
+        }
+
+        // tilesSchemas, extents, lods
+        const setID = [[0,'tileSchemas', 'name'], [1, 'extentSets', 'id'], [2, 'lodSets', 'id']];
+
+        for (let i of setID) {
+            const items = model[i[1]];
+
+            stateModel.items[0].items[i[0]]['items'] = [];
+
+            for (let item of items) {
+                stateModel.items[0].items[i[0]]['items'].push({ 'key': item[i[2]], 'title': item[i[2]], items: [], 'valid': '', 'expand': false, 'type': 'object' });
+            }
+        }
+
+    }
+
+    /**
+     * Get validity from an item in a list
+     * Currently works only with baseMaps, layers, tileSchemas, extentSets, lodSets
+     * @function getValidityValue
+     * @private
+     * @param {String} key key to select the proper list
+     * @param {Number} index index in the form
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     * @return {Boolean} validity
+     */
+    function getValidityValue(key, index, arrKeys) {
+
+        const validKey = arrKeys.filter(el => el[0][0] === key && el[0][1] === index.toString()).slice();
+        const validArr = validKey.map(el => {
+            el = el.slice(1);
+            return el;
+        }).slice();
+
+        return !validArr.includes(false);
     }
 
     /**
@@ -357,7 +422,8 @@ function modelManager($timeout, $translate, events, constants, commonService) {
      * @private
      * @param {Object} state the state object in JSON
      * @param {String} modelName the current model name
-     * @param {Object} form the model object in JSON
+     * @param {Object} form the form object in JSON
+     * @return {Array} arrKeys array of object {key: [], valid: true | false}
      */
     function updateSummaryFormMap(state, modelName, form) {
 
@@ -381,6 +447,8 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         const keysArrUpd = addSpecific(keysArrRed, modelName);
 
         buildStateTree(state, modelName, keysArrUpd);
+
+        return keysArr;
     }
 
     /**
@@ -389,7 +457,7 @@ function modelManager($timeout, $translate, events, constants, commonService) {
      * @private
      * @param {Object} state the state object in JSON
      * @param {String} modelName the current model name
-     * @param {Object} form the model object in JSON
+     * @param {Object} form the form object in JSON
      * @param {Object} list hidden advance parameters list
      */
     function updateSummaryForm(state, modelName, form) {
