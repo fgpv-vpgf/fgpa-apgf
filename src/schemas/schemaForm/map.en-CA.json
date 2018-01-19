@@ -206,8 +206,7 @@
                       "additionalProperties": false
                     },
                     "description": "Level of detail for a specific tile schema",
-                    "title": "Level of Detail set",
-                    "default": "[]"
+                    "title": "Level of Detail set"
                   }
                 },
                 "required": [
@@ -215,8 +214,7 @@
                   "lods"
                 ],
                 "additionalProperties": false,
-                "title": "Level of Detail sets",
-                "default": ""
+                "title": "Level of Detail sets"
               },
               "description": "The levels of detail (zoom scales) available for the map",
               "title": "Level of detail sets",
@@ -355,6 +353,7 @@
                         },
                         "expandFactor": {
                             "type": "number",
+                            "description": "The ratio between the size of the overview map and the extent rectangle displayed on the overview map. The default value is 2, meaning the overview map will be at least twice the size of the extent rectangle.",
                             "default": 2,
                             "title": "Expand Factor"
                         },

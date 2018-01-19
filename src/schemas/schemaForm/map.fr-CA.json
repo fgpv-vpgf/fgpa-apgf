@@ -206,8 +206,7 @@
                       "additionalProperties": false
                     },
                     "description": "Niveau de détail pour un schéma de tuiles spécifique",
-                    "title": "Niveaux de détail",
-                    "default": "[]"
+                    "title": "Niveaux de détail"
                   }
                 },
                 "required": [
@@ -215,8 +214,7 @@
                   "lods"
                 ],
                 "additionalProperties": false,
-                "title": "Lot de niveaux de détail",
-                "default": ""
+                "title": "Lot de niveaux de détail"
               },
               "description": "Les niveaux de détail selon l'échelle offerts pour la carte",
               "title": "Lots de niveaux de détail",
@@ -355,6 +353,7 @@
                         },
                         "expandFactor": {
                             "type": "number",
+                            "description": "Le rapport entre la taille de la carte d'aperçu et le rectangle d'étendue affiché sur cette carte. La valeur par défaut est 2, ce qui signifie que la carte d'aperçu aura au moins deux fois la taille du rectangle d'étendue.",
                             "default": 2,
                             "title": "Facteur d'expansion"
                         },
