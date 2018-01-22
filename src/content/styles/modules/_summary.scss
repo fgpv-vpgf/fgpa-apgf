@@ -19,4 +19,39 @@
     .av-summary-item {
         display: flex;
     }
+
+    .av-version {
+        text-align: center;
+        margin: rem(3.6) rem(1.2) rem(1.2) rem(1.2);
+
+        &-number {
+            font-weight: bold;
+            display: block;
+        }
+
+        &-hash {
+            margin-left: rem(0.3);
+            font-weight: normal;
+            font-size: smaller;
+        }
+
+        &-timestamp {
+            font-size: smaller;
+        }
+
+        &-github {
+            display: flex;
+            justify-content: center;
+            margin-top: rem(0.5);
+
+            > a {
+                display: flex;
+                align-items: center;
+
+                md-icon {
+                    margin-right: rem(0.4);
+                }
+            }
+        }
+    }
 }

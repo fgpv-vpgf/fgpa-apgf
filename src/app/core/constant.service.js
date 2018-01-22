@@ -21,6 +21,7 @@ angular
         delaySplash: 3500,
         delayEventSplash: 750,
         delayUpdateColumns: 1000,
+        delaySetVersion: 2000,
         schemas: [
             'map.[lang].json',
             'ui.[lang].json',

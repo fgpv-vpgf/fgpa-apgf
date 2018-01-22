@@ -10,3 +10,4 @@ import './modelmanager.service.js';
 import './statemanager.service.js';
 import './recursion.service.js';
 import './translation.service.js';
+import './version.service.js';

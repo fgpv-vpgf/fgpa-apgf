@@ -6,6 +6,7 @@ globals:
   RColor: true
   marked: true
   RVersion: true
+  AVersion: true
   existingWindowDotAngular: true
   AUTOFILLED_TRANSLATIONS: true
   SVG: true
