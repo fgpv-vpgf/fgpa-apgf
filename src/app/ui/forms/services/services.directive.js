@@ -36,7 +36,7 @@ function avServices() {
     return directive;
 }
 
-function Controller($scope, $translate, events, modelManager, formService) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService) {
     'ngInject';
     const self = this;
     self.modelName = 'services';
@@ -70,7 +70,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
     });
 
     function setForm() {
