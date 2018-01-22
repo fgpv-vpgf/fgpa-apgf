@@ -742,21 +742,16 @@
                             "applyMap": {
                                 "type": "boolean",
                                 "default": false,
-                                "description": "Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied.",
+                                "description": "Specifies if the default filters (from fields filter) are apply to the map (definition query). True: it is applied; False: it is not applied.",
                                 "title": "Apply map"
                             },
                             "columns": {
                                 "type": "array",
-                                "title": "Columns",
+                                "title": "Fields",
                                 "default": [],
                                 "items": {
                                     "type": "object",
                                     "properties": {
-                                        "remove": {
-                                            "type": "boolean",
-                                            "default": false,
-                                            "title": "Remove"
-                                        },
                                         "data": {
                                             "type": "string",
                                             "description": "Specifies the field name (data) to use to link to the layer column. Must exist in the layer.",
@@ -824,10 +819,10 @@
                                         }
                                     }
                                 },
-                                "description": "Specifies the array of columns for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                                "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
                             }
                         },
-                        "description": "Specifies how layers columns and global search are set",
+                        "description": "Specifies how layers fields and global search are set",
                         "additionalProperties": false
                     },
                     "layerEntries": {
@@ -910,20 +905,15 @@
                                             "type": "boolean",
                                             "title": "Apply map",
                                             "default": false,
-                                            "description": "Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied."
+                                            "description": "Specifies if the default filters (from fields filter) are apply to the map (definition query). True: it is applied; False: it is not applied."
                                         },
                                         "columns": {
                                             "type": "array",
-                                            "title": "Columns",
+                                            "title": "Fields",
                                             "default": [],
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                    "remove": {
-                                                        "type": "boolean",
-                                                        "title": "Remove",
-                                                        "default": false
-                                                    },
                                                     "data": {
                                                         "type": "string",
                                                         "title": "Data",
@@ -991,10 +981,10 @@
                                                     }
                                                 }
                                             },
-                                            "description": "Specifies the array of columns for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                                            "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
                                         }
                                     },
-                                    "description": "Specifies how layers columns and global search are set",
+                                    "description": "Specifies how layers fields and global search are set",
                                     "additionalProperties": false
                                 },
                                 "controls": {

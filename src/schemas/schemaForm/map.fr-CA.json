@@ -743,21 +743,16 @@
                             "applyMap": {
                                 "type": "boolean",
                                 "default": false,
-                                "description": "Détermine si les filtres par défaut (filtres de colonnes) sont appliquer à la carte. Vrai: appliqué; Faux: non appliqué.",
+                                "description": "Détermine si les filtres par défaut (filtres de champs) sont appliquer à la carte. Vrai: appliqué; Faux: non appliqué.",
                                 "title": "Appliquer à la carte"
                             },
                             "columns": {
                                 "type": "array",
-                                "title": "Colonnes",
+                                "title": "Champs",
                                 "default": [],
                                 "items": {
                                     "type": "object",
                                     "properties": {
-                                        "remove": {
-                                            "type": "boolean",
-                                            "default": false,
-                                            "title": "Retirer"
-                                        },
                                         "data": {
                                             "type": "string",
                                             "description": "Nom du champ (data) to use to link to the layer column. Doit exister dans la couche.",
@@ -825,10 +820,10 @@
                                         }
                                     }
                                 },
-                                "description": "Détermine la liste des colonnes pour une table."
+                                "description": "Détermine la liste des champs pour une table."
                             }
                         },
-                        "description": "Spécifie comment les colonnes et la recherche globale sont configurées.",
+                        "description": "Spécifie comment les champs et la recherche globale sont configurées.",
                         "additionalProperties": false
                     },
                     "layerEntries": {
@@ -909,21 +904,16 @@
                                       "applyMap": {
                                           "type": "boolean",
                                           "default": false,
-                                          "description": "Détermine si les filtres par défaut (filtres de colonnes) sont appliquer à la carte. Vrai: appliqué; Faux: non appliqué.",
+                                          "description": "Détermine si les filtres par défaut (filtres de champs) sont appliquer à la carte. Vrai: appliqué; Faux: non appliqué.",
                                           "title": "Appliquer à la carte"
                                       },
                                       "columns": {
                                           "type": "array",
-                                          "title": "Colonnes",
+                                          "title": "Champs",
                                           "default": [],
                                           "items": {
                                               "type": "object",
                                               "properties": {
-                                                  "remove": {
-                                                      "type": "boolean",
-                                                      "default": false,
-                                                      "title": "Retirer"
-                                                  },
                                                   "data": {
                                                       "type": "string",
                                                       "description": "Nom du champ (data) to use to link to the layer column. Doit exister dans la couche.",
@@ -991,10 +981,10 @@
                                                   }
                                               }
                                           },
-                                          "description": "Détermine la liste des colonnes pour une table."
+                                          "description": "Détermine la liste des champs pour une table."
                                       }
                                   },
-                                  "description": "Spécifie comment les colonnes et la recherche globale sont configurées.",
+                                  "description": "Spécifie comment les champ et la recherche globale sont configurées.",
                                   "additionalProperties": false
                                 },
                                 "controls": {

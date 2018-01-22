@@ -225,6 +225,13 @@ function Controller($scope, $translate, $timeout,
                 // update columns
                 columnClass.push({ 'cls': 'av-columns', 'ind': -1 });
                 self.formService.initValueToFormIndex(model.table.columns, columnClass, 'title', 'legend.0');
+
+                // FIXME: remove hidden class. This clss is there because we can't use strartempty: true on columns array
+                // ASF throws an error. So we start with one undefined element with hidden class then update the array
+                // and remove the class
+                const element =  (featClass === -1) ? elementDyn : elementFeat;
+                element.getElementsByClassName('av-columns')[0].classList.remove('hidden');
+
             }, constants.delayUpdateColumns);
         });
     }
@@ -550,11 +557,10 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.applyMap` },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'layerType': layerType, 'onClick': setColumns },
-                { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-accordion-all-field av-columns', 'add': null, 'remove': null, 'notitle': true, 'startEmpty': true, 'items': [
+                { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-columns hidden', 'add': null, 'items': [
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.layertablecol'), 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablecol'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                            { 'key': `${model}.columns[].remove` },
                             { 'key': `${model}.columns[].title`, 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layertablecol'), 'onChange': debounceService.registerDebounce(formService.copyValueToFormIndex, constants.debInput, false) },
                             { 'key': `${model}.columns[].description` },
                             { 'key': `${model}.columns[].visible` },
@@ -569,7 +575,7 @@ function Controller($scope, $translate, $timeout,
                         ] }
                     ] }
                 ] }
-            ] }
+            ]}
         ] }]
     }
 
