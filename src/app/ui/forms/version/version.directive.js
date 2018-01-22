@@ -36,7 +36,7 @@ function avVersion() {
     return directive;
 }
 
-function Controller($scope, $translate, events, modelManager, formService) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService) {
     'ngInject';
     const self = this;
     self.modelName = 'version';
@@ -71,7 +71,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
         // There's no tab just the form
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form);
     });
 
     function setForm() {

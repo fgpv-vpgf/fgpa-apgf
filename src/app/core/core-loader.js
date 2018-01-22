@@ -6,5 +6,6 @@ import './core.run.js';
 import './debounce.service.js';
 import './global-registry.service.js';
 import './modelmanager.service.js';
+import './statemanager.service.js';
 import './recursion.service.js';
 import './translation.service.js';

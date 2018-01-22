@@ -36,7 +36,7 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope, $translate, events, modelManager, formService) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService) {
     'ngInject';
     const self = this;
     self.modelName = 'ui';
@@ -70,7 +70,7 @@ function Controller($scope, $translate, events, modelManager, formService) {
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
     });
 
     // FIXME: when we use condition, the item is remove from the model. When the item come back it looses all the
