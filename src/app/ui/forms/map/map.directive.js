@@ -37,7 +37,7 @@ function avMap() {
 }
 
 function Controller($scope, $translate, $timeout,
-    events, modelManager, formService, debounceService, constants, layerService, commonService) {
+    events, modelManager, stateManager, formService, debounceService, constants, layerService, commonService) {
     'ngInject';
     const self = this;
     self.modelName = 'map';
@@ -82,7 +82,7 @@ function Controller($scope, $translate, $timeout,
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        modelManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
     });
 
     /**

@@ -35,7 +35,7 @@ function avSummary() {
     return directive;
 }
 
-function Controller($mdDialog, $rootScope, events, constants, modelManager, commonService) {
+function Controller($mdDialog, $rootScope, events, constants, modelManager, stateManager, commonService) {
     'ngInject';
     const self = this;
 
@@ -71,7 +71,7 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, comm
      * @param {Boolean} value Value to set
      */
     function walkTree(tree, key, value) {
-        for (let obj in tree) {
+        for (let obj of tree) {
             if (tree.hasOwnProperty(key)) { tree[key] = value; }
             if (!!tree[obj] && typeof(tree[obj]) === 'object') {
                 if (tree.hasOwnProperty(key)) { tree[key] = value; }
@@ -91,7 +91,7 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, comm
      */
     function initState() {
         constants.schemas.forEach(schema => {
-            self[schema.split('.')[0]] = modelManager.getState(schema.split('.')[0]);
+            self[schema.split('.')[0]] = stateManager.getState(schema.split('.')[0]);
         });
     }
 
