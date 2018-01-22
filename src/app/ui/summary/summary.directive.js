@@ -59,8 +59,23 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, stat
     });
 
 
-    function expand() { walkTree(self, 'expand', true); }
-    function collapse() { walkTree(self, 'expand', false); }
+    function expand() { expandSummary(self, true); }
+    function collapse() { expandSummary(self, false); }
+
+    /**
+     * Expand or collapse the summary
+     *
+     * @function expandSummary
+     * @param {Object} summary summary object
+     * @param {Boolean} value Value to set
+     */
+    function expandSummary(summary, value) {
+        const arrSum = ['map', 'ui', 'services', 'version', 'language'];
+
+        for (let el of arrSum) {
+            walkTree(summary[el], 'expand', value);
+        }
+    }
 
     /**
      * Walk the tree to set expand or collapse
@@ -71,11 +86,12 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, stat
      * @param {Boolean} value Value to set
      */
     function walkTree(tree, key, value) {
-        for (let obj of tree) {
-            if (tree.hasOwnProperty(key)) { tree[key] = value; }
-            if (!!tree[obj] && typeof(tree[obj]) === 'object') {
-                if (tree.hasOwnProperty(key)) { tree[key] = value; }
-                walkTree(tree[obj], key, value);
+        if (tree.hasOwnProperty(key)) {
+            tree[key] = value;
+        }
+        if (tree.hasOwnProperty('items')) {
+            for (let item of tree.items) {
+                walkTree(item, key, value);
             }
         }
     }
