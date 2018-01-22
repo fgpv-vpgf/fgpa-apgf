@@ -458,6 +458,7 @@ function Controller($scope, $translate, $timeout,
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
+                    { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
                     { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [

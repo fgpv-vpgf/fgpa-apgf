@@ -5,6 +5,7 @@ import './core.module.js';
 import './core.run.js';
 import './debounce.service.js';
 import './global-registry.service.js';
+import './keycodes.constant.js';
 import './modelmanager.service.js';
 import './statemanager.service.js';
 import './recursion.service.js';
