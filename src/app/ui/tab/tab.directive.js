@@ -48,6 +48,10 @@ function Controller($translate, events, constants) {
         self.tabs[index].name = $translate.instant(`app.section.${item.split('.')[0]}`);
     })});
 
+    events.$on(events.avUpdateFocus, (event, val) => {
+        self.setTab(val);
+    });
+
     /**
      * Set tabs information, name and directive tag
      *

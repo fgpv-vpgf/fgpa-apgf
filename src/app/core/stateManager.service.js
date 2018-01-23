@@ -18,6 +18,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
     };
 
     const _state = {};
+    const _section = { 'map': 1, 'ui': 2, 'services': 3, 'version': 4, 'language': 5 };
 
     return service;
 
@@ -31,7 +32,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
      */
     function getState(modelName) {
         // create state object used by the summary section
-        _state[modelName] = { 'key': modelName, 'title': $translate.instant(`app.section.${modelName}`), 'valid': null, 'expand': false, items: [] };
+        _state[modelName] = { 'key': modelName, 'title': $translate.instant(`app.section.${modelName}`), 'valid': null, 'expand': false, 'hlink': _section[modelName], 'advance': false,'stype': '', items: [] };
 
         return _state[modelName];
     }
@@ -48,9 +49,10 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         const cleanForm = commonService.parseJSON(form);
 
-        // for futur use
-        // let advHidden = [];
-        // listAdvanceHidden(arrForm, advHidden);
+        // Advance parameters
+        let adv = [];
+        listAdvanceHidden(arrForm, adv);
+        const advHidden = [].concat.apply([], adv);
 
         // Since map is much more complicated we isolate it
         if (modelName === 'map') {
@@ -79,7 +81,48 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         // Set special style to hidden advance parameter
         // TODO
+        setAdvance(_state[modelName], modelName, advHidden);
 
+    }
+
+    /**
+     * Set advance parameter in state model
+     * All element and sub-element will have 'advance' parameter
+     * set to true
+     * @function setAdvance
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {String}  modelName modelName
+     * @param {Array}   arrKeys list of advance parameter keys
+     */
+    function setAdvance(stateModel, modelName, arrKeys) {
+        if (arrKeys.includes(stateModel.key)) {
+            setStateValue(stateModel, 'advance', true)
+        } else if (stateModel.hasOwnProperty('items')) {
+            for (let item of stateModel.items) {
+                setAdvance(item, modelName, arrKeys);
+            }
+        }
+    }
+
+    /**
+     * Set a parameter value for an element of the state model
+     * and all is children
+     * @function setStateValue
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {String}  param parameter name
+     * @param {Object}  value value to give to parameter
+     */
+    function setStateValue(stateModel, param, value) {
+
+        stateModel[param] = value;
+
+        if (stateModel.hasOwnProperty('items')) {
+            for (let item of stateModel.items) {
+                setStateValue(item, param, value);
+            }
+        }
     }
 
     /**
@@ -94,6 +137,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         // baseMaps and layers
         const setNames = [[2,'baseMaps'], [3, 'layers']];
+        const link = _section['map'];
 
         for (let i of setNames) {
             const items = model[i[1]];
@@ -103,7 +147,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             for (let [j, item] of items.entries()) {
                 // NOTE get the validity value need to be called here
                 // NOTE ex: const validState = getValidityValue('baseMaps', i, arrKeys);
-                stateModel.items[i[0]]['items'].push({ 'key': item.name, 'title': item.name, items: [], 'valid': '', 'expand': false, 'type': 'object' });
+                stateModel.items[i[0]]['items'].push({ 'key': item.name, 'title': item.name, items: [], 'valid': '', 'expand': false, 'hlink': link, 'advance': false,'stype': 'element', 'type': 'object' });
             }
         }
 
@@ -116,7 +160,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             stateModel.items[0].items[i[0]]['items'] = [];
 
             for (let item of items) {
-                stateModel.items[0].items[i[0]]['items'].push({ 'key': item[i[2]], 'title': item[i[2]], items: [], 'valid': '', 'expand': false, 'type': 'object' });
+                stateModel.items[0].items[i[0]]['items'].push({ 'key': item[i[2]], 'title': item[i[2]], items: [], 'valid': '', 'expand': false, 'hlink': link, 'advance': false,'stype': 'element', 'type': 'object' });
             }
         }
 
@@ -266,7 +310,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
         const keysArrRed = reduceMapArray(keysArr);
         const keysArrUpd = addSpecific(keysArrRed, modelName);
 
-        buildStateTree(state, modelName, keysArrUpd);
+        buildStateTree(state, modelName, keysArrUpd, _section[modelName]);
 
         return keysArr;
     }
@@ -299,7 +343,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
         // Add specific keys so the missing tabs can be represented in the summary
         const keysArrUpdate = addSpecific(keysArr, modelName);
 
-        buildStateTree(state, modelName, keysArr);
+        buildStateTree(state, modelName, keysArr, _section[modelName]);
     }
 
     /**
@@ -309,8 +353,9 @@ function stateManager($timeout, $translate, events, constants, commonService) {
      * @param {Object} state the state object in JSON
      * @param {String} element the current element name
      * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     * @param {Number} mainSection ['map':1 | 'ui':2 | 'services':3 | 'version':4 | 'language':5]
      */
-    function buildStateTree(state, element, arrKeys) {
+    function buildStateTree(state, element, arrKeys, mainSection) {
 
         const firstItems = [];
         arrKeys.forEach(arr => firstItems.push(arr[0][0]));
@@ -332,7 +377,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                 for (let i of validArr) valid.push(i[0]);
 
                 const validState = !valid.includes(false);
-                state.items.push({ 'key': item, 'title': '', items: [], 'valid': validState, 'expand': false, 'type': 'object' });
+                state.items.push({ 'key': item, 'title': '', items: [], 'valid': validState, 'expand': false, 'hlink': mainSection, 'advance': false,'stype': '', 'type': 'object' });
 
                 // Build new keys array
                 const newKeysArr = arrKeys.filter(el => {
@@ -344,10 +389,10 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
                 const index = state.items.findIndex(el => el.key === item);
                 // Go deeper
-                buildStateTree(state.items[index], item, newKeysArr);
+                buildStateTree(state.items[index], item, newKeysArr, mainSection);
             } else if (item !== 'items' && typeof item !== 'undefined') {
                 const valid = validArr[0][0];
-                state.items.push({ 'key': item, 'title': '', 'valid': valid, 'expand': false, 'type': 'object' });
+                state.items.push({ 'key': item, 'title': '', 'valid': valid, 'expand': false, 'hlink': mainSection, 'advance': false,'stype': '', 'type': 'object' });
             }
         });
     }
