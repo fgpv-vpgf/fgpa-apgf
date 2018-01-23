@@ -1,6 +1,7 @@
 angular
     .module('app.core')
     .run(initLanguages)
+    .run(initShortcut)
     .run(uploadDefault)
     .run(uploadSchema);
 
@@ -36,6 +37,24 @@ function initLanguages($rootElement, $translate, commonService) {
     // we set the language directly instead of using setLang to avoid switchLanguage event
     $translate.use(languages[0]);
     commonService.setLangs(languages);
+}
+
+/**
+ * Initialize keyboard shortcut.
+ * @function initShortcut
+ * @private
+ * @param  {Object} keyNames key names with corresponding key code
+ * @param  {Object} formService Form service
+ */
+function initShortcut(keyNames, formService) {
+    $('body').keydown(e => {
+        // Alt-s/Alt-x can also be use to expand or collapse the collection
+        if (e.keyCode === keyNames.S && e.altKey || e.keyCode === keyNames.X && e.altKey)  {
+            const obj = { currentTarget: { parentElement: document.getElementsByClassName('av-layers')[0] } };
+            const collapse = (e.keyCode === keyNames.X) ? true : false;
+            formService.toggleAll(obj, collapse);
+        }
+    });
 }
 
 /**

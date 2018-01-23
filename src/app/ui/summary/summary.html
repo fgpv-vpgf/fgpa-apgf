@@ -25,5 +25,17 @@
         <md-tooltip>{{ 'summary.preview' | translate }}</md-tooltip>
     </md-button>
     <md-divider></md-divider>
+
     <div ng-repeat="tab in self.tabs" av-compile-html="tab.model"></div>
+
+    <md-divider></md-divider>
+    <div class="md-caption av-version">
+        <span class="av-version-number">{{ self.version.major }}.{{ self.version.minor }}.{{ self.version.patch }}
+            <span class="av-version-hash">[{{ self.version.hash }}]</span></span>
+        <span class="av-version-timestamp">{{ self.version.timestamp }}</span>
+        <div class="av-version-github">
+            <a href="https://github.com/fgpv-vpgf/fgpa-apgf" class="rv-icon-24">
+                <md-icon md-svg-src="community:github"></md-icon>fgpv-vpgf/fgpa-apgf</a>
+        </div>
+    </div>
 </div>

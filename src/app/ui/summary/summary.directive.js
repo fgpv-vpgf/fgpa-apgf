@@ -35,9 +35,14 @@ function avSummary() {
     return directive;
 }
 
-function Controller($mdDialog, $rootScope, events, constants, modelManager, stateManager, commonService) {
+function Controller($mdDialog, $rootScope, $timeout, events, constants, modelManager, stateManager, commonService,
+    version) {
     'ngInject';
     const self = this;
+
+    // set author version and link to the repo. Use $timeout because it won't work without it.
+    // directive needs to finish is initialization...
+    $timeout(() => { self.version = version; }, constants.delaySetVersion);
 
     self.expandTree = expand;
     self.collapseTree = collapse;
@@ -99,6 +104,9 @@ function Controller($mdDialog, $rootScope, events, constants, modelManager, stat
     function validateForm() {
         initState();
         $rootScope.$broadcast(events.avValidateForm);
+
+        // set author version and link to the repo again. The validation cause the model to reinitilize
+        self.version = version;
     }
 
     /**
