@@ -13,7 +13,6 @@ report/
 typings/
 tsd.json
 .vagrant/
-*-lock.json
 
 # VIM files
 *~
