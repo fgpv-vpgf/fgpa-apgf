@@ -181,9 +181,10 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
          * @function save
          */
         function save() {
-            // save the file
-            const file = new File([modelManager.save()], `${self.fileName}.json`, { type: 'text/plain' });
-            FileSaver.saveAs(file);
+            // save the file. Some browsers like IE and Edge doesn't support File constructor, use blob
+            // https://stackoverflow.com/questions/39266801/saving-file-on-ie11-with-filesaver
+            const file = new Blob([modelManager.save()], { type: 'application/json' });
+            FileSaver.saveAs(file, `${self.fileName}.json`);
             self.close();
         }
     }
