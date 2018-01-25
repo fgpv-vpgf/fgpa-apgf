@@ -73,6 +73,7 @@ function Controller($scope, $translate, $timeout,
         self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId');
         self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId');
         self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId');
+        self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate');
 
         $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
 
@@ -464,7 +465,7 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select' },
-                                { 'key': 'layers[].id' },
+                                { 'key': 'layers[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'), constants.debInput, false); } },
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'layers[].url' },
                                 { 'key': 'layers[].metadataUrl' },

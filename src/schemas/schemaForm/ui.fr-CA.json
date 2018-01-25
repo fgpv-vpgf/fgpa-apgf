@@ -246,7 +246,7 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "L'ID de la couche pour des fins de référencement à l'intérieur du visualisateur",
+                    "description": "L'ID de la couche pour des fins de référencement à l'intérieur du visualisateur. Fonctionne seulement aves des couches de type \"feature layer\"",
                     "title": "ID de la couche",
                     "default": ""
                 },
