@@ -11,7 +11,7 @@ angular
     .module('app.ui')
     .factory('formService', formService);
 
-function formService($timeout, events, $mdDialog, $translate, commonService, constants, projectionService) {
+function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService) {
 
     const service = {
         showAdvance,
@@ -357,14 +357,21 @@ function formService($timeout, events, $mdDialog, $translate, commonService, con
     * Array of keys made from key element
     * The same variable name created for the first element
     *
+    * For a sample with a broadcast event, look at avLayersIdupdateEvents
+    *
     * Known issue: onChange is not fired on the last item delete inside an array. Will need to find a workaround if need be
     * @function updateLinkValues
     * @param  {Object} scope  form scope
     * @param  {Array} keys the path to the key to get value from
     * @param  {String} link the value to update (need to be the same on optionData as the the field who receive the link)
+    * @param  {String} broadcast optional - the event to broadcast. This will be use to update link in another scope model
     */
-    function updateLinkValues(scope, keys, link) {
+    function updateLinkValues(scope, keys, link, broadcast = false) {
         scope[link] = findValues(scope.model, keys, 0, []);
+
+        if (broadcast !== false) {
+            $rootScope.$broadcast(events[broadcast], scope[link]);
+        }
     }
 
     /**
