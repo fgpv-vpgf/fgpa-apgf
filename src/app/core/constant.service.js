@@ -51,7 +51,8 @@ function events($rootScope) {
         avLoadModel: 'avLoadModel', // Fired when a user load an existing form
         avNewItems: 'avNewItems', // Fired when a user add a new item inside an array (e.g. layer of layers)
         avValidateForm: 'avValidateForm', // Fired when a user click on validate to validate all forms
-        avShowSplash: 'avShowSplash'
+        avShowSplash: 'avShowSplash',
+        avLayersIdUpdate: 'avLayersIdUpdate' // Fired when layers id is updated. Will be use inside UI model to update table layer id
     };
 }
 

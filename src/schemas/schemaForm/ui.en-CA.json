@@ -246,7 +246,7 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "The id of the layer for referencing within the viewer",
+                    "description": "The id of the layer for referencing within the viewer. Only works with feature layer.",
                     "title": "Layer ID",
                     "default": ""
                 },

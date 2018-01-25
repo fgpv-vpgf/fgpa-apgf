@@ -36,7 +36,7 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope, $translate, events, modelManager, stateManager, formService) {
+function Controller($scope, $translate, $timeout, events, modelManager, stateManager, formService) {
     'ngInject';
     const self = this;
     self.modelName = 'ui';
@@ -59,6 +59,10 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     events.$on(events.avSwitchLanguage, () => {
         self.sectionName = $translate.instant('app.section.ui');
         init();
+    });
+
+    events.$on(events.avLayersIdUpdate, (evt, data) => {
+        $scope.initLayerId = data;
     });
 
     function init() {
@@ -128,7 +132,21 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             { 'key': 'legend.isOpen' }
                         ]
                     },
-                    { 'key': 'tableIsOpen' }
+                    { 'key': 'tableIsOpen', 'items': [
+                        {
+                            'key': 'tableIsOpen.id',
+                            'type': 'dynamic-select',
+                            'optionData': 'initLayerId',
+                            'model': 'tableIsOpen_id',
+                            'array': false,
+                            // because the item is more then 1 level deep we need to define a temp model to link to the dynamic-select
+                            // this temp model will be save to config file as well use same name with _ to replace .
+                            'onChange': (model, data) => { $timeout(() => { $scope.model.tableIsOpen_id = model; $scope.model.tableIsOpen.id = model; }, 1000); }
+                        },
+                        { 'key': 'tableIsOpen.small' },
+                        { 'key': 'tableIsOpen.medium' },
+                        { 'key': 'tableIsOpen.large' }
+                    ] }
                 ] },
                 { 'title': $translate.instant('form.ui.appbar'), 'items': [
                     { 'key': 'appBar', 'notitle': true }
