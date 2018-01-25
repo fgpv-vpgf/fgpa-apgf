@@ -3,7 +3,8 @@ angular
     .run(initLanguages)
     .run(initShortcut)
     .run(uploadDefault)
-    .run(uploadSchema);
+    .run(uploadSchema)
+    .run(loadExtensions);
 
 /**
  * @private
@@ -37,6 +38,23 @@ function initLanguages($rootElement, $translate, commonService) {
     // we set the language directly instead of using setLang to avoid switchLanguage event
     $translate.use(languages[0]);
     commonService.setLangs(languages);
+}
+
+/**
+ * Fetches any `av-extensions` scripts.
+ *
+ * @param {Object} $rootElement the root element
+ * @param {Object} $rootScope the root scope element
+ * @param {Object} externalService external service for extension functions
+ */
+function loadExtensions($rootElement, $rootScope, externalService) {
+    const avextensions = $rootElement.attr('av-extensions');
+    const extensionList = avextensions ? avextensions.split(',') : [];
+
+    extensionList.forEach(url => {
+        $.ajax({method: 'GET', dataType: 'text', url})
+            .then(data => eval(`(function(api, scope) { ${data} })(externalService, $rootScope);`));
+    });
 }
 
 /**

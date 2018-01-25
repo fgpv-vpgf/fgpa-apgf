@@ -54,6 +54,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     // get all avialable languages and set the first one as current
     self.languages = commonService.getLangs();
     self.language = self.languages[0];
+    localStorage.setItem('fgpa-lang', self.language);
 
     // get al value for templateUrls
     self.templates = getTemplates();
@@ -80,6 +81,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      */
     function setLanguage() {
         commonService.setLang(self.language);
+        localStorage.setItem('fgpa-lang', self.language);
     }
 
     /**
