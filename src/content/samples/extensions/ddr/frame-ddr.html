@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="./ddr.css"></link>
+</head>
+
+<body>
+    <!-- login  -->
+    <div class="av-login-section">
+        <label id="avFMEUser"></label>
+        <input id="avTokenUser" type="text" name="username" placeholder="Enter Username" required></input>
+        <br>
+        <label id="avFMEPass"></label>
+        <input id="avTokenPass" type="password" name="password" placeholder="Enter Password" required></input>
+        <br>
+        <input id="avFMELogin" class="av-button" type="button"></input>
+        <p class="av-error-connect hidden"></p>
+    </div>
+
+    <!-- package upload -->
+    <div class="av-upload-section hidden">
+        <div id="fme_params">
+            <label id="avUploaded"></label>
+            <div class="av-file-list"></div>
+            <hr />
+            <form id="options" class="form-group"></form>
+        </div>
+        <hr />
+        <input id="runWorkSpace" class="av-button" type="button" disabled></button>
+    </div>
+
+    <!-- progress -->
+    <div class="av-progress-section hidden">
+        <div class="center">
+            <div>
+                <p id="avProgress" class="websocket"></p>
+                <p id="avWait" class="websocket"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- report -->
+    <div class="av-report-section hidden">
+        <div>
+            <p class="av-service-name"></p>
+            <p class="av-report-title"></p>
+        </div>
+        <div class="container">
+            <label id="avMessTypeLbl" for="avMessageType"></label>
+            <select id="avMessageType" onchange="filterMessType()"></select>
+            <label id="avMessSevLbl" for="avMessageSev"></label>
+            <select id="avMessageSev" onchange="filterMessSev()"></select>
+        </div>
+        <hr />
+        <div class="panel">
+            <h4 id="avJobId"></h4>
+        </div>
+        <table id="avReportTable" class="reportTable">
+            <thead>
+                <tr>
+                    <th id="avTime"></th>
+                    <th id="avSev"></th>
+                    <th id="avMess"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+<script src="http://api.fmeserver.com/js/v1.1/FMEServer.js"></script>
+<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+</script>
+<script src="./ddr-tools.js"></script>
+
+</body>
+</html>

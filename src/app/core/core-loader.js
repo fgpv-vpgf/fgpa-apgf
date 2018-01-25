@@ -4,6 +4,7 @@ import './core.config.js';
 import './core.module.js';
 import './core.run.js';
 import './debounce.service.js';
+import './external.service.js';
 import './global-registry.service.js';
 import './keycodes.constant.js';
 import './modelmanager.service.js';
