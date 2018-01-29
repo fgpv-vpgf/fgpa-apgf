@@ -50,21 +50,4 @@ function Controller(events) {
     function setFocus(val) {
         events.$broadcast(events.avUpdateFocus, val);
     }
-    // // https://github.com/json-schema-form/angular-schema-form/issues/410
-    //         //     <span class="node.selected" ng-class="{'av-summary-adv': tree.advance === true, 'av-summary-list': tree.stype === 'element'}" ng-click="self.setFocus(tree.hlink)">{{ tree.title }}</span>
-
-    //         document.getElementById(val).focus({preventScroll:false});
-
-    //         const aTags = document.getElementsByTagName("a");
-    //         const searchText = "Legend";
-    //         let found;
-
-    //         for (let i = 0; i < aTags.length; i++) {
-    //             if (aTags[i].textContent === searchText) {
-    //                 found = aTags[i];
-    //                 break;
-    //             }
-    //         }
-    //         console.log(found);
-    //     }
 }

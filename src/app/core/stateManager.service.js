@@ -18,7 +18,6 @@ function stateManager($timeout, $translate, events, constants, commonService) {
     };
 
     const _state = {};
-    const _section = { 'map': 1, 'ui': 2, 'services': 3, 'version': 4, 'language': 5 };
 
     return service;
 
@@ -31,8 +30,17 @@ function stateManager($timeout, $translate, events, constants, commonService) {
      * @return {Object}          the state object in JSON
      */
     function getState(modelName) {
+        const link = constants.schemas
+            .indexOf(`${modelName}.[lang].json`) + 1;
         // create state object used by the summary section
-        _state[modelName] = { 'key': modelName, 'title': $translate.instant(`app.section.${modelName}`), 'valid': null, 'expand': false, 'hlink': _section[modelName], 'advance': false,'stype': '', items: [] };
+        _state[modelName] = { 'key': modelName,
+            'title': $translate.instant(`app.section.${modelName}`),
+            'valid': null,
+            'expand': false,
+            'hlink': link,
+            'advance': false,
+            'stype': '',
+            items: [] };
 
         return _state[modelName];
     }
@@ -73,14 +81,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
         // Set master element validity
         setMasterValidity(_state[modelName]);
 
-        // Set element hyperlink here
-        // TODO
-
-        // Set master element hyperlink here
-        // TODO
-
         // Set special style to hidden advance parameter
-        // TODO
         setAdvance(_state[modelName], modelName, advHidden);
 
     }
@@ -137,7 +138,8 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         // baseMaps and layers
         const setNames = [[2,'baseMaps'], [3, 'layers']];
-        const link = _section['map'];
+        const link = constants.schemas
+            .indexOf(`map.[lang].json`) + 1;
 
         for (let i of setNames) {
             const items = model[i[1]];
@@ -147,7 +149,17 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             for (let [j, item] of items.entries()) {
                 // NOTE get the validity value need to be called here
                 // NOTE ex: const validState = getValidityValue('baseMaps', i, arrKeys);
-                stateModel.items[i[0]]['items'].push({ 'key': item.name, 'title': item.name, items: [], 'valid': '', 'expand': false, 'hlink': link, 'advance': false,'stype': 'element', 'type': 'object' });
+
+                stateModel.items[i[0]]['items']
+                    .push({ 'key': item.name,
+                        'title': item.name,
+                        items: [],
+                        'valid': '',
+                        'expand': false,
+                        'hlink': link,
+                        'advance': false,
+                        'stype': 'element',
+                        'type': 'object' });
             }
         }
 
@@ -160,7 +172,16 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             stateModel.items[0].items[i[0]]['items'] = [];
 
             for (let item of items) {
-                stateModel.items[0].items[i[0]]['items'].push({ 'key': item[i[2]], 'title': item[i[2]], items: [], 'valid': '', 'expand': false, 'hlink': link, 'advance': false,'stype': 'element', 'type': 'object' });
+                stateModel.items[0].items[i[0]]['items']
+                    .push({ 'key': item[i[2]],
+                        'title': item[i[2]],
+                        items: [],
+                        'valid': '',
+                        'expand': false,
+                        'hlink': link,
+                        'advance': false,
+                        'stype': 'element',
+                        'type': 'object' });
             }
         }
 
@@ -310,7 +331,9 @@ function stateManager($timeout, $translate, events, constants, commonService) {
         const keysArrRed = reduceMapArray(keysArr);
         const keysArrUpd = addSpecific(keysArrRed, modelName);
 
-        buildStateTree(state, modelName, keysArrUpd, _section[modelName]);
+        const link = constants.schemas
+            .indexOf(`${modelName}.[lang].json`) + 1;
+        buildStateTree(state, modelName, keysArrUpd, link);
 
         return keysArr;
     }
@@ -343,7 +366,10 @@ function stateManager($timeout, $translate, events, constants, commonService) {
         // Add specific keys so the missing tabs can be represented in the summary
         const keysArrUpdate = addSpecific(keysArr, modelName);
 
-        buildStateTree(state, modelName, keysArr, _section[modelName]);
+        const link = constants.schemas
+            .indexOf(`${modelName}.[lang].json`) + 1;
+
+        buildStateTree(state, modelName, keysArr, link);
     }
 
     /**
@@ -377,7 +403,16 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                 for (let i of validArr) valid.push(i[0]);
 
                 const validState = !valid.includes(false);
-                state.items.push({ 'key': item, 'title': '', items: [], 'valid': validState, 'expand': false, 'hlink': mainSection, 'advance': false,'stype': '', 'type': 'object' });
+                state.items
+                    .push({ 'key': item,
+                        'title': '',
+                        items: [],
+                        'valid': validState,
+                        'expand': false,
+                        'hlink': mainSection,
+                        'advance': false,
+                        'stype': '',
+                        'type': 'object' });
 
                 // Build new keys array
                 const newKeysArr = arrKeys.filter(el => {
@@ -392,7 +427,15 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                 buildStateTree(state.items[index], item, newKeysArr, mainSection);
             } else if (item !== 'items' && typeof item !== 'undefined') {
                 const valid = validArr[0][0];
-                state.items.push({ 'key': item, 'title': '', 'valid': valid, 'expand': false, 'hlink': mainSection, 'advance': false,'stype': '', 'type': 'object' });
+                state.items
+                    .push({ 'key': item,
+                        'title': '',
+                        'valid': valid,
+                        'expand': false,
+                        'hlink': mainSection,
+                        'advance': false,
+                        'stype': '',
+                        'type': 'object' });
             }
         });
     }
