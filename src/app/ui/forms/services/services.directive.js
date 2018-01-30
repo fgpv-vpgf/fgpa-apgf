@@ -70,7 +70,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
     });
 
     function setForm() {

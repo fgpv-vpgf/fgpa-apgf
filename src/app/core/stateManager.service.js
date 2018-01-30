@@ -14,6 +14,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
     const service = {
         getState,
+        goNoGoPreview,
         validateModel
     };
 
@@ -46,6 +47,30 @@ function stateManager($timeout, $translate, events, constants, commonService) {
     }
 
     /**
+     * Check validity of state sections
+     * @function goNoGoPreview
+     * @return {Boolean}  the go or no go
+     */
+    function goNoGoPreview() {
+        let goNoGo = false; // Default
+
+        // State defined
+        if (Object.keys(_state).length === 0
+                    && _state.constructor === Object) {
+            goNoGo = false;
+        } else {
+            let validity = [];
+            const names = Object.getOwnPropertyNames(_state);
+            for (let item of names) {
+                validity.push(_state[item].valid);
+            }
+            goNoGo = !(validity.includes(false) || validity.includes(null));
+        }
+
+        return goNoGo;
+    }
+
+    /**
      * Set state object with valid values from the form field validity
      * @function validateModel
      * @param {String}  modelName the model/form name to get state on
@@ -57,11 +82,6 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         const cleanForm = commonService.parseJSON(form);
 
-        // Advance parameters
-        let adv = [];
-        listAdvanceHidden(arrForm, adv);
-        const advHidden = [].concat.apply([], adv);
-
         // Since map is much more complicated we isolate it
         if (modelName === 'map') {
             const arrKeys = updateSummaryFormMap(_state[modelName], modelName, cleanForm);
@@ -72,18 +92,34 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             updateSummaryForm(_state[modelName], modelName, cleanForm);
         }
 
+        // TITLE SECTION
         // Set each title
         setTitle(_state[modelName], arrForm);
 
         // Set custom title
         setCustomTitles(_state[modelName], modelName);
 
+        // VALIDITY SECTION
         // Set master element validity
         setMasterValidity(_state[modelName]);
 
+        // UNDEFINED SECTION
+        // Undefined parameters
+        let modKeys = [modelName];
+        let modUndef = [];
+        searchUndefined(modKeys, model, modUndef);
+
+        // Update validity based on undefined
+        updateValidity(_state[modelName], modelName, modUndef)
+
+        // ADVANCE SECTION
+        // Advance parameters
+        let adv = [];
+        listAdvanceHidden(arrForm, adv);
+        const advHidden = [].concat.apply([], adv);
+
         // Set special style to hidden advance parameter
         setAdvance(_state[modelName], modelName, advHidden);
-
     }
 
     /**
@@ -98,7 +134,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
      */
     function setAdvance(stateModel, modelName, arrKeys) {
         if (arrKeys.includes(stateModel.key)) {
-            setStateValue(stateModel, 'advance', true)
+            setStateValueDown(stateModel, 'advance', true)
         } else if (stateModel.hasOwnProperty('items')) {
             for (let item of stateModel.items) {
                 setAdvance(item, modelName, arrKeys);
@@ -109,21 +145,95 @@ function stateManager($timeout, $translate, events, constants, commonService) {
     /**
      * Set a parameter value for an element of the state model
      * and all is children
-     * @function setStateValue
+     * @function setStateValueDown
      * @private
      * @param {Object}  stateModel the stateModel
      * @param {String}  param parameter name
      * @param {Object}  value value to give to parameter
      */
-    function setStateValue(stateModel, param, value) {
+    function setStateValueDown(stateModel, param, value) {
 
         stateModel[param] = value;
 
         if (stateModel.hasOwnProperty('items')) {
             for (let item of stateModel.items) {
-                setStateValue(item, param, value);
+                setStateValueDown(item, param, value);
             }
         }
+    }
+
+    /**
+     * Set a parameter value for an element of the state model
+     * and all parents
+     * @function setStateValueUp
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Array}  path path from root to element ['root','child','grandchild=element']
+     * @param {String}  param parameter name
+     * @param {Object}  value value to give to parameter
+     */
+    function setStateValueUp(stateModel, path, param, value) {
+
+        stateModel[param] = value;
+        const target = path.shift();
+        if (path.length > 0) {
+            // Find proper target place
+            for (let [j, item] of stateModel.items.entries()) {
+                // Check if the target is a number
+                // if so compare with index instead of key
+                const isNumber = !isNaN(target);
+
+                if ((isNumber && j === parseInt(target)) || item.key === target) {
+                    setStateValueUp(stateModel.items[j], path, param, value);
+                }
+            }
+        }
+    }
+
+    /**
+     * List undefined attributes
+     * @function  searchUndefined
+     * @private
+     * @param {Array}   modelKeys the model name path
+     * @param {Object}  model the model
+     * @param {Array}   arrKeys array of keys
+     */
+    function searchUndefined(modelKeys, model, arrKeys) {
+
+        const dataType = commonService.whatsThat(model);
+
+        if (dataType === 'undefined') {
+            modelKeys.shift();
+            arrKeys.push([modelKeys, false]);
+        } else if(dataType !== 'null') {
+            const entries = Object.entries(model);
+
+            for (let el of entries) {
+                if (dataType === 'array' || dataType === 'object') {
+                    const keys = modelKeys.concat(el[0]);
+                    searchUndefined(keys, el[1], arrKeys);
+                }
+            }
+        }
+    }
+
+    /**
+     * Set undefined parameter in state model and update
+     * validity of upper hierarchy
+     * @function updateValidity
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {String}  modelName modelName
+     * @param {Array}   undefKeys list of advance parameter keys
+     */
+    function updateValidity(stateModel, modelName, undefKeys) {
+        const keysArrUpd = addSpecific(undefKeys, modelName);
+
+        for (let k of keysArrUpd) {
+            const path = k[0];
+            setStateValueUp(stateModel, path, 'valid', false);
+        }
+
     }
 
     /**
@@ -154,7 +264,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                     .push({ 'key': item.name,
                         'title': item.name,
                         items: [],
-                        'valid': '',
+                        'valid': true,
                         'expand': false,
                         'hlink': link,
                         'advance': false,
@@ -176,7 +286,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                     .push({ 'key': item[i[2]],
                         'title': item[i[2]],
                         items: [],
-                        'valid': '',
+                        'valid': true,
                         'expand': false,
                         'hlink': link,
                         'advance': false,

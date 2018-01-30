@@ -71,7 +71,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
         // There's no tab just the form
-        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form, $scope.model);
     });
 
     function setForm() {

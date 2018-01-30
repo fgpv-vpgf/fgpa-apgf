@@ -74,7 +74,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
 
     events.$on(events.avValidateForm, () => {
         $scope.$broadcast('schemaFormValidate');
-        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs);
+        stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
     });
 
     // FIXME: when we use condition, the item is remove from the model. When the item come back it looses all the
