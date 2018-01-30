@@ -32,9 +32,22 @@ function avTree(recursionService) {
                 scope.expand = item => {
                     item.expand = !item.expand;
                 }
-            })
-
+            }),
+        controller: Controller,
+        controllerAs: 'self',
+        bindToController: false
     };
 
     return directive;
+}
+
+function Controller(events) {
+    'ngInject';
+    const self = this;
+
+    self.setFocus = setFocus;
+
+    function setFocus(val) {
+        events.$broadcast(events.avUpdateFocus, val);
+    }
 }

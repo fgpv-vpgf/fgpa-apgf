@@ -20,6 +20,14 @@
         display: flex;
     }
 
+    .av-summary-adv {
+        font-style: italic;
+    }
+
+    .av-summary-list  {
+        color: $focus-color;
+    }
+
     .av-version {
         text-align: center;
         margin: rem(3.6) rem(1.2) rem(1.2) rem(1.2);
