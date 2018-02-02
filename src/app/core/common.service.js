@@ -16,6 +16,7 @@ function commonService($translate, events) {
         parseJSON,
         isArray,
         isObject,
+        whatsThat,
         setUniq,
         setLang,
         getLang,
@@ -58,6 +59,27 @@ function commonService($translate, events) {
      */
     function isObject(item) {
         return item === Object(item);
+    }
+
+    /**
+    * Determine what kind of object we are dealing with.
+    * This function complements typeof operator
+    * @function whatsThat
+    * @private
+    * @param {Object} obj some kind of object
+    * @return {String} return object type
+    */
+    function whatsThat(obj) {
+        let typeObject = '';
+
+        if (Array.isArray(obj)) {
+            typeObject = 'array';
+        } else if (obj === null) {
+            typeObject = 'null';
+        } else {
+            typeObject = typeof obj;
+        }
+        return typeObject;
     }
 
     /**
