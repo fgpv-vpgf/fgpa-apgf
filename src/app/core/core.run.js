@@ -4,7 +4,8 @@ angular
     .run(initShortcut)
     .run(uploadDefault)
     .run(uploadSchema)
-    .run(loadExtensions);
+    .run(loadExtensions)
+    .run(setSubTab);
 
 /**
  * @private
@@ -130,5 +131,55 @@ function uploadSchema($http, $timeout, $rootElement, events, constants, modelMan
         });
     });
 
+
+}
+
+/**
+ * Set subTab ids once the document has loaded
+ * @function setSubTab
+ * @private
+ * @param {Object} constants Constants service
+ */
+function setSubTab(constants) {
+
+    let readyStateCheckInterval = setInterval(() => {
+        if (document.readyState === "complete") {
+            clearInterval(readyStateCheckInterval);
+            setSubTabID(constants);
+        }
+    }, 1000);
+}
+
+/**
+ * Set subtab element id in document
+ * @function setSubTabID
+ * @private
+ * @param {Object} constants Constants service
+ */
+function setSubTabID(constants) {
+
+    const sections = Object.getOwnPropertyNames(constants.subTabs);
+
+    for (let section of sections) {
+        for (let i of constants.subTabs[section].keys) {
+            const elTab = angular.element('[class="nav nav-tabs"]');
+            const childrenTab = Array.from(elTab[constants.subTabs[section].index].children);
+            const elPane = angular.element('[class="tab-content "]');
+            const childrenPane = Array.from(elPane[constants.subTabs[section].index].children);
+
+            if (childrenTab.length === constants.subTabs[section].keys.length) {
+                for (let [j, child] of childrenTab.entries()) {
+                    const id = constants.subTabs[section].keys[j].replace(/\./g, '-')
+                    child.setAttribute('id', id);
+                }
+            }
+            if (childrenPane.length === constants.subTabs[section].keys.length) {
+                for (let [j, child] of childrenPane.entries()) {
+                    const id = `${constants.subTabs[section].keys[j].replace(/\./g, '-')}-pane`;
+                    child.setAttribute('id', id);
+                }
+            }
+        }
+    }
 
 }
