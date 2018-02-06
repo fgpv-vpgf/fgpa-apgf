@@ -36,7 +36,7 @@ function avUi() {
     return directive;
 }
 
-function Controller($scope, $translate, $timeout, events, modelManager, stateManager, formService) {
+function Controller($scope, $translate, $timeout, events, modelManager, stateManager, formService, commonService) {
     'ngInject';
     const self = this;
     self.modelName = 'ui';
@@ -126,7 +126,19 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'theme' },
                     { 'key': 'failureFeedback', 'htmlClass': 'av-form-advance hidden' },
                     {
-                        'type': 'fieldset', 'key': 'legend', 'items': [
+                        'type': "template",
+                        'template': '<legend class="ng-binding">{{form.name}} </legend>',
+                        'name': $translate.instant('ui.legend.title')
+                    },
+                    {
+                        'type': "template",
+                        'template': '<span ng-click="form.link()">{{form.name}}</span><p></p>',
+                        'name': $translate.instant('form.ui.gomap'),
+                        'link': () => { commonService.clickSubTab(1, 'legend'); }
+                    },
+                    {
+                        'type': 'fieldset', 'key': 'legend', 'notitle': true,
+                        'items': [
                             { 'key': 'legend.reorderable' },
                             { 'key': 'legend.allowImport' },
                             { 'key': 'legend.isOpen' }

@@ -22,14 +22,29 @@ angular
         delayEventSplash: 750,
         delayUpdateColumns: 1000,
         delaySetVersion: 2000,
+        delayScroll: 100,
         schemas: [
             'map.[lang].json',
             'ui.[lang].json',
             'services.[lang].json',
             'version.[lang].json',
             'language.[lang].json'
-        ] // TODO: add new schema as they come, list as they should appear in the tab menu
-    });
+        ], // TODO: add new schema as they come, list as they should appear in the tab menu
+        subTabs: {
+            map: {
+                index: 0,
+                keys: ['form.map.extentlods', 'components', 'baseMaps', 'layers', 'legend']
+            },
+            ui: {
+                index: 1,
+                keys: ['form.ui.general', 'appBar', 'form.ui.nav', 'form.ui.sidemenu']
+            },
+            services: {
+                index: 2,
+                keys: ['form.service.urls', 'search', 'export']
+            }
+        }
+    }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
 function events($rootScope) {
     return {

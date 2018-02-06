@@ -528,7 +528,18 @@ function Controller($scope, $translate, $timeout,
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.legend'), 'items': [
-                    { 'key': 'legend', 'items': [
+                    {
+                        'type': "template",
+                        'template': '<legend class="ng-binding">{{form.name}} </legend>',
+                        'name': $translate.instant('form.map.legend')
+                    },
+                    {
+                        'type': "template",
+                        'template': '<span ng-click="form.link()">{{form.name}}</span><p></p>',
+                        'name': $translate.instant('form.map.goui'),
+                        'link': () => { commonService.clickSubTab(2, 'form.ui.general'); }
+                    },
+                    { 'key': 'legend', 'notitle': true, 'items': [
                         {   'key': 'legend.legendChoice',
                             'type': 'select',
                             'titleMap': [
