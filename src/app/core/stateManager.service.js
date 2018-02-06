@@ -10,7 +10,7 @@ angular
     .module('app.core')
     .factory('stateManager', stateManager);
 
-function stateManager($timeout, $translate, events, constants, commonService) {
+function stateManager($timeout, $translate, events, constants, commonService, modelManager) {
 
     const service = {
         getState,
@@ -38,9 +38,11 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             'title': $translate.instant(`app.section.${modelName}`),
             'valid': null,
             'expand': false,
+            'masterlink': link,
             'hlink': link,
             'advance': false,
             'stype': '',
+            'shlink': '',
             items: [] };
 
         return _state[modelName];
@@ -233,7 +235,6 @@ function stateManager($timeout, $translate, events, constants, commonService) {
             const path = k[0];
             setStateValueUp(stateModel, path, 'valid', false);
         }
-
     }
 
     /**
@@ -248,17 +249,17 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         // baseMaps and layers
         const setNames = [[2,'baseMaps'], [3, 'layers']];
-        const link = constants.schemas
+        const masterLink = constants.schemas
             .indexOf(`map.[lang].json`) + 1;
 
         for (let i of setNames) {
             const items = model[i[1]];
+            const hlink = constants.subTabs.map.keys[i[0]].replace(/\./g, '-');
 
             stateModel.items[i[0]]['items'] = [];
 
             for (let [j, item] of items.entries()) {
-                // NOTE get the validity value need to be called here
-                // NOTE ex: const validState = getValidityValue('baseMaps', i, arrKeys);
+                const shlink = setItemId(hlink, i[1], j);
 
                 stateModel.items[i[0]]['items']
                     .push({ 'key': item.name,
@@ -266,9 +267,11 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                         items: [],
                         'valid': true,
                         'expand': false,
-                        'hlink': link,
+                        'masterlink': masterLink,
+                        'hlink': hlink,
                         'advance': false,
                         'stype': 'element',
+                        'shlink': shlink,
                         'type': 'object' });
             }
         }
@@ -278,6 +281,7 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         for (let i of setID) {
             const items = model[i[1]];
+            const hlink = constants.subTabs.map.keys[0].replace(/\./g, '-');
 
             stateModel.items[0].items[i[0]]['items'] = [];
 
@@ -288,9 +292,11 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                         items: [],
                         'valid': true,
                         'expand': false,
-                        'hlink': link,
+                        'masterlink': masterLink,
+                        'hlink': hlink,
                         'advance': false,
                         'stype': 'element',
+                        'shlink': '',
                         'type': 'object' });
             }
         }
@@ -443,6 +449,9 @@ function stateManager($timeout, $translate, events, constants, commonService) {
 
         const link = constants.schemas
             .indexOf(`${modelName}.[lang].json`) + 1;
+
+        addLink(keysArrUpd);
+
         buildStateTree(state, modelName, keysArrUpd, link);
 
         return keysArr;
@@ -479,6 +488,8 @@ function stateManager($timeout, $translate, events, constants, commonService) {
         const link = constants.schemas
             .indexOf(`${modelName}.[lang].json`) + 1;
 
+        addLink(keysArr);
+
         buildStateTree(state, modelName, keysArr, link);
     }
 
@@ -488,40 +499,43 @@ function stateManager($timeout, $translate, events, constants, commonService) {
      * @private
      * @param {Object} state the state object in JSON
      * @param {String} element the current element name
-     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     * @param {Array} arrKeys array of arrays [[keys], valid: true | false, hlink: 'id']
      * @param {Number} mainSection ['map':1 | 'ui':2 | 'services':3 | 'version':4 | 'language':5]
      */
     function buildStateTree(state, element, arrKeys, mainSection) {
+
+        // SubTab link
+        let hlink = mainSection;
 
         const firstItems = [];
         arrKeys.forEach(arr => firstItems.push(arr[0][0]));
         const firstItemsUniq = Array.from(new Set(firstItems));
 
-        firstItemsUniq.forEach(item => {
+        for (let item of firstItemsUniq) {
 
             const validKey = arrKeys.filter(el => el[0][0] === item).slice();
-            const validArr = validKey.map(el => {
-                el = el.slice(1);
-                return el;
-            }).slice();
 
             const maxLen = Math.max(arrKeys.filter(el => el[0][0] === item).length);
             // Check if we need to add items attribute
             if (maxLen > 1 && item !== 'items') {
 
-                const valid = [];
-                for (let i of validArr) valid.push(i[0]);
+                // Validity
+                const validState = isValid(validKey);
 
-                const validState = !valid.includes(false);
+                // Link
+                const hlink = uniqId(validKey).replace(/\./g, '-');
+
                 state.items
                     .push({ 'key': item,
                         'title': '',
                         items: [],
                         'valid': validState,
                         'expand': false,
-                        'hlink': mainSection,
+                        'masterlink': mainSection,
+                        'hlink': hlink,
                         'advance': false,
                         'stype': '',
+                        'shlink': '',
                         'type': 'object' });
 
                 // Build new keys array
@@ -536,18 +550,87 @@ function stateManager($timeout, $translate, events, constants, commonService) {
                 // Go deeper
                 buildStateTree(state.items[index], item, newKeysArr, mainSection);
             } else if (item !== 'items' && typeof item !== 'undefined') {
-                const valid = validArr[0][0];
+
+                // validKey => [[[key], valid, id]]
+                const valid = validKey[0][1];
+
+                const index = constants.schemas.indexOf(`${validKey[0][2]}.[lang].json`);
+                const hlink = index === -1 ? validKey[0][2].replace(/\./g, '-') : mainSection;
+
                 state.items
                     .push({ 'key': item,
                         'title': '',
                         'valid': valid,
                         'expand': false,
-                        'hlink': mainSection,
+                        'masterlink': mainSection,
+                        'hlink': hlink,
                         'advance': false,
                         'stype': '',
+                        'shlink': '',
                         'type': 'object' });
             }
-        });
+        }
+    }
+
+    /**
+     * Add hyperlink to arrays of key. The hyperlink === first key of keys array
+     * @function addLink
+     * @private
+     * @param {Array} arrKeys array of arrays [[keys], valid: true | false, hlink: 'id']
+     */
+    function addLink(arrKeys) {
+        for (let i of arrKeys) {
+            i.push(i[0][0]);
+        }
+    }
+
+    /**
+     * Set the item id in the DOM and return the id
+     * @function setItemId
+     * @private
+     * @param {String} hlink subTab link
+     * @param {String} elType element type {'baseMaps'|'layers'}
+     * @param {Number} index rank in elements list
+     * @return {String} id
+     */
+    function setItemId(hlink, elType, index) {
+        const el = angular.element(`#${hlink}-pane`);
+        const children = Array.from(el[0].querySelector("ol").children);
+
+        const id = `${elType}-${index}`;
+        children[index].setAttribute('id', id);
+        return id;
+    }
+
+    /**
+     * Return a unique id
+     * @function uniqId
+     * @private
+     * @param {Array} arrKeys array of arrays [[keys], valid: true | false, hlink: 'id']
+     * @return {String} id
+     */
+    function uniqId(arrKeys) {
+        const ids = [];
+        for (let i of arrKeys) ids.push(i[2]);
+        const id = commonService.setUniq(ids);
+        if (id.length !== 1) {
+            console.log('ERROR: MULTIPLE IDS');
+        }
+
+        return id[0];
+    }
+
+    /**
+     * Return validity
+     * @function isValid
+     * @private
+     * @param {Array} arrKeys array of arrays [[keys], valid: true | false, hlink: 'id']
+     * @return {Boolean} return false if there's at least one false in validity array
+     */
+    function isValid(arrKeys) {
+        const valid = [];
+        for (let i of arrKeys) valid.push(i[1]);
+        return !valid.includes(false);
     }
 
     /**
