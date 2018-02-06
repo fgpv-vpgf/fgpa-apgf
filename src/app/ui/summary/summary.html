@@ -1,29 +1,31 @@
 <div>
     <h1>{{ 'app.summary' | translate }}</h1>
-    <md-button
-        class="av-button-square md-raised"
-        ng-click="self.validateForm()">
-        {{ 'button.validate' | translate }}
-        <md-tooltip>{{ 'button.validate' | translate }}</md-tooltip>
-    </md-button>
-    <md-button
-        class="av-button-square md-raised"
-        ng-click="self.expandTree()">
-        {{ 'summary.expand' | translate }}
-        <md-tooltip>{{ 'summary.expand' | translate }}</md-tooltip>
-    </md-button>
-    <md-button
-        class="av-button-square md-raised"
-        ng-click="self.collapseTree()">
-        {{ 'summary.collapse' | translate }}
-        <md-tooltip>{{ 'summary.collapse' | translate }}</md-tooltip>
-    </md-button>
-    <md-button
-        class="av-button-square md-raised"
-        ng-click="self.openPreview()">
-        {{ 'summary.preview' | translate }}
-        <md-tooltip>{{ 'summary.preview' | translate }}</md-tooltip>
-    </md-button>
+    <div class="av-summary-button">
+        <md-button
+            class="av-button-square md-raised"
+            ng-click="self.validateForm()">
+            {{ 'button.validate' | translate }}
+            <md-tooltip>{{ 'button.validate' | translate }}</md-tooltip>
+        </md-button>
+        <md-button
+            class="av-button-square md-raised"
+            ng-click="self.expandTree()">
+            {{ 'summary.expand' | translate }}
+            <md-tooltip>{{ 'summary.expand' | translate }}</md-tooltip>
+        </md-button>
+        <md-button
+            class="av-button-square md-raised"
+            ng-click="self.collapseTree()">
+            {{ 'summary.collapse' | translate }}
+            <md-tooltip>{{ 'summary.collapse' | translate }}</md-tooltip>
+        </md-button>
+        <md-button
+            class="av-button-square md-raised"
+            ng-click="self.openPreview()">
+            {{ 'summary.preview' | translate }}
+            <md-tooltip>{{ 'summary.preview' | translate }}</md-tooltip>
+        </md-button>
+    </div>
     <md-divider></md-divider>
 
     <div ng-repeat="tab in self.tabs" av-compile-html="tab.model"></div>
