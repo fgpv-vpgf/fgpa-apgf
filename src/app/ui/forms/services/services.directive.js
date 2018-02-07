@@ -98,7 +98,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     'key': 'export', 'items': [
                         { 'key': 'export.title', 'items': [
                             {
-                                'type': 'section', 'items': [{ 'key': 'export.title.value' }]
+                                'type': 'section', 'items': [{ 'key': 'export.title.titleValue' }]
                             },
                             {
                                 'type': 'section', 'items': [{ 'key': 'export.title.isSelected' }]
@@ -132,7 +132,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             }
                         ] },
                         { 'key': 'export.footnote', 'items': [
-                            { 'key': 'export.footnote.value', 'notitle': true },
+                            { 'key': 'export.footnote.footnoteValue', 'notitle': true },
                             {
                                 'type': 'section', 'items': [{ 'key': 'export.footnote.isSelected' }]
                             },

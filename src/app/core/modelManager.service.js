@@ -62,7 +62,9 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         }, 1000);
 
         // remove $$haskkey from model
-        const cleanModels = commonService.parseJSON(models);
+        let cleanModels = commonService.parseJSON(models);
+
+        modifyPropNames(cleanModels, 'SAVE');
 
         // return the config as a string
         return JSON.stringify(cleanModels);
@@ -133,6 +135,9 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         // it is { map: {..}, version: "en-ca" } we need to set it { map: {..}, version: { version: "en-ca" } }
         _model[modelName] = (newModel) ? applyDefault(modelName, {}) :
             (typeof _model[modelName] !== 'string') ? _model[modelName] : { [modelName]: _model[modelName] };
+
+        modifyPropNames(_model, 'LOAD');
+
         return _model[modelName];
     }
 
@@ -145,9 +150,35 @@ function modelManager($timeout, $translate, events, constants, commonService) {
     function updateModel(scope, modelName) {
         scope.model = getModel(modelName, false);
 
+        modifyPropNames(scope.model, 'LOAD');
+
         scope.$broadcast('schemaFormValidate');
         // TODO: when summary panel will work again, re-enable validation
         // $timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
+    }
+
+    /**
+     * modify properties name entitled 'value'
+     * 'value' has specific meaning for Angular Schema Form
+     * @function modifyPropNames
+     * @param {Object} model model
+     * @param {String} mode mode 'LOAD'|'SAVE'
+     */
+    function modifyPropNames(model, mode) {
+
+        // For the moment just some 'value' properties are modified
+        const paths = [['services','export','title'], ['services','export','footnote']];
+
+        const propNames = { LOAD: ['value', 'value'], SAVE: ['titleValue', 'footnoteValue']};
+
+        for (let [i, item] of paths.entries()) {
+            let obj = commonService.getNested (model, item);
+            if (obj !== undefined && obj.hasOwnProperty(propNames[mode][i])) {
+                const conv = mode === 'LOAD' ? 'SAVE' : 'LOAD';
+                obj[propNames[conv][i]] = obj[propNames[mode][i]];
+                delete obj[propNames[mode][i]];
+            }
+        }
     }
 
     /**

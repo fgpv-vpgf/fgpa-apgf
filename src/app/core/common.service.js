@@ -22,7 +22,8 @@ function commonService($translate, events) {
         getLang,
         setLangs,
         getLangs,
-        getUUID
+        getUUID,
+        getNested
     };
 
     let languages;
@@ -143,5 +144,22 @@ function commonService($translate, events) {
         }
 
         return (short) ? _p8() : `${_p8()}${_p8(true)}${_p8(true)}${_p8()}`;
+    }
+
+    /**
+     * Get object by array of keys representing a reference path
+     * eg: ['a', 'b', 'c'] => obj.a.b.c
+     * Source: http://blog.nicohaemhouts.com/2015/08/03/accessing-nested-javascript-objects-with-string-key/
+     * @function getNested
+     * @param {Object} obj object
+     * @param {String} path properties path
+     * @return {Object}  particular sub-object of an object or undefined
+     */
+    function getNested (obj, path) {
+        try {
+            return path.reduce(((o, property) => o[property]), obj);
+        } catch (err) {
+            return undefined;
+        }
     }
 }

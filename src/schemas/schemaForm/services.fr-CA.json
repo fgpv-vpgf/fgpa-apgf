@@ -155,7 +155,7 @@
               "title": "Est personnalisable",
               "help": ""
             },
-            "value": {
+            "titleValue": {
               "type": "string",
               "description": "Valeur par défaut",
               "title": "Valeur",
@@ -289,10 +289,10 @@
                 "title": "Est personnalisable",
                 "help": ""
               },
-            "value": {
+            "footnoteValue": {
               "type": "string",
               "description": "Valeur par défaut",
-              "title": "",
+              "title": "Valeur",
               "help": "",
               "default": ""
             }
