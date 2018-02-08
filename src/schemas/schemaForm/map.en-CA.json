@@ -17,7 +17,6 @@
               "spatialReference": {
                 "description": "The projection for the given extents",
                 "title": "Spatial reference",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "wkid": {
@@ -54,7 +53,6 @@
               "default": {
                 "description": "The default extent is the extent the map uses when first loaded.",
                 "title": "Default Extent",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "xmin": {
@@ -89,28 +87,27 @@
               "full": {
                 "description": "The full extent is the extent to be used when the user clicks on the Home button. The default extent will be used if no full extent is supplied.",
                 "title": "Full Extent",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "xmin": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   },
                   "ymin": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   },
                   "xmax": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   },
                   "ymax": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   }
                 },
                 "required": [
@@ -124,28 +121,27 @@
               "maximum": {
                 "description": "The maximum extent can be set to limit how far out and away the user is allowed to zoom and pan. The default or full extent will be used if no maximum extent is supplied.",
                 "title": "Maximum Extent",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "xmin": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   },
                   "ymin": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   },
                   "xmax": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   },
                   "ymax": {
                     "type": "number",
                     "title": "",
-                    "default": ""
+                    "default": 0
                   }
                 },
                 "required": [
@@ -163,12 +159,11 @@
               "spatialReference"
             ],
             "additionalProperties": false,
-            "title": "Spatial extents set",
-            "default": ""
+            "title": "Spatial extents set"
           },
           "description": "The default, full and maximum extents of the map",
           "title": "Spatial Extents sets",
-          "default": ""
+          "minItems": 1
         },
         "lodSets": {
               "type": "array",
@@ -206,7 +201,8 @@
                       "additionalProperties": false
                     },
                     "description": "Level of detail for a specific tile schema",
-                    "title": "Level of Detail set"
+                    "title": "Level of Detail set",
+                    "minItems": 1
                   }
                 },
                 "required": [
@@ -218,7 +214,7 @@
               },
               "description": "The levels of detail (zoom scales) available for the map",
               "title": "Level of detail sets",
-              "default": "[]"
+              "minItems": 1
         },
         "tileSchemas": {
           "type": "array",

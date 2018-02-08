@@ -367,7 +367,14 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     * @param  {String} broadcast optional - the event to broadcast. This will be use to update link in another scope model
     */
     function updateLinkValues(scope, keys, link, broadcast = false) {
-        scope[link] = findValues(scope.model, keys, 0, []);
+        // find values then remove undefined
+        scope[link] = findValues(scope.model, keys, 0, []).filter(val => (typeof val !== 'undefined'));
+
+        // if array of options is empty, add a message. This way validation will apply
+        // when options are empty, the last item removed doesn't trigger validation
+        if (scope[link].length === 0) {
+            scope[link].push($translate.instant('options.dynamicselect'));
+        }
 
         if (broadcast !== false) {
             $rootScope.$broadcast(events[broadcast], scope[link]);

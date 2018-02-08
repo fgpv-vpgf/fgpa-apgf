@@ -72,7 +72,7 @@ form map set extent default,form.map.extentdefault,Set Extent (Default),0,"Défi
 form map set extent full,form.map.extentfull,Set Extent (Full),0,"Définir l'étendue complète",0
 form map set extent max,form.map.extentmax,Set Extent (Max),0,"Définir l'étendue (maximale)",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
-,button.save,Save,0,Sauvegarder,0
+Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.cancel,Cancel,0,Annuler,0
 ,button.add,Add,0,Ajouter,0
 ,button.validate,Validate,0,Valider,0
