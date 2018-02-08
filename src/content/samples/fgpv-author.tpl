@@ -13,8 +13,9 @@
     <body>
         <div class="fgpa av-large"
                 data-av-langs='["en-CA", "fr-CA"]'
-                data-av-extensions="extensions/ddr/ddr.js"
-                data-av-config='["config-authorA.json", "config-authorB.json", "config-full.json"]'>
+                data-av-extensions='["./extensions/ddr/ddr.js"]'
+                data-av-schema="./schemaForm/"
+                data-av-config='["./config/config-authorA.json", "./config/config-authorB.json", "./config/config-full.json"]'>
             <av-header></av-header>
 
             <div class="av-tools" layout="row">

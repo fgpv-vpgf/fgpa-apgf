@@ -563,7 +563,7 @@ function Controller($scope, $translate, $timeout,
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablecol'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                            { 'key': `${model}.columns[].title`, 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layertablecol'), 'onChange': debounceService.registerDebounce(formService.copyValueToFormIndex, constants.debInput, false) },
+                            { 'key': `${model}.columns[].title`, 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layertablecol'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                             { 'key': `${model}.columns[].description` },
                             { 'key': `${model}.columns[].visible` },
                             { 'key': `${model}.columns[].width` },
