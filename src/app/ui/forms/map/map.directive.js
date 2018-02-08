@@ -373,10 +373,10 @@ function Controller($scope, $translate, $timeout,
                         ]}
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.lodset'), 'items': [
-                        { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'); },'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                        { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), constants.debInput, false); } },
                             { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
-                                { 'key': 'lodSets[].lods', "add": $translate.instant('button.add'), 'items': [
+                                { 'key': 'lodSets[].lods', 'add': $translate.instant('button.add'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'row', 'items': [
                                         { 'key': 'lodSets[].lods[].level', 'htmlClass': 'col-xs-2 av-check-left' },
                                         { 'key': 'lodSets[].lods[].resolution', 'htmlClass': 'col-xs-2 av-check-left' },
@@ -563,7 +563,7 @@ function Controller($scope, $translate, $timeout,
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablecol'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                            { 'key': `${model}.columns[].title`, 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layertablecol'), 'onChange': debounceService.registerDebounce(formService.copyValueToFormIndex, constants.debInput, false) },
+                            { 'key': `${model}.columns[].title`, 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layertablecol'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                             { 'key': `${model}.columns[].description` },
                             { 'key': `${model}.columns[].visible` },
                             { 'key': `${model}.columns[].width` },

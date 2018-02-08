@@ -1,4 +1,4 @@
-<div>
+<div class="av-header">
     <div class="av-title" layout="row" layout-align="space-between center">
         <h2 class="md-display-2">{{ 'app.title' | translate }}</h2>
         <md-input-container class="md-subhead">
@@ -11,11 +11,11 @@
         </md-input-container>
     </div>
     <div>
-        <md-input-container class="md-subhead" ng-if="self.template.length">
+        <md-input-container class="md-subhead av-templates" ng-if="self.templates.length">
           <label>{{ 'header.template' | translate }}</label>
-          <md-select ng-model="self.template" ng-change="self.setTemplate()">
+          <md-select ng-model="self.template" ng-change="self.setTemplate()" ng-model-options="{ trackBy: '$value.path' }">
             <md-option ng-repeat="temp in self.templates" ng-value="temp" ng-selected="$index === 0">
-              {{ temp }}
+              {{ temp.file }}
             </md-option>
           </md-select>
         </md-input-container>

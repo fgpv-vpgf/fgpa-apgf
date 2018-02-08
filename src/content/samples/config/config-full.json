@@ -40,6 +40,18 @@
                 "ymax": 3482193,
                 "ymin": -883440
             },
+            "full": {
+              "xmax": 0,
+              "xmin": 0,
+              "ymax": 0,
+              "ymin": 0
+            },
+            "maximum": {
+              "xmax": 0,
+              "xmin": 0,
+              "ymax": 0,
+              "ymin": 0
+            },
             "spatialReference": {
                 "wkid": 3978
             }
@@ -50,6 +62,18 @@
                 "xmin": -16632697.354854,
                 "ymax": 10015875.184845109,
                 "ymin": 5022907.964742964
+            },
+            "full": {
+              "xmax": 0,
+              "xmin": 0,
+              "ymax": 0,
+              "ymin": 0
+            },
+            "maximum": {
+              "xmax": 0,
+              "xmin": 0,
+              "ymax": 0,
+              "ymin": 0
             },
             "spatialReference": {
                 "wkid": 102100,

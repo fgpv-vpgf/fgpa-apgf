@@ -17,7 +17,6 @@
               "spatialReference": {
                 "description": "La projection pour des étendues données.",
                 "title": "Référence spatiale",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "wkid": {
@@ -54,7 +53,6 @@
               "default": {
                 "description": "Étendue utilisée par défaut ainsi que pour le chargement initial.",
                 "title": "Étendue par défaut",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "xmin": {
@@ -89,28 +87,27 @@
               "full": {
                 "description": "Étendue utilisée lorsque l'utilisateur clique sur le bouton étendue initiale. L'étendue par défaut sera utilisée si l'étendue complète n'est pas définie.",
                 "title": "Étendue complète",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "xmin": {
                     "type": "number",
                     "title": "X min",
-                    "default": ""
+                    "default": 0
                   },
                   "ymin": {
                     "type": "number",
                     "title": "Y min",
-                    "default": ""
+                    "default": 0
                   },
                   "xmax": {
                     "type": "number",
                     "title": "X max",
-                    "default": ""
+                    "default": 0
                   },
                   "ymax": {
                     "type": "number",
                     "title": "Y max",
-                    "default": ""
+                    "default": 0
                   }
                 },
                 "required": [
@@ -124,28 +121,27 @@
               "maximum": {
                 "description": "L'étendue maximale permet de limiter le zoom et le pan. L'étendue complète ou par défaut sera utilisée si l'étendue maximale n'est pas définie.",
                 "title": "Étendue maximale",
-                "default": "",
                 "type": "object",
                 "properties": {
                   "xmin": {
                     "type": "number",
                     "title": "X min",
-                    "default": ""
+                    "default": 0
                   },
                   "ymin": {
                     "type": "number",
                     "title": "Y min",
-                    "default": ""
+                    "default": 0
                   },
                   "xmax": {
                     "type": "number",
                     "title": "X max",
-                    "default": ""
+                    "default": 0
                   },
                   "ymax": {
                     "type": "number",
                     "title": "Y max",
-                    "default": ""
+                    "default": 0
                   }
                 },
                 "required": [
@@ -163,12 +159,11 @@
               "spatialReference"
             ],
             "additionalProperties": false,
-            "title": "Étendues spatiales",
-            "default": ""
+            "title": "Étendues spatiales"
           },
           "description": "Les étendues par défaut, complète et maximale de la carte.",
           "title": "Lots d'étendues spatiales",
-          "default": ""
+          "minItems": 1
         },
         "lodSets": {
               "type": "array",
@@ -206,7 +201,8 @@
                       "additionalProperties": false
                     },
                     "description": "Niveau de détail pour un schéma de tuiles spécifique",
-                    "title": "Niveaux de détail"
+                    "title": "Niveaux de détail",
+                    "minItems": 1
                   }
                 },
                 "required": [
@@ -218,7 +214,7 @@
               },
               "description": "Les niveaux de détail selon l'échelle offerts pour la carte",
               "title": "Lots de niveaux de détail",
-              "default": "[]"
+              "minItems": 1
         },
         "tileSchemas": {
           "type": "array",

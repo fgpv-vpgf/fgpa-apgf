@@ -48,8 +48,8 @@ function initLanguages($rootElement, $translate, commonService) {
  * @param {Object} externalService external service for extension functions
  */
 function loadExtensions($rootElement, $rootScope, externalService) {
-    const avextensions = $rootElement.attr('data-av-extensions');
-    const extensionList = avextensions ? avextensions.split(',') : [];
+    const extAttr = $rootElement.attr('data-av-extensions');
+    const extensionList = extAttr ? angular.fromJson(extAttr) : [];
 
     extensionList.forEach(url => {
         $.ajax({ method: 'GET', dataType: 'text', url })
@@ -87,11 +87,11 @@ function uploadDefault($rootElement, $http, modelManager) {
     // check if there is user define template. If not, use default one
     // we need a default one to make sure model object exist. At the same time we need to defined
     // readonly field inside it
-    const configAttr = (typeof $rootElement.data('av-config') !== 'undefined') ?
-        $rootElement.data('av-config') : ['config-default.json'];
+    const configAttr = $rootElement.attr('data-av-config');
+    const configList = configAttr ? angular.fromJson(configAttr) : ['config-default.json'];
 
     // load default configuration
-    const location = `./config/${configAttr[0]}`;
+    const location = configList[0];
     $http.get(location).then(obj => modelManager.setDefault(obj.data));
 }
 
@@ -101,19 +101,24 @@ function uploadDefault($rootElement, $http, modelManager) {
  * @private
  * @param  {Object} $http Angular object to read file
  * @param  {Object} $timeout Angular object to read file
+ * @param  {Object} $rootElement Angular object
  * @param  {Object} events Angular object
  * @param  {Object} constants Constants service
  * @param  {Object} modelManager Model Manager service
  */
-function uploadSchema($http, $timeout, events, constants, modelManager) {
+function uploadSchema($http, $timeout, $rootElement, events, constants, modelManager) {
     const files = constants.schemas.length * languages.length;
     let loop = 1;
+
+    // get schemaform location
+    const schemaFormFolder = (typeof $rootElement.attr('data-av-schema') !== 'undefined') ?
+        $rootElement.attr('data-av-schema') : './schemaForm/';
 
     // load schemas for all available languages
     languages.forEach(lang => {
         // loop trought all available schemas
         constants.schemas.forEach(file => {
-            let location = `./schemaForm/${file.replace('[lang]', lang)}`;
+            let location = `${schemaFormFolder}/${file.replace('[lang]', lang)}`;
             $http.get(location).then(obj => {
                 modelManager.setSchema(obj.data.schema, obj.data, lang);
 
