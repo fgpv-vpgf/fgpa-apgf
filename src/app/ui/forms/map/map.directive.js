@@ -156,13 +156,6 @@ function Controller($scope, $translate, $timeout,
         }
     }
 
-    function copyValueToForm(model, item) {
-        // change the $scope.form on the fly. May not work with specific index because it will change all of them at the same time
-        // need 'link': 'basemapName-title' on element with onChange (linkTo value - the attribute to modify)
-        // 'linkTo': 'basemapName' on element to modify
-        self.formService.copyValueToForm($scope.form[0], model, item);
-    }
-
     function setColumns(event, item) {
         // get the element for dynamic and feature layer
         const currTarget  = $(event.currentTarget);
@@ -464,7 +457,7 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                { 'key': 'layers[].layerChoice', 'type': 'select' },
+                                { 'key': 'layers[].layerChoice', 'type': 'select', 'targetElement': ['layers', 'layerType'], 'targetParent': 'av-accordion-content', 'onChange': (model, item) => self.formService.copyValueToModelIndex(model, item, $scope.model) },
                                 { 'key': 'layers[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'), constants.debInput, false); } },
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'layers[].url' },

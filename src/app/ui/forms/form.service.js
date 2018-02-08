@@ -20,7 +20,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         toggleAll,
         setExtent,
         setErrorMessage,
-        copyValueToForm,
         copyValueToFormIndex,
         initValueToFormIndex,
         copyValueToModelIndex,
@@ -170,56 +169,22 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
-     * Copy a value from the model to a form element. If the form element is an array, use copyValueToFormIndex instead
-     * @function copyValueToForm
-     * @param  {Object} form  form to uptade
-     * @param  {String} model value to apply
-     * @param  {Object} item parameters to find the form element to update
-     */
-    function copyValueToForm(form, model, item) {
-        // IMPORTANT: need to be on a single form element not an array. Even if we use array index it won't work
-        // it modoify the form, not the html element
-        const params = item.link.split('.');
-        assignForm(form, 'linkTo', params[0], params[1], model);
-    }
-
-    /**
-     * Assign the value to the form element
-     * @function assignForm
-     * @private
-     * @param  {Object} tree  form to tree to get element to uptade
-     * @param  {String} key the key on the element to find
-     * @param  {String} value value for the key to find
-     * @param  {String} setKey the key on the element to update
-     * @param  {String} apply value for the key to update
-     */
-    function assignForm(tree, key, value, setKey, apply) {
-        for (let obj in tree) {
-            if (!!tree[obj] && typeof(tree[obj]) === 'object') {
-                if (tree.hasOwnProperty(key) && tree[key] === value) {
-                    tree[setKey] = apply;
-                }
-                assignForm(tree[obj], key, value, setKey, apply);
-            }
-        }
-    }
-
-    /**
      * Assign the value to the form element. Use active element to get target tp update value for
+     *
+     * Need to have on the item:
+     *  'targetLink': 'legend.0', the target tag inside inside target parent and the array index for children
+     *  'targetParent': 'av-accordion-toggle', the parent element target class
+     *  'default': a default value for the tag when model value is empty
      * @function copyValueToFormIndex
      * @private
      * @param  {Object} model  value to set
      * @param  {String} item item from the form
      */
     function copyValueToFormIndex(model, item) {
-        // need 'targetLink': 'legend.0', the target tag inside inside target parent and the array index for children
-        // 'targetParent': 'av-accordion-toggle', the parent element target class
-        // 'default': a default value for the tag when model value is empty
-
         // get targetLink info
         const itemLink = item.targetLink.split('.');
 
-        // get active element to retrieve targetParent (loop trought parent element to find the the target)
+        // get active element to retrieve targetParent (loop throught parent element to find the target)
         let flag = false;
         let element = document.activeElement;
 
@@ -245,7 +210,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         // get targetLink info
         const itemLink = targetLink.split('.');
 
-        // loop trought classEl elements to get proper html item
+        // loop throught classEl elements to get proper html item
         let elements = document;
         for (let elemClass of classEl) {
             // get the element from the class (all li elements (the html array))
@@ -255,7 +220,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             elements = (elemClass.ind === -1) ? elements : elements[elemClass.ind];
         }
 
-        // loop trought the model and assign value
+        // loop throught the model and assign value
         for (let [index, model] of modelArray.entries()) {
             elements[index].getElementsByTagName(itemLink[0])[itemLink[1]].innerHTML = model[field];
 
@@ -270,73 +235,35 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
-     * walk json tree to return the proper object indexes when value matches
-     * @function findIndex
-     * @private
-     * @param  {Object} model   model to find the value from
-     * @param  {Array} keys   array of keys to walk the model
-     * @param  {String} value   value for the key to find
-     * @param  {Integer} index index inside the array
-     * @param  {Array} returnIndexes array of indexes to update
-     * @return {Array} returnIndexes array of indexes to update
-     */
-    function findIndex(model, keys, value, index, returnIndexes) {
-        // get the key to check for
-        const key = keys.shift();
-
-        // deal differently if it is an array or not
-        if (commonService.isArray(model[key])) {
-            for (let i = 0; i < model[key].length; i++) {
-                // loop the array. Make a copy of keys so we don't empty it on first element
-                findIndex(model[key][i], keys.slice(0), value, i, returnIndexes)
-            }
-        } else if (typeof model[key] !== 'undefined'){
-            // if there is key in the array of keys, walk a level deeper
-            const item = (keys.length > 0) ? findIndex(model[key], keys, value, index, returnIndexes) : model[key];
-
-            // if the item equal the value to search, add the index to the return value
-            if (item === value) { returnIndexes.push(index); }
-        }
-
-        return returnIndexes;
-    }
-
-    /**
      * Copy a value from the model to a model element who contain index
+     *
+     * Need to have on the item:
+     *  'targetElement': ['layers', 'layerType'], array of keys to to get the element to update
+     *  'targetParent': 'av-accordion-content', the parent element target class to find index of
      * @function copyValueToModelIndex
-     * @param  {Object} model  model
+     * @param  {Object} modelValue  model value
      * @param  {String} item form item
-     * @param  {Object} value value to set
+     * @param  {String} model model to update
      */
-    function copyValueToModelIndex(model, item, value) {
-        // IMPORTANT: use to update model inside array, to use it on regular object use out of the box copyValueTo
-        // get indexes to update
-        let indexes = findIndex(model, item.model.split('.'), value, 0, []);
+    function copyValueToModelIndex(modelValue, item, model) {
+        // get active element to retrieve targetParent (loop throught parent element to find the target)
+        let flag = false;
+        let element = document.activeElement;
 
-        // loop the model and assing the value
-        for (let ind of indexes) {
-            assignModel(model, item.link.replace('[$index]', `.${ind}`).split('.'), value);
-        }
-    }
-
-    /**
-     * Assign the value to the model element
-     * @function assignModel
-     * @private
-     * @param  {Object} model  model to update
-     * @param  {Array} keys the path to the key to update
-     * @param  {String} value value for the key to update
-     */
-    function assignModel(model, keys, value) {
-        const lastKey = keys.pop();
-        for (let i = 0; i < keys.length; ++ i) {
-            // check if it is a value or index. If it is an index, parse to integer
-            const key = (isNaN(parseInt(keys[i]))) ? keys[i] : parseInt(keys[i]);
-            model = model[key];
+        while (!flag) {
+            element = element.parentElement;
+            flag = element.classList.contains(item.targetParent);
         }
 
-        // set value
-        model[lastKey] = value;
+        // get active index
+        const index = element.getAttribute('sf-index');
+
+        // find the key to update, if it is an array, use the index found before
+        let update = model;
+        for (let key of item.targetElement) {
+            update = commonService.isArray(update[key]) ? update[key][index] :
+                (typeof update[key] === 'object') ? update[key] : update[key] = modelValue;
+        }
     }
 
     /**
