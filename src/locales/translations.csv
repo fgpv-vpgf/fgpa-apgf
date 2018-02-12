@@ -26,6 +26,7 @@ summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
 summary preview,summary.preview,Preview,0,Aperçu,0
 summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
+summary missing name,summary.missing.name,Missing name or id,0,Nom ou identifiant manquant,0
 form ui,form.ui.general,General,0,Général,0
 form ui go to map legend,form.ui.gomap,"Click here to access legend's properties in Map section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section UI",0
 form ui,form.ui.appbar,Application Bar,0,Barre d'application,0

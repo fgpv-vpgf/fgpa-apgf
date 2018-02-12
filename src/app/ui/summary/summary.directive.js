@@ -175,13 +175,14 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
  * @param {Object} constants Constants service
  */
     function setSubTab(constants) {
-
-        let readyStateCheckInterval = setInterval(() => {
-            if (document.readyState === "complete") {
-                clearInterval(readyStateCheckInterval);
-                setSubTabID(constants);
-            }
-        }, constants.delaySetSubTab);
+        $timeout(() => {
+            let readyStateCheckInterval = window.setInterval(() => {
+                if (document.readyState === "complete") {
+                    clearInterval(readyStateCheckInterval);
+                    setSubTabID(constants);
+                }
+            }, constants.delaySetSubTab);
+        });
     }
 
     /**
