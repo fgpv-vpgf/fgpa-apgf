@@ -21,7 +21,7 @@ angular
         delaySplash: 3500,
         delayEventSplash: 750,
         delayUpdateColumns: 1000,
-        delaySetSubTab: 2000,
+        delaySetSubTab: 100,
         delaySetVersion: 2000,
         delayScroll: 100,
         schemas: [

@@ -28,6 +28,10 @@
         color: $focus-color;
     }
 
+    .av-summary-bad  {
+        color: $alert-color;
+    }
+
     .av-version {
         text-align: center;
         margin: rem(3.6) rem(1.2) rem(1.2) rem(1.2);

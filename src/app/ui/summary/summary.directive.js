@@ -35,7 +35,7 @@ function avSummary() {
     return directive;
 }
 
-function Controller($mdDialog, $rootScope, $timeout, events, constants, modelManager, stateManager, commonService,
+function Controller($mdDialog, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
     version) {
     'ngInject';
     const self = this;
@@ -176,12 +176,14 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
  */
     function setSubTab(constants) {
 
-        let readyStateCheckInterval = setInterval(() => {
-            if (document.readyState === "complete") {
-                clearInterval(readyStateCheckInterval);
-                setSubTabID(constants);
-            }
-        }, constants.delaySetSubTab);
+        $timeout(() => {
+            let to = $interval(() => {
+                if (document.readyState === "complete") {
+                    $interval.cancel(to);
+                    setSubTabID(constants);
+                }
+            }, constants.delaySetSubTab);
+        });
     }
 
     /**
