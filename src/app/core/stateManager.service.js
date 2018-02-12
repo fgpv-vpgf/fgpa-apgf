@@ -111,8 +111,13 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         let modUndef = [];
         searchUndefined(modKeys, model, modUndef);
 
+        // Remove keys that are not in the stateModel
+        // eg. both about.content and about.folderName exist in the model
+        // but just one in the stateModel
+        const modUndefExist = removeNonExistent(_state[modelName], modUndef);
+
         // Update validity based on undefined
-        updateValidity(_state[modelName], modelName, modUndef)
+        updateValidity(_state[modelName], modelName, modUndefExist);
 
         // ADVANCE SECTION
         // Advance parameters
@@ -122,6 +127,26 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         // Set special style to hidden advance parameter
         setAdvance(_state[modelName], modelName, advHidden);
+    }
+
+    /**
+     * Remove non-existent keys if they don't exist in the stateModel
+     * @function removeNonExistent
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Array}   arrKeys list of keys
+     * @return {Array} array of existent keys
+     */
+    function removeNonExistent(stateModel, arrKeys) {
+
+        let exist = [];
+
+        for (let i of arrKeys) {
+            if (commonService.getNested(stateModel, i) !== undefined) {
+                exist.push(i);
+            }
+        }
+        return exist;
     }
 
     /**

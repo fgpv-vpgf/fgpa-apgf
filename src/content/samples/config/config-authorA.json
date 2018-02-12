@@ -586,6 +586,9 @@
     "ui": {
         "sideMenu": {
           "items": [["layers","basemap"],["fullscreen","export","share","touch","help","about"],["language"],["plugins"]]
+        },
+        "about": {
+          "content": "This is a FGP demo."
         }
     }
 }
