@@ -42,10 +42,13 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
     self.modelName = 'ui';
     self.sectionName = $translate.instant('app.section.ui');
     self.formService = formService;
+    self.aboutContent = '';
+    self.aboutFile = '';
 
     // when schema is loaded or create new config is hit, initialize the schema, form and model
     events.$on(events.avSchemaUpdate, () => {
         $scope.model = modelManager.getModel(self.modelName);
+        getAboutChoice($scope.model);
         init();
     });
 
@@ -94,10 +97,27 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
 
                 // reset value to default because when we remove about from the array aboutChoice is emptied
                 $scope.model.about.aboutChoice = 'string';
-                $scope.model.about.content = '';
-                $scope.model.about.folderName = '';
+                $scope.model.about.content = self.aboutContent;
+                $scope.model.about.folderName = self.aboutFolder;
             }
         })
+    }
+
+    /**
+     * Set about content and file for persistence
+     * @function getAboutChoice
+     * @param {Object} model model
+     */
+    function getAboutChoice(model) {
+
+        if (model.hasOwnProperty('about')) {
+            // content
+            if (model.about.hasOwnProperty('content')) {
+                self.aboutContent = model.about.content;
+            } else { // file
+                self.aboutFile = model.about.aboutFolder;
+            }
+        }
     }
 
     function isHelp() {

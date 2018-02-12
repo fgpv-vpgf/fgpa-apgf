@@ -47,6 +47,9 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
     self.collapseTree = collapse;
     self.openPreview = openPreview;
     self.validateForm = validateForm;
+    self.previewReady = previewReady;
+
+    self.disableCollapseExpand = true;
 
     // set tree directive tag
     self.tabs = constants.schemas.map(item => ({
@@ -58,13 +61,21 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
     // on schema update, rebuild the tree (state object)
     events.$on(events.avSchemaUpdate, () => {
         initState();
-    });
-
-    events.$on(events.avSwitchLanguage, () => {
-        initState();
+        self.disableCollapseExpand = true;
         setSubTab(constants);
     });
 
+    // on switching language, rebuild the tree
+    events.$on(events.avSwitchLanguage, () => {
+        initState();
+        self.disableCollapseExpand = true;
+        setSubTab(constants);
+    });
+
+    // on validation enable expand and collapse
+    events.$on(events.avValidateForm, () => {
+        self.disableCollapseExpand = false;
+    });
 
     function expand() { expandSummary(self, true); }
     function collapse() { expandSummary(self, false); }
@@ -119,6 +130,15 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
     }
 
     /**
+     * Check if preview can be done
+     * @function previewReady
+     * @return {Boolean} true if ready and false if not
+     */
+    function previewReady() {
+        return stateManager.goNoGoPreview();
+    }
+
+    /**
      * Open a dialog window to show current configuration
      * @function openPreview
      */
@@ -161,7 +181,7 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
                 clearInterval(readyStateCheckInterval);
                 setSubTabID(constants);
             }
-        }, 1000);
+        }, constants.delaySetSubTab);
     }
 
     /**
