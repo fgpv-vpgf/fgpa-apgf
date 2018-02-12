@@ -88,8 +88,11 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         if (modelName === 'map') {
             const arrKeys = updateSummaryFormMap(_state[modelName], modelName, cleanForm);
 
-            // Generate state records for basemaps, layers, tileSchemas, extentSets and lodSets
+            // Generate state records for basemaps and layers
             setMapItemsState(_state[modelName], model, arrKeys);
+
+            // Generate state records for tileSchemas, extentSets and lodSets
+            setSpatialtemsState(_state[modelName], model, arrKeys);
         } else {
             updateSummaryForm(_state[modelName], modelName, cleanForm);
         }
@@ -323,20 +326,43 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             for (let [j, item] of items.entries()) {
                 const shlink = setItemId(hlink, i[1], j);
 
+                let title = item.name;
+                let stype = 'element'
+                let valid = getValidityValue(i[1], j, arrKeys);
+                if (item.name === undefined || item.name === '') {
+                    title = $translate.instant('summary.missing.name');
+                    stype = 'bad-element';
+                    valid = false;
+                }
+
                 stateModel.items[i[0]]['items']
                     .push({ 'key': item.name,
-                        'title': item.name,
+                        'title': title,
                         items: [],
-                        'valid': true,
+                        'valid': valid,
                         'expand': false,
                         'masterlink': masterLink,
                         'hlink': hlink,
                         'advance': false,
-                        'stype': 'element',
+                        'stype': stype,
                         'shlink': shlink,
                         'type': 'object' });
             }
         }
+    }
+
+    /**
+     * Set new record for spatial items in state model
+     * @function setSpatialItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setSpatialtemsState(stateModel, model, arrKeys) {
+
+        const masterLink = constants.schemas
+            .indexOf(`map.[lang].json`) + 1;
 
         // tilesSchemas, extents, lods
         const setID = [[0,'tileSchemas', 'name'], [1, 'extentSets', 'id'], [2, 'lodSets', 'id']];
@@ -347,17 +373,27 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
             stateModel.items[0].items[i[0]]['items'] = [];
 
-            for (let item of items) {
+            for (let [j, item] of items.entries()) {
+
+                let title = item[i[2]];
+                let stype = 'element';
+                let valid = getValidityValue(i[1], j, arrKeys);
+                if (item[i[2]] === undefined || item[i[2]] === '') {
+                    title = $translate.instant('summary.missing.name');
+                    stype = 'bad-element';
+                    //valid = false;
+                }
+
                 stateModel.items[0].items[i[0]]['items']
                     .push({ 'key': item[i[2]],
-                        'title': item[i[2]],
+                        'title': title,
                         items: [],
-                        'valid': true,
+                        'valid': valid,
                         'expand': false,
                         'masterlink': masterLink,
                         'hlink': hlink,
                         'advance': false,
-                        'stype': 'element',
+                        'stype': stype,
                         'shlink': '',
                         'type': 'object' });
             }
@@ -379,7 +415,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         const validKey = arrKeys.filter(el => el[0][0] === key && el[0][1] === index.toString()).slice();
         const validArr = validKey.map(el => {
-            el = el.slice(1);
+            el = el.slice(1)[0];
             return el;
         }).slice();
 
@@ -499,6 +535,8 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 let keys = key.replace('--', '-').split('-').filter(n => n !== '' && n!== 'activeForm');
 
                 // remove first element of keys set if it is '0'
+                if (keys [0] === '0') keys.shift();
+                //second time for extents
                 if (keys [0] === '0') keys.shift();
 
                 keysArr.push([keys, form[key].$valid]);

@@ -528,7 +528,8 @@
                   "description",
                   "layers",
                   "altText",
-                  "tileSchemaId"
+                  "tileSchemaId",
+                  "url"
                 ],
                 "additionalProperties": false,
                 "title": ""
@@ -1078,10 +1079,20 @@
                                   "additionalProperties": false
                                 }
                             },
-                             "minItems": 1
+                             "minItems": 1,
+                             "required": [
+                                 "index",
+                                 "id"
+                             ]
                         }
                     }
-                }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "url",
+                    "layerType"
+                ]
             }
         },
         "legend": {
