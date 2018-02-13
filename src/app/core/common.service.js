@@ -10,7 +10,7 @@ angular
     .module('app.core')
     .factory('commonService', commonService);
 
-function commonService($translate, events) {
+function commonService($translate, events, $timeout, constants) {
 
     const service = {
         parseJSON,
@@ -23,7 +23,10 @@ function commonService($translate, events) {
         setLangs,
         getLangs,
         getUUID,
-        getNested
+        getNested,
+        clickTab,
+        clickSubTab,
+        scrollToElement
     };
 
     let languages;
@@ -161,5 +164,39 @@ function commonService($translate, events) {
         } catch (err) {
             return undefined;
         }
+    }
+
+    /**
+     * Get and display a tab
+     * @function  clickTab
+     * @param {Number} index tab index
+     */
+    function clickTab(index) {
+        events.$broadcast(events.avUpdateFocus, index);
+        $('html,body').scrollTop(0);
+    }
+
+    /**
+     * Get and display a sub-tab
+     * @function  clickSubTab
+     * @param {Number} index tab index
+     * @param {Number} subTabId sub-tab id
+     */
+    function clickSubTab(index, subTabId) {
+        clickTab(index);
+        $timeout(() => {
+            angular.element(`#${subTabId}`).triggerHandler('click');
+        });
+    }
+
+    /**
+     * Scroll to a DOM element
+     * @function  scrollToElement
+     * @param {Number} id element id
+     */
+    function scrollToElement(id) {
+        $timeout(() => {
+            angular.element(`#${id}`)[0].scrollIntoView();
+        }, constants.delayScroll);
     }
 }

@@ -53,6 +53,8 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
         model: `<av-tree tree="self.${item.split('.')[0]}"></av-tree>`
     }));
 
+    setSubTab(constants);
+
     // on schema update, rebuild the tree (state object)
     events.$on(events.avSchemaUpdate, () => {
         initState();
@@ -60,6 +62,7 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
 
     events.$on(events.avSwitchLanguage, () => {
         initState();
+        setSubTab(constants);
     });
 
 
@@ -143,5 +146,53 @@ function Controller($mdDialog, $rootScope, $timeout, events, constants, modelMan
         const self = this;
 
         self.close = $mdDialog.hide;
+    }
+
+    /**
+ * Set subTab ids once the document has loaded
+ * @function setSubTab
+ * @private
+ * @param {Object} constants Constants service
+ */
+    function setSubTab(constants) {
+
+        let readyStateCheckInterval = setInterval(() => {
+            if (document.readyState === "complete") {
+                clearInterval(readyStateCheckInterval);
+                setSubTabID(constants);
+            }
+        }, 1000);
+    }
+
+    /**
+ * Set subtab element id in document
+ * @function setSubTabID
+ * @private
+ * @param {Object} constants Constants service
+ */
+    function setSubTabID(constants) {
+
+        const sections = Object.getOwnPropertyNames(constants.subTabs);
+
+        for (let section of sections) {
+            for (let i of constants.subTabs[section].keys) {
+                const elTab = angular.element('[class="nav nav-tabs"]');
+                const childrenTab = Array.from(elTab[constants.subTabs[section].index].children);
+                const elPane = angular.element('[class="tab-content "]');
+                const childrenPane = Array.from(elPane[constants.subTabs[section].index].children);
+
+                const subTabLength = constants.subTabs[section].keys.length;
+                if (childrenTab.length === subTabLength && childrenPane.length === subTabLength) {
+                    for (let [j, child] of childrenTab.entries()) {
+                        const id = constants.subTabs[section].keys[j].replace(/\./g, '-')
+                        child.setAttribute('id', id);
+                    }
+                    for (let [j, child] of childrenPane.entries()) {
+                        const id = `${constants.subTabs[section].keys[j].replace(/\./g, '-')}-pane`;
+                        child.setAttribute('id', id);
+                    }
+                }
+            }
+        }
     }
 }

@@ -41,13 +41,20 @@ function avTree(recursionService) {
     return directive;
 }
 
-function Controller(events) {
+function Controller($timeout, $scope, events, constants, commonService) {
     'ngInject';
     const self = this;
 
     self.setFocus = setFocus;
 
-    function setFocus(val) {
-        events.$broadcast(events.avUpdateFocus, val);
+    function setFocus(tree) {
+        if (tree.masterlink === tree.hlink) {
+            commonService.clickTab(tree.hlink);
+        } else {
+            commonService.clickSubTab(tree.masterlink, tree.hlink);
+            if (tree.stype === 'element') {
+                commonService.scrollToElement(tree.shlink);
+            }
+        }
     }
 }

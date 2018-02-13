@@ -129,6 +129,4 @@ function uploadSchema($http, $timeout, $rootElement, events, constants, modelMan
             });
         });
     });
-
-
 }
