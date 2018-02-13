@@ -614,8 +614,7 @@
                         "title": "Type du protocole utilisé pour la légende"
                     },
                     "controls": {
-                      "title": "",
-                      "default": [],
+                      "title": "Contrôles",
                       "type": "array",
                       "items": {
                         "type": "string",
@@ -636,12 +635,12 @@
                         ]
                       },
                       "uniqueItems": true,
-                      "description": "Une liste des contrôles à activer sur une couche en particulier"
+                      "description": "Une liste des contrôles à activer sur une couche en particulier",
+                      "default": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"]
                     },
                     "disabledControls": {
                       "description": "Une liste des contrôles visibles, mais qui ne peuvent être modifiés par l'utilisateur",
                       "title": "",
-                      "default": [],
                       "type": "array",
                       "items": {
                         "type": "string",
@@ -661,10 +660,11 @@
                           "styles"
                         ]
                       },
-                      "uniqueItems": true
+                      "uniqueItems": true,
+                      "default": []
                     },
                     "state": {
-                      "title": "",
+                      "title": "État de la couche",
                       "type": "object",
                       "properties": {
                         "opacity": {
@@ -984,8 +984,7 @@
                                   "additionalProperties": false
                                 },
                                 "controls": {
-                                  "title": "",
-                                  "default": [],
+                                  "title": "Contrôles",
                                   "type": "array",
                                   "items": {
                                     "type": "string",
@@ -1006,7 +1005,8 @@
                                     ]
                                   },
                                   "uniqueItems": true,
-                                  "description": "Une liste des contrôles à activer sur une couche en particulier"
+                                  "description": "Une liste des contrôles à activer sur une couche en particulier",
+                                  "default": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"]
                                 },
                                 "disabledControls": {
                                   "description": "Une liste des contrôles visibles, mais qui ne peuvent être modifiés par l'utilisateur",

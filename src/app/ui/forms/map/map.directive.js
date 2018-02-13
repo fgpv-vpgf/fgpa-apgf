@@ -485,7 +485,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                                     { 'key': 'layers[].layerEntries[].controls' },
-                                                    { 'key': 'layers[].layerEntries[].disabledControls' },
+                                                    // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
                                                     { 'key': 'layers[].layerEntries[].state' }
                                                 ] }
                                             ] },
@@ -505,7 +505,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                                     { 'key': 'layers[].layerEntries[].controls' },
-                                                    { 'key': 'layers[].layerEntries[].disabledControls' },
+                                                    // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
                                                     { 'key': 'layers[].layerEntries[].state' }
                                                 ] }
                                             ] }
@@ -518,7 +518,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                         { 'key': 'layers[].controls' },
-                                        { 'key': 'layers[].disabledControls' },
+                                        // We don't set this section because it is internal to the viewer { 'key': 'layers[].disabledControls' },
                                         { 'key': 'layers[].state' }
                                     ] }
                                 ] },

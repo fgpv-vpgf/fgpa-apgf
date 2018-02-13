@@ -614,7 +614,6 @@
                     },
                     "controls": {
                       "title": "Controls",
-                      "default": [],
                       "type": "array",
                       "items": {
                         "type": "string",
@@ -635,7 +634,8 @@
                         ]
                       },
                       "uniqueItems": true,
-                      "description": "A list of all controls to be enabled on the specified layer"
+                      "description": "A list of all controls to be enabled on the specified layer",
+                      "default": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"]
                     },
                     "disabledControls": {
                       "description": "A list of controls which are visible, but disabled for user modification",
@@ -663,7 +663,7 @@
                       "uniqueItems": true
                     },
                     "state": {
-                      "title": "",
+                      "title": "State",
                       "type": "object",
                       "properties": {
                         "opacity": {
@@ -1006,7 +1006,8 @@
                                     ]
                                   },
                                   "uniqueItems": true,
-                                  "description": "A list of all controls to be enabled on the specified layer"
+                                  "description": "A list of all controls to be enabled on the specified layer",
+                                  "default": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"]
                                 },
                                 "disabledControls": {
                                   "description": "A list of controls which are visible, but disabled for user modification",

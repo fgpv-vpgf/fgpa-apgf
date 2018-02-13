@@ -58,7 +58,7 @@ form map,form.map.legend,Legend,0,Légende,0
 form map,form.map.legendtext,Legend in JSON Format,0,Légende en format JSON,0
 form map,form.map.legendtextvalidate,Validate JSON,0,Valider JSON,0
 form map,form.map.legendtextvalid,JSON format is valid,0,Le format JSON est valide,0
-form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Contrôle et état de la couche,0
+form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Contrôles et état de la couche,0
 form map layer table,form.map.layertable,Table,0,Table,0
 form map layer table columns,form.map.layertablecols,Fields Customization,0,Personnalisation des champs,0
 form map layer table columns,form.map.layertablecol,Field,0,Champ,0
