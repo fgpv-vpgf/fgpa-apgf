@@ -59,6 +59,12 @@ form map,form.map.legend,Legend,0,Légende,0
 form map,form.map.legendtext,Legend in JSON Format,0,Légende en format JSON,0
 form map,form.map.legendtextvalidate,Validate JSON,0,Valider JSON,0
 form map,form.map.legendtextvalid,JSON format is valid,0,Le format JSON est valide,0
+form map,form.map.legendadd,Add Legend Section,0,Ajouter une section à la légende,0
+form map,form.map.legendentry,Entry,0,Entrée,0
+form map,form.map.legendentrygroup,Entry Group,0,Groupe,0
+form map,form.map.legendinfo,Info Section,0,Information,0
+form map,form.map.legendunbound,Unbound Layer,0,Couche non liée,0
+form map,form.map.legendvis,Visibility Set,0,Groupe visibilité,0
 form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Contrôles et état de la couche,0
 form map layer table,form.map.layertable,Table,0,Table,0
 form map layer table columns,form.map.layertablecols,Fields Customization,0,Personnalisation des champs,0
@@ -75,6 +81,7 @@ form map set extent max,form.map.extentmax,Set Extent (Max),0,"Définir l'étend
 form map go to ui legend,form.map.goui,"Click here to access legend's properties in UI section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section Carte",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
+,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Annuler,0
 ,button.add,Add,0,Ajouter,0
 ,button.validate,Validate,0,Valider,0
