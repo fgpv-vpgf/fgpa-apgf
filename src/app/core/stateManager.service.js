@@ -111,8 +111,26 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         let modUndef = [];
         searchUndefined(modKeys, model, modUndef);
 
-        // Update validity based on undefined
-        updateValidity(_state[modelName], modelName, modUndef)
+        // Remove keys that are not in the stateModel
+        // eg. both about.content and about.folderName exist in the model
+        // but just one in the stateModel. This is caused by the way we managed JSON schema 'OneOf'
+        // Should not be applied on list of elements [tileSchemas, extents, lods, basemaps, layers]
+        if (modelName === 'ui') {
+            let modUndefExist = [];
+            // Special case where we have to add aboutChoice key;
+            for (let i of modUndef) {
+                if (i[0].includes('about')) {
+                    const index = i[0].indexOf('about') + 1;
+                    i[0].splice(index, 0, 'aboutChoice');
+                }
+            }
+            removeNonExistent(_state[modelName], modelName, modUndef, modUndefExist);
+            updateValidity(_state[modelName], modelName, modUndefExist);
+        } else {
+            // Update validity based on undefined
+            updateValidity(_state[modelName], modelName, modUndef);
+        }
+
 
         // ADVANCE SECTION
         // Advance parameters
@@ -122,6 +140,50 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         // Set special style to hidden advance parameter
         setAdvance(_state[modelName], modelName, advHidden);
+    }
+
+    /**
+     * Remove keys if they don't exist in the stateModel
+     * @function removeNonExistent
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {String}  modelName modelName
+     * @param {Array}   keysIn list of original keys [[keys], valid]
+     * @param {Array}   keysOut list of update keys [[keys], valid]
+     */
+    function removeNonExistent(stateModel, modelName, keysIn, keysOut) {
+
+        const keysInUpd = addSpecific(keysIn, modelName);
+
+        for (let keys of keysInUpd) {
+            let keysCheck = keys[0].slice();
+            keysCheck.unshift(modelName);
+            let exist = [];
+            existInStateModel(stateModel, keysCheck, exist);
+            if (exist.includes(true)) keysOut.push(keys);
+        }
+    }
+
+    /**
+     * Look for the existence of a path in the stateModel
+     * @function existInStateModel
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Array}   keys set of keys defining a path
+     * @param {Array} exist true if the path exist
+     */
+    function existInStateModel(stateModel, keys, exist) {
+
+        if (stateModel.key === keys[0]) {
+            keys.shift();
+            if (keys.length === 0) {
+                exist.push(true);
+            } else if (stateModel.hasOwnProperty('items')) {
+                for (let item of stateModel.items) {
+                    if (keys[0] === item.key) existInStateModel(item, keys, exist);
+                }
+            }
+        }
     }
 
     /**
