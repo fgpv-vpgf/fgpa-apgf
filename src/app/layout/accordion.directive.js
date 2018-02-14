@@ -15,6 +15,10 @@ angular
  * `avAccordion` directive body.
  *
  * @function avAccordion
+ * @param {Object} $compile Angular object
+ * @param {Object} $timeout Angular object
+ * @param {Object} events Angular object
+ * @param {Object} constants the modules whho contains all the constants
  * @return {Object}     directive body
  */
 function avAccordion($compile, $timeout, events, constants) {

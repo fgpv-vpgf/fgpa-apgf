@@ -8,8 +8,8 @@ import 'angular-messages';
 import 'angular-sanitize';
 import 'angular-translate';
 import 'angular-translate-loader-static-files';
-import 'dotjem-angular-tree/src/directives/dxTree.js';
 import 'angular-ui-sortable';
+import 'dotjem-angular-tree/src/directives/dxTree.js';
 
 // angular schema form: https://github.com/json-schema-form/angular-schema-form
 import 'angular-schema-form';

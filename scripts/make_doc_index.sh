@@ -2,11 +2,11 @@ HEADER="
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FGPV-VPGF Docs</title>
+  <title>FGPA-APGF Docs</title>
   <meta name=\"viewport\" content=\"initial-scale=1\" />
 </head>
 <body>
-  <h1>FGPV-VPGF Versions</h1>
+  <h1>FGPA-APGF Versions</h1>
 "
 FOOTER="
 </body>

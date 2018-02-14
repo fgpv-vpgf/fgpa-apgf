@@ -1,0 +1,25 @@
+{
+    "getting_started": {
+        "title": "Getting Started"
+    },
+
+    "contributing_guide": {
+        "title": "Contributing Guide"
+    },
+
+    "branching": {
+        "title": "Branching Strategy"
+    },
+
+    "translations": {
+        "title": "Translations"
+    },
+
+    "modules": {
+        "title": "Modules"
+    },
+
+    "meta_documentation": {
+        "title": "Meta Documentation"
+    }
+}

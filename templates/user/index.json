@@ -1,0 +1,10 @@
+{
+    "user": {
+        "title": "User Guide",
+        "children": ["custom_attributes"]
+    },
+
+    "custom_attributes": {
+        "title": "DOM node attributes"
+    }
+}

@@ -7,6 +7,7 @@
  *
  * https://github.com/Anthropic/angular-schema-form-external-options
  *
+ * @param {Object} schemaFormDecoratorsProvider ASF object
  */
 angular.module('app.addon.dynamicSelect', ['schemaForm']).config(
     ['schemaFormDecoratorsProvider', schemaFormDecoratorsProvider => {

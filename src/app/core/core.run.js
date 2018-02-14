@@ -10,6 +10,8 @@ angular
  * @private
  * @memberof app.core
  * @description
+ *
+ * The `runBlock` triggers schema and locale file loading, sets language of the app.
  */
 
 const DEFAULT_LANGS = ['en-CA', 'fr-CA'];
