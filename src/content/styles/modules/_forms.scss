@@ -48,7 +48,17 @@
     }
 
     .av-legend-text > textarea {
-        height: 500px;
+        height: 650px;
+        white-space: nowrap;
+        overflow: auto;
+    }
+
+    .av-legend-snippet {
+        display: flex;
+
+        > div:not(:first-child) {
+            padding-left: 20px;
+        }
     }
 
     .av-legend-json {

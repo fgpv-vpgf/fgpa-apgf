@@ -78,7 +78,7 @@ function Controller($scope, $translate, $timeout,
         $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
 
         // set default structure legend values
-        setDefaultStructureLegend();
+        setDefaultStructureLegend(constants.delayCollapseLink);
     }
 
     events.$on(events.avValidateForm, () => {
@@ -223,19 +223,24 @@ function Controller($scope, $translate, $timeout,
                 // FIXME: remove hidden class. This clss is there because we can't use strartempty: true on columns array
                 // ASF throws an error. So we start with one undefined element with hidden class then update the array
                 // and remove the class
-                const element =  (featClass === -1) ? elementDyn : elementFeat;
+                const element = (featClass === -1) ? elementDyn : elementFeat;
                 element.getElementsByClassName('av-columns')[0].classList.remove('hidden');
 
             }, constants.delayUpdateColumns);
         });
     }
 
+    /**
+     * Validate JSON structure legend
+     * @function validateLegend
+     * @param  {Object} event  event trigger bu the validate button
+     */
     function validateLegend(event) {
         const help = $(event.currentTarget).closest('.schema-form-fieldset')[0]
             .getElementsByClassName('av-legend-json')[0];
 
         try {
-            JSON.parse($scope.model.legend.root);
+            $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
 
             // set class and message
             help.classList.remove('av-legend-json-error');
@@ -256,11 +261,77 @@ function Controller($scope, $translate, $timeout,
         }
     }
 
-    function setDefaultStructureLegend() {
-        // FIXME: this is a workaround to parse the legend string to JSON objects
+    /**
+     * Set default JSON structure legend
+     * FIXME: this is a workaround to parse the legend string to JSON objects because the graphic ui is not designed yet
+     * @function setDefaultStructureLegend
+     * @param {Interger} time the timeout duration (optional, default = 0)
+     */
+    function setDefaultStructureLegend(time = 100) {
+        // check if structured section needs to be shown
         $timeout(() => {
-            $scope.model.legend.root = JSON.stringify(JSON.parse('{\"name\": \"root\", \"children\": []}'), null, 4);
-        }, 1000);
+            const legend = $scope.model.legend;
+            const elem = document.getElementsByClassName('av-legend-structure')[0];
+
+            if (legend.legendChoice !== 'structured') {
+                elem.classList.add('hidden');
+            } else {
+                legend.root = (typeof legend.root === 'undefined') ? { "name": "root", "children": [] } :
+                    (typeof legend.root === 'object') ? JSON.stringify(legend.root, null, 4) : legend.root;
+
+                elem.classList.remove('hidden');
+            }
+        }, time);
+    }
+
+    /**
+     * Add a legend section snippet
+     * @function addLegendSnippet
+     * @param  {String} section  type of section to add
+     */
+    function addLegendSnippet(section) {
+        const legendSection = {
+            'legendentry': {
+                'layerId': '',
+                'hidden': 'false',
+                'controlledIds': [],
+                'entryIndex': 'integer - index of sublayer ESRI dynamic',
+                'entryId': 'sublayer id for WMS',
+                'coverIcon': '',
+                'description': '',
+                'symbologyStack': [{
+                    'image': '',
+                    'text': ''
+                }],
+                'symbologyRenderStyle': 'icons -- images'
+            },
+            'legendentrygroup': {
+                'name': '',
+                'expanded': true,
+                'children': [],
+                'controls': ['opacity', 'visibility', 'symbology', 'query', 'reload', 'remove', 'settings'],
+                'disabledControls': []
+            },
+            'legendinfo': {
+                'infoType': 'title -- image -- text',
+                'content': ''
+            },
+            'legendunbound': {
+                'infoType': 'unboundLayer',
+                'layerName': '',
+                'description': '',
+                'symbologyStack': [{
+                    'image': '',
+                    'text': ''
+                }],
+                'symbologyRenderStyle': 'icons or images'
+            },
+            'legendvis': {
+                'exclusiveVisibility': ['entry -- entryGroup']
+            }
+        }
+
+        $scope.model.legend.root += JSON.stringify(legendSection[section], null, 4);
     }
 
     function setForm() {
@@ -523,7 +594,7 @@ function Controller($scope, $translate, $timeout,
                 { 'title': $translate.instant('form.map.legend'), 'items': [
                     {
                         'type': "template",
-                        'template': '<legend class="ng-binding">{{form.name}} </legend>',
+                        'template': '<legend class="ng-binding">{{form.name}}</legend>',
                         'name': $translate.instant('form.map.legend')
                     },
                     {
@@ -543,10 +614,19 @@ function Controller($scope, $translate, $timeout,
                             'onChange': setDefaultStructureLegend
                         },
                         { 'key': 'legend.type', 'readonly': true },
-                        { 'type': 'fieldset', 'title': $translate.instant('form.map.legendtext'), 'condition': 'model.legend.legendChoice === \'structured\'', 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-legend-structure hidden', 'title': $translate.instant('form.map.legendtext'), 'items': [
                             { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'button', 'title': $translate.instant('form.map.legendtextvalidate'), 'onClick': validateLegend }
+                            { 'type': 'template', 'template': addValidateJSON(), 'validateLegend': () =>  validateLegend(event) },
+                            { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
+                                { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
+                                    { 'type': 'template', 'template': addLegendSection('legendentry'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addLegendSection('legendentrygroup'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addLegendSection('legendinfo'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addLegendSection('legendunbound'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addLegendSection('legendvis'), 'addLegend': type => addLegendSnippet(type) }
+                                ]}
+                            ]}
                         ]}
                     ]}
                 ] }
@@ -585,11 +665,44 @@ function Controller($scope, $translate, $timeout,
         ] }]
     }
 
+    /**
+     * Add a button for set extent
+     * @function addSetExtent
+     * @param {String} type type of extent button to add
+     * @returns {String} the template for the button
+     */
     function addSetExtent(type) {
         return `<md-button class="av-button-square md-raised"
                         ng-click="form.setExtent()">
                     {{ 'form.map.${type}' | translate }}
-                    <md-tooltip>{{ 'summary.expand' | translate }}</md-tooltip>
+                    <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>
+                </md-button>`;
+    }
+
+    /**
+     * Add a button for validate json
+     * @function addValidateJSON
+     * @returns {String} the template for the button
+     */
+    function addValidateJSON() {
+        return `<md-button class="av-button-square md-raised"
+                        ng-click="form.validateLegend()">
+                    {{ 'form.map.legendtextvalidate' | translate }}
+                    <md-tooltip>{{ 'form.map.legendtextvalidate' | translate }}</md-tooltip>
+                </md-button>`;
+    }
+
+    /**
+     * Add a button for legend section
+     * @function addLegendSection
+     * @param {String} type type of legend section button to add
+     * @returns {String} the template for the button
+     */
+    function addLegendSection(type) {
+        return `<md-button class="av-button-square md-raised"
+                        ng-click="form.addLegend('${type}')">
+                    {{ 'form.map.${type}' | translate }}
+                    <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>
                 </md-button>`;
     }
 }
