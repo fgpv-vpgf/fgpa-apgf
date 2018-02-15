@@ -16,6 +16,10 @@ angular
  * `avDragHandle` directive body.
  *
  * @function avDragHandle
+ * @param {Object} $compile Angular object
+ * @param {Object} $timeout Angular object
+ * @param {Object} events Angular object
+ * @param {Object} constants the modules whho contains all the constants
  * @return {Object}     directive body
  */
 function avDragHandle($compile, $timeout, events, constants) {

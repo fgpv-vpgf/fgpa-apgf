@@ -13,6 +13,9 @@ angular
 /**
  * `avBindValue` directive body.
  *
+ * @param {Object} $compile Angular object
+ * @param {Object} $timeout Angular object
+ * @param {Object} events Angular object
  * @function avBindValue
  * @return {Object}     directive body
  */

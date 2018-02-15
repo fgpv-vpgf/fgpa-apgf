@@ -7,6 +7,9 @@
  *
  * https://github.com/json-schema-form/angular-schema-form/blob/master/docs/extending.md
  *
+ * @param {Object} schemaFormProvider ASF object
+ * @param {Object} schemaFormDecoratorsProvider ASF object
+ * @param {Object} sfBuilderProvider ASF object
  */
 angular.module('app.addon.sampleForm', ['schemaForm']).config(
     ['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfBuilderProvider',
