@@ -1,7 +1,7 @@
 <ul>
     <!--  https://github.com/eu81273/angular.treeview/blob/master/angular.treeview.js --> <!--  http://jsfiddle.net/eu81273/8LWUc/18/-->
-    <md-icon class="av-summary-icon" md-svg-src="hardware:keyboard_arrow_right" ng-click="tree.expand = !tree.expand;" ng-if="tree.expand && tree.items.length"></md-icon>
-    <md-icon class="av-summary-icon" md-svg-src="hardware:keyboard_arrow_down"  ng-click="tree.expand = !tree.expand;" ng-if="!tree.expand && tree.items.length"></md-icon>
+    <md-icon class="av-summary-icon" md-svg-src="hardware:keyboard_arrow_down" ng-click="tree.expand = !tree.expand;" ng-if="tree.expand && tree.items.length"></md-icon>
+    <md-icon class="av-summary-icon" md-svg-src="hardware:keyboard_arrow_right"  ng-click="tree.expand = !tree.expand;" ng-if="!tree.expand && tree.items.length"></md-icon>
     <md-icon class="av-summary-icon av-good" md-svg-src="action:check_circle" ng-if="tree.valid === true"></md-icon>
     <md-icon class="av-summary-icon av-alert" md-svg-src="alert:error" ng-if="tree.valid === false"></md-icon>
     <span class="node.selected" ng-class="{'av-summary-adv': tree.advance === true, 'av-summary-list': tree.stype === 'element', 'av-summary-bad': tree.stype === 'bad-element'}" ng-click="self.setFocus(tree)">{{ tree.title }}</span>
