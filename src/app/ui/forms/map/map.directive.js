@@ -341,8 +341,8 @@ function Controller($scope, $translate, $timeout,
             { 'type': 'tabs', 'tabs': [
                 { 'title': $translate.instant('form.map.extentlods'), 'items': [
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
-                        { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                            { 'key': 'tileSchemas[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), constants.debInput, false); } },
+                        { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                            { 'key': 'tileSchemas[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), constants.debInput, false) },
                             { 'key': 'tileSchemas[].name' },
                             {
                                 'key': 'tileSchemas[].extentSetId',
@@ -363,11 +363,11 @@ function Controller($scope, $translate, $timeout,
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.extentset'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                            { 'type': 'template', 'template': addSetExtent('extentdefault'), 'setExtent': () => { self.formService.setExtent('default', $scope.model.extentSets); } },
-                            { 'type': 'template', 'template': addSetExtent('extentfull'), 'setExtent': () => { self.formService.setExtent('full', $scope.model.extentSets); } },
-                            { 'type': 'template', 'template': addSetExtent('extentmax'), 'setExtent': () => { self.formService.setExtent('maximum', $scope.model.extentSets); } },
-                            { 'key': 'extentSets', 'onChange': () => { self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                                { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); }  },
+                            { 'type': 'template', 'template': addButton('extentdefault', 'setExtent'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
+                            { 'type': 'template', 'template': addButton('extentfull', 'setExtent'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
+                            { 'type': 'template', 'template': addButton('extentmax', 'setExtent'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
+                            { 'key': 'extentSets', 'onChange': () => self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                                { 'key': 'extentSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false) },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
                                         { 'key': 'extentSets[].spatialReference.wkid' }
@@ -437,14 +437,17 @@ function Controller($scope, $translate, $timeout,
                         ]}
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.lodset'), 'items': [
-                        { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => { self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'); }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                            { 'key': 'lodSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), constants.debInput, false); } },
-                            { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
-                                { 'key': 'lodSets[].lods', 'add': $translate.instant('button.add'), 'items': [
-                                    { 'type': 'section', 'htmlClass': 'row', 'items': [
-                                        { 'key': 'lodSets[].lods[].level', 'htmlClass': 'col-xs-2 av-check-left' },
-                                        { 'key': 'lodSets[].lods[].resolution', 'htmlClass': 'col-xs-2 av-check-left' },
-                                        { 'key': 'lodSets[].lods[].scale', 'htmlClass': 'col-xs-2 av-check-left' }
+                        { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                            { 'key': 'lodSets[]', 'htmlClass': `av-lods-array`, 'items': [
+                                { 'key': 'lodSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), constants.debInput, false) },
+                                { 'type': 'template', 'template': addButton('setlods', 'setLods'), 'setLods': () => self.formService.setLods($scope.model.lodSets, self.formService.getActiveElemIndex('av-lods-array')) },
+                                { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
+                                    { 'key': 'lodSets[].lods', 'add': null, 'items': [
+                                        { 'type': 'section', 'htmlClass': 'row', 'readonly': true, 'items': [
+                                            { 'key': 'lodSets[].lods[].level', 'htmlClass': 'col-xs-2 av-check-left' },
+                                            { 'key': 'lodSets[].lods[].resolution', 'htmlClass': 'col-xs-3 av-check-left' },
+                                            { 'key': 'lodSets[].lods[].scale', 'htmlClass': 'col-xs-2 av-check-left' }
+                                        ] }
                                     ] }
                                 ] }
                             ] }
@@ -494,7 +497,7 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMap', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
-                                { 'key': 'baseMaps[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false); } },
+                                { 'key': 'baseMaps[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false) },
                                 { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'baseMaps[].description' },
                                 { 'key': 'baseMaps[].typeSummary' },
@@ -524,12 +527,12 @@ function Controller($scope, $translate, $timeout,
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
                     { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => { events.$broadcast(events.avNewItems) }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => events.$broadcast(events.avNewItems), 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'targetElement': ['layers', 'layerType'], 'targetParent': 'av-accordion-content', 'onChange': (model, item) => self.formService.copyValueToModelIndex(model, item, $scope.model) },
-                                { 'key': 'layers[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'), constants.debInput, false); } },
+                                { 'key': 'layers[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'), constants.debInput, false) },
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'layers[].url' },
                                 { 'key': 'layers[].metadataUrl' },
@@ -601,7 +604,7 @@ function Controller($scope, $translate, $timeout,
                         'type': "template",
                         'template': '<span ng-click="form.link()">{{form.name}}</span><p></p>',
                         'name': $translate.instant('form.map.goui'),
-                        'link': () => { commonService.clickSubTab(2, 'form.ui.general'); }
+                        'link': () => commonService.clickSubTab(2, 'form.ui.general')
                     },
                     { 'key': 'legend', 'notitle': true, 'items': [
                         {   'key': 'legend.legendChoice',
@@ -617,14 +620,14 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'fieldset', 'htmlClass': 'av-legend-structure hidden', 'title': $translate.instant('form.map.legendtext'), 'items': [
                             { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': addValidateJSON(), 'validateLegend': () =>  validateLegend(event) },
+                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend(event) },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
-                                    { 'type': 'template', 'template': addLegendSection('legendentry'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addLegendSection('legendentrygroup'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addLegendSection('legendinfo'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addLegendSection('legendunbound'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addLegendSection('legendvis'), 'addLegend': type => addLegendSnippet(type) }
+                                    { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addButton('legendentrygroup', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addButton('legendinfo', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addButton('legendunbound', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': addButton('legendvis', 'addLegend'), 'addLegend': type => addLegendSnippet(type) }
                                 ]}
                             ]}
                         ]}
@@ -666,41 +669,15 @@ function Controller($scope, $translate, $timeout,
     }
 
     /**
-     * Add a button for set extent
-     * @function addSetExtent
-     * @param {String} type type of extent button to add
-     * @returns {String} the template for the button
-     */
-    function addSetExtent(type) {
-        return `<md-button class="av-button-square md-raised"
-                        ng-click="form.setExtent()">
-                    {{ 'form.map.${type}' | translate }}
-                    <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>
-                </md-button>`;
-    }
-
-    /**
-     * Add a button for validate json
-     * @function addValidateJSON
-     * @returns {String} the template for the button
-     */
-    function addValidateJSON() {
-        return `<md-button class="av-button-square md-raised"
-                        ng-click="form.validateLegend()">
-                    {{ 'form.map.legendtextvalidate' | translate }}
-                    <md-tooltip>{{ 'form.map.legendtextvalidate' | translate }}</md-tooltip>
-                </md-button>`;
-    }
-
-    /**
      * Add a button for legend section
      * @function addLegendSection
-     * @param {String} type type of legend section button to add
+     * @param {String} type type of button to add
+     * @param {String} func function to associate to ng-click
      * @returns {String} the template for the button
      */
-    function addLegendSection(type) {
+    function addButton(type, func) {
         return `<md-button class="av-button-square md-raised"
-                        ng-click="form.addLegend('${type}')">
+                        ng-click="form.${func}('${type}')">
                     {{ 'form.map.${type}' | translate }}
                     <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>
                 </md-button>`;

@@ -154,7 +154,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                         'type': "template",
                         'template': '<span ng-click="form.link()">{{form.name}}</span><p></p>',
                         'name': $translate.instant('form.ui.gomap'),
-                        'link': () => { commonService.clickSubTab(1, 'legend'); }
+                        'link': () => commonService.clickSubTab(1, 'legend')
                     },
                     {
                         'type': 'fieldset', 'key': 'legend', 'notitle': true,
@@ -188,7 +188,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'navBar' }
                 ] },
                 { 'title': $translate.instant('form.ui.sidemenu'), 'items': [
-                    { 'key': 'title', 'validationMessage': form => { return self.formService.setErrorMessage(form, 'form.ui.titlevalidation', ['viewValue.length', 'schema.maxLength']) } },
+                    { 'key': 'title', 'validationMessage': form => self.formService.setErrorMessage(form, 'form.ui.titlevalidation', ['viewValue.length', 'schema.maxLength']) },
                     { 'key': 'sideMenu.logo' },
                     { 'key': 'logoUrl', 'condition': 'model.sideMenu.logo' },
                     { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu },

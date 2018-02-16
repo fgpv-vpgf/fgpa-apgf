@@ -1,4 +1,8 @@
-const templateUrl = require('./map/extent/extent-dialog.html');
+const templateUrls = {
+    extent: require('./map/extent/extent-dialog.html'),
+    lods:require('./map/lods/lods-dialog.html')
+}
+
 /**
  *
  * @name formService
@@ -19,11 +23,13 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         toggleSection,
         toggleAll,
         setExtent,
+        setLods,
         setErrorMessage,
         copyValueToFormIndex,
         initValueToFormIndex,
         copyValueToModelIndex,
-        updateLinkValues
+        updateLinkValues,
+        getActiveElemIndex
     };
 
     // if show advance is true we need to toggle the hidden because the form has been reset
@@ -111,9 +117,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         $mdDialog.show({
             controller: extentController,
             controllerAs: 'self',
-            templateUrl: templateUrl,
+            templateUrl: templateUrls.extent,
             parent: $('.fgpa'),
-            disableParentScroll: false,
             clickOutsideToClose: true,
             fullscreen: false,
             onRemoving: () => {
@@ -145,6 +150,53 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
+     * Set lods from service
+     * @function setLods
+     * @param  {Array} lods  lods model object
+     * @param  {Integer} index  model array index to set
+     */
+    function setLods(lods, index) {
+        $mdDialog.show({
+            controller: lodsController,
+            controllerAs: 'self',
+            templateUrl: templateUrls.lods,
+            parent: $('.fgpa'),
+            clickOutsideToClose: true,
+            fullscreen: false
+        });
+
+        function lodsController($mdDialog) {
+            'ngInject';
+            const self = this;
+
+            self.lodsUrl = '';
+            self.disabled = true;
+            self.close = $mdDialog.hide;
+            self.cancel = $mdDialog.hide;
+            self.validateUrl = () => {
+                self.disabled = commonService.validServiceUrl(self.lodsUrl) ? false : true;
+            }
+
+            // set lods
+            self.setLods = () => {
+                $.ajax({
+                    method: 'GET',
+                    url: `${self.lodsUrl}?f=json`,
+                    error: () => document.getElementsByClassName('av-lods-error')[0].classList.remove('hidden') })
+                    .then(data => {
+                        const json = (typeof data !== 'object') ? JSON.parse(data) : data;
+                        if (typeof json.tileInfo !== 'undefined' && typeof json.tileInfo.lods !== 'undefined') {
+                            lods[index].lods = json.tileInfo.lods;
+                            self.close();
+                        } else {
+                            document.getElementsByClassName('av-lods-error')[0].classList.remove('hidden');
+                        }
+                    });
+            };
+        }
+    }
+
+    /**
      * Set custom validation error message
      * inside translation.csv the variable to replace needs to be there inside {}
      * @function setErrorMessage
@@ -169,7 +221,27 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
-     * Assign the value to the form element. Use active element to get target tp update value for
+     * Get model array index from active element
+     * @function getActiveElemIndex
+     * @param  {String} parentClass  class to find on parent element
+     * @return {Integer} the index
+     */
+    function getActiveElemIndex(parentClass) {
+        // get active element to retrieve targetParent (loop throught parent element to find the target)
+        let flag = false;
+        let element = document.activeElement;
+
+        while (!flag) {
+            element = element.parentElement;
+            flag = element.classList.contains(parentClass);
+        }
+
+        // get active index
+        return element.getAttribute('sf-index');
+    }
+
+    /**
+     * Assign the value to the form element. Use active element to get target to update value for
      *
      * Need to have on the item:
      *  'targetLink': 'legend.0', the target tag inside inside target parent and the array index for children
@@ -246,17 +318,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
      * @param  {String} model model to update
      */
     function copyValueToModelIndex(modelValue, item, model) {
-        // get active element to retrieve targetParent (loop throught parent element to find the target)
-        let flag = false;
-        let element = document.activeElement;
-
-        while (!flag) {
-            element = element.parentElement;
-            flag = element.classList.contains(item.targetParent);
-        }
-
         // get active index
-        const index = element.getAttribute('sf-index');
+        const index = getActiveElemIndex(item.targetParent);
 
         // find the key to update, if it is an array, use the index found before
         let update = model;

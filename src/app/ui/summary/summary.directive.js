@@ -155,7 +155,6 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             controllerAs: 'self',
             templateUrl: templateUrls.preview,
             parent: $('.fgpa'),
-            disableParentScroll: false,
             clickOutsideToClose: true,
             fullscreen: false
         });

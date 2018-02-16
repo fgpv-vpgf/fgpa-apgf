@@ -171,7 +171,6 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             controllerAs: 'self',
             templateUrl: templateUrls.save,
             parent: $('.fgpa'),
-            disableParentScroll: false,
             clickOutsideToClose: true,
             fullscreen: false,
             onRemoving: element => { self.saveName = element[0].getElementsByTagName('input')[0].value; }
