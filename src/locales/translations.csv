@@ -79,6 +79,9 @@ form map extent dialog,form.map.extentdialog,Set Extent: zoom and pan to the ext
 form map set extent default,form.map.extentdefault,Set Extent (Default),0,"Définir l'étendue par défaut",0
 form map set extent full,form.map.extentfull,Set Extent (Full),0,"Définir l'étendue complète",0
 form map set extent max,form.map.extentmax,Set Extent (Max),0,"Définir l'étendue (maximale)",0
+form map lods dialog title,form.map.setlods,Set Level of Details,0,Définir les niveaux de détail,0
+form map lods dialog desc,form.map.lodsdesc,Enter a tile cache layer url to select the level of details from,0,"Entrez le url d'une couche tuilé afin d'obtenir les niveaux de détail",0
+form map lods dialog error,form.map.lods.invalidurl,This is not a valid ESRI tile cache URL,0,Cette adresse URL n'est pas une couche de tuile ESRI valide,0
 form map go to ui legend,form.map.goui,"Click here to access legend's properties in UI section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section Carte",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
@@ -86,6 +89,7 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,button.cancel,Cancel,0,Annuler,0
 ,button.add,Add,0,Ajouter,0
 ,button.validate,Validate,0,Valider,0
+,button.set,Set,0,Définir,0
 ,ui.fullscreen.title,Fullscreen,1,Plein écran,1
 ,ui.theme.title,Theme,1,Thème,1
 ,ui.logoUrl.title,Logo URL,1,URL du logo,1

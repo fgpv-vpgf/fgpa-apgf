@@ -1,0 +1,26 @@
+<md-dialog aria-label="{{ 'form.map.setlods' | translate }}" class="av-lods-dialog">
+    <av-content-panel close-panel="self.close()" title-style="title" title-value="{{ 'form.map.setlods' | translate }}">
+        <p class="av-lods-desc">{{ 'form.map.lodsdesc' | translate }}</p>
+        <md-input-container class="md-block" flex-gt-xs>
+            <input class="" type="text"
+                ng-model="self.lodsUrl"
+                ng-change="self.validateUrl()"
+                ng-model-options="{ updateOn: 'default blur', debounce: { default: 30, blur: 0 } }"
+                av-focus />
+                <div class="av-lods-error hidden">{{ 'form.map.lods.invalidurl' | translate }}</div>
+        </md-input-container>
+        <md-button
+            class="av-button-square md-raised md-primary"
+            ng-click="self.setLods()"
+            ng-disabled="self.disabled">
+            {{ 'button.set' | translate }}
+            <md-tooltip>{{ 'button.set' | translate }}</md-tooltip>
+        </md-button>
+        <md-button
+            class="av-button-square md-raised"
+            ng-click="self.cancel()">
+            {{ 'button.cancel' | translate }}
+            <md-tooltip>{{ 'button.cancel' | translate }}</md-tooltip>
+        </md-button>
+    </av-content-panel>
+</md-dialog>
