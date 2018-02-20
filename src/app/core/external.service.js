@@ -32,7 +32,6 @@ function externalService($mdDialog, $compile, $rootScope, translations, $transla
             controllerAs: 'self',
             template: template,
             parent: $('.fgpa'),
-            disableParentScroll: false,
             clickOutsideToClose: true,
             fullscreen: false
         });

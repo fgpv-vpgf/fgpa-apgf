@@ -26,7 +26,8 @@ function commonService($translate, events, $timeout, constants) {
         getNested,
         clickTab,
         clickSubTab,
-        scrollToElement
+        scrollToElement,
+        validServiceUrl
     };
 
     let languages;
@@ -198,5 +199,17 @@ function commonService($translate, events, $timeout, constants) {
         $timeout(() => {
             angular.element(`#${id}`)[0].scrollIntoView();
         }, constants.delayScroll);
+    }
+
+    /**
+     * Validate if the url is a esri service url
+     * @function  validServiceUrl
+     * @param {String} url service utl to validate
+     * @returns {Boolean}    true if valid, false otherwise
+     */
+    function validServiceUrl(url) {
+        const regexp = '(^(http|https):\\/\\/)*(/rest/services/)*\/(MapServer)';
+        const regObj = new RegExp(regexp);
+        return regObj.test(url) ? true : false;
     }
 }

@@ -313,7 +313,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
     function setMapItemsState(stateModel, model, arrKeys) {
 
         // baseMaps and layers
-        const setNames = [[2,'baseMaps'], [3, 'layers']];
+        const setNames = [[2, 'baseMaps'], [3, 'layers']];
         const masterLink = constants.schemas
             .indexOf(`map.[lang].json`) + 1;
 
