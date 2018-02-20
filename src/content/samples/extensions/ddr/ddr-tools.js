@@ -1,3 +1,4 @@
+// FIXME: we cant use ES6 because of IE11. When we can get rid of this non browser, update the code (https://kangax.github.io/compat-table/es6/)
 // set translations
 const lang = localStorage.getItem('fgpa-lang');
 const translations = {
@@ -69,7 +70,11 @@ const translations = {
 };
 
 // bind function to set label (http://jsfiddle.net/RkTMD/)
-function bindHTML(element, data, att = 'innerText') {
+function bindHTML(element, data, att) {
+    if (typeof att === 'undefined') {
+        att = 'innerText';
+    }
+
     this.data = data;
     this.element = element;
     element[att] = data;
@@ -99,12 +104,12 @@ const optsSev = [translations[lang].messSevAll, translations[lang].messSevInfo, 
     translations[lang].messSevErr, translations[lang].messSevSucc, translations[lang].messSevFatal];
 const messSev = document.getElementById('avMessageSev');
 
-for (let optType of optsType) {
+for (let optType in optsType) {
     let option = document.createElement('option');
     option.text = optType;
     messType.add(option);
 }
-for (let optSev of optsSev) {
+for (let optSev in optsSev) {
     let option = document.createElement('option');
     option.text = optSev;
     messSev.add(option);
@@ -126,7 +131,7 @@ let outputStream;
 let serverUrl;
 
 // https://playground.fmeserver.com/javascript/server-uploads/upload-file-drag-drop/
-$(document).ready(() => {
+$(document).ready(function() {
 
     // FME Server repository and url for the DDR Modules
     repository = 'AuthoringTool';
@@ -134,10 +139,10 @@ $(document).ready(() => {
     serverUrl = 'http://xxx.xxx.xxx.xxx';
 
     // Login page - On click event on submit button
-    $('#avFMELogin').click(() => { getToken(); });
+    $('#avFMELogin').click(function() { getToken(); });
 
     // run workspace button
-    $('#runWorkSpace').click(event => {
+    $('#runWorkSpace').click(function(event) {
         event.preventDefault();
 
         // Remove message when changing section
@@ -154,11 +159,11 @@ function getToken() {
     const username = $('#avTokenUser').val();
     const password = $('#avTokenPass').val();
 
-    const url = `${serverUrl}/fmetoken/generate.json?user=${username}&password=${password}`;
+    const url = serverUrl + '/fmetoken/generate.json?user=' + username + '&password=' + password;
     $.ajax({
         url: url,
         type: 'GET',
-        success: json => {
+        success: function(json) {
             FMEServer.init({
                 server : serverUrl,
                 token : json.serviceResponse.token
@@ -168,7 +173,7 @@ function getToken() {
 
             $('.av-login-section').hide();
         },
-        error: () => {
+        error: function() {
             document.getElementsByClassName('av-error-connect')[0].classList.remove('hidden');
         }
     });
@@ -226,10 +231,10 @@ function createFileInput(input) {
     label.attr({ 'for': 'fileInpt', 'tabindex': '1' });
 
     // call upload files on FME Server
-    input.change(() => {
+    input.change(function() {
         uploadFile();
     });
-    label.keypress(e => {
+    label.keypress(function(e) {
         if (e.keyCode === 13) { input.click(); }
     });
 
@@ -243,14 +248,14 @@ function processFiles(json) {
     if (typeof json.serviceResponse !== 'undefined') {
         files = json.serviceResponse.files.archive;
 
-        for (let file of files) {
-            list.append(`<p>${file.name} | <em>${file.size} ${translations[lang].size}</em></p>`);
+        for (let file in files) {
+            if (typeof file.name !== 'undefined') {
+                list.append('<p>' + file.name + ' | <em>' + file.size + ' ' +  translations[lang].size + '</em></p>');
+            }
         }
-
         $('#runWorkSpace').prop('disabled',false);
     }
 }
-
 
 // Manage form parameters
 function processParams() {
@@ -259,9 +264,9 @@ function processParams() {
     let options = Array.prototype.slice.call(inputs);
 
     let properties = '';
-    for (let opt of options) {
+    for (let opt in options) {
         if (opt.value && opt.name !== fileInput.name && opt.type !== 'button') {
-            properties += `${opt.name}=${opt.value}&`;
+            properties += opt.name + '=' + opt.value + '&';
         }
     }
 
@@ -298,10 +303,10 @@ function setMessages(message) {
     setHeader(message[0]);
 
     let table = document.getElementById('avReportTable');
-    for (let row of outputStream) {
+    for (let row in outputStream) {
         let messageRow = (lang === 'en-CA') ? row.EnMessage.replace(/\n/g,'<br>') : row.FrMessage.replace(/\n/g,'<br>');
         let color_code = (row.Severity === 'ERROR' || row.Severity === 'FATAL') ? 'red' : 'green';
-        messageRow = `${messageRow}<br><br><div style=\'color:${color_code}\'>${row.ExecutionTrace}</div>`;
+        messageRow = messageRow + '<br><br><div style=\'color:' + color_code + '\'>' + row.ExecutionTrace + '</div>';
         addRow(table.getElementsByTagName('tbody')[0], row, messageRow);
     }
 }
@@ -314,7 +319,7 @@ function setHeader(header) {
     // set service name and report title
     bindHTML(document.getElementsByClassName('av-service-name')[0], serviceName);
     bindHTML(document.getElementsByClassName('av-report-title')[0], translations[lang].reportTitle);
-    bindHTML(document.getElementById('avJobId'), `${translations[lang].jobId}${job}`);
+    bindHTML(document.getElementById('avJobId'), translations[lang].jobId + job);
 
     // set table header
     bindHTML(document.getElementById('avTime'), translations[lang].headTime);
@@ -323,11 +328,11 @@ function setHeader(header) {
 }
 
 function addRow(tableBody, rowInfo, message) {
-    let info = [rowInfo.TimeStamp, `${rowInfo.MessageType}-${rowInfo.Severity}`, message];
+    let info = [rowInfo.TimeStamp, rowInfo.MessageType + '-' + rowInfo.Severity, message];
     let row = document.createElement('tr');
     row.classList.add('av-row', rowInfo.MessageType, rowInfo.Severity);
 
-    for (let cell of info) {
+    for (let cell in info) {
         let cellData = document.createElement('td');
         cellData.innerHTML = cell;
         row.appendChild(cellData)
@@ -341,7 +346,7 @@ function filterMessType() {
     let value = mess.options[mess.selectedIndex].value;
 
     const rows = document.getElementsByClassName('av-row');
-    for (let row of rows) {
+    for (let row in rows) {
         if (value === translations[lang].messTypeAll) {
             row.classList.remove('hidden-type');
         } else if (value === translations[lang].messTypeAdmin && row.classList.contains('ADMIN')) {
@@ -359,7 +364,7 @@ function filterMessSev() {
     let value = mess.options[mess.selectedIndex].value;
 
     const rows = document.getElementsByClassName('av-row');
-    for (let row of rows) {
+    for (let row in rows) {
         if (value === translations[lang].messSevAll) {
             row.classList.remove('hidden-sev');
         } else if (value === translations[lang].messSevInfo && row.classList.contains('INFO')) {
