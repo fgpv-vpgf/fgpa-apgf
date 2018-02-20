@@ -9,11 +9,22 @@ const translations = {
         fmePassPH: 'Enter Password...',
         fmeLogin: 'Login',
         fmeErrorConn: 'Connection error: bad user name and/or password',
+        register: 'If you do not have a DDR account, contact support at ',
+        upload: 'Upload',
+        delete: 'Delete',
+        publish: 'Publish',
         uploaded: 'Selected file: ',
-        run: 'Start Upload',
+        runupload: 'Start Upload',
+        update: 'Update existing package',
         size: 'bytes',
         chooseFile: 'Choose a zip file',
         userEmail: 'User Email: ',
+        deletelist: 'Select folders to delete ',
+        publishlist: 'Select folder to publish ',
+        publishenv: 'Select environnement to publish to',
+        privatelist: 'Private',
+        internallist: 'Internal',
+        externallist: 'External',
         messType: 'Message Type: ',
         messSev: 'Message Severity: ',
         messTypeAll: 'All',
@@ -42,11 +53,22 @@ const translations = {
         fmePassPH: 'Entrer un mot de passe...',
         fmeLogin: 'Identification',
         fmeErrorConn: 'Erreur de connexion : mauvais nom d\'utilisateur et/ou mot de passe',
+        register: 'Si vous ne possédez pas de compte DDR, contactez le support technique à ',
+        upload: 'Téléverser',
+        delete: 'Supprimer',
+        publish: 'Publier',
         uploaded: 'Fichier sélectionné : ',
-        run: 'Débuter le  Téléversement',
+        runupload: 'Débuter le Téléversement',
+        update: 'Mettre à jour un paquet existant',
         size: 'octets',
         chooseFile: 'Sélectionnez un fichier zip',
         userEmail: 'Courriel utilisateur : ',
+        deletelist: 'Sélectionnez les répertoires à supprimer ',
+        publishlist: 'Sélectionnez le répertoire à publier ',
+        publishenv: 'Sélectionnez l\'environnement dans lequel publier',
+        privatelist: 'Privé',
+        internallist: 'Interne',
+        externallist: 'Externe',
         messType: 'Type du message : ',
         messSev: 'Sévéritée du message : ',
         messTypeAll: 'Tous',
@@ -86,11 +108,31 @@ bindHTML(document.getElementById('avFMEPass'), translations[lang].fmePass);
 bindHTML(document.getElementById('avTokenUser'), translations[lang].fmeUserPH, 'placeholder');
 bindHTML(document.getElementById('avTokenPass'), translations[lang].fmePassPH, 'placeholder');
 bindHTML(document.getElementById('avFMELogin'), translations[lang].fmeLogin, 'value');
+bindHTML(document.getElementById('avRegister'), translations[lang].register);
 bindHTML(document.getElementsByClassName('av-error-connect')[0], translations[lang].fmeErrorConn);
+
+// set functions interface
+bindHTML(document.getElementById('avUpload'), translations[lang].upload, 'value');
+bindHTML(document.getElementById('avDelete'), translations[lang].delete, 'value');
+bindHTML(document.getElementById('avPublish'), translations[lang].publish, 'value');
 
 // set upload interface
 bindHTML(document.getElementById('avUploaded'), translations[lang].uploaded);
-bindHTML(document.getElementById('runWorkSpace'), translations[lang].run, 'value');
+bindHTML(document.getElementById('avRunUpload'), translations[lang].runupload, 'value');
+bindHTML(document.getElementById('avUpdateLabel'), translations[lang].update);
+
+// set delete interface
+bindHTML(document.getElementById('avDeletePrivate'), translations[lang].privatelist);
+bindHTML(document.getElementById('avDeleteInternal'), translations[lang].internallist);
+bindHTML(document.getElementById('avDeleteExternal'), translations[lang].externallist);
+bindHTML(document.getElementById('avDeleteList'), translations[lang].deletelist);
+bindHTML(document.getElementById('avRunDelete'), translations[lang].delete, 'value');
+
+// set publish interface
+bindHTML(document.getElementById('avPublishPrivate'), translations[lang].publishlist);
+bindHTML(document.getElementById('avPublishEnv'), translations[lang].publishenv);
+bindHTML(document.getElementById('avUpdatePublishLabel'), translations[lang].update);
+bindHTML(document.getElementById('avRunPublish'), translations[lang].publish, 'value');
 
 // set report interface (contains message and select dropdown)
 bindHTML(document.getElementById('avMessTypeLbl'), translations[lang].messType);
@@ -118,7 +160,6 @@ for (let optSev in optsSev) {
 //--------------------------------------------------
 // GLOBAL VARIABLES - TOP
 //--------------------------------------------------
-// User form and data upload
 let server;
 let json;
 let repository;
@@ -137,24 +178,19 @@ $(document).ready(function() {
     repository = 'AuthoringTool';
     workspace = 'AuthoringTool.fmw'
     serverUrl = 'http://xxx.xxx.xxx.xxx';
-
-    // Login page - On click event on submit button
-    $('#avFMELogin').click(function() { getToken(); });
-
-    // run workspace button
-    $('#runWorkSpace').click(function(event) {
-        event.preventDefault();
-
-        // Remove message when changing section
-        $('.av-upload-section').hide();
-        $('.av-progress-section').show();
-        runWorkspace();
-    });
 });
 
 //--------------------------------------------------
-//  SECTION 1 - Data Upload and Data Streaming
+//  SECTION 1 - Login
 //--------------------------------------------------
+function login() {
+    // FIXME
+    $('.av-function-section').show();
+    $('.av-login-section').hide();
+
+    getToken();
+}
+
 function getToken() {
     const username = $('#avTokenUser').val();
     const password = $('#avTokenPass').val();
@@ -177,6 +213,153 @@ function getToken() {
             document.getElementsByClassName('av-error-connect')[0].classList.remove('hidden');
         }
     });
+}
+
+//--------------------------------------------------
+//  SECTION 2 - Select function and receive info
+//--------------------------------------------------
+function selectUpload() {
+    $('.av-function-section').hide();
+    $('.av-upload-section').show();
+}
+
+function selectDelete() {
+    getDeleteList();
+
+    $('.av-function-section').hide();
+    $('.av-delete-section').show();
+}
+
+function selectPublish() {
+    getPublishList();
+
+    $('.av-function-section').hide();
+    $('.av-publish-section').show();
+}
+
+function getDeleteList() {
+    // FIXME ajax call is here
+    const list = {
+        private: ['folderA', 'folderB', 'folderC'],
+        internal: ['folderA1', 'folderB1', 'folderC1'],
+        external: ['folderA2', 'folderB2', 'folderC3']
+    }
+
+    // create privatelist
+    setInterface('av-deletelist-private', list.private, 'delprivate');
+
+    // create internallist
+    setInterface('av-deletelist-internal', list.internal, 'delinternal');
+
+    // create externallist
+    setInterface('av-deletelist-external', list.external, 'delexternal');
+}
+
+function getPublishList() {
+    // FIXME ajax call is here
+    const list = {
+        private: ['folderA', 'folderB', 'folderC']
+    }
+
+    // create privatelist
+    setInterface('av-publishlist-private', list.private, 'pubprivate');
+
+    // create environement list
+    setInterface('av-publishlist-env', [translations[lang].internallist, translations[lang].externallist], 'pubenv');
+}
+
+function setInterface(id, list, type) {
+    // remove existing values
+    $('.' + id).not('legend').children().not('legend').remove();
+
+    // get fieldset then loop array to add elements
+    const elem = document.getElementsByClassName(id)[0];
+    const length = list.length;
+    if (length > 0) {
+        for (let i = 0; i < length; i++) {
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.value = list[i];
+            input.id = type  + '-' + list[i];
+
+            const label = document.createElement('label');
+            label.setAttribute('for', input.id);
+            label.innerHTML = list[i];
+
+            elem.append(input);
+            elem.append(label);
+            elem.append(document.createElement('br'));
+        }
+    } else {
+        elem.style.display = 'none';
+    }
+}
+
+//--------------------------------------------------
+//  SECTION 3 - Delete and publish
+//--------------------------------------------------
+function deleteList() {
+    const deleteArr = [];
+    $('.av-deletelist-private :checkbox').each(function() {
+        if (this.checked) {
+            deleteArr.push('private/' + this.value);
+        }
+    });
+    $('.av-deletelist-internal :checkbox').each(function() {
+        if (this.checked) {
+            deleteArr.push('internal/' + this.value);
+        }
+    });
+    $('.av-deletelist-external :checkbox').each(function() {
+        if (this.checked) {
+            deleteArr.push('external/' + this.value);
+        }
+    });
+
+    // FIXME send info to FME...
+    console.log(deleteArr);
+
+    // FIXME show message, then have a button to go back to menu
+    $('.av-delete-section').hide();
+    $('.av-function-section').show();
+}
+
+function publish() {
+    const publishArr = [];
+    const publishEnv = [];
+    $('.av-publishlist-private :checkbox').each(function() {
+        if (this.checked) {
+            publishArr.push(this.value);
+        }
+    });
+    $('.av-publishlist-env :checkbox').each(function() {
+        if (this.checked) {
+            publishEnv.push(this.value);
+        }
+    });
+
+    // check if need to Update
+    const update = $('#avUpdatePublish')[0].checked;
+
+    // FIXME send info to FME...
+    console.log(publishArr + ', env: ' + publishEnv + ', update: ' + update);
+
+    // FIXME show message, then have a button to go back to menu
+    $('.av-publish-section').hide();
+    $('.av-function-section').show()
+}
+
+//--------------------------------------------------
+//  SECTION 4 - Package Upload and update
+//--------------------------------------------------
+// run workspace button
+function runUpdate(event) {
+    event.preventDefault();
+
+    // Remove message when changing section
+    $('.av-upload-section').hide();
+    $('.av-progress-section').show();
+    runWorkspace();
 }
 
 function setVars(json) {
@@ -253,7 +436,7 @@ function processFiles(json) {
                 list.append('<p>' + file.name + ' | <em>' + file.size + ' ' +  translations[lang].size + '</em></p>');
             }
         }
-        $('#runWorkSpace').prop('disabled',false);
+        $('#avRunUpload').prop('disabled',false);
     }
 }
 
@@ -286,7 +469,7 @@ function runWorkspace() {
 }
 
 // --------------------------------------------------
-//  SECTION 2 - Execution Report
+//  SECTION 5 - Execution Report
 //--------------------------------------------------
 function showMessages(json) {
     $('.av-progress-section').hide();
