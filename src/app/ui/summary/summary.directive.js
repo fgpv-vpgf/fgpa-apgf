@@ -72,6 +72,13 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         setSubTab(constants);
     });
 
+    // on user model loading
+    events.$on(events.avLoadModel, () => {
+        initState();
+        self.disableCollapseExpand = true;
+        setSubTab(constants);
+    });
+
     // on validation enable expand and collapse
     events.$on(events.avValidateForm, () => {
         self.disableCollapseExpand = false;
