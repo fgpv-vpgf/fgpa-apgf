@@ -16,6 +16,8 @@ header language selection,header.language,Language,0,Langue,0
 Content panel aria label for close button,contentPanel.aria.close,Close,0,Fermer,0
 header create file,header.create,Create new file,0,Créer un nouveau fichier,0
 header open file,header.open,Open existing file,0,Ouvrir un fichier existant,0
+header help,header.help,Help,0,Aide,0
+header help dialog,header.helpdialog.title,Help,0,Aide,0
 header save file,header.save,Save file,0,Sauvegarder fichier,0
 header save dialog title,header.savedialog.title,Save Configuration File,0,Sauvegarder le fichier de configuration,0
 header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement.,0
