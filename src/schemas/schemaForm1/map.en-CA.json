@@ -1636,7 +1636,12 @@
             "description": "Indicates that the dynamic layer with a single layer entry should be rendered without the root group.",
             "title": ""
           }
-        }
+        },
+        "required": [
+          "id",
+          "name",
+          "url"
+        ]
       },
       "minItems": 0,
       "title": "Layers",

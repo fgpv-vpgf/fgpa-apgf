@@ -104,10 +104,6 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         // Set custom title
         setCustomTitles(_state[modelName], modelName);
 
-        // VALIDITY SECTION
-        // Set master element validity
-        setMasterValidity(_state[modelName]);
-
         // UNDEFINED SECTION
         // Undefined parameters
         let modKeys = [modelName];
@@ -133,6 +129,10 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             // Update validity based on undefined
             updateValidity(_state[modelName], modelName, modUndef);
         }
+
+        // VALIDITY SECTION
+        // Set master element validity
+        setMasterValidity(_state[modelName]);
 
 
         // ADVANCE SECTION
@@ -287,6 +287,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
     /**
      * Set undefined parameter in state model and update
      * validity of upper hierarchy
+     * WARNING: SHOULD BE USED ONLY IF VALIDITY OF ELEMENT IS FALSE
      * @function updateValidity
      * @private
      * @param {Object}  stateModel the stateModel
@@ -329,10 +330,20 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 let title = item.name;
                 let stype = 'element'
                 let valid = getValidityValue(i[1], j, arrKeys);
-                if (item.name === undefined || item.name === '') {
+                if (item.name === undefined ||
+                    item.name === '' ||
+                    item.id === undefined ||
+                    item.id === '') {
                     title = $translate.instant('summary.missing.name');
                     stype = 'bad-element';
                     valid = false;
+                    const path = [i[1], j];
+                    setStateValueUp(stateModel, path, 'valid', false);
+                } else if (i[1] === 'layers' && (item.url === undefined || item.url === '')) {
+                    stype = 'bad-element';
+                    valid = false;
+                    const path = [i[1], j];
+                    setStateValueUp(stateModel, path, 'valid', false);
                 }
 
                 stateModel.items[i[0]]['items']

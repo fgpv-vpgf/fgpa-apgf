@@ -1636,7 +1636,12 @@
             "description": "",
             "title": ""
           }
-        }
+        },
+        "required": [
+          "id",
+          "name",
+          "url"
+        ]
       },
       "minItems": 0,
       "title": "Couches",

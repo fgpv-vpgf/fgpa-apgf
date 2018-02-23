@@ -52,7 +52,7 @@ function Controller($timeout, $scope, events, constants, commonService) {
             commonService.clickTab(tree.hlink);
         } else {
             commonService.clickSubTab(tree.masterlink, tree.hlink);
-            if (tree.stype === 'element') {
+            if (tree.stype === 'element' || tree.stype === 'bad-element') {
                 commonService.scrollToElement(tree.shlink);
             }
         }
