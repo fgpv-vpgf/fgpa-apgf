@@ -50,6 +50,15 @@
             <md-icon md-svg-src="content:save"></md-icon>
         </md-button>
 
+        <md-button
+            translate
+            aria-label="{{ 'header.help' | translate }}"
+            class="md-icon-button av-button-32 black"
+            ng-click="self.help()">
+            <md-tooltip>{{ 'header.help' | translate }}</md-tooltip>
+            <md-icon md-svg-src="community:help"></md-icon>
+        </md-button>
+
         <div class="av-savename">
             <label>{{ 'header.filename' | translate }}</label>
             <label>{{ self.saveName }}</label>

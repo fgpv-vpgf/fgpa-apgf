@@ -1,11 +1,14 @@
 import Flow from '@flowjs/ng-flow/dist/ng-flow-standalone';
+import marked from 'marked';
+
 const FileSaver = require('file-saver');
 
 window.Flow = Flow;
 
 const templateUrls = {
     header: require('./header.html'),
-    save: require('./save-dialog.html')
+    save: require('./save-dialog.html'),
+    help: require('./help-dialog.html')
 }
 
 /**
@@ -48,6 +51,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     self.create = create;
     self.filesSubmitted = filesSubmitted;
     self.save = save;
+    self.help = help;
     self.setLanguage = setLanguage;
     self.setTemplate = setTemplate;
 
@@ -62,7 +66,6 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     // set active file name
     self.saveName = self.template.file;
-
     /**
      * When create is clicked, broadcast a newModel event
      * @function create
@@ -76,12 +79,58 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     }
 
     /**
+     * Open the help dialog
+     * @function help
+     */
+    function help() {
+
+      $mdDialog.show({
+          controller: HelpController,
+          controllerAs: 'self',
+          templateUrl: templateUrls.help,
+          parent: $('.fgpa'),
+          disableParentScroll: false,
+          fullscreen: false
+      });
+    }
+    /**
+     * Set the HelpController
+     * @function HelpController to read markup file and images
+     */
+    function HelpController($mdDialog, constants) {
+        'ngInject';
+
+        const self = this;
+
+        const renderer = new marked.Renderer();
+
+        renderer.image = (href, title) => {
+              if (href.indexOf('http') === -1) {
+                  href = `./help/images/` + href;
+              }
+              else if (href.indexOf('https') === -1) {
+                  href = `./help/images/` + href;
+              }
+
+              return `<img src="${href}" alt="${title}">`;
+          };
+
+        const language = localStorage.getItem('fgpa-lang');
+
+        $http.get(`./help/${language}.md`).then( r => { self.help=marked(r.data,  { renderer } ); } );
+
+        self.close = $mdDialog.hide;
+        self.cancel = $mdDialog.hide;
+
+    }
+
+    /**
      * Set the current language
      * @function setLanguage
      */
     function setLanguage() {
         commonService.setLang(self.language);
-        localStorage.setItem('fgpa-lang', self.language);
+         localStorage.setItem('fgpa-lang', self.language);
     }
 
     /**
@@ -90,18 +139,18 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @return {Array} templates templates available for the user
      */
     function getTemplates() {
-        const configAttr = $rootElement.attr('data-av-config');
-        let templates = [];
+      const configAttr = $rootElement.attr('data-av-config');
+       let templates = [];
 
-        if (typeof configAttr !== 'undefined') {
-            angular.fromJson(configAttr).map(item => {
-                templates.push({ 'path': item, 'file': item.split('/')[item.split('/').length - 1].split('.')[0] });
-            });
-        } else {
-            templates = [{ 'path': 'config-default.json', 'file': 'default' }];
-        }
+       if (typeof configAttr !== 'undefined') {
+           angular.fromJson(configAttr).map(item => {
+               templates.push({ 'path': item, 'file': item.split('/')[item.split('/').length - 1].split('.')[0] });
+           });
+       } else {
+           templates = [{ 'path': 'config-default.json', 'file': 'default' }];
+       }
 
-        return templates;
+       return templates;
     }
 
     /**
@@ -110,7 +159,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      */
     function setTemplate() {
         // load selected configuration
-        $http.get(self.template.path).then(obj => modelManager.setDefault(obj.data));
+       $http.get(self.template.path).then(obj => modelManager.setDefault(obj.data));
     }
 
     /**
@@ -136,6 +185,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             }, constants.delayEventSplash);
         }
 
+
         /**
          * Reads HTML5 File object data.
          * @private
@@ -144,6 +194,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
          * @return {Promise} promise resolving with file's data
          */
         function _readFile(file) {
+
+
             const dataPromise = $q((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onerror = () => {
@@ -171,6 +223,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             controllerAs: 'self',
             templateUrl: templateUrls.save,
             parent: $('.fgpa'),
+            disableParentScroll: false,
             clickOutsideToClose: true,
             fullscreen: false,
             onRemoving: element => { self.saveName = element[0].getElementsByTagName('input')[0].value; }
