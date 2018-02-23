@@ -1,11 +1,18 @@
 import Flow from '@flowjs/ng-flow/dist/ng-flow-standalone';
+import marked from 'marked';
+
 const FileSaver = require('file-saver');
+
+
+
+//app.config(['marked', function(marked) { marked.setOptions({gfm: true}); }]);
 
 window.Flow = Flow;
 
 const templateUrls = {
     header: require('./header.html'),
-    save: require('./save-dialog.html')
+    save: require('./save-dialog.html'),
+    help: require('./help-dialog.html')
 }
 
 /**
@@ -48,6 +55,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     self.create = create;
     self.filesSubmitted = filesSubmitted;
     self.save = save;
+    self.help = help;
     self.setLanguage = setLanguage;
     self.setTemplate = setTemplate;
 
@@ -63,6 +71,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     // set active file name
     self.saveName = self.template.file;
 
+
     /**
      * When create is clicked, broadcast a newModel event
      * @function create
@@ -75,13 +84,80 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
         self.saveName = self.template.file;
     }
 
+    function help() {
+      //added pw feb 13 2018
+      let marked = require('marked');
+      //console.log('help22');
+    //  var marked = require('marked');
+
+      $mdDialog.show({
+          controller: HelpController,
+          controllerAs: 'self',
+          templateUrl: templateUrls.help,
+          parent: $('.fgpa'),
+          disableParentScroll: false,
+          clickOutsideToClose: true,
+          fullscreen: false,
+          onRemoving: element => { self.saveName = element[0].getElementsByTagName('input')[0].value; }
+      });
+    }
+    function HelpController($mdDialog, constants) {
+        'ngInject';
+        const self = this;
+
+
+        let marked = require('marked');
+
+        marked.setOptions({
+          renderer: new marked.Renderer(),
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: true,
+          sanitize: true,
+          smartLists: true,
+          smartypants: true,
+          xhtml: false
+        });
+        let renderer = new marked.Renderer();
+
+        renderer.image = (href, title) => {
+              if (href.indexOf('http') === -1) {
+                  href = `./help/images/` + href;
+              }
+              return `<img src="${href}" alt="${title}">`;
+          };
+          let language = localStorage.getItem('fgpa-lang');
+          console.log(language);
+        // works if it is the html file so will leavesve it
+
+        $http.get(`./help/${language}.md`).then(function success(response){
+          self.help=marked(response.data,{renderer:renderer});
+        },function fail(response){
+          self.help=marked(response.data,{renderer:renderer});
+          console.log(response.status);
+        });
+
+
+
+        self.close = $mdDialog.hide;
+        self.cancel = $mdDialog.hide;
+        self.save = save;
+
+
+
+
+    }
+
+
+
     /**
      * Set the current language
      * @function setLanguage
      */
     function setLanguage() {
         commonService.setLang(self.language);
-        localStorage.setItem('fgpa-lang', self.language);
+         localStorage.setItem('fgpa-lang', self.language);
     }
 
     /**
@@ -90,18 +166,18 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @return {Array} templates templates available for the user
      */
     function getTemplates() {
-        const configAttr = $rootElement.attr('data-av-config');
-        let templates = [];
+      const configAttr = $rootElement.attr('data-av-config');
+       let templates = [];
 
-        if (typeof configAttr !== 'undefined') {
-            angular.fromJson(configAttr).map(item => {
-                templates.push({ 'path': item, 'file': item.split('/')[item.split('/').length - 1].split('.')[0] });
-            });
-        } else {
-            templates = [{ 'path': 'config-default.json', 'file': 'default' }];
-        }
+       if (typeof configAttr !== 'undefined') {
+           angular.fromJson(configAttr).map(item => {
+               templates.push({ 'path': item, 'file': item.split('/')[item.split('/').length - 1].split('.')[0] });
+           });
+       } else {
+           templates = [{ 'path': 'config-default.json', 'file': 'default' }];
+       }
 
-        return templates;
+       return templates;
     }
 
     /**
@@ -110,7 +186,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      */
     function setTemplate() {
         // load selected configuration
-        $http.get(self.template.path).then(obj => modelManager.setDefault(obj.data));
+       $http.get(self.template.path).then(obj => modelManager.setDefault(obj.data));
     }
 
     /**
@@ -136,6 +212,18 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             }, constants.delayEventSplash);
         }
 
+
+
+         /**
+          * Reads HTML5 File object data.
+          * @private
+          * @param {File} file a file object to read
+          * @param {Function} progressCallback a function which is called during the process of reading file indicating how much of the total data has been read
+          * @return {Promise} promise resolving with file's data
+          */
+          // FIXME add docs
+
+
         /**
          * Reads HTML5 File object data.
          * @private
@@ -144,6 +232,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
          * @return {Promise} promise resolving with file's data
          */
         function _readFile(file) {
+
+
             const dataPromise = $q((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onerror = () => {
@@ -164,6 +254,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @function save
      */
     function save() {
+
         // FIXME: we can't know the real saved file name because FileSaver.onwriteend doesn/t workaround
         // so if there is duplicate name the name will become nyname(1) on disk but will be myname on display
         $mdDialog.show({
@@ -171,6 +262,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             controllerAs: 'self',
             templateUrl: templateUrls.save,
             parent: $('.fgpa'),
+            disableParentScroll: false,
             clickOutsideToClose: true,
             fullscreen: false,
             onRemoving: element => { self.saveName = element[0].getElementsByTagName('input')[0].value; }
@@ -184,7 +276,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
         self.close = $mdDialog.hide;
         self.cancel = $mdDialog.hide;
         self.save = save;
-        self.fileName = '';
+        self.fileName = 'p';
 
         /**
          * Save current models to file
@@ -193,6 +285,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
         function save() {
             // save the file. Some browsers like IE and Edge doesn't support File constructor, use blob
             // https://stackoverflow.com/questions/39266801/saving-file-on-ie11-with-filesaver
+
             const file = new Blob([modelManager.save()], { type: 'application/json' });
             FileSaver.saveAs(file, `${self.fileName}.json`);
             self.close();
