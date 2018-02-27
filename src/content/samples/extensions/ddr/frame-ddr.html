@@ -16,8 +16,19 @@
         <label id="avFMEPass"></label>
         <input id="avTokenPass" type="password" name="password" placeholder="Enter Password" required></input>
         <br>
-        <input id="avFMELogin" class="av-button" type="button"></input>
+        <input id="avFMELogin" class="av-button" type="button" onclick="login()"></input>
+        <div class="av-register">
+            <span id="avRegister"></span>
+            <a href="mailto:nrcan.ddrsupport.rncan@canada.ca?Subject=DDR%20Subscription/Inscription">nrcan.ddrsupport.rncan@canada.ca</a>
+        </div>
         <p class="av-error-connect hidden"></p>
+    </div>
+
+    <!--  functions -->
+    <div class="av-function-section hidden">
+        <input id="avUpload" class="av-button" type="button" onclick="selectUpload()"></input>
+        <input id="avDelete" class="av-button" type="button" onclick="selectDelete()"></input>
+        <input id="avPublish" class="av-button" type="button" onclick="selectPublish()"></input>
     </div>
 
     <!-- package upload -->
@@ -25,11 +36,43 @@
         <div id="fme_params">
             <label id="avUploaded"></label>
             <div class="av-file-list"></div>
-            <hr />
+            <hr>
             <form id="options" class="form-group"></form>
         </div>
-        <hr />
-        <input id="runWorkSpace" class="av-button" type="button" disabled></button>
+        <hr>
+        <input id="avUpdate" type="checkbox"></input>
+        <label id="avUpdateLabel" for="avUpdate"></label>
+        <input id="avRunUpload" class="av-button block" type="button" onclick="runUpdate()" disabled></button>
+    </div>
+
+    <!-- package delete -->
+    <div class="av-delete-section hidden">
+        <span id="avDeleteList"></span>
+        <fieldset class="av-deletelist-private av-checkbox-list">
+            <legend id="avDeletePrivate"></legend>
+        </fieldset>
+        <fieldset class="av-deletelist-internal av-checkbox-list">
+            <legend id="avDeleteInternal"></legend>
+        </fieldset>
+        <fieldset class="av-deletelist-external av-checkbox-list">
+            <legend id="avDeleteExternal"></legend>
+        </fieldset>
+        <input id="avRunDelete" class="av-button block" type="button" onclick="deleteList()"></button>
+    </div>
+
+    <!-- package publish -->
+    <div class="av-publish-section hidden">
+        <fieldset class="av-publishlist-private av-checkbox-list">
+            <legend id="avPublishPrivate"></legend>
+        </fieldset>
+        <fieldset class="av-publishlist-env av-checkbox-list">
+            <legend id="avPublishEnv"></legend>
+        </fieldset>
+        <div>
+            <input id="avUpdatePublish" type="checkbox"></input>
+            <label id="avUpdatePublishLabel" for="avUpdatePublish"></label>
+        </div>
+        <input id="avRunPublish" class="av-button block" type="button" onclick="publish()"></button>
     </div>
 
     <!-- progress -->
@@ -54,7 +97,7 @@
             <label id="avMessSevLbl" for="avMessageSev"></label>
             <select id="avMessageSev" onchange="filterMessSev()"></select>
         </div>
-        <hr />
+        <hr>
         <div class="panel">
             <h4 id="avJobId"></h4>
         </div>

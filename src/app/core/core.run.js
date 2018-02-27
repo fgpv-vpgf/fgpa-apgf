@@ -55,7 +55,7 @@ function loadExtensions($rootElement, $rootScope, externalService) {
 
     extensionList.forEach(url => {
         $.ajax({ method: 'GET', dataType: 'text', url })
-            .then(data => eval(`(function(api, scope) { ${data} })(externalService, $rootScope);`));
+            .then(data => eval(`(function(api, scope, url) { ${data} })(externalService, $rootScope, url);`));
     });
 }
 
