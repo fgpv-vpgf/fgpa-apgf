@@ -51,7 +51,7 @@
             "default": ""
         },
         "appBar": {
-            "description": "Provides configuration to the main app toolbar. If not supplied, the all default appbar controls are displayed. To completely hide the toolbar, provide the following: { sideMenu: false, geoSearch: false, layers: false }.",
+            "description": "Provides configuration to the main app toolbar. To completely hide the toolbar, provide the following: Side Menu: uncheck, Geo Search: uncheck, Layers Selector: uncheck.",
             "type": "object",
             "properties": {
                 "sideMenu": {
@@ -97,7 +97,7 @@
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "enum": ["geoLocator","marquee","home","history","basemap","help","fullscreen","geoSearch","sideMenu","layers"],
+                        "enum": ["geoLocator","home","basemap","help","fullscreen","geoSearch","sideMenu","layers"],
                         "default": ["geoLocator","home","help","fullscreen"]
                     }
                 }

@@ -340,7 +340,8 @@ function Controller($scope, $translate, $timeout,
         return [
             { 'type': 'tabs', 'tabs': [
                 { 'title': $translate.instant('form.map.extentlods'), 'items': [
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-extentlods-${commonService.getLang()}.md`, true) },
+                    { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
                         { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'tileSchemas[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), constants.debInput, false) },
                             { 'key': 'tileSchemas[].name' },
@@ -436,7 +437,7 @@ function Controller($scope, $translate, $timeout,
                             ] }
                         ]}
                     ] },
-                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.lodset'), 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.lodset'), 'items': [
                         { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[]', 'htmlClass': `av-lods-array`, 'items': [
                                 { 'key': 'lodSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['lodSets', 'id'], 'lodId'), constants.debInput, false) },
@@ -454,35 +455,8 @@ function Controller($scope, $translate, $timeout,
                         ] }
                     ] }
                 ] },
-                { 'title': $translate.instant('form.map.mapcomp'), 'items': [
-                    { 'key': 'components', 'notitle': true, 'items': [
-                        { 'key': 'components.mouseInfo', 'items': [
-                            { 'key': 'components.mouseInfo.enabled', 'htmlClass': 'accordion-content' },
-                            { 'type': 'help', 'helpvalue': '<h5>' + $translate.instant('form.map.spatialref') + '<h5>' },
-                            { 'key': 'components.mouseInfo.spatialReference', 'type': 'section', 'htmlClass': 'row', 'items': [
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.wkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.vcsWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.latestWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.latestVcsWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.wkt' }
-                                ] }
-                            ] }
-                        ] },
-                        { 'key': 'components.northArrow' },
-                        { 'key': 'components.scaleBar' },
-                        { 'key': 'components.overviewMap' }
-                    ]}
-                ] },
                 { 'title': $translate.instant('form.map.basemaps'), 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-basemaps-${commonService.getLang()}.md`, true) },
                     { 'type': 'fieldset', 'title': $translate.instant('form.map.initialid'), 'items': [
                         {
                             'key': 'initialBasemapId',
@@ -500,9 +474,9 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'baseMaps[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false) },
                                 { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'baseMaps[].description' },
-                                { 'key': 'baseMaps[].typeSummary' },
+                                { 'key': 'baseMaps[].typeSummary', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'baseMaps[].altText' },
-                                { 'key': 'baseMaps[].thumbnailUrl' },
+                                { 'key': 'baseMaps[].thumbnailUrl', 'htmlClass': 'av-form-advance hidden' },
                                 {
                                     'key': 'baseMaps[].tileSchemaId',
                                     'type': 'dynamic-select',
@@ -510,12 +484,12 @@ function Controller($scope, $translate, $timeout,
                                     'model': 'tileSchemaId',
                                     'array': true
                                 },
-                                { 'key': 'baseMaps[].layers', 'items': [
+                                { 'key': 'baseMaps[].layers', 'add': $translate.instant('button.add'), 'items': [
                                     { 'key': 'baseMaps[].layers[].id' },
                                     { 'key': 'baseMaps[].layers[].layerType' },
                                     { 'key': 'baseMaps[].layers[].url' }
                                 ] },
-                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
+                                { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
                                     { 'key': 'baseMaps[].attribution', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                         { 'key': 'baseMaps[].attribution.text' },
                                         { 'key': 'baseMaps[].attribution.logo' }
@@ -526,6 +500,7 @@ function Controller($scope, $translate, $timeout,
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.layers'), 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-layers-${commonService.getLang()}.md`, true) },
                     { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
                     { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => events.$broadcast(events.avNewItems), 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
@@ -535,32 +510,32 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'), constants.debInput, false) },
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                 { 'key': 'layers[].url' },
-                                { 'key': 'layers[].metadataUrl' },
-                                { 'key': 'layers[].catalogUrl' },
+                                { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
+                                { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].layerType', 'readonly': true },
-                                { 'key': 'layers[].toggleSymbology', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].tolerance', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'items': [
+                                { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
+                                { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
+                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'items': [
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
                                             { 'key': 'layers[].layerEntries[].index', 'htmlClass': 'av-feature-index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
-                                            { 'key': 'layers[].layerEntries[].outfields' },
-                                            { 'key': 'layers[].layerEntries[].stateOnly' },
-                                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
+                                            { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
+                                            { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
+                                            { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                                     { 'key': 'layers[].layerEntries[].controls' },
                                                     // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
                                                     { 'key': 'layers[].layerEntries[].state' }
                                                 ] }
                                             ] },
-                                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].layerEntries[].table', 'esriDynamic') }
+                                            { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].layerEntries[].table', 'esriDynamic') }
                                         ] }
                                     ] }
                                 ] },
-                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'items': [
+                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'items': [
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
@@ -582,36 +557,32 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].singleEntryCollapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\''  },
                                 { 'key': 'layers[].featureInfoMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
                                 { 'key': 'layers[].legendMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
-                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
+                                { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                         { 'key': 'layers[].controls' },
                                         // We don't set this section because it is internal to the viewer { 'key': 'layers[].disabledControls' },
                                         { 'key': 'layers[].state' }
                                     ] }
                                 ] },
-                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].table', 'esriFeature') }
+                                { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].table', 'esriFeature') }
                             ] }
                         ] }
                     ] }
                 ] },
                 { 'title': $translate.instant('form.map.legend'), 'items': [
-                    {
-                        'type': "template",
-                        'template': '<legend class="ng-binding">{{form.name}}</legend>',
-                        'name': $translate.instant('form.map.legend')
-                    },
-                    {
-                        'type': "template",
-                        'template': '<span ng-click="form.link()">{{form.name}}</span><p></p>',
-                        'name': $translate.instant('form.map.goui'),
-                        'link': () => commonService.clickSubTab(2, 'form.ui.general')
-                    },
-                    { 'key': 'legend', 'notitle': true, 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-legend-${commonService.getLang()}.md`, true) },
+                    { 'key': 'legend', 'items': [
+                        {
+                            'type': 'template',
+                            'template': '<div class="av-legend-link" ng-click="form.link()">{{form.name}}</div>',
+                            'name': $translate.instant('form.map.goui'),
+                            'link': () => commonService.clickSubTab(2, 'form.ui.general')
+                        },
                         {   'key': 'legend.legendChoice',
                             'type': 'select',
                             'titleMap': [
-                                { 'value': "autopopulate", 'name': $translate.instant('form.map.legendauto') },
-                                { 'value': "structured", 'name': $translate.instant('form.map.legendstruct') }
+                                { 'value': 'autopopulate', 'name': $translate.instant('form.map.legendauto') },
+                                { 'value': 'structured', 'name': $translate.instant('form.map.legendstruct') }
                             ],
                             'copyValueTo': ['legend.type'],
                             'onChange': setDefaultStructureLegend
@@ -631,6 +602,38 @@ function Controller($scope, $translate, $timeout,
                                 ]}
                             ]}
                         ]}
+                    ]}
+                ] },
+                { 'title': $translate.instant('form.map.mapcomp'), 'items': [
+                    { 'key': 'components', 'notitle': true, 'items': [
+                        { 'key': 'components.mouseInfo', 'items': [
+                            { 'key': 'components.mouseInfo.enabled', 'htmlClass': 'accordion-content' },
+                            { 'type': 'help', 'helpvalue': '<h5>' + $translate.instant('form.map.spatialref') + '<h5>' },
+                            { 'key': 'components.mouseInfo.spatialReference', 'type': 'section', 'htmlClass': 'av-form-advance hidden row', 'items': [
+                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    { 'key': 'components.mouseInfo.spatialReference.wkid' }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    { 'key': 'components.mouseInfo.spatialReference.vcsWkid' }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    { 'key': 'components.mouseInfo.spatialReference.latestWkid' }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    { 'key': 'components.mouseInfo.spatialReference.latestVcsWkid' }
+                                ] },
+                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    { 'key': 'components.mouseInfo.spatialReference.wkt' }
+                                ] }
+                            ] }
+                        ] },
+                        { 'key': 'components.northArrow' },
+                        { 'key': 'components.scaleBar' },
+                        { 'key': 'components.overviewMap', 'items': [
+                            { 'key': 'components.overviewMap.enabled' },
+                            { 'key': 'components.overviewMap.expandFactor', 'htmlClass': 'av-form-advance hidden' },
+                            { 'key': 'components.overviewMap.initiallyExpanded', 'htmlClass': 'av-form-advance hidden' }
+                        ] }
                     ]}
                 ] }
             ] }

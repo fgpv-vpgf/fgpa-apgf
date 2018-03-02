@@ -143,28 +143,22 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
             { 'type': 'tabs', 'tabs': [
                 { 'title': $translate.instant('form.ui.general'), 'items': [
                     { 'key': 'fullscreen' },
-                    { 'key': 'theme' },
+                    // FIXME: not use inside the viewer... see if still needed { 'key': 'theme' },
                     { 'key': 'failureFeedback', 'htmlClass': 'av-form-advance hidden' },
                     {
-                        'type': "template",
-                        'template': '<legend class="ng-binding">{{form.name}} </legend>',
-                        'name': $translate.instant('ui.legend.title')
-                    },
-                    {
-                        'type': "template",
-                        'template': '<span ng-click="form.link()">{{form.name}}</span><p></p>',
-                        'name': $translate.instant('form.ui.gomap'),
-                        'link': () => commonService.clickSubTab(1, 'legend')
-                    },
-                    {
-                        'type': 'fieldset', 'key': 'legend', 'notitle': true,
-                        'items': [
+                        'type': 'fieldset', 'key': 'legend', 'items': [
+                            {
+                                'type': "template",
+                                'template': '<div class="av-legend-link" ng-click="form.link()">{{form.name}}</div>',
+                                'name': $translate.instant('form.ui.gomap'),
+                                'link': () => commonService.clickSubTab(1, 'legend')
+                            },
                             { 'key': 'legend.reorderable' },
                             { 'key': 'legend.allowImport' },
                             { 'key': 'legend.isOpen' }
                         ]
                     },
-                    { 'key': 'tableIsOpen', 'items': [
+                    { 'key': 'tableIsOpen', 'htmlClass': 'av-form-advance hidden', 'items': [
                         {
                             'key': 'tableIsOpen.id',
                             'type': 'dynamic-select',
@@ -185,14 +179,19 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                 ] },
                 { 'title': $translate.instant('form.ui.nav'), 'items': [
                     { 'key': 'restrictNavigation' },
-                    { 'key': 'navBar' }
+                    { 'key': 'navBar', 'items': [
+                        // FIXME: not working in the viewer, see if still needed { 'key': 'navBar.zoom' },
+                        { 'key': 'navBar.extra' }
+                        // FIXME those are in the schema "geoLocator","marquee","home","history","basemap","help","fullscreen","geoSearch","sideMenu","layers"
+                        // removed "marquee", "history" are not implemented
+                    ] }
                 ] },
                 { 'title': $translate.instant('form.ui.sidemenu'), 'items': [
                     { 'key': 'title', 'validationMessage': form => self.formService.setErrorMessage(form, 'form.ui.titlevalidation', ['viewValue.length', 'schema.maxLength']) },
-                    { 'key': 'sideMenu.logo' },
-                    { 'key': 'logoUrl', 'condition': 'model.sideMenu.logo' },
+                    { 'key': 'sideMenu.logo', 'htmlClass': 'av-form-advance hidden' },
+                    { 'key': 'logoUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.sideMenu.logo' },
                     { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu },
-                    { 'key': 'help', 'condition': isHelp },
+                    { 'key': 'help', 'htmlClass': 'av-form-advance hidden', 'condition': isHelp },
                     { 'type': 'fieldset', 'key': 'about', 'condition': isAbout,'items': [
                         {   'key': 'about.aboutChoice',
                             'title': $translate.instant('form.ui.aboutChoice'),

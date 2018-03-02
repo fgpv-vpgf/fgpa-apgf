@@ -11,7 +11,6 @@
             ga('create', 'UA-66832240-1', 'auto');
             ga("set", "anonymizeIp", true);
             ga('send', 'pageview');
-            }
          </script>
 
         <% for (var index in htmlWebpackPlugin.files.css) { %>
