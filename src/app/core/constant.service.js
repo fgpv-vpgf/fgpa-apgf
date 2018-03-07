@@ -34,7 +34,7 @@ angular
         subTabs: {
             map: {
                 index: 0,
-                keys: ['form.map.extentlods', 'components', 'baseMaps', 'layers', 'legend']
+                keys: ['form.map.extentlods', 'baseMaps', 'layers', 'legend', 'components']
             },
             ui: {
                 index: 1,
@@ -42,7 +42,7 @@ angular
             },
             services: {
                 index: 2,
-                keys: ['form.service.urls', 'search', 'export']
+                keys: ['search', 'export', 'form.service.urls']
             }
         }
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
