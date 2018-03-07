@@ -62,7 +62,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     // get all value for templateUrls
     self.templates = getTemplates();
-    self.template = self.templates[0];
+    self.template = (self.templates.length > 0) ?
+        self.templates[0] : { 'path': 'config-default.json', 'file': 'default' };
 
     // set active file name
     self.saveName = self.template.file;
@@ -138,18 +139,16 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @return {Array} templates templates available for the user
      */
     function getTemplates() {
-      const configAttr = $rootElement.attr('data-av-config');
-       let templates = [];
+        const configAttr = $rootElement.attr('data-av-config');
+        let templates = [];
 
-       if (typeof configAttr !== 'undefined') {
-           angular.fromJson(configAttr).map(item => {
-               templates.push({ 'path': item, 'file': item.split('/')[item.split('/').length - 1].split('.')[0] });
-           });
-       } else {
-           templates = [{ 'path': 'config-default.json', 'file': 'default' }];
-       }
+        if (typeof configAttr !== 'undefined') {
+            angular.fromJson(configAttr).map(item => {
+                templates.push({ 'path': item, 'file': item.split('/')[item.split('/').length - 1].split('.')[0] });
+            });
+        }
 
-       return templates;
+        return templates;
     }
 
     /**
@@ -157,8 +156,11 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @function setTemplate
      */
     function setTemplate() {
-        // load selected configuration
-       $http.get(self.template.path).then(obj => modelManager.setDefault(obj.data));
+        // load selected configuration and create the new file
+        $http.get(self.template.path).then(obj => {
+            modelManager.setDefault(obj.data);
+            self.create();
+        });
     }
 
     /**

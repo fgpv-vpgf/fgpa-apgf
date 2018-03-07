@@ -90,7 +90,8 @@ function uploadDefault($rootElement, $http, modelManager) {
     // we need a default one to make sure model object exist. At the same time we need to defined
     // readonly field inside it
     const configAttr = $rootElement.attr('data-av-config');
-    const configList = configAttr ? angular.fromJson(configAttr) : ['config-default.json'];
+    const configList = (configAttr && angular.fromJson(configAttr).length > 0) ?
+        angular.fromJson(configAttr) : ['config-default.json'];
 
     // load default configuration
     const location = configList[0];
