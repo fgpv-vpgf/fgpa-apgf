@@ -69,12 +69,11 @@
               "LAT/LNG"
             ]
           },
-          "minItems": 1,
           "uniqueItems": true,
-          "description": "Disable specific types of searches including NTS, Postal Code/FSA, or LAT/LNG",
+          "description": "Disable specific types of searches including NTS, Postal Code/FSA or LAT/LNG",
           "title": "Search type to disable",
           "help": "",
-          "default": ["NTS"]
+          "default": []
         },
         "serviceUrls": {
           "type": "object",
@@ -152,7 +151,7 @@
               "type": "boolean",
               "default": true,
               "description": "",
-              "title": "Is customizable",
+              "title": "User can remove it",
               "help": ""
             },
             "titleValue": {
@@ -182,7 +181,7 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "Is customizable",
+                "title": "User can remove it",
                 "help": ""
               },
             "value": {
@@ -212,7 +211,7 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "Is customizable",
+                "title": "User can remove it",
                 "help": ""
               },
             "value": {
@@ -242,7 +241,7 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "Is customizable",
+                "title": "User can remove it",
                 "help": ""
               },
             "value": {
@@ -286,7 +285,7 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "Is customizable",
+                "title": "User can remove it",
                 "help": ""
               },
               "footnoteValue": {
@@ -316,7 +315,7 @@
                 "type": "boolean",
                 "default": true,
                 "description": "",
-                "title": "Is customizable",
+                "title": "User can remove it",
                 "help": ""
               },
             "value": {

@@ -36,7 +36,7 @@ function avServices() {
     return directive;
 }
 
-function Controller($scope, $translate, events, modelManager, stateManager, formService) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService, commonService) {
     'ngInject';
     const self = this;
     self.modelName = 'services';
@@ -76,79 +76,52 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     function setForm() {
         return [
             { 'type': 'tabs', 'tabs': [
+                { 'title': $translate.instant('form.service.export'), 'key': 'export', 'items': [
+                    { 'key': 'export.title', 'items': [
+                        { 'type': 'section', 'items': [{ 'key': 'export.title.titleValue' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.title.isSelected' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.title.isSelectable' }] }
+                    ] },
+                    { 'key': 'export.map', 'htmlClass': 'av-form-advance hidden', 'items': [
+                        { 'type': 'section', 'items': [{ 'key': 'export.map.isSelected' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.map.isSelectable' }] }
+                    ] },
+                    { 'key': 'export.legend', 'items': [
+                        { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelected' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelectable' }] }
+                    ] },
+                    { 'key': 'export.mapElements', 'items': [
+                        { 'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelected' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelectable' }] }
+                    ] },
+                    { 'key': 'export.footnote', 'items': [
+                        { 'key': 'export.footnote.footnoteValue', 'notitle': true },
+                        { 'type': 'section', 'items': [{ 'key': 'export.footnote.isSelected' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.footnote.isSelectable' }] }
+                    ] },
+                    { 'key': 'export.timestamp', 'items': [
+                        { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelected' }] },
+                        { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelectable' }] }
+                    ] }
+                ] },
+                { 'title': $translate.instant('form.service.geosearch'), 'key': 'search', 'items': [
+                    { 'key': 'search.disabledSearches', 'titleMap': {
+                        'NTS': $translate.instant('form.service.nts'),
+                        'FSA': $translate.instant('form.service.fsa'),
+                        'LAT/LNG': 'Latitude / Longitude'
+                    } },
+                    { 'key': 'search.serviceUrls', 'htmlClass': 'av-form-advance hidden', 'readonly': true }
+                ] },
                 { 'title': $translate.instant('form.service.urls'), 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-servicesurl-${commonService.getLang()}.md`, true) },
                     { 'key': 'proxyUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
-                    { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
-                    { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
-                    { 'key': 'coordInfo' },
-                    { 'key': 'print' }
-                ]},
-                { 'title': $translate.instant('form.service.geosearch'),
-                    'key': 'search', 'items': [
-                        { 'key': 'search.serviceUrls', 'readonly': true },
-                        { 'key': 'search.disabledSearches', 'titleMap': {
-                            'NTS': $translate.instant('form.service.nts'),
-                            'FSA': $translate.instant('form.service.fsa'),
-                            'LAT/LNG': 'Latitude / Longitude'
-                        } }
-                    ] },
-                { 'title': $translate.instant('form.service.export'),
-                    'key': 'export', 'items': [
-                        { 'key': 'export.title', 'items': [
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.title.titleValue' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.title.isSelected' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.title.isSelectable' }]
-                            }
-                        ] },
-                        { 'key': 'export.map', 'items': [
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.map.isSelected' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.map.isSelectable' }]
-                            }
-                        ] },
-                        { 'key': 'export.legend', 'items': [
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.legend.isSelected' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.legend.isSelectable' }]
-                            }
-                        ] },
-                        { 'key': 'export.mapElements', 'items': [
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelected' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelectable' }]
-                            }
-                        ] },
-                        { 'key': 'export.footnote', 'items': [
-                            { 'key': 'export.footnote.footnoteValue', 'notitle': true },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.footnote.isSelected' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.footnote.isSelectable' }]
-                            }
-                        ] },
-                        { 'key': 'export.timestamp', 'items': [
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelected' }]
-                            },
-                            {
-                                'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelectable' }]
-                            }
-                        ] }
-                    ] }
+                    { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true }
+                    // FIXME: not defined in the schema... need to see of still needed { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    // FIXME: not defined in the schema... need to see of still needed { 'key': 'coordInfo' },
+                    // FIXME: not defined in the schema... need to see of still needed { 'key': 'print' }
+                ]}
             ] }
         ];
     }

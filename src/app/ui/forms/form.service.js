@@ -1,3 +1,6 @@
+import marked from 'marked';
+const renderer = new marked.Renderer();
+
 const templateUrls = {
     extent: require('./map/extent/extent-dialog.html'),
     lods:require('./map/lods/lods-dialog.html')
@@ -15,13 +18,15 @@ angular
     .module('app.ui')
     .factory('formService', formService);
 
-function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService) {
+function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService,
+    $http) {
 
     const service = {
         showAdvance,
         advanceModel: false,
         toggleSection,
         toggleAll,
+        addCustomAccordion,
         setExtent,
         setLods,
         setErrorMessage,
@@ -37,6 +42,9 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     events.$on(events.avLoadModel, () => { resestShowAdvance(); });
     events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
 
+    // when we add basemap or layers, if show advance is click, remove hidden
+    events.$on(events.avNewItems, () => { $timeout(() => showAdvance(), constants.debInput) });
+
     return service;
 
     /***/
@@ -44,6 +52,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     /**
      * Reset show advance fields if needed when there is a new model or language switch
      * @function resestShowAdvance
+     * @private
      */
     function resestShowAdvance() {
         if (service.advanceModel) { $timeout(() => showAdvance(), constants.delayAccordion); }
@@ -57,8 +66,9 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         // manage the show advance configuration (add 'htmlClass': 'av-form-advance hidden' to fields who need advance config)
         const elems = document.getElementsByClassName('av-form-advance');
 
+        let func = (service.advanceModel) ? 'remove' : 'add';
         for (let elem of elems) {
-            elem.classList.toggle('hidden');
+            elem.classList[func]('hidden');
         }
     }
 
@@ -75,6 +85,30 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         for (let elem of icons) {
             elem.classList.toggle('hidden');
         }
+    }
+
+    /**
+     * Create a custom accordion container
+     * @function addCustomAccordion
+     * @param  {String} title  accordion title
+     * @param {String} content accordion content
+     * @param {Boolean} markedown optional, default false. if accordion content is from markdown file
+     * @return {String} accordion html template
+     */
+    function addCustomAccordion(title, content, markedown = false) {
+        const tempID = `avAcc${commonService.getUUID()}`
+        // if the accordion type is markedown, access the info then append the result when it is ready
+        if (markedown) {
+            $http.get(content).then(r => marked(r.data, { renderer })).then(html => $(`#${tempID}`).append(html));
+            content = '';
+        }
+
+        return `<fieldset class="schema-form-fieldset av-accordion-toggle av-collapse av-accordion-custom">
+                    <legend>${title}</legend>
+                    <div id="${tempID}" class="av-accordion-content">
+                        <p>${content}</p>
+                    </div>
+                </fieldset>`;
     }
 
     /**

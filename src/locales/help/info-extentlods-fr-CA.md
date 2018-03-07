@@ -1,0 +1,18 @@
+##### Informations détaillées concernant la section _Étendue et niveaux de détails_
+
+C'est généralement la première section à configurer. Elle va définir quel système de référence spatiale votre visualisateur utilisera. Selon le gabarit que vous utilisez, la majeure partie de cette section est peut-être déjà remplie. Si vous souhaitez modifier ces paramètres, cochez la case "Afficher les options de configuration avancées", puis procédez comme suit:
+
+1. Vous devez ajouter un schéma de tuile par référence spatiale.
+    * Entrez un identifiant unique et un nom.
+
+
+2. Vous devez créer une étendue spatiale par schéma de tuile. Dans cette section, vous allez définir le système de référence spatiale à utiliser.
+    * Pour trouver quel WKID utiliser, vous pouvez vous référer à cette [liste de références spatiale] (http://spatialreference.org/ref/)
+    * Entrez un identifiant unique puis définissez au moins l'étendue par défaut.
+
+
+3. Vous pouvez définir un LOD (Niveaux de détails) par schéma de tuile. Cela peut être fait à partir de l'URL de votre carte de base avec le bouton "Définir les niveaux de détails". Un _TileLayer_ a un contient un certain nombre de LOD et chaque LOD correspond à une carte à une échelle ou une résolution donnée. Vous pouvez ensuite supprimer certains d'entre eux pour limiter le niveau où l'utilisateur peut zoomer.
+
+
+4. Vous devez lier votre schéma de tuile avec le jeu d'étendue spatiale et le niveau de détails créés précédemment.
+    * Sélectionnez leur identifiant unique dans la section Schéma des tuiles.

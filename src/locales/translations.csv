@@ -20,7 +20,7 @@ header save file,header.save,Save file,0,Sauvegarder fichier,0
 header save dialog title,header.savedialog.title,Save Configuration File,0,Sauvegarder le fichier de configuration,0
 header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement.,0
 header save dialog hint,header.savedialog.hint,* no extension,0,* sans extension,0
-header tempalte,header.template,Template,0,Gabarit,0
+header tempalte,header.template,Templates,0,Gabarits,0
 header file name,header.filename,File Name: ,0,Nom du fichier: ,0
 summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
@@ -43,7 +43,7 @@ form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
 form service,form.service.nts,NTS,0,SNRC,0
 form service,form.service.fsa,Postal Code,0,Code postal,0
-form map,form.map.extentlods,Extents and Levels of detail,0,Étendues et détails,0
+form map,form.map.extentlods,Extents and Levels of Details,0,Étendues et niveaux de détails,0
 form map,form.map.mapcomp,Components,0,Composantes,0
 form.map,form.map.spatialref,Spatial Reference,0,Référence spatiale,0
 form map,form.map.basemaps,Basemaps,0,Cartes de base,0
@@ -74,16 +74,17 @@ form map layer table filter,form.map.layertablefilter,Filter,0,Filtre,0
 form map layer table columns set,form.map.layertablesetcol,Set Fields,0,Définir les champs,0
 form map basemap attribution,form.map.basemapattrib,Attribution,0,Crédit,0
 form map,form.map.legendauto,Autopopulate,0,Automatique,0
-form map,form.map.legendstruct,Structured,0,Structure,0
+form map,form.map.legendstruct,Structured,0,Structurée,0
 form map extent dialog,form.map.extentdialog,Set Extent: zoom and pan to the extent then close the window,0,"Définir étendue: zoomer et déplacer l'étendue puis fermer la fenêtre",0
 form map set extent default,form.map.extentdefault,Set Extent (Default),0,"Définir l'étendue par défaut",0
 form map set extent full,form.map.extentfull,Set Extent (Full),0,"Définir l'étendue complète",0
 form map set extent max,form.map.extentmax,Set Extent (Max),0,"Définir l'étendue (maximale)",0
-form map lods dialog title,form.map.setlods,Set Level of Details,0,Définir les niveaux de détail,0
+form map lods dialog title,form.map.setlods,Set Levels of Details,0,Définir les niveaux de détails,0
 form map lods dialog desc,form.map.lodsdesc,Enter a tile cache layer url to select the level of details from,0,"Entrez le url d'une couche tuilé afin d'obtenir les niveaux de détail",0
 form map lods dialog error,form.map.lods.invalidurl,This is not a valid ESRI tile cache URL,0,Cette adresse URL n'est pas une couche de tuile ESRI valide,0
 form map go to ui legend,form.map.goui,"Click here to access legend's properties in UI section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section Carte",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
+form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Annuler,0
