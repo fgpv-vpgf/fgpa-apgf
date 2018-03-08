@@ -9,12 +9,11 @@ Le visualisateur supporte 5 types de couches différentes
 
 Pour chaque type, vous devez définir au moins ces valeurs:
 1. Type de couche.
-2. Identifiant unique.
-3. Nom pour la couche. Ce nom apparaîtra dans le sélecteur de couches.
-4. URL pour la couche.
-5. Pour ESRI dynamic et WMS, vous devez ajouter au moins une entrée de couche
-    * Index de la couche et un nom (ESRI feature)
-    * Identifiant de la couche à ajouter et un nom (WMS)
+2. Nom pour la couche. Ce nom apparaîtra dans le sélecteur de couches et sera utilisé pour générer l'identifiant unique de la couche.
+3. URL pour la couche.
+4. Pour ESRI dynamic et WMS, vous devez ajouter au moins une entrée de couche
+    * Index de la couche et un nom (ESRI feature).
+    * Identifiant de la couche à ajouter et un nom (WMS).
 
 Si vous souhaitez définir plus de paramètres comme les contrôles disponibles et / ou personnaliser la table, cochez la case "Afficher les options de configuration avancées" pour les rendre disponibles.
 
