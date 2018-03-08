@@ -1,0 +1,12 @@
+<md-dialog aria-label="{{ 'header.errordialog.title' | translate }}" class="av-error-dialog">
+    <av-content-panel close-panel="self.close()" title-style="title" title-value="{{ 'header.errordialog.title' | translate }}">
+        <p class="av-error-desc">{{ 'header.errordialog.desc' | translate }}</p>
+        <p class="av-error">{{ self.errorMessage }}</p>
+        <md-button
+            class="av-button-square md-raised md-primary"
+            ng-click="self.cancel()">
+            {{ 'button.ok' | translate }}
+            <md-tooltip>{{ 'button.ok' | translate }}</md-tooltip>
+        </md-button>
+    </av-content-panel>
+</md-dialog>

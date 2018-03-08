@@ -8,7 +8,8 @@ window.Flow = Flow;
 const templateUrls = {
     header: require('./header.html'),
     save: require('./save-dialog.html'),
-    help: require('./help-dialog.html')
+    help: require('./help-dialog.html'),
+    error: require('./error-dialog.html')
 }
 
 /**
@@ -181,7 +182,23 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             $timeout(() => {
                 _readFile(file.file).then(data => modelManager.setModels(JSON.parse(data))
                 ).catch(error => {
-                    console.log('error upload');
+                    $mdDialog.show({
+                        controller: ErrorController,
+                        controllerAs: 'self',
+                        templateUrl: templateUrls.error,
+                        parent: $('.fgpa'),
+                        clickOutsideToClose: true,
+                        fullscreen: false
+                    });
+
+                    function ErrorController($mdDialog) {
+                        'ngInject';
+                        const self = this;
+
+                        self.close = $mdDialog.hide;
+                        self.cancel = $mdDialog.hide;
+                        self.errorMessage = error;
+                    }
                 });
             }, constants.delayEventSplash);
         }
