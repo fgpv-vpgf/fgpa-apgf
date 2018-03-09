@@ -20,6 +20,8 @@ import './forms/dynamicSelect.directive.js';
 
 // application header
 import './header/header.directive.js';
+import './header/help-search.directive.js';
+import './header/help.service.js';
 
 // summary panel
 import './summary/summary.directive.js';

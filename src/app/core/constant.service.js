@@ -69,7 +69,8 @@ function events($rootScope) {
         avValidateForm: 'avValidateForm', // Fired when a user click on validate to validate all forms
         avShowSplash: 'avShowSplash',
         avLayersIdUpdate: 'avLayersIdUpdate', // Fired when layers id is updated. Will be use inside UI model to update table layer id
-        avUpdateFocus: 'avUpdateFocus' // Fired when user click on element of summary tree
+        avUpdateFocus: 'avUpdateFocus', // Fired when user click on element of summary tree
+        avShowHelp: 'avShowHelp' // Fired when help dialog window opening is completed
     };
 }
 

@@ -24,11 +24,12 @@ The map section  lists tabs that contain information about the map to be created
 
 The map section is divided into tabs that contain information on : Extents and Levels of Detail, Map components, Basemaps, Layers and Legend.
 
-## Extents and Levels of Detail
+
+# Map - Extents and Levels of Detail
 
 This section contains tabs that list the Tile schemas,Extents and Levels of detail.
 
-## Tile Schemas
+#### Tile Schemas
 
 The fields to enter are the following:
 
@@ -46,7 +47,7 @@ The fields to enter are the following:
 
 + URL - This field indicates the service end point of the layer of the static overview map and should match the type indicated in the layer type.
 
-## Extents
+#### Extents
 
 This section lists the extents to be used by the basemap.
 
@@ -72,7 +73,7 @@ Click on the set extent button to select a default , full, or maximum extent dyn
 
 + Maximum Extent - Enter the xmin and ymax extent when the user zooms or pans out to a maximum level either interactively or by scrolling over the + sign and select a bounding box extent or a whole extent set. The default extent is used if no maximum is supplied.
 
-## Levels of Detail Sets
+#### Levels of Detail Sets
 
 The id of the level of detail set is listed.
 
@@ -86,28 +87,8 @@ Click on the set level of details button to enter a tile cache layer url from wh
 
 You may click on the X button to remove a level of detail entry from the set of entries.
 
-## Map Components
 
-The maps components tab lists the if mouse coordinates are enabled and
-the numerical values selectable by a click for the projection displayed by selecting the
- wkid, vcsid ( vertical coordinate wkid) and latestwkid, latestvcswkid, and wkt( Well-known text (WKT)
-is a text markup language for representing vector geometry objects on a map,
-spatial reference systems of spatial objects and transformations between spatial reference systems.
-
-The mouse coordinates to be displayed at the bottom of the map.
-
-The positioning coordinates can be in degrees minutes seconds (DMS), decimal degrees or
-meters depending on the projection and configuration used.
-
-It also lists the checkboxes if enabled for the display of the north arrow ![](northarrow.png).
-
-The display of the scale bar at the bottom of the map ![](scalebar.png).
-
-The display of the over view map at the upper right corner ![](overviewmap.png).
-
-It also lists if the over view map is enabled, its scale factor and if visible.
-
-## Basemaps
+# Map - Basemaps
 
 The Basemaps tab lists the base map id of the initial base map to be used and all basemaps that are available listed under the basemaps collection.
 
@@ -145,7 +126,8 @@ For all base maps the fields to be entered are the following:
 
   + URL - The url if the basemap if clicked.
 
-## Layers
+
+# Map - Layers
 
 The layers tab lists the map layers to be displayed.
 For each map layer to be displayed the  fields to enter are:
@@ -206,7 +188,7 @@ The checkboxes for all controls that can be enabled on the specified layer are t
 
 There is a pull down list of same controls which are visible, but disabled for user modification.
 
-## State
+#### State
 
 Opacity - Initial opacity requires you select a numerical value using the up or down arrows.
 
@@ -222,7 +204,7 @@ Select the checkbox desired for the following settings:
 
 + Hovertips - Disable hover tips.
 
-## Table
+#### Table
 
 ![](tablepanel.png)
 
@@ -236,22 +218,45 @@ The table section lists the fields to be returned on query in the table panel.
 
 + Apply map - This specifies if the default filters (from columns filter) are applied to the map (definition query). True: it is applied; False: it is not applied.
 
-## Fields section
+#### Fields section
 
 Customize fields - Specifies the array of columns for the table. When there is an item in this array, it will be use to define which and how column will be set for the table. If a column is not in the array it will be assume as disabled.
 
 Single entry collapse - Indicates that the dynamic layer with a single layer entry should be rendered without the root group. The list of fields that can be expanded or collapsed.
 
-## Legend
+
+# Map - Legend
 
 This tab indicates if the legend is auto populated by the listed layers or  if a customized user built structured legend is used.
+
+
+# Map - Components
+
+The maps components tab lists the if mouse coordinates are enabled and
+the numerical values selectable by a click for the projection displayed by selecting the
+ wkid, vcsid ( vertical coordinate wkid) and latestwkid, latestvcswkid, and wkt( Well-known text (WKT)
+is a text markup language for representing vector geometry objects on a map,
+spatial reference systems of spatial objects and transformations between spatial reference systems.
+
+The mouse coordinates to be displayed at the bottom of the map.
+
+The positioning coordinates can be in degrees minutes seconds (DMS), decimal degrees or
+meters depending on the projection and configuration used.
+
+It also lists the checkboxes if enabled for the display of the north arrow ![](northarrow.png).
+
+The display of the scale bar at the bottom of the map ![](scalebar.png).
+
+The display of the over view map at the upper right corner ![](overviewmap.png).
+
+It also lists if the over view map is enabled, its scale factor and if visible.
 
 
 # User Interface
 
 The user interface section table lists general information for the application bar, navigation bar and side menu.
 
-## General tab
+#### General tab
 
 General tab lists the following information.
 
@@ -301,9 +306,7 @@ Click on the checkbox to specify whether the table panel is opened by default on
 
 + Open by default in small display- Whether the table panel is opened by default on initial loading of the map for small viewports
 
-
-
-## Application bar
+#### Application bar
 
 ![](applicationbar.png)
 
@@ -318,7 +321,7 @@ The tools that can be selectable via a check box in the main toolbar are the fol
 
 + Layers Selector -Shows the layers button in the main app toolbar.
 
-## Navigation Bar
+#### Navigation Bar
 
 ![](sidemenulist.png)
 
@@ -342,7 +345,7 @@ The navigation bar lists check boxed fields for extra navigation components:
 
 + restrict navigation to within the maximum extent
 
-## Side Menu
+#### Side Menu
 
 The side menu tab list the following fields
 
@@ -351,7 +354,6 @@ The side menu tab list the following fields
 + Showlogo - Checkbox if the logo should be shown on the left side window.
 
 + Logo Url - Specifies a Url for an optional viewer logo.
-
 
 ![](menulist.png)
 
@@ -369,7 +371,6 @@ The Side Menu items to be listed in the side menu that are selectable via a chec
 + language
 + plugins
 
-
 Help File
 
 + Folder name  - Specifies the folder name containing the help description and images.
@@ -383,45 +384,7 @@ The following fields are for About Map properties specified from a configuration
 
 # Services
 
-This section lists  sections for service End points for the coordinate info url and print url,
-Geosearch service endpoints and export of the map configuration settings.
-
-## Service endpoints
-
-This tab lists the url for the service endpoints for the coordinate information and print function.
-
-For advanced configuration options this tabs let you change the following service endpoints.
-
-+ Proxy URL- An optional proxy to be used for dealing with same-origin issues. The URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.
-
-+ Export Map URL - An ESRI service endpoint for generating map images. Should point directly to an endpoint that can be consumed by ESRI PrintTask.
-
-+ Geometry URL - A URL to an ESRI ArcGIS geometry service REST endpoint.
-
-+ Google API URL - Google API key to enable geo location and share link shortening.
-
-## Geosearch
-
-![](geosearchmenu.png)
-
-This tab lists the customizable properties of the geosearch function and urls of it's service endpoints.
-
-+ Geo Names URl - Endpoint url for geoNames service
-
-+ Geo Location URl -Endpoint url for geoLocation service
-
-+ Geo Suggest URl -Endpoint url for geoSuggest service
-
-+ Provinces URL - Endpoint url for provinces service
-
-+ Type URL- Endpoint url for types service
-
-You can also use checkboxes to disable the NTS, Postal Code and Latitude/Longitude types of  which
-are available in the geosearch window.
-
-![](geosearchexample.png)
-
-## Export map
+#### Export map
 
 You can export an image of the map and its visible layers along with a legend, title, north arrow with scalebar, custom footnote, and a timestamp.
 
@@ -448,6 +411,44 @@ If customizable a dialog will appear with an image of the map, and an option to 
 Also, users can add or remove sections of the exported image such as a legend,
 by clicking on the options cogwheel in the header.
 Users will be able to select/deselect the sections to appear in the exported image.
+
+#### Geosearch
+
+This section lists  sections for service End points for the coordinate info url and print url,
+Geosearch service endpoints and export of the map configuration settings.
+
+![](geosearchmenu.png)
+
+This tab lists the customizable properties of the geosearch function and urls of it's service endpoints.
+
++ Geo Names URl - Endpoint url for geoNames service
+
++ Geo Location URl -Endpoint url for geoLocation service
+
++ Geo Suggest URl -Endpoint url for geoSuggest service
+
++ Provinces URL - Endpoint url for provinces service
+
++ Type URL- Endpoint url for types service
+
+You can also use checkboxes to disable the NTS, Postal Code and Latitude/Longitude types of  which
+are available in the geosearch window.
+
+![](geosearchexample.png)
+
+#### Service endpoints
+
+This tab lists the url for the service endpoints for the coordinate information and print function.
+
+For advanced configuration options this tabs let you change the following service endpoints.
+
++ Proxy URL- An optional proxy to be used for dealing with same-origin issues. The URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.
+
++ Export Map URL - An ESRI service endpoint for generating map images. Should point directly to an endpoint that can be consumed by ESRI PrintTask.
+
++ Geometry URL - A URL to an ESRI ArcGIS geometry service REST endpoint.
+
++ Google API URL - Google API key to enable geo location and share link shortening.
 
 
 # Version
@@ -491,7 +492,6 @@ are not valid.
 
 You can use the expand or collapse buttons ![](expandcollapse.png) to see all the fields in the different sections of
 the viewer configuration file.
-
 
 
 # Load Times/Unanticipated Behavior

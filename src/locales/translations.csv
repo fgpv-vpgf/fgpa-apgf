@@ -17,6 +17,10 @@ Content panel aria label for close button,contentPanel.aria.close,Close,0,Fermer
 header create file,header.create,Create new file,0,Créer un nouveau fichier,0
 header open file,header.open,Open existing file,0,Ouvrir un fichier existant,0
 header help,header.help,Help,0,Aide,0
+header help,header.helpdialog.title,Help -work in progress-,0,Aide -travaux en cours-,0
+,header.helpdialog.nothingfound,Nothing is found. Please try a different search.,1,Rien n’est trouvé. Veuillez essayer une recherche différente.,1
+,header.helpdialog.search,Search Help,1,Aide à la recherche,1
+,header.helpdialog.clearsearch,Clear,1,Effacer,1
 header save file,header.save,Save file,0,Sauvegarder fichier,0
 header save dialog title,header.savedialog.title,Save Configuration File,0,Sauvegarder le fichier de configuration,0
 header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement.,0
