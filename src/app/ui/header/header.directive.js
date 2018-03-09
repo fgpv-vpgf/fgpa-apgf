@@ -1,5 +1,4 @@
 import Flow from '@flowjs/ng-flow/dist/ng-flow-standalone';
-import marked from 'marked';
 
 const FileSaver = require('file-saver');
 
@@ -45,7 +44,7 @@ function avHeader() {
     return directive;
 }
 
-function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelManager, commonService, constants) {
+function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelManager, commonService, constants, helpService) {
     'ngInject';
     const self = this;
 
@@ -86,43 +85,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @function help
      */
     function help() {
-
-      $mdDialog.show({
-          controller: HelpController,
-          controllerAs: 'self',
-          templateUrl: templateUrls.help,
-          parent: $('.fgpa'),
-          fullscreen: false
-      });
-    }
-
-    /**
-     * Set the HelpController
-     * @function HelpController to read markup file and images
-     */
-    function HelpController($mdDialog, constants) {
-        'ngInject';
-
-        const self = this;
-
-        const renderer = new marked.Renderer();
-
-        renderer.image = (href, title) => {
-              if ((href.indexOf('http') === -1) || (href.indexOf('https') === -1)) {
-                  href = `./help/images/` + href;
-              }
-
-                  return `<img src="${href}" alt="${title}">`;
-              };
-
-
-        const language = localStorage.getItem('fgpa-lang');
-
-        $http.get(`./help/${language}.md`).then( r => { self.help=marked(r.data,  { renderer } ); } );
-
-        self.close = $mdDialog.hide;
-        self.cancel = $mdDialog.hide;
-
+        helpService.open();
     }
 
     /**
@@ -131,7 +94,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      */
     function setLanguage() {
         commonService.setLang(self.language);
-         localStorage.setItem('fgpa-lang', self.language);
+        localStorage.setItem('fgpa-lang', self.language);
     }
 
     /**
@@ -167,7 +130,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     /**
      * Starts file upload.
      * @function filesSubmitted
-     * @param  {Array} files uploaded array of files
+     * @param {Array} files uploaded array of files
      */
     function filesSubmitted(files) {
         if (files.length > 0) {
@@ -212,8 +175,6 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
          * @return {Promise} promise resolving with file's data
          */
         function _readFile(file) {
-
-
             const dataPromise = $q((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onerror = () => {

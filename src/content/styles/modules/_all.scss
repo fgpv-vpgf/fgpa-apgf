@@ -7,13 +7,15 @@
 @import "_effects.scss";
 @import "_forms.scss";
 @import "_header.scss";
+@import "_help.scss";
 @import "_loading.scss";
 
 @include buttons;
 @include content-panel;
 @include dialog;
 @include header;
-@include summary;
+@include help;
+@include effects;
 @include forms;
 @include loading;
-@include effects;
+@include summary;

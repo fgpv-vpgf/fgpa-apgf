@@ -73,6 +73,9 @@ function configBlock($translateProvider, $mdThemingProvider, $mdIconProvider, $p
     function configureTranslations() {
         $translateProvider.directivePriority(222);
         $translateProvider.useLoader('translationService', { action: 'loader' });
+
+        // Enable escaping of HTML
+        $translateProvider.useSanitizeValueStrategy('escape');
     }
 
     /**

@@ -12,17 +12,19 @@ Par defaut 3 gabarits de configuration sont disponible pour des valeurs de defau
 
 Choissiez entre config-authorA, config-AuthorB ou config-full.
 
+
 # Carte
 
 La section carte est composer des onglets qui contient les informations sur les composantes de la carte.
 
 Cette section carte est diviser dans le onglets suivante:Extendues et details, composantes,cartes de base,couches,legende.
 
-## Etendues et details
+
+# Carte - Etendues et details
 
 Cette section liste des sous sections: Schéma des tuiles,Extents et Lots d'étendues spatiales,Lots de niveaux de détail.
 
-## Schéma des tuiles
+#### Schéma des tuiles
 
 + L'identifiant - l'identifiant unique d'un schéma de tuiles (combinaison de l'étendue et de l'échelle)
 
@@ -38,7 +40,7 @@ Cette section liste des sous sections: Schéma des tuiles,Extents et Lots d'éte
 
 + URL - Le point de service de la couche. Le type de couche retourné par le service et le type de couche identifié dans les paramètres doivent être les mêmes.
 
-# Lots d'étendues spatiales
+#### Lots d'étendues spatiales
 
 Cette section liste les lots d'etendues spatiale pour la  carte de base.
 Étendue par défaut,Étendue complète, Étendue maximale
@@ -59,7 +61,7 @@ L'étendue par défaut sera utilisée si l'étendue complète n'est pas définie
 + Étendue maximale - L'étendue maximale permet de limiter le zoom et le pan.
 L'étendue complète ou par défaut sera utilisée si l'étendue maximale n'est pas définie.
 
-## Lots de niveaux de détail
+#### Lots de niveaux de détail
 
 Niveau de détail pour un schéma de tuiles spécifique.
 
@@ -68,54 +70,17 @@ Les niveaux de détail selon l'échelle offerts pour la carte.
 Entrez les Lots de niveaux de détai par
 
 + niveau
-
 + resolution
-
 + echelle.
 
 Utilise les fleches pour selectionner les valeurs par niveau de resolution et echelle.
 
-## Map Composantes
 
-La section composantes liste si les Coordonnées de la souris sont afficher.
-
-Coordonnées de la souris
-
-Selectionnez si les coordonnees de la souris sont afficher.
-
-Référence spatiale
-
-Séléctionnez la référence spatiale utilisée pour l'affichage des coordonnées pour la souris.
-
-Séléctionnez la
-
-+ WKID - Well-Known ID
-
-+ VcsWKID - Systeme de référence verticale WKID
-
-+ WKID le plus récent
-
-+ VcsWKID le plus récent
-
-+ WKT - Well-Known Text
-
-Aussi vous pouvez activée les composantes suivant.
-
-+ flèche du Nord
-
-+ echelle
-
-+ carte d'aperçu
-
-+ facteur d'expansion - facteur pour la carte d'aperçu peuvent etre activée.
-
-## Cartes de base
+# Carte - Cartes de base
 
 + ID - l'identifiant de la carte de base initiale.
 
  Carte de base utilisée lors du chargement initial. Si celle-ci n'a pas été configurée, une autre carte de base sera sélectionnée.
-
-### Collection cartes de base
 
 + ID carte de base - Un identifiant unique pour la carte de base.
 
@@ -154,9 +119,7 @@ Logo
 + Url - URL de la destination lorsque l'utilisateur clique sur le logo.
 
 
-## Couches
-
-### Lot de couches
+# Carte - Couches
 
 + Sélecteur de type de couche - selectionnez entre esriFeature, esriDynamic, esri Image, esriTile, ogcWms.
 
@@ -172,7 +135,7 @@ Logo
 
 + Tolerance - Spécifie la tolérance en pixels de la région cliquable entourant un élément. Doit êtreun entier positif
 
- ### Couches Utilisées
+#### Couches Utilisées
 
 + Index- L'index de la couche dans la service de la carte.
 
@@ -204,7 +167,7 @@ Une liste des contrôles à activer sur une couche en particulier
 + data
 + styles
 
- ### Table
+#### Table
 
  ![](tablepanel.png)
 
@@ -220,7 +183,8 @@ La section table specifie comment les champs et la recherche globales sont confi
 
 Personnalisation des champs - Permet l'utilisateur de changer le noms des champs.
 
-## Légende
+
+# Carte - Légende
 
 + Type de légende - Selectionner entre un type de legende automatique ou structuree.
 
@@ -228,9 +192,45 @@ Si un legende structuree et selectionner vous devez remplir la legende en fomat 
 
 + Ajouter une section à la légende - Vosu pouvez ajouter une section à la légende entre entree, groupe, information, couche non liée, et groupe visibilité.
 
+
+# Carte - Composantes
+
+La section composantes liste si les Coordonnées de la souris sont afficher.
+
+Coordonnées de la souris
+
+Selectionnez si les coordonnees de la souris sont afficher.
+
+Référence spatiale
+
+Séléctionnez la référence spatiale utilisée pour l'affichage des coordonnées pour la souris.
+
+Séléctionnez la
+
++ WKID - Well-Known ID
+
++ VcsWKID - Systeme de référence verticale WKID
+
++ WKID le plus récent
+
++ VcsWKID le plus récent
+
++ WKT - Well-Known Text
+
+Aussi vous pouvez activée les composantes suivant.
+
++ flèche du Nord
+
++ echelle
+
++ carte d'aperçu
+
++ facteur d'expansion - facteur pour la carte d'aperçu peuvent etre activée.
+
+
 # Interface Usager
 
-Général
+#### Général
 
 + Plein ecran - Indique si le visualisateur utilise l'entièreté de la fenêtre d'affichage
 
@@ -276,7 +276,7 @@ Options d'ouverture de la légende
 
 + Ouvrir par défaut dans l'affichage restreint - Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte
 
-## Barre d'application
+#### Barre d'application
 
 ![](applicationbar.png)
 
@@ -290,7 +290,7 @@ La Barre d'application vous permet de configuree la barre d'application et les b
 
 + Sélecteur de couches - Affiche le bouton du sélecteur de couches dans la barre d'application principale.
 
-## Navigation
+#### Navigation
 
 ![](sidemenulist.png)
 
@@ -315,7 +315,7 @@ Selectionner les options voulu dans la barre de navigation.
 + sideMenu
 + couches
 
-## Menu latéral
+#### Menu latéral
 
 + Titre - (Optionnel)  Un titre pour remplacer celui utilisé par défaut par le visualisateur.
 
@@ -353,25 +353,41 @@ Propriétés de l'aide
 
 + Texte - À propos provenant d'un texte fourni (chaîne de caractères).
 
+
 # Services
 
-## Liens pour les services
+#### Exporter la Carte
 
-+ URL du proxy - Un proxy optionnel pouvante être utilisé afin de pallier au problème des origines semblables. L'URL doit être soit un chemin relatif pointant vers le même serveur ou bien un chemin absolu pointant vers un serveur qui met en place les entêtes des requêtes d'origines croisées (CORS).
+Vous pouvez exporter une image de la carte et de ses couches visibles avec une légende, un titre, la flèche nord avec scalebar, la note en bas de page personnalisée et un horodateur.
 
-+ URL de la carte à exporter - Un point de service ESRI pour générer des images à partir de cartes. Doit pointer directement vers un point de service qui peut être utilisé par un service d'impression d'ESRI (ESRI PrintTask).
+Si personnalisable un dialogue apparaîtra avec une image de la carte et d'une option pour entrer dans un titre de carte si désiré.
 
-+ URL de la géométrie - URL pointant sur un point de service REST ArcGIS d'ESRI pour la géométrie.
+Le titre de l'image exportée peut être fabriqué sur commande en entrant une valeur.
 
-+ URL de l'API Google - Clé de l'API Google afin d'activer la géolocalisation et la simplification du lien de partage.
++ Titre - Valeur du Titre du graphique à exporter.
 
-+ URL de l'API de géolocalisation
++ Composantes de la carte
 
-+ URL pour les coordonnées
++ Légende
 
-+ URL pour l'impression
+Éléments de la carte
 
-## Recherche par lieux
++ La flèche du Nord et l'échelle.
+
++ Note de bas de page - Valeur du note de bas de page de la carte à exporter.
+
++ Horodateur
+
+Si personnalisable un dialogue apparaîtra avec une image de la carte et d'une option pour entrer dans un titre de carte si désiré.
+
+![](exportmapwindowv2.png)
+
+Aussi, les utilisateurs peuvent ajouter ou enlever des sections de l'image exportée comme une légende,
+en cliquant sur la roue d'options dans l'en-tête.
+
+Les utilisateurs seront en mesure de choisir/désélectionner les sections pour apparaître dans l'image exportée.
+
+#### Recherche par lieux
 
 ![](geosearchmenu.png)
 
@@ -403,42 +419,29 @@ Désactiver des types de recherche spécifiques (SNRC, code postal/RTA, ou LAT/L
 
 ![](geosearchexample.png)
 
-## Exporter la Carte
+#### Liens pour les services
 
-Vous pouvez exporter une image de la carte et de ses couches visibles avec une légende, un titre, la flèche nord avec scalebar, la note en bas de page personnalisée et un horodateur.
++ URL du proxy - Un proxy optionnel pouvante être utilisé afin de pallier au problème des origines semblables. L'URL doit être soit un chemin relatif pointant vers le même serveur ou bien un chemin absolu pointant vers un serveur qui met en place les entêtes des requêtes d'origines croisées (CORS).
 
-Si personnalisable un dialogue apparaîtra avec une image de la carte et d'une option pour entrer dans un titre de carte si désiré.
++ URL de la carte à exporter - Un point de service ESRI pour générer des images à partir de cartes. Doit pointer directement vers un point de service qui peut être utilisé par un service d'impression d'ESRI (ESRI PrintTask).
 
-Le titre de l'image exportée peut être fabriqué sur commande en entrant une valeur.
++ URL de la géométrie - URL pointant sur un point de service REST ArcGIS d'ESRI pour la géométrie.
 
-+ Titre - Valeur du Titre du graphique à exporter.
++ URL de l'API Google - Clé de l'API Google afin d'activer la géolocalisation et la simplification du lien de partage.
 
-+ Composantes de la carte
++ URL de l'API de géolocalisation
 
-+ Légende
++ URL pour les coordonnées
 
-Éléments de la carte
++ URL pour l'impression
 
-+ La flèche du Nord et l'échelle.
-
-+ Note de bas de page - Valeur du note de bas de page de la carte à exporter.
-
-+ Horodateur
-
-Si personnalisable un dialogue apparaîtra avec une image de la carte et d'une option pour entrer dans un titre de carte si désiré.
-
-![](exportmapwindowv2.png)
-
-Aussi, les utilisateurs peuvent ajouter ou enlever des sections de l'image exportée comme une légende,
-en cliquant sur la roue d'options dans l'en-tête.
-
-Les utilisateurs seront en mesure de choisir/désélectionner les sections pour apparaître dans l'image exportée.
 
 # Version
 
 L'étiquette de version vous permet de choisir la version de schéma utilisé pour valider le fichier de configuration.
 
 Par défaut la présente version est 2.0.
+
 
 # Langue
 
@@ -447,6 +450,7 @@ L'étiquette de langue vous permet de choisir la langue du dossier de configurat
 Choisissez entre en-CA pour l'anglais ou fr-CA pour le français.
 
 La valeur est un ISO 639-1 code indiquant la langue de fichier de configuration.
+
 
 # Panneau Sommaire
 

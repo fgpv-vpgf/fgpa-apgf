@@ -11,6 +11,15 @@
         </md-input-container>
     </div>
     <div>
+        <md-button
+            translate
+            aria-label="{{ 'header.help' | translate }}"
+            class="md-icon-button av-button-32 black"
+            ng-click="self.help()">
+            <md-tooltip>{{ 'header.help' | translate }}</md-tooltip>
+            <md-icon md-svg-src="community:help"></md-icon>
+        </md-button>
+
         <md-input-container class="md-subhead av-templates" ng-if="self.templates.length">
           <label>{{ 'header.template' | translate }}</label>
           <md-select ng-model="self.template" ng-change="self.setTemplate()" ng-model-options="{ trackBy: '$value.path' }">
@@ -49,15 +58,6 @@
             ng-click="self.save()">
             <md-tooltip>{{ 'header.save' | translate }}</md-tooltip>
             <md-icon md-svg-src="content:save"></md-icon>
-        </md-button>
-
-        <md-button
-            translate
-            aria-label="{{ 'header.title' | translate }}"
-            class="md-icon-button av-button-32 black"
-            ng-click="self.help()">
-            <md-tooltip>{{ 'header.help' | translate }}</md-tooltip>
-            <md-icon md-svg-src="community:help"></md-icon>
         </md-button>
 
         <div class="av-savename">
