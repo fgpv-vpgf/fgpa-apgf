@@ -9,12 +9,11 @@ The viewer support 5 different types of layer
 
 For each type you need to set at least these values:
 1. Layer type.
-2. Unique ID.
-3. Name for the layer. This name will show up inside the layers selector.
-4. URL for the layer.
-5. For ESRI dynamic and WMS you need to add at least one layer entry
-    * Layer index and a name (ESRI dynamic)
-    * Id of the layer to add and a name (WMS)
+2. Name for the layer. This name will show up inside the layers selector and will be use to generate the layer ID.
+3. URL for the layer.
+4. For ESRI dynamic and WMS you need to add at least one layer entry
+    * Layer index and a name (ESRI dynamic).
+    * Id of the layer to add and a name (WMS).
 
 If you want to set more settings like available controls and/or customize table, check the "show advanced configuration options" check box to make them available.
 

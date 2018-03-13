@@ -30,6 +30,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         setExtent,
         setLods,
         setErrorMessage,
+        updateId,
         copyValueToFormIndex,
         initValueToFormIndex,
         copyValueToModelIndex,
@@ -255,6 +256,22 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
+     * Update the id automatically from a model value
+     * @function updateId
+     * @param  {String} model  model value
+     * @param  {Object} scope model to update
+     * @param  {String} type class to find inex
+     */
+    function updateId(model, scope, type) {
+        const index = getActiveElemIndex(type);
+        const modelId = scope.model[type][index].id;
+        const id = (typeof modelId !== 'undefined' && modelId.split('--/').length === 2) ?
+            modelId.split('--/')[1] : commonService.getUUID();
+
+        scope.model[type][index].id = `${model.split('--/')[0]}--/${id}`;
+    }
+
+    /**
      * Get model array index from active element
      * @function getActiveElemIndex
      * @param  {String} parentClass  class to find on parent element
@@ -282,7 +299,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
      *  'targetParent': 'av-accordion-toggle', the parent element target class
      *  'default': a default value for the tag when model value is empty
      * @function copyValueToFormIndex
-     * @private
      * @param  {Object} model  value to set
      * @param  {String} item item from the form
      */

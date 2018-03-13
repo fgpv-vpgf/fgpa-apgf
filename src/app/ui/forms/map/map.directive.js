@@ -343,23 +343,27 @@ function Controller($scope, $translate, $timeout,
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-extentlods-${commonService.getLang()}.md`, true) },
                     { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
                         { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                            { 'key': 'tileSchemas[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), constants.debInput, false) },
-                            { 'key': 'tileSchemas[].name' },
-                            {
-                                'key': 'tileSchemas[].extentSetId',
-                                'type': 'dynamic-select',
-                                'optionData': 'extentId',
-                                'model': 'extentSetId',
-                                'array': true
-                            }, {
-                                'key': 'tileSchemas[].lodSetId',
-                                'type': 'dynamic-select',
-                                'optionData': 'lodId',
-                                'model': 'lodSetId',
-                                'array': true
-                            }, {
-                                'key': 'tileSchemas[].overviewUrl'
-                            }
+                            { 'type': 'fieldset', 'htmlClass': 'av-tileschema', 'items': [
+                                { 'key': 'tileSchemas[].id', 'readonly': true },
+                                { 'key': 'tileSchemas[].name', 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.updateId(model, $scope, 'tileSchemas');
+                                    self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'); }, constants.debInput, false) },
+                                {
+                                    'key': 'tileSchemas[].extentSetId',
+                                    'type': 'dynamic-select',
+                                    'optionData': 'extentId',
+                                    'model': 'extentSetId',
+                                    'array': true
+                                }, {
+                                    'key': 'tileSchemas[].lodSetId',
+                                    'type': 'dynamic-select',
+                                    'optionData': 'lodId',
+                                    'model': 'lodSetId',
+                                    'array': true
+                                }, {
+                                    'key': 'tileSchemas[].overviewUrl'
+                                }
+                            ] }
                         ] }
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.extentset'), 'items': [
@@ -471,8 +475,11 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMap', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
-                                { 'key': 'baseMaps[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'), constants.debInput, false) },
-                                { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
+                                { 'key': 'baseMaps[].id', 'readonly': true },
+                                { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.copyValueToFormIndex(model, item);
+                                    self.formService.updateId(model, $scope, 'baseMaps');
+                                    self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); }, constants.debInput, false) },
                                 { 'key': 'baseMaps[].description' },
                                 { 'key': 'baseMaps[].typeSummary', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'baseMaps[].altText' },
@@ -507,8 +514,11 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'targetElement': ['layers', 'layerType'], 'targetParent': 'av-accordion-content', 'onChange': (model, item) => self.formService.copyValueToModelIndex(model, item, $scope.model) },
-                                { 'key': 'layers[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'), constants.debInput, false) },
-                                { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
+                                { 'key': 'layers[].id', 'readonly': true },
+                                { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.copyValueToFormIndex(model, item);
+                                    self.formService.updateId(model, $scope, 'layers');
+                                    self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false) },
                                 { 'key': 'layers[].url' },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },

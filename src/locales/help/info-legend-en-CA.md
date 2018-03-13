@@ -1,8 +1,8 @@
 ##### Detailed Information about _Legend_ Section
 
 There is 2 type of legend
-* Automatique
-* Structuré
+* Autopopulate
+* Structured
 
 The autopopulate legend will take the layers as they appear in the _Layers_ section and create a default legend.
 
