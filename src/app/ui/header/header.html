@@ -24,7 +24,8 @@
             translate
             aria-label="{{ 'header.create' | translate }}"
             class="md-icon-button av-button-32 black"
-            ng-click="self.create()">
+            ng-click="self.create()"
+            ng-if="self.templates.length === 0">
             <md-tooltip>{{ 'header.create' | translate }}</md-tooltip>
             <md-icon md-svg-src="content:add"></md-icon>
         </md-button>

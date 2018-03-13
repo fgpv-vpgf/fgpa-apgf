@@ -1,5 +1,4 @@
 %container {
-
     md-input-container {
         input {
             font-size: 1.2em;
@@ -18,31 +17,41 @@
             float: right;
         }
     }
+
+    .av-error {
+        color: $alert-color;
+    }
+
+    button {
+        float: right;
+    }
 }
 
-%button {
-    button: { float: right; }
-}
+
 
 @mixin dialog {
     .av-save-dialog {
-        height: 250px;
+        height: 230px;
         width: 600px;
         border-radius: 0;
 
         @extend %container;
-
-        @extend %button;
     }
 
-    .av-lods-dialog {
-        height: 250px;
+    .av-error-dialog {
+        height: 180px;
         width: 800px;
         border-radius: 0;
 
         @extend %container;
+    }
 
-        @extend %button;
+    .av-lods-dialog {
+        height: 230px;
+        width: 800px;
+        border-radius: 0;
+
+        @extend %container;
     }
 
     .av-preview-dialog {
@@ -51,8 +60,6 @@
         border-radius: 0;
 
         @extend %container;
-
-        @extend %button;
     }
 
     .av-help-dialog {
@@ -61,8 +68,6 @@
         border-radius: 0;
 
         @extend %container;
-
-        @extend %button;
     }
 
     .av-extent-dialog {
@@ -71,7 +76,5 @@
         border-radius: 0;
 
         @extend %container;
-
-        @extend %button;
     }
 }
