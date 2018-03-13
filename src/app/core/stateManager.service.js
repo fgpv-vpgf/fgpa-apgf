@@ -314,7 +314,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
     function setMapItemsState(stateModel, model, arrKeys) {
 
         // baseMaps and layers
-        const setNames = [[2, 'baseMaps'], [3, 'layers']];
+        const setNames = [[1, 'baseMaps'], [2, 'layers']];
         const masterLink = constants.schemas
             .indexOf(`map.[lang].json`) + 1;
 
@@ -705,8 +705,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
      * @return {String} id
      */
     function setItemId(hlink, elType, index) {
-        const el = angular.element(`#${hlink}-pane`);
-        const children = Array.from(el[0].querySelector("ol").children);
+        const children = Array.from(angular.element(`[ng-model=\"model['${elType}']\"]`).children());
 
         const id = `${elType}-${index}`;
         children[index].setAttribute('id', id);
@@ -759,10 +758,10 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         const arr = reduceKey(arrKeys, ['tileSchemas'])
             .concat(reduceKey(arrKeys, ['extentSets']),
                 reduceKey(arrKeys, ['lodSets']),
-                arrComp,
                 reduceKey(arrKeys, ['baseMaps']),
                 reduceKey(arrKeys, ['layers']),
-                arrLegend
+                arrLegend,
+                arrComp
             );
 
         return arr;
