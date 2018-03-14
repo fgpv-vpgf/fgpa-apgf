@@ -31,7 +31,7 @@
         </md-button>
 
         <md-button
-            flow-init="{ singleFile: true }"
+            flow-init="{ singleFile: true, allowDuplicateUploads : true }"
             flow-files-submitted="self.filesSubmitted($files, $event, $flow)"
             class="md-icon-button av-button-32 black"
             aria-label="{{ 'header.open' | translate }}"
