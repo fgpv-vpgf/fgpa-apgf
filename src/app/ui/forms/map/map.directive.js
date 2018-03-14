@@ -344,7 +344,8 @@ function Controller($scope, $translate, $timeout,
                     { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
                         { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'type': 'fieldset', 'htmlClass': 'av-tileschema', 'items': [
-                                { 'key': 'tileSchemas[].id', 'readonly': true },
+                            // hidden read only field
+                            //  { 'key': 'tileSchemas[].id', 'readonly': true },
                                 { 'key': 'tileSchemas[].name', 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.updateId(model, $scope, 'tileSchemas');
                                     self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'); }, constants.debInput, false) },
@@ -475,7 +476,8 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMap', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
-                                { 'key': 'baseMaps[].id', 'readonly': true },
+                            // hidden read only field
+                            //  { 'key': 'baseMaps[].id', 'readonly': true },
                                 { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'baseMaps');
@@ -514,7 +516,8 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'targetElement': ['layers', 'layerType'], 'targetParent': 'av-accordion-content', 'onChange': (model, item) => self.formService.copyValueToModelIndex(model, item, $scope.model) },
-                                { 'key': 'layers[].id', 'readonly': true },
+                            // hidden read only field
+                            //  { 'key': 'layers[].id', 'readonly': true },
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'layers');
@@ -522,7 +525,8 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].url' },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
-                                { 'key': 'layers[].layerType', 'readonly': true },
+                            // hidden read only field
+                            //  { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'items': [
@@ -597,7 +601,8 @@ function Controller($scope, $translate, $timeout,
                             'copyValueTo': ['legend.type'],
                             'onChange': setDefaultStructureLegend
                         },
-                        { 'key': 'legend.type', 'readonly': true },
+                    // hidden read only field
+                    //  { 'key': 'legend.type', 'readonly': true },
                         { 'type': 'fieldset', 'htmlClass': 'av-legend-structure hidden', 'title': $translate.instant('form.map.legendtext'), 'items': [
                             { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
