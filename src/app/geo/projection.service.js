@@ -10,6 +10,12 @@ angular
     .module('app.geo')
     .factory('projectionService', projectionService);
 
+/**
+ * The `projectionService` factory exposes projection functions from geoApi
+ * @function projectionService
+ * @param  {Object} gapiService
+ * @return {Object} service
+ */
 function projectionService(gapiService) {
     const service = {
         projectExtent: projectExtent
@@ -22,6 +28,7 @@ function projectionService(gapiService) {
     /**
      * Reproject the extent
      * @function projectExtent
+     * @private
      * @param  {Object} extent  extent to reproject
      * @param  {Object} outWKID  the output spatial reference
      * @return {Object} the reprojected extent
