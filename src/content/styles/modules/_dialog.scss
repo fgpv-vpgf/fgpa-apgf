@@ -30,6 +30,25 @@
 
 
 @mixin dialog {
+    .av-hide {
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+
+    .av-hide-animate {
+        display: inherit;
+        opacity: 1;
+        transition: opacity $swift-ease-in-duration $swift-ease-in-out-timing-function;
+    }
+
+    .av-scrollbar-measure {
+        width: rem(10);
+        height: rem(10);
+        overflow: scroll;
+        position: absolute;
+        top: - rem(999);
+    }
+
     .av-save-dialog {
         height: 230px;
         width: 600px;

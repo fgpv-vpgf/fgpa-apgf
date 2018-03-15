@@ -1,0 +1,132 @@
+@mixin help {
+    av-help-overlay {
+        position: absolute;
+        z-index: 999;
+
+        div[av-name] {
+            position: absolute;
+        }
+    }
+
+    $help-padding: rem(0.4);
+    $help-record-height: rem(6.0);
+
+    .av-help-summary {
+        height: 80%;
+        width: 70%;
+        border-radius: 0;
+
+        @include include-size(av-sm) {
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .av-help-list {
+            padding: 0;
+            list-style: none;
+
+            > li:last-child .av-help-list{
+                border-bottom: none;
+            }
+
+            table {
+                margin-bottom: rem(1.5);
+            }
+
+            td, th {
+                padding: 0 rem(0.5);
+            }
+        }
+
+        .av-content, .av-subsection {
+            padding: rem(0.8) 0;
+        }
+
+        .av-help-content {
+            padding: rem(0.8) rem(2.4) rem(2.4) rem(2.4);
+            border-bottom: 1px solid $divider-color-light;
+        }
+
+        .av-help-header {
+
+            height: $help-record-height;
+            padding-right: $help-padding + rem(1.0);
+            padding-left: $help-padding + rem(1.0);
+
+            .av-toggled.md-toggle-icon {
+                transform: rotate(180deg) !important;
+            }
+
+            // hide list shadow when the layer list is closed; otherwise, it will still be visilbe
+            &:hover ~ .av-help-content:not(.ng-hide) ~ .av-shadow {
+                background-color: $primary-color;
+            }
+        }
+
+        .av-help-highlight {
+            background-color: $primary-color;
+            color: $primary-color-text;
+        }
+    }
+
+    .av-clearable-input {
+        // remove clear button rendered by IE;
+        input::-ms-clear {
+            display: none;
+        }
+
+        button.av-clear-button {
+            position: absolute;
+            right: 0;
+
+            @each $item in $button-sizes {
+                &.av-button-#{$item} {
+                    top: calc(50% - #{$item / 2}px);
+                }
+            }
+        }
+    }
+
+    .av-no-message-input {
+        .md-errors-spacer {
+            display: none;
+        }
+    }
+
+    av-help-search {
+        display: flex;
+        align-items: center;
+
+        md-input-container {
+            margin: 0;
+
+            // remove clear button rendered by IE;
+            input::-ms-clear {
+                display: none;
+            }
+
+            .av-clear-search {
+                position: absolute;
+                right: 0;
+
+                @each $item in $button-sizes {
+                    &.av-button-#{$item} {
+                        top: calc(50% - #{$item / 2}px);
+                    }
+                }
+            }
+
+            .md-errors-spacer {
+                display: none;
+            }
+        }
+
+        md-icon {
+            margin-right: rem(0.6);
+            min-width: 0;
+            min-height: 0;
+        }
+    }
+}

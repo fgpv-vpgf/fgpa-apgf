@@ -1,6 +1,32 @@
-<md-dialog  aria-label="{{ 'header.help' | translate }}" class="av-help-dialog">
-      <av-content-panel close-panel="self.close()" title-style="title" title-value="{{ 'header.help' | translate }}">
-        <div ng-bind-html="self.help"   class="ng-scope ng-isolate-scope"></div>
-      <p class="av-help-dialog"></p>
+<md-dialog aria-label="{{ 'header.helpdialog.title' | translate }}" class="av-help-dialog av-help-summary">
+    <av-content-panel
+        close-panel="self.closeHelpSummary()"
+        title-style="title"
+        title-value="{{ 'header.helpdialog.title' | translate }}"
+        header-controls="av-help-search"
+        header-controls-scope="self.scope"
+        is-loading="self.isLoading">
+
+        <!-- <br> tags in translation strings only get interpreted with the directive, not the filter -->
+        <div class="av-subsection" ng-if="self.searchTerm && self.filteredSections.length === 0">
+            <div class="av-subcontent" layout="row" layout-align="center center">
+                <p class="md-subhead">{{ 'header.helpdialog.nothingfound' | translate }}</p>
+            </div>
+        </div>
+
+        <ul class="av-help-list">
+            <li class="av-help-section" ng-repeat="section in (self.filteredSections = (self.sections | select:self.searchTerm ))">
+
+                <fieldset
+                    class="schema-form-fieldset av-accordion-toggle"
+                    ng-class="{ 'av-collapse': self.searchTerm === '' || self.searchTerm === undefined }">
+                    <legend>{{ section.header }}</legend>
+                    <div class="av-accordion-content av-accordion-content-help">
+                        <p ng-bind-html="section.info"></p>
+                    </div>
+                </fieldset>
+
+            </li>
+        </ul>
     </av-content-panel>
 </md-dialog>

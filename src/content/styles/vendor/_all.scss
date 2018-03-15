@@ -3,8 +3,10 @@ jQuery UI and a color picker override styles are examples of CSS that you might 
 This should make it easy to update my third-party stylesheets to more current versions in the future. */
 
 // import all vendor override files
+@import "_angularmaterial.scss";
 @import "_bootstrap.scss";
 @import "_shame.scss";
 
+@include angularmaterial
 @include bootstrap;
 @include IE;

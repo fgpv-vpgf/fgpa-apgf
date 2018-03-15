@@ -27,16 +27,21 @@ function avAccordion($compile, $timeout, events, constants) {
         link
     }
 
+    let globalScope;
     function link(scope, element) {
-        // when model is updated, we need to recreate the accordion
-        events.$on(events.avSwitchLanguage, () => { setAccordion(scope, element, constants.delayAccordion); });
-        events.$on(events.avSchemaUpdate, () => { setAccordion(scope, element, constants.delayAccordion); });
-        events.$on(events.avLoadModel, () => { setAccordion(scope, element, constants.delayAccordion); });
-
-        events.$on(events.avNewItems, () => {
-            setAccordion(scope, element, 100);
-        });
+        globalScope = scope;
     }
+
+    // when model is updated, we need to recreate the accordion
+    events.$on(events.avSwitchLanguage, () => setAccordion(globalScope, $('.av-tools'), constants.delayAccordion));
+    events.$on(events.avSchemaUpdate, () => setAccordion(globalScope, $('.av-tools'), constants.delayAccordion));
+    events.$on(events.avLoadModel, () => setAccordion(globalScope, $('.av-tools'), constants.delayAccordion));
+
+    // when new item is added
+    events.$on(events.avNewItems, () => setAccordion(globalScope, $('.av-tools'), constants.delayScroll));
+
+    // when help dialog open
+    events.$on(events.avShowHelp, () => setAccordion(globalScope, $('.av-help-summary'), constants.delayScroll))
 
     /**
      * Set accordion on form if needed
