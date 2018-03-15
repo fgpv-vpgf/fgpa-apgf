@@ -119,11 +119,6 @@ module.exports = function (env) {
                 { from: 'node_modules/tv4/tv4.js', to: 'form'},
                 { from: 'node_modules/angular-schema-form-bootstrap/dist/angular-schema-form-bootstrap-bundled.min.js', to: 'form'}
             ]),
-
-            // need to add angular-schema-form inside html with HtmlWebpackIncludeAssetsPlugin... https://github.com/json-schema-form/json-schema-form-core/pull/5
-            new HtmlWebpackPlugin({
-                filename: 'samples/index-author.html'
-            }),
             new HtmlWebpackIncludeAssetsPlugin({
                 assets: ['form/tv4.js'],
                 append: false
