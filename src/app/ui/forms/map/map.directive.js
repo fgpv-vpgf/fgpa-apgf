@@ -227,6 +227,16 @@ function Controller($scope, $translate, $timeout,
                 element.getElementsByClassName('av-columns')[0].classList.remove('hidden');
 
             }, constants.delayUpdateColumns);
+        }).catch(err => {
+            // catch the error and reinitialize the fields array
+            console.log(err);
+
+            // if it is a dynamic layer, use the index of the layer entry
+            model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementFeat.getAttribute('sf-index')];
+
+            // make sure table exist on layer object then empty fields
+            if (typeof model.table === 'undefined') { model.table = { }; }
+            model.table.columns = [];
         });
     }
 
@@ -519,7 +529,14 @@ function Controller($scope, $translate, $timeout,
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'layers');
                                     self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false) },
-                                { 'key': 'layers[].url' },
+                                { 'key': 'layers[].url', 'onChange': debounceService.registerDebounce(model => {
+                                    // check if it is a feature layer. If so, set fields. For dynamic we set when index change
+                                    if (angular.isNumber(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
+                                        // simulate click event to set fields
+                                        const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
+                                        $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
+                                    }
+                                }, constants.delayUpdateColumns, false) },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].layerType', 'readonly': true },
@@ -530,7 +547,13 @@ function Controller($scope, $translate, $timeout,
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
-                                            { 'key': 'layers[].layerEntries[].index', 'htmlClass': 'av-feature-index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
+                                            { 'key': 'layers[].layerEntries[].index', 'htmlClass': 'av-feature-index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                                self.formService.copyValueToFormIndex(model, item);
+
+                                                // simulate click event to set fields
+                                                const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
+                                                $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
+                                            }, constants.delayUpdateColumns, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
@@ -658,7 +681,7 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.search` },
             { 'key': `${model}.applyMap` },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
-                { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'layerType': layerType, 'onClick': setColumns },
+                { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'htmlClass': 'av-form-setfields', 'layerType': layerType, 'onClick': setColumns },
                 { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-columns hidden', 'add': null, 'items': [
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablecol'), 'items': [
