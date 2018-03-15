@@ -11,6 +11,12 @@ angular
     .module('app.geo')
     .factory('gapiService', gapi);
 
+  /**
+   * The `gapi` factory exposes `geoApi` interface after it's loaded. Modules should not access `gapi` property before it's set. It's safe though since `core.run` block waits for `gapi` to be ready before kicking in the app into gear.
+   * @function gapii
+   * @private
+   *
+   */
 function gapi($q, globalRegistry) {
     const service = {
         gapi: null, // actual gapi interface; available after gapiPromise resovles

@@ -10,6 +10,11 @@ angular
     .module('app.geo')
     .factory('layerService', layerService);
 
+/**
+ * The `layerService` factory exposes layer functions from geoApi
+ * @function layerService
+ * @private
+ */
 function layerService($q, $interval, gapiService) {
     const service = {
         getLayer: getLayer
@@ -49,6 +54,11 @@ function layerService($q, $interval, gapiService) {
 
     /***/
 
+    /**
+     * loads Esri Feature layers
+     * @function getLayer
+     * @private
+     */
     function getLayer(model, featClass) {
         let config = $.extend(model, configExtend);
 
