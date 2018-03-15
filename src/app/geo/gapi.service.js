@@ -11,6 +11,13 @@ angular
     .module('app.geo')
     .factory('gapiService', gapi);
 
+/**
+ * loads Esri layers
+ * @function getLayer
+ * @param {Object} $q Angular object
+ * @param {Object} globalRegistry Angular object
+ * @return {Object}  service
+ */
 function gapi($q, globalRegistry) {
     const service = {
         gapi: null, // actual gapi interface; available after gapiPromise resovles
