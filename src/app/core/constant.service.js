@@ -42,7 +42,7 @@ angular
             },
             services: {
                 index: 2,
-                keys: ['search', 'export', 'form.service.urls']
+                keys: ['export', 'search', 'form.service.urls']
             }
         }
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface

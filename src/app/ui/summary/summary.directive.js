@@ -150,21 +150,27 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
      * @function openPreview
      */
     function openPreview() {
-        // set the config to use by the preview window/iFrame
-        localStorage.setItem('configpreview', modelManager.save(true));
 
-        // set the array of languages to use by the preview window/iFrame
-        const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
-        localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
+        validateForm();
 
-        $mdDialog.show({
-            controller: previewController,
-            controllerAs: 'self',
-            templateUrl: templateUrls.preview,
-            parent: $('.fgpa'),
-            clickOutsideToClose: true,
-            fullscreen: false
-        });
+        if (stateManager.goNoGoPreview()) {
+
+            // set the config to use by the preview window/iFrame
+            localStorage.setItem('configpreview', modelManager.save(true));
+
+            // set the array of languages to use by the preview window/iFrame
+            const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
+            localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
+
+            $mdDialog.show({
+                controller: previewController,
+                controllerAs: 'self',
+                templateUrl: templateUrls.preview,
+                parent: $('.fgpa'),
+                clickOutsideToClose: true,
+                fullscreen: false
+            });
+        }
     }
 
     function previewController($mdDialog) {
