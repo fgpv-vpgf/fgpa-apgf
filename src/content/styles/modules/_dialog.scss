@@ -36,7 +36,6 @@
     }
 
     .av-hide-animate {
-        display: inherit;
         opacity: 1;
         transition: opacity $swift-ease-in-duration $swift-ease-in-out-timing-function;
     }
@@ -50,7 +49,7 @@
     }
 
     .av-save-dialog {
-        height: 230px;
+        height: 240px;
         width: 600px;
         border-radius: 0;
 
@@ -58,7 +57,7 @@
     }
 
     .av-error-dialog {
-        height: 180px;
+        height: 190px;
         width: 800px;
         border-radius: 0;
 
@@ -66,7 +65,7 @@
     }
 
     .av-lods-dialog {
-        height: 230px;
+        height: 240px;
         width: 800px;
         border-radius: 0;
 
