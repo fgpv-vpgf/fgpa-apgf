@@ -204,7 +204,7 @@ function Controller($scope, $translate, $timeout,
 
             // remove shape column if present
             model.table.columns.map((field, index) => {
-                if (field.data === 'SHAPE') { model.table.columns.splice(index, 1) }
+                if (field.data.toUpperCase() === 'SHAPE') { model.table.columns.splice(index, 1) }
             });
 
             // broadcast event to generate accordion
@@ -223,7 +223,7 @@ function Controller($scope, $translate, $timeout,
                 columnClass.push({ 'cls': 'av-columns', 'ind': -1 });
                 self.formService.initValueToFormIndex(model.table.columns, columnClass, 'title', 'legend.0');
 
-                // FIXME: remove hidden class. This clss is there because we can't use strartempty: true on columns array
+                // FIXME: remove hidden class. This css is there because we can't use strartempty: true on columns array
                 // ASF throws an error. So we start with one undefined element with hidden class then update the array
                 // and remove the class
                 const element = (featClass === -1) ? elementDyn : elementFeat;
@@ -557,7 +557,8 @@ function Controller($scope, $translate, $timeout,
                                     self.formService.updateLinkValues($scope, ['layers', 'id'], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false) },
                                 { 'key': 'layers[].url', 'onChange': debounceService.registerDebounce(model => {
                                     // check if it is a feature layer. If so, set fields. For dynamic we set when index change
-                                    if (angular.isNumber(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
+                                    if (!isNaN(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
+                                        console.log('in');
                                         // simulate click event to set fields
                                         const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
                                         $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);

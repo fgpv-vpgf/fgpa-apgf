@@ -38,8 +38,7 @@ function layerService($q, $interval, gapiService) {
             'remove',
             'settings',
             'data',
-            'symbology',
-            'interval'
+            'styles'
         ],
         disabledControls: [],
         userDisabledControls: []
