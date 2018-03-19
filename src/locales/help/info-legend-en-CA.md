@@ -40,6 +40,8 @@ This section contains 5 buttons that can be used to add JSON object to the edito
 * UNBOUND LAYER
 * VISIBILITY SET
 
+Once you have added an automatic edition section to the legend it will be highlighted when legend get focus.
+
 ##### ENTRY
 
 This is a basic legend entry that corresponds to a layer.

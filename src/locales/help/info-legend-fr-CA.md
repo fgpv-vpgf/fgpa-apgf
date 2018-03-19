@@ -40,6 +40,8 @@ Cette section contient cinq boutons qui peuvent être utilisés pour ajouter des
 * COUCHE NON LIÉE
 * GROUPE VISIBILITÉ
 
+Une fois que vous avez ajouté une section d'édition automatique à la légende, elle sera mise en surbrillance lorsque la légende sera mise en évidence.
+
 ##### ENTRÉE
 
 Une entrée de base dans la légende correspondant à une couche.

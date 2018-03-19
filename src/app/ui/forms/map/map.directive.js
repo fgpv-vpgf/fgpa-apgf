@@ -44,6 +44,9 @@ function Controller($scope, $translate, $timeout,
     self.sectionName = $translate.instant('app.section.map');
     self.formService = formService;
 
+    // keep track of legend cursor position
+    self.legendCursor = 0;
+
     // when schema is loaded or create new config is hit, initialize the schema, form and model
     events.$on(events.avSchemaUpdate, () => {
         $scope.model = modelManager.getModel(self.modelName);
@@ -243,31 +246,27 @@ function Controller($scope, $translate, $timeout,
     /**
      * Validate JSON structure legend
      * @function validateLegend
-     * @param  {Object} event  event trigger bu the validate button
      */
-    function validateLegend(event) {
-        const help = $(event.currentTarget).closest('.schema-form-fieldset')[0]
-            .getElementsByClassName('av-legend-json')[0];
+    function validateLegend() {
+        // remove focus event
+        //$('#activeForm-legend-root').off('focus');
 
+        const help = document.getElementsByClassName('av-legend-json')[0];
         try {
             $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+            document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
             // set class and message
             help.classList.remove('av-legend-json-error');
             help.classList.add('av-legend-json-valid');
             help.innerHTML = $translate.instant('form.map.legendtextvalid');
         } catch (e) {
-
             // set class
             help.classList.add('av-legend-json-error');
             help.classList.remove('av-legend-json-valid');
 
             // set message
-            if (e instanceof SyntaxError) {
-                help.innerHTML = e;
-            } else {
-                help.innerHTML = e;
-            }
+            help.innerHTML = e;
         }
     }
 
@@ -291,6 +290,11 @@ function Controller($scope, $translate, $timeout,
 
                 elem.classList.remove('hidden');
             }
+
+            // set legend cursor position
+            $('#activeForm-legend-root').on('click', evt => {
+                updateCursorPos(evt.currentTarget.selectionStart);
+            });
         }, time);
     }
 
@@ -341,7 +345,27 @@ function Controller($scope, $translate, $timeout,
             }
         }
 
-        $scope.model.legend.root += JSON.stringify(legendSection[section], null, 4);
+        // update legend string (place the snippet at the last string edit)
+        const snippet = JSON.stringify(legendSection[section], null, 4);
+        $scope.model.legend.root = [$scope.model.legend.root.slice(0, self.legendCursor),
+            snippet,
+            $scope.model.legend.root.slice(self.legendCursor)].join('');
+
+        // on focus, highlight the new snippet
+        $('#activeForm-legend-root').on('focus', evt => {
+            evt.currentTarget.setSelectionRange(self.legendCursor, self.legendCursor + snippet.length + 1);
+        });
+    }
+
+    /**
+     * Show/update legend cursor position
+     * @function updateCursorPos
+     * @param  {Integer} pos  cursor position
+     */
+    function updateCursorPos(pos) {
+        self.legendCursor = pos;
+        document.getElementsByClassName('av-legend-cursorpos')[0].innerText =
+            `${$translate.instant('form.map.legendcursor')} ${pos}`;
     }
 
     function setForm() {
@@ -607,7 +631,7 @@ function Controller($scope, $translate, $timeout,
                     { 'key': 'legend', 'items': [
                         {
                             'type': 'template',
-                            'template': '<div class="av-legend-link" ng-click="form.link()">{{form.name}}</div>',
+                            'template': '<div class="av-legend-link" ng-click="form.link()">{{ form.name }}</div>',
                             'name': $translate.instant('form.map.goui'),
                             'link': () => commonService.clickSubTab(2, 'form.ui.general')
                         },
@@ -622,9 +646,17 @@ function Controller($scope, $translate, $timeout,
                         },
                         { 'key': 'legend.type', 'readonly': true },
                         { 'type': 'fieldset', 'htmlClass': 'av-legend-structure hidden', 'title': $translate.instant('form.map.legendtext'), 'items': [
-                            { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea' },
+                            { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea', 'onChange': () => {
+                                // remove the focus event
+                                const textArea = $('#activeForm-legend-root');
+                                textArea.off('focus');
+
+                                // update cursor position
+                                updateCursorPos(textArea[0].selectionStart);
+                            } },
+                            { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend(event) },
+                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
                                     { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },

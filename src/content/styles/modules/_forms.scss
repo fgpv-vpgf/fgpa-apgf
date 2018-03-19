@@ -96,4 +96,12 @@
     .av-legend-link {
         margin-bottom: 20px;
     }
+
+    #activeForm-legend-root {
+        white-space: pre-wrap; // for FF and Safari to format JSON properly
+    }
+
+    .av-legend-cursorpos {
+        float: right;
+    }
 }
