@@ -19,4 +19,4 @@ If you want to set more settings like available controls and/or customize table,
 
 You can reorder the layers at your convenience but keep in mind layers are only reorderable inside their own type (feature or image). So even if the interface let you mix them up, they will be regroup inside the viewer.
 
-__Important:__ Modifying the layer type of an existing layer is not a good thing to do. It is better to create a new layer and then delete the old one.
+**IMPORTANT** - Modifying the layer type of an existing layer is not a good thing to do. It is better to create a new layer and then delete the old one.
