@@ -218,7 +218,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
                 const subTabLength = constants.subTabs[section].keys.length;
                 if (childrenTab.length === subTabLength && childrenPane.length === subTabLength) {
                     for (let [j, child] of childrenTab.entries()) {
-                        const id = constants.subTabs[section].keys[j].replace(/\./g, '-')
+                        const id = constants.subTabs[section].keys[j].replace(/\./g, '-');
                         child.setAttribute('id', id);
                     }
                     for (let [j, child] of childrenPane.entries()) {
