@@ -134,15 +134,8 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         // Set master element validity
         setMasterValidity(_state[modelName]);
 
-
-        // ADVANCE SECTION
-        // Advance parameters
-        let adv = [];
-        listAdvanceHidden(arrForm, adv);
-        const advHidden = [].concat.apply([], adv);
-
-        // Set special style to hidden advance parameter
-        setAdvance(_state[modelName], modelName, advHidden);
+        // ADVANCE PARAMETERS SECTION
+        processAdvance(_state, modelName, arrForm);
     }
 
     /**
@@ -190,21 +183,134 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
     }
 
     /**
+     * Process advance parameters
+     * @function processAdvance
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {String}  modelName mode name
+     * @param {Array}   arrForm array form
+     */
+    function processAdvance(stateModel, modelName, arrForm) {
+        // Advance and advance hidden parameters
+        let adv = [];
+        let advH = [];
+        listAdvance(arrForm, adv, advH);
+
+        let cleanAdv = [];
+        let cleanAdvH = [];
+
+        // Special cases in map model
+        if (modelName === 'map') {
+            identifyMapAdvance(adv, advH, cleanAdv, cleanAdvH);
+        }
+
+        let finalAdv = cleanAdv.length > 0 ? cleanAdv.slice() : adv.slice();
+        let finalAdvH = cleanAdvH.length > 0 ? cleanAdvH.slice() : advH.slice();
+
+        if (cleanAdvH.length > 0) {
+            // Remove hidden advance parameters from state tree
+            for (let item of finalAdvH) {
+                removeHiddenAdvance(_state[modelName], _state, item);
+            }
+        } else {
+            // Set special style to advance parameters to be shown
+            for (let item of finalAdv) {
+                setAdvance(_state[modelName], item);
+            }
+        }
+
+    }
+
+    /**
+     * Identify special cases in map for map:tileSchemas and map:lodSets because they are in accordion
+     * Remove keys for basemaps and layers
+     * @function identifyMapAdvance
+     * @private
+     * @param {Array}  adv advance
+     * @param {Array}   advH advance hidden
+     * @param {Array}  cleanAdv advance
+     * @param {Array}   cleanAdvH advance hidden
+     */
+    function identifyMapAdvance(adv, advH, cleanAdv, cleanAdvH) {
+        for (let item of adv) {
+            if (item[0] !== 'baseMaps' && item[0] !== 'layers') {
+                cleanAdv.push(item);
+            }
+        }
+
+        for (let item of advH) {
+            if (item[0] !== 'baseMaps' && item[0] !== 'layers') {
+                cleanAdvH.push(item);
+            }
+        }
+
+        cleanAdv.push(['tileSchemas']);
+        cleanAdv.push(['lodSets']);
+
+        const keys = ['tileSchemas','lodSets'];
+
+        for (let item of keys) {
+            const el = document.getElementsByClassName(`${item} av-accordion-content`);
+            const pa = el[0].parentNode;
+            const paClassList = Array.from(pa.classList);
+            if (paClassList.includes('av-form-advance') && paClassList.includes('hidden')) {
+                cleanAdvH.push([item]);
+            }
+        }
+
+        // Special case for components.mouseInfo.spatialReference
+        const el = document.getElementsByClassName(`-0-components-0-mouseInfo-spatialReference`);
+        const elClassList = Array.from(el[0].classList);
+        if (elClassList.includes('av-form-advance') && elClassList.includes('hidden')) {
+            cleanAdvH.push(['components', 'mouseInfo', 'spatialReference']);
+        }
+    }
+
+    /**
      * Set advance parameter in state model
      * All element and sub-element will have 'advance' parameter
      * set to true
      * @function setAdvance
      * @private
      * @param {Object}  stateModel the stateModel
-     * @param {String}  modelName modelName
-     * @param {Array}   arrKeys list of advance parameter keys
+     * @param {Array}   keys keys
      */
-    function setAdvance(stateModel, modelName, arrKeys) {
-        if (arrKeys.includes(stateModel.key)) {
-            setStateValueDown(stateModel, 'advance', true)
-        } else if (stateModel.hasOwnProperty('items')) {
-            for (let item of stateModel.items) {
-                setAdvance(item, modelName, arrKeys);
+    function setAdvance(stateModel, keys) {
+        if (stateModel.key === keys[0] && keys.length === 1) {
+            setStateValueDown(stateModel, 'advance', true);
+        } else {
+            if (stateModel.key === keys[0] && keys.length > 1) {
+                keys.shift();
+            }
+            if (stateModel.hasOwnProperty('items')) {
+                for (let item of stateModel.items) {
+                    setAdvance(item, keys);
+                }
+            }
+        }
+    }
+
+    /**
+     * Remove advance hidden parameters in state model
+     * @function removeHiddenAdvance
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  parent parent reference object in the tree
+     * @param {Array}   keys keys
+     * @param {String}  itemKeyIndex index in the items array
+     */
+    function removeHiddenAdvance(stateModel, parent, keys, itemKeyIndex = -1) {
+        if (stateModel.key === keys[0] && keys.length === 1) {
+            // Delete record in array
+            parent.items.splice(itemKeyIndex, 1);
+        } else {
+            if (stateModel.key === keys[0] && keys.length > 1) {
+                keys.shift();
+            }
+            if (stateModel.hasOwnProperty('items')) {
+                for (let [j, item] of stateModel.items.entries()) {
+                    removeHiddenAdvance(item, stateModel, keys, j);
+                }
             }
         }
     }
@@ -434,22 +540,48 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
     }
 
     /**
-     * List of hidden advance parameters
-     * @function listAdvanceHidden
+     * List of advance parameters
+     * @function listAdvance
      * @private
      * @param {Array}   arrForm   the form as an array of objects
-     * @param {Array}   list   list of hidden advance parameters
+     * @param {Array}   listAdv   list of advance parameters
+     * @param {Array}   listHid   list of hidden advance parameters
      */
-    function listAdvanceHidden(arrForm, list) {
+    function listAdvance(arrForm, listAdv, listHid) {
 
-        arrForm.forEach(item => {
-            if (item.hasOwnProperty('htmlClass') && item.htmlClass === 'av-form-advance hidden') {
-                list.push(item.key);
+        for (let item of arrForm) {
+            if (item.hasOwnProperty('htmlClass')
+                && item.htmlClass.includes('av-form-advance')
+                && item.hasOwnProperty('key')) {
+                // Clean the key
+                let keys = item.key.filter(el => el !== "" && isNaN(el));
+                listAdv.push(keys);
+
+                // List hidden elements
+                if (advHiddenInDOM(keys) === true) listHid.push(keys);
             }
             if (item.hasOwnProperty('items')) {
-                listAdvanceHidden(item.items, list);
+                listAdvance(item.items, listAdv, listHid);
             }
-        });
+        }
+    }
+
+    /**
+     * Check in the DOM for hidden element
+     * @function advHiddenInDOM
+     * @private
+     * @param {Array}   keys   keys
+     * @return {Boolean}   if hidden return true else false
+     */
+    function advHiddenInDOM(keys) {
+        let hidden = true;
+
+        const domClass = keys.join('-');
+        const el = document.getElementsByClassName(`${domClass} hidden`);
+
+        hidden = el.length === 0 ? false : true;
+
+        return hidden;
     }
 
     /**
