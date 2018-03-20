@@ -740,7 +740,7 @@
                 "snapshot": false,
                 "userAdded": false
             },
-            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "symbology", "interval"],
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
             "userDisabledControls": []
         }, {
             "layerChoice": "esriFeature",
@@ -1032,7 +1032,7 @@
                 "snapshot": false,
                 "userAdded": false
             },
-            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "symbology", "interval"],
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
             "userDisabledControls": []
         }, {
             "layerChoice": "esriDynamic",
