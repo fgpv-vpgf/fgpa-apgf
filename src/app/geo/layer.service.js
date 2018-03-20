@@ -19,10 +19,11 @@ function layerService($q, $interval, gapiService) {
     const configExtend = {
         state: {
             opacity: 1,
-            visibility: true,
+            visibility: false,
             boundingBox: false,
-            query: true,
+            query: false,
             snapshot: false,
+            hovertips: false,
             userAdded: false
         },
         controls: [
@@ -49,24 +50,35 @@ function layerService($q, $interval, gapiService) {
     /***/
 
     function getLayer(model, featClass) {
-        let config = $.extend(model, configExtend);
+        // add needed configurations
+        configExtend.name = model.name;
+        configExtend.id = model.id;
+        configExtend.url = model.url;
+        configExtend.layerType = model.layerType;
+        configExtend.layerEntries = model.layerEntries;
 
         return $q((resolve, reject) => {
-            // get the layer record
-            const layer = (model.layerType === 'esriFeature') ?
-                gapiService.gapi.layer.createFeatureRecord(config) : gapiService.gapi.layer.createDynamicRecord(config);
+            // check if minimum configuration is present. If not throw error
+            if (typeof configExtend.url === 'undefined') {
+                reject('Url is not set');
+            } else {
+                // get the layer record
+                const layer = (model.layerType === 'esriFeature') ?
+                    gapiService.gapi.layer.createFeatureRecord(configExtend) :
+                    gapiService.gapi.layer.createDynamicRecord(configExtend);
 
-            // wait for layer to load
-            let to = $interval(() => {
-                if (layer.state === 'rv-loaded') {
-                    $interval.cancel(to);
-                    // get featureClass to query then get fields
-                    const index = (featClass === -1) ? layer._defaultFC : featClass;
-                    layer._featClasses[index].getLayerData().then(data => { resolve(data) });
-                } else if (layer.state === 'rv-error') {
-                    reject('Not able to connect to layer');
-                }
-            }, 500);
+                // wait for layer to load
+                let to = $interval(() => {
+                    if (layer.state === 'rv-loaded') {
+                        $interval.cancel(to);
+                        // get featureClass to query then get fields
+                        const index = (featClass === -1) ? layer._defaultFC : featClass;
+                        layer._featClasses[index].getLayerData().then(data => { resolve(data.fields) });
+                    } else if (layer.state === 'rv-error') {
+                        reject('Not able to connect to layer');
+                    }
+                }, 500);
+            }
         });
     }
 }
