@@ -47,6 +47,9 @@ function Controller($scope, $translate, $timeout,
     // keep track of legend cursor position
     self.legendCursor = 0;
 
+    // keep track of number of layers to fire onChange only for new layer
+    self.layers = -1;
+
     // when schema is loaded or create new config is hit, initialize the schema, form and model
     events.$on(events.avSchemaUpdate, () => {
         $scope.model = modelManager.getModel(self.modelName);
@@ -65,6 +68,11 @@ function Controller($scope, $translate, $timeout,
         init();
     });
 
+    /**
+     * Initialize the map form.
+     * @function init
+     * @private
+     */
     function init() {
         $scope.schema = modelManager.getSchema(self.modelName);
 
@@ -92,6 +100,7 @@ function Controller($scope, $translate, $timeout,
     /**
      * Initialize header (collapsible element) value (form element) from model values when it loads.
      * @function setCollapsibleHeader
+     * @private
      */
     function setCollapsibleHeader() {
         // set collapsible element from model value when first load
@@ -129,6 +138,7 @@ function Controller($scope, $translate, $timeout,
     /**
      * Initialize header (collapsible element) value (form element) for layer entry from model values when it loads.
      * @function setCollapsibleHeaderEntry
+     * @private
      * @param  {String} layerType  type of layer
      * @param  {Integer} layerIndex  index of the layer inside the array
      * @param  {Array} entries  array of layer entries
@@ -159,6 +169,13 @@ function Controller($scope, $translate, $timeout,
         }
     }
 
+    /**
+     * Initialize layer columns for datatable from the layer url and layer entry index
+     * @function setColumns
+     * @private
+     * @param  {Object} event  the event
+     * @param  {Integer} item  Angular schema form item
+     */
     function setColumns(event, item) {
         // get the element for dynamic and feature layer
         const currTarget  = $(event.currentTarget);
@@ -183,7 +200,7 @@ function Controller($scope, $translate, $timeout,
             if (typeof model.table === 'undefined') { model.table = { }; }
 
             // set the columns from the layer field
-            model.table.columns = data.fields.map(field => {
+            model.table.columns = data.map(field => {
                 // get field type, set number as default
                 let fieldType = 'number';
                 if (field.type === 'esriFieldTypeString') { fieldType = 'string'; }
@@ -246,10 +263,11 @@ function Controller($scope, $translate, $timeout,
     /**
      * Validate JSON structure legend
      * @function validateLegend
+     * @private
      */
     function validateLegend() {
         // remove focus event
-        //$('#activeForm-legend-root').off('focus');
+        $('#activeForm-legend-root').off('focus');
 
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
@@ -274,6 +292,7 @@ function Controller($scope, $translate, $timeout,
      * Set default JSON structure legend
      * FIXME: this is a workaround to parse the legend string to JSON objects because the graphic ui is not designed yet
      * @function setDefaultStructureLegend
+     * @private
      * @param {Interger} time the timeout duration (optional, default = 0)
      */
     function setDefaultStructureLegend(time = 100) {
@@ -301,6 +320,7 @@ function Controller($scope, $translate, $timeout,
     /**
      * Add a legend section snippet
      * @function addLegendSnippet
+     * @private
      * @param  {String} section  type of section to add
      */
     function addLegendSnippet(section) {
@@ -360,6 +380,7 @@ function Controller($scope, $translate, $timeout,
     /**
      * Show/update legend cursor position
      * @function updateCursorPos
+     * @private
      * @param  {Integer} pos  cursor position
      */
     function updateCursorPos(pos) {
@@ -368,6 +389,71 @@ function Controller($scope, $translate, $timeout,
             `${$translate.instant('form.map.legendcursor')} ${pos}`;
     }
 
+    /**
+     * Initialize layer object to solve the bug of 'linked' layers
+     * If we don't do this, when we change something in the controls array or state, it
+     * is replecated everywhere in all controls or state of all layer.
+     * We initilize layerEntries as well. If not new layer have layerEntries from other layers
+     *
+     * @function initLayer
+     * @private
+     * @param  {Object} layers  array of layers to initialize
+     */
+    function initLayer(layers) {
+
+        // When we add a new layer, initialize the controls array to avoid linked layers controls bug
+        if (layers.length - 1 > self.layers) {
+            const layer = layers[layers.length -1];
+
+            // reinitialize to break the 'link'
+            layer.controls = ['opacity', 'visibility', 'boundingBox', 'query', 'snapshot', 'metadata', 'boundaryZoom', 'refresh', 'reload', 'remove', 'settings', 'data', 'styles'];
+            layer.state.opacity = 1;
+            layer.state.visibility = true;
+            layer.state.boundingBox = false;
+            layer.state.query = true;
+            layer.state.snapshot = false;
+            layer.state.hovertips = true;
+            layer.layerEntries = [];
+        }
+
+        // update layers numbers then broadcast the new item even to update accordion
+        self.layers = layers.length -1;
+        events.$broadcast(events.avNewItems);
+    }
+
+    /**
+     * Initialize layer entry object to solve the bug of 'linked' layers entries
+     * If we don't do this, when we change something in the controls array, it
+     * is replecated everywhere in all controls or state of all layer entries.
+     *
+     * @function initLayerEntry
+     * @private
+     * @param  {Object} layerEntries  array of layer entries to initialize
+     */
+    function initLayerEntry(layerEntries) {
+
+        const entry = layerEntries[layerEntries.length -1];
+        if (typeof entry !== 'undefined' && typeof entry.init === 'undefined') {
+            entry.init = true;
+            entry.controls = ['opacity', 'visibility', 'boundingBox', 'query', 'snapshot', 'metadata', 'boundaryZoom', 'refresh', 'reload', 'remove', 'settings', 'data', 'styles'];
+
+            // we need to reset value of all controls to true to refresh the ui
+            // FIXME: know bug, the first time the use will click on a controls, it will have no effect
+            const controls = $(document.activeElement).closest('ol').find('.av-controls-bug');
+            const inputs = $(controls[controls.length - 1]).find('input');
+
+            for (let input of Array.from(inputs)) {
+                input.checked = true;
+            }
+        }
+    }
+
+    /**
+     * Set the map form
+     * @function setForm
+     * @private
+     * @return {Object} the map form
+     */
     function setForm() {
         const scope = $scope;
 
@@ -378,8 +464,7 @@ function Controller($scope, $translate, $timeout,
                     { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
                         { 'key': 'tileSchemas', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'type': 'fieldset', 'htmlClass': 'av-tileschema', 'items': [
-                            // hidden read only field
-                            //  { 'key': 'tileSchemas[].id', 'readonly': true },
+                                // hidden read only field { 'key': 'tileSchemas[].id', 'readonly': true },
                                 { 'key': 'tileSchemas[].name', 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.updateId(model, $scope, 'tileSchemas');
                                     self.formService.updateLinkValues($scope, ['tileSchemas', 'id'], 'tileId'); }, constants.debInput, false) },
@@ -510,8 +595,7 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMap', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
-                            // hidden read only field
-                            //  { 'key': 'baseMaps[].id', 'readonly': true },
+                                // hidden read only field { 'key': 'baseMaps[].id', 'readonly': true },
                                 { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'baseMaps');
@@ -545,7 +629,7 @@ function Controller($scope, $translate, $timeout,
                 { 'title': $translate.instant('form.map.layers'), 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-layers-${commonService.getLang()}.md`, true) },
                     { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => events.$broadcast(events.avNewItems), 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => { initLayer(scope.model.layers) }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
@@ -558,7 +642,6 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].url', 'onChange': debounceService.registerDebounce(model => {
                                     // check if it is a feature layer. If so, set fields. For dynamic we set when index change
                                     if (!isNaN(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
-                                        console.log('in');
                                         // simulate click event to set fields
                                         const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
                                         $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
@@ -566,11 +649,10 @@ function Controller($scope, $translate, $timeout,
                                 }, constants.delayUpdateColumns, false) },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
-                            // hidden read only field
-                            //  { 'key': 'layers[].layerType', 'readonly': true },
+                                // hidden read only field { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'items': [
+                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'onChange': debounceService.registerDebounce(model => { initLayerEntry(model) }, constants.debInput, false), 'items': [
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
@@ -587,7 +669,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                                    { 'key': 'layers[].layerEntries[].controls' },
+                                                    { 'key': 'layers[].layerEntries[].controls', 'htmlClass': 'av-controls-bug' },
                                                     // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
                                                     { 'key': 'layers[].layerEntries[].state' }
                                                 ] }
@@ -596,7 +678,7 @@ function Controller($scope, $translate, $timeout,
                                         ] }
                                     ] }
                                 ] },
-                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'items': [
+                                { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'onChange': debounceService.registerDebounce(model => { initLayerEntry(model) }, constants.debInput, false), 'items': [
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
@@ -607,7 +689,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'key': 'layers[].layerEntries[].currentStyle' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                                    { 'key': 'layers[].layerEntries[].controls' },
+                                                    { 'key': 'layers[].layerEntries[].controls', 'htmlClass': 'av-controls-bug' },
                                                     // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
                                                     { 'key': 'layers[].layerEntries[].state' }
                                                 ] }
@@ -648,8 +730,7 @@ function Controller($scope, $translate, $timeout,
                             'copyValueTo': ['legend.type'],
                             'onChange': setDefaultStructureLegend
                         },
-                    // hidden read only field
-                    //  { 'key': 'legend.type', 'readonly': true },
+                        // hidden read only field { 'key': 'legend.type', 'readonly': true },
                         { 'type': 'fieldset', 'htmlClass': 'av-legend-structure hidden', 'title': $translate.instant('form.map.legendtext'), 'items': [
                             { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea', 'onChange': () => {
                                 // remove the focus event
@@ -710,6 +791,14 @@ function Controller($scope, $translate, $timeout,
         ];
     }
 
+    /**
+     * Set the map table section form
+     * @function setTableSection
+     * @private
+     * @param {String} model model value
+     * @param {String} layerType type of layer (esriDynamic or esriFeature)
+     * @return {Object} the map table section form
+     */
     function setTableSection(model, layerType) {
         return [{ 'key': `${model}`, 'notitle': true, 'htmlClass': 'av-accordion-content', 'items': [
             { 'key': `${model}.title` },
@@ -744,6 +833,7 @@ function Controller($scope, $translate, $timeout,
     /**
      * Add a button for legend section
      * @function addLegendSection
+     * @private
      * @param {String} type type of button to add
      * @param {String} func function to associate to ng-click
      * @returns {String} the template for the button
