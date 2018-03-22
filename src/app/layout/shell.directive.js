@@ -14,6 +14,11 @@ angular
     .module('app.layout')
     .directive('avShell', avShell);
 
+/**
+ * The `ShellController` controller handles the shell which is the visible part of the layout.
+ * @function avShell
+ * @return {Object}  directive
+ */
 function avShell() {
 
     const directive = {
@@ -28,6 +33,11 @@ function avShell() {
 
     return directive;
 
+    /**
+     * @function link
+     * @param {Object} scope Angular object
+     * @param {Object} el Angular object
+     */
     function link(scope, el) {
         // TODO
         // set a resize listener on the root element to update it's layout styling based on the changed size
@@ -38,7 +48,7 @@ function avShell() {
         /**
          * Updates the $rootElement class with rv-small, rv-medium, or rv-large depending on its width and height.
          *
-         * @function  updateClass
+         * @function  _updateShallLayoutClass
          * @param {Object} newD new dimensions in the form of { width: <Number>, height: <Number> }
          * @param {Object} oldD old dimensions in the form of { width: <Number>, height: <Number> }
          */
@@ -63,6 +73,13 @@ function avShell() {
     }
 }
 
+
+/**
+ * @function Controller
+ * @param {Object} $timeout Angular object
+ * @param {Object} events Angular object
+ * @param {Object} constants the modules who contains all the constants
+ */
 function Controller($timeout, events, constants) {
     'ngInject';
     const self = this;
@@ -80,6 +97,12 @@ function Controller($timeout, events, constants) {
         hideSplash();
     });
 
+
+    /**
+     * hideSplash is used to hide the spinning wheels.
+     * @function hideSplash
+     * @private
+     */
     function hideSplash() {
         $timeout(() => { self.isReady = true }, constants.delaySplash);
     }
