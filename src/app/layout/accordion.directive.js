@@ -18,7 +18,7 @@ angular
  * @param {Object} $compile Angular object
  * @param {Object} $timeout Angular object
  * @param {Object} events Angular object
- * @param {Object} constants the modules whho contains all the constants
+ * @param {Object} constants the modules who contains all the constants
  * @return {Object}     directive body
  */
 function avAccordion($compile, $timeout, events, constants) {
@@ -49,7 +49,7 @@ function avAccordion($compile, $timeout, events, constants) {
      * @private
      * @param  {Object} scope Angular scope
      * @param  {Object} element  element to add to
-     * @param {Interger} delay timeout to apply
+     * @param {Integer} delay timeout to apply
      */
     function setAccordion(scope, element, delay) {
         $timeout(() => {

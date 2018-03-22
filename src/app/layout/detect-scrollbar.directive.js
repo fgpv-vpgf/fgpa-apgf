@@ -27,6 +27,11 @@ angular
     .module('app.ui')
     .directive('avDetectScrollbar', avDetectScrollbar);
 
+/**
+ * @function avDetectScrollbar
+ * @param {Object} $timeout Angular object
+ * @return {Object}  directive
+ */
 function avDetectScrollbar($timeout) {
     const directive = {
         restrict: 'A',
@@ -37,6 +42,12 @@ function avDetectScrollbar($timeout) {
 
     /*********/
 
+
+    /**
+ * @function link
+ * @param {Object} scope Angular object
+ * @param {Object} element Angular object
+ */
     function link(scope, element) {
         const domNode = element[0];
         let handle;

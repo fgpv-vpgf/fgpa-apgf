@@ -15,6 +15,14 @@ angular
     .module('material.components.tooltip')
     .decorator('mdTooltipDirective', mdTooltipDirective);
 
+/**
+* Decorates the original tooltip compile functions.
+* @function mdTooltipDirective
+* @param  {Object} $delegate Angular object
+* @param {Object} $rootElement Angular object
+* @param {Object} $timeout Angular object
+* @return {Object} mdTooltipDirective 
+*/
 function mdTooltipDirective($delegate, $rootElement, $timeout) {
 
     const mdTooltipDirective = $delegate[0]; // get the vanilla directive
@@ -27,7 +35,7 @@ function mdTooltipDirective($delegate, $rootElement, $timeout) {
      * Decorates the original tooltip compile functions.
      * @function decorateCompile
      * @param  {Function} originalCompile original compile function
-     * @return {Function}                 enhances link function returned by the decorated compile function which modifies display logic if touch mode is on
+     * @return {Function}  enhances link function returned by the decorated compile function which modifies display logic if touch mode is on
      */
     function decorateCompile(originalCompile) {
         return (...args) => {

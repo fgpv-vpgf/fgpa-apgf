@@ -19,7 +19,7 @@ angular
  * @param {Object} $compile Angular object
  * @param {Object} $timeout Angular object
  * @param {Object} events Angular object
- * @param {Object} constants the modules whho contains all the constants
+ * @param {Object} constants the modules who contains all the constants
  * @return {Object}     directive body
  */
 function avDragHandle($compile, $timeout, events, constants) {
@@ -28,6 +28,12 @@ function avDragHandle($compile, $timeout, events, constants) {
         link
     }
 
+    /**
+     *  recreate handle on model update
+     * @function link
+     * @param {Object} scope Angular object
+     * @param {Object} element Angular object
+     */
     function link(scope, element) {
         // when model is updated, we need to recreate the handle
         events.$on(events.avSwitchLanguage, () => { setHandle(scope, element, constants.delayHandle); });
@@ -39,6 +45,13 @@ function avDragHandle($compile, $timeout, events, constants) {
         });
     }
 
+    /**
+     *  sets sortOptions direclty on the element
+     * @function setHandle
+     * @param {Object} scope Angular object
+     * @param {Object} element Angular object
+     * @param {Object} delay Angular object
+     */
     function setHandle(scope, element, delay) {
         // sortOptions on form element doesn't seems to work. As a workaround, we set the sortOptions
         // direclty on the element.
@@ -59,6 +72,12 @@ function avDragHandle($compile, $timeout, events, constants) {
         }, delay);
     }
 
+    /**
+     *  sets the proper icon
+     * @function addIcon
+     * @param {Object} element Angular object
+     * @param {Object} scope Angular object
+     */
     function addIcon(element, scope) {
         // set the proper icon from the collapsible element state
         element.prepend(
