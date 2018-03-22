@@ -88,7 +88,13 @@ function layerService($q, $interval, gapiService) {
                         $interval.cancel(to);
                         // get featureClass to query then get fields
                         const index = (featClass === -1) ? layer._defaultFC : featClass;
-                        layer._featClasses[index].getLayerData().then(data => { resolve(data.fields) });
+                        layer._featClasses[index].getLayerData().then(data => {
+                            if (typeof data.fields !== 'undefined') {
+                                resolve(data.fields);
+                            } else {
+                                reject('Not data associate to layer');
+                            }
+                        });
                     } else if (layer.state === 'rv-error') {
                         reject('Not able to connect to layer');
                     }

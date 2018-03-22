@@ -28,35 +28,41 @@ function avDragHandle($compile, $timeout, events, constants) {
         link
     }
 
+    let started = false;
+
     function link(scope, element) {
         // when model is updated, we need to recreate the handle
         events.$on(events.avSwitchLanguage, () => { setHandle(scope, element, constants.delayHandle); });
         events.$on(events.avSchemaUpdate, () => { setHandle(scope, element, constants.delayHandle); });
         events.$on(events.avLoadModel, () => { setHandle(scope, element, constants.delayHandle); });
 
-        events.$on(events.avNewItems, () => {
-            setHandle(scope, element, 100);
-        });
+        events.$on(events.avNewItems, () => { setHandle(scope, element, 100); });
     }
 
     function setHandle(scope, element, delay) {
-        // sortOptions on form element doesn't seems to work. As a workaround, we set the sortOptions
-        // direclty on the element.
-        // for an array to be sortable, this needs to be present inside the array: { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' }
-        $('.ui-sortable').each((index, item) => {
-            $(item).sortable({
+        // drag handle is only inside map schema
+        if (scope.schema.schema === 'map' && !started) {
+            started = true;
+
+            // sortOptions on form element doesn't seems to work. As a workaround, we set the sortOptions
+            // direclty on the element.
+            // for an array to be sortable, this needs to be present inside the array: { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' }
+            // the class .av-sortable need to be present on the key e.g. 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers av-sortable'
+            $('.av-sortable > .ui-sortable').sortable({
                 'handle': 'div>div>.av-drag-handle>md-icon',
                 'placeholder': 'av-state-highlight',
                 'tolerance': 'pointer',
                 'containment': 'parent'
             });
-        });
+            $timeout(() => {
+                element.find('.av-drag-handle').not(':has(>md-icon)').each((index, element) => {
+                    addIcon($(element), scope);
+                });
+            }, delay);
 
-        $timeout(() => {
-            element.find('.av-drag-handle').not(':has(>md-icon)').each((index, element) => {
-                addIcon($(element), scope);
-            });
-        }, delay);
+            // because event is fired multiple time, reset event after time out
+            $timeout(() => { started = false; }, 1000);
+        }
     }
 
     function addIcon(element, scope) {

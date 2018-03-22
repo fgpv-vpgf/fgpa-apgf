@@ -757,6 +757,7 @@
                                         },
                                         "title": {
                                             "type": "string",
+                                            "default": "",
                                             "description": "Titre de la colonne. Si elle n'est pas fournie le nom de la colonne par défaut ou l'alias sera utilisé.",
                                             "title": "Titre"
                                         },

@@ -47,9 +47,6 @@ function Controller($scope, $translate, $timeout,
     // keep track of legend cursor position
     self.legendCursor = 0;
 
-    // keep track of number of layers to fire onChange only for new layer
-    self.layers = -1;
-
     // when schema is loaded or create new config is hit, initialize the schema, form and model
     events.$on(events.avSchemaUpdate, () => {
         $scope.model = modelManager.getModel(self.modelName);
@@ -74,8 +71,11 @@ function Controller($scope, $translate, $timeout,
      * @private
      */
     function init() {
-        $scope.schema = modelManager.getSchema(self.modelName);
+        // keep track of number of layers to fire onChange only for new layer
+        self.layers = -1;
 
+        // update schema and form
+        $scope.schema = modelManager.getSchema(self.modelName);
         $scope.form = angular.copy($scope.form);
         $scope.form = setForm();
 
@@ -220,9 +220,11 @@ function Controller($scope, $translate, $timeout,
             });
 
             // remove shape column if present
+            const updateCol = [];
             model.table.columns.map((field, index) => {
-                if (field.data.substring(0, 5).toUpperCase() === 'SHAPE') { model.table.columns.splice(index, 1) }
+                if (field.data.substring(0, 5).toUpperCase() !== 'SHAPE') { updateCol.push(model.table.columns[index]); }
             });
+            model.table.columns = updateCol;
 
             // broadcast event to generate accordion
             events.$broadcast(events.avNewItems);
@@ -400,10 +402,9 @@ function Controller($scope, $translate, $timeout,
      * @param  {Object} layers  array of layers to initialize
      */
     function initLayer(layers) {
-
         // When we add a new layer, initialize the controls array to avoid linked layers controls bug
-        if (layers.length - 1 > self.layers) {
-            const layer = layers[layers.length -1];
+        if (self.layers !== -1 && layers.length - 1 > self.layers) {
+            const layer = layers[layers.length - 1];
 
             // reinitialize to break the 'link'
             layer.controls = ['opacity', 'visibility', 'boundingBox', 'query', 'snapshot', 'metadata', 'boundaryZoom', 'refresh', 'reload', 'remove', 'settings', 'data', 'styles'];
@@ -416,11 +417,14 @@ function Controller($scope, $translate, $timeout,
                 'hovertips': true
             };
             layer.layerEntries = [];
+
+            // broadcast the new item even to update accordion
+            events.$broadcast(events.avNewItems);
         }
 
-        // update layers numbers then broadcast the new item even to update accordion
+        // update layers numbers
         self.layers = layers.length -1;
-        events.$broadcast(events.avNewItems);
+
     }
 
     /**
@@ -447,6 +451,9 @@ function Controller($scope, $translate, $timeout,
             for (let input of Array.from(inputs)) {
                 input.checked = true;
             }
+
+            // broadcast the new item even to update accordion
+            events.$broadcast(events.avNewItems);
         }
     }
 
@@ -593,7 +600,7 @@ function Controller($scope, $translate, $timeout,
                             'notitle': true
                         }
                     ] },
-                    { 'key': 'baseMaps', 'htmlClass': 'av-accordion-all av-baseMaps', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'baseMaps', 'htmlClass': 'av-accordion-all av-baseMaps av-sortable', 'startEmpty': true, 'onChange': () => { self.formService.updateLinkValues($scope, ['baseMaps', 'id'], 'initBaseId'); events.$broadcast(events.avNewItems); }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-baseMap', 'title': $translate.instant('form.map.basemap'), 'items': [
                             { 'key': 'baseMaps[]', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
@@ -631,7 +638,7 @@ function Controller($scope, $translate, $timeout,
                 { 'title': $translate.instant('form.map.layers'), 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-layers-${commonService.getLang()}.md`, true) },
                     { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers', 'startEmpty': true, 'onChange': () => { initLayer(scope.model.layers) }, 'add': $translate.instant('button.add'), 'items': [
+                    { 'key': 'layers', 'htmlClass': 'av-accordion-all av-layers av-sortable', 'startEmpty': true, 'onChange': () => { initLayer(scope.model.layers) }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
@@ -663,7 +670,7 @@ function Controller($scope, $translate, $timeout,
                                                 self.formService.copyValueToFormIndex(model, item);
 
                                                 // simulate click event to set fields
-                                                const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
+                                                const btn = $(document.activeElement).closest('.av-layerEntry').find('.av-form-setfields button')[0];
                                                 $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
                                             }, constants.delayUpdateColumns, false) },
                                             { 'key': 'layers[].layerEntries[].name' },

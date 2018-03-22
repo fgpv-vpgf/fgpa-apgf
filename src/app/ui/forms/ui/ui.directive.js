@@ -42,13 +42,13 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
     self.modelName = 'ui';
     self.sectionName = $translate.instant('app.section.ui');
     self.formService = formService;
+    self.aboutChoice = 'string';
     self.aboutContent = '';
     self.aboutFile = '';
 
     // when schema is loaded or create new config is hit, initialize the schema, form and model
     events.$on(events.avSchemaUpdate, () => {
         $scope.model = modelManager.getModel(self.modelName);
-        getAboutChoice($scope.model);
         init();
     });
 
@@ -71,6 +71,8 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
     function init() {
         $scope.schema = modelManager.getSchema(self.modelName);
 
+        getAboutChoice($scope.model);
+
         $scope.form = angular.copy($scope.form);
         $scope.form = setForm();
     }
@@ -90,15 +92,21 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                 self.showHelp = true;
 
                 // reset value to default beacuse when we remove about from the array aboutChoice is emptied
-                $scope.model.help = { 'folderName': 'default' };
+                if (typeof $scope.model.help === 'undefined') {
+                    $scope.model.help = { 'folderName': 'default' };
+                }
             }
             if (item.includes('about')) {
                 self.showAbout = true;
 
                 // reset value to default because when we remove about from the array aboutChoice is emptied
-                $scope.model.about.aboutChoice = 'string';
-                $scope.model.about.content = self.aboutContent;
-                $scope.model.about.folderName = self.aboutFolder;
+                if (typeof $scope.model.about === 'undefined') {
+                    $scope.model.about = {
+                        'aboutChoice': self.aboutChoice,
+                        'content': self.aboutContent,
+                        'folderName': self.aboutFolder
+                    }
+                }
             }
         })
     }
@@ -114,8 +122,12 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
             // content
             if (model.about.hasOwnProperty('content')) {
                 self.aboutContent = model.about.content;
+                self.aboutChoice = 'string';
+                model.about.aboutChoice = 'string';
             } else { // file
                 self.aboutFile = model.about.aboutFolder;
+                self.aboutChoice = 'folder';
+                model.about.aboutChoice = 'folder';
             }
         }
     }
