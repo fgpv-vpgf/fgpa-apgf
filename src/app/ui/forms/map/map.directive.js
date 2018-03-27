@@ -221,7 +221,7 @@ function Controller($scope, $translate, $timeout,
 
             // remove shape column if present
             model.table.columns.map((field, index) => {
-                if (field.data.toUpperCase() === 'SHAPE') { model.table.columns.splice(index, 1) }
+                if (field.data.substring(0, 5).toUpperCase() === 'SHAPE') { model.table.columns.splice(index, 1) }
             });
 
             // broadcast event to generate accordion
@@ -407,12 +407,14 @@ function Controller($scope, $translate, $timeout,
 
             // reinitialize to break the 'link'
             layer.controls = ['opacity', 'visibility', 'boundingBox', 'query', 'snapshot', 'metadata', 'boundaryZoom', 'refresh', 'reload', 'remove', 'settings', 'data', 'styles'];
-            layer.state.opacity = 1;
-            layer.state.visibility = true;
-            layer.state.boundingBox = false;
-            layer.state.query = true;
-            layer.state.snapshot = false;
-            layer.state.hovertips = true;
+            layer.state = {
+                'opacity': 1,
+                'visibility': true,
+                'boundingBox': false,
+                'query': true,
+                'snapshot': false,
+                'hovertips': true
+            };
             layer.layerEntries = [];
         }
 
