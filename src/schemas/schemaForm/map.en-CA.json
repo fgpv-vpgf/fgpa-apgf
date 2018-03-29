@@ -756,6 +756,7 @@
                                         },
                                         "title": {
                                             "type": "string",
+                                            "default": "",
                                             "description": "Specifies the column title, uses the layer column name or alias if missing.",
                                             "title": "Title"
                                         },
