@@ -91,6 +91,8 @@ form map lods dialog title,form.map.setlods,Set Levels of Details,0,Définir les
 form map lods dialog desc,form.map.lodsdesc,Enter a tile cache layer url to select the level of details from,0,"Entrez le url d'une couche tuilé afin d'obtenir les niveaux de détail",0
 form map lods dialog error,form.map.lods.invalidurl,This is not a valid ESRI tile cache URL,0,Cette adresse URL n'est pas une couche de tuile ESRI valide,0
 form map go to ui legend,form.map.goui,"Click here to access legend's properties in UI section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section Carte",0
+form map legend layer id,form.map.legendidstitle,Copy layer id,0,"Copier l'identifiant des couches",0
+form map legend layer id,form.map.legendidsdesc,Select your cursor position where you want the id to be copied then select it,0,"Sélectionnez la position du curseur à l'endroit où vous souhaitez copier l'identifiant, puis sélectionnez-le",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0

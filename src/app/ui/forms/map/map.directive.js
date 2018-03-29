@@ -741,6 +741,20 @@ function Controller($scope, $translate, $timeout,
                         },
                         // hidden read only field { 'key': 'legend.type', 'readonly': true },
                         { 'type': 'fieldset', 'htmlClass': 'av-legend-structure hidden', 'title': $translate.instant('form.map.legendtext'), 'items': [
+                            {
+                                'key': 'legend.id',
+                                'type': 'dynamic-select',
+                                'optionData': 'initLayerId',
+                                'model': 'legend_id',
+                                'array': false,
+                                'title': $translate.instant('form.map.legendidstitle'),
+                                'description': $translate.instant('form.map.legendidsdesc'),
+                                'onChange': model => {
+                                    $scope.model.legend.root = [$scope.model.legend.root.slice(0, self.legendCursor),
+                                        model,
+                                        $scope.model.legend.root.slice(self.legendCursor)].join('');
+                                }
+                            },
                             { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea', 'onChange': () => {
                                 // remove the focus event
                                 const textArea = $('#activeForm-legend-root');
@@ -748,7 +762,7 @@ function Controller($scope, $translate, $timeout,
 
                                 // update cursor position
                                 updateCursorPos(textArea[0].selectionStart);
-                            } },
+                            }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
                             { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
