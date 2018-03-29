@@ -1,3 +1,9 @@
+/**
+ * @module layout-loader.js
+ * @memberof app.layout
+ * @description import necessary files
+ *
+ */
 import './accordion.directive.js';
 
 import './detect-scrollbar.directive.js'
