@@ -30,6 +30,12 @@ function avDragHandle($compile, $timeout, events, constants) {
 
     let started = false;
 
+    /**
+     * recreate the handle when mdel updated
+     * @function link
+     * @param {Object} scope Angular object
+     * @param {Object} element Angular object
+     */
     function link(scope, element) {
         // when model is updated, we need to recreate the handle
         events.$on(events.avSwitchLanguage, () => { setHandle(scope, element, constants.delayHandle); });
@@ -39,6 +45,13 @@ function avDragHandle($compile, $timeout, events, constants) {
         events.$on(events.avNewItems, () => { setHandle(scope, element, 100); });
     }
 
+    /**
+     * recreate the handle when mdel updated
+     * @function setHandle
+     * @param {Object} scope Angular object
+     * @param {Object} element Angular object
+     * @param {Object} delay Angular object
+     */
     function setHandle(scope, element, delay) {
         // drag handle is only inside map schema
         if (scope.schema.schema === 'map' && !started) {
@@ -64,7 +77,13 @@ function avDragHandle($compile, $timeout, events, constants) {
             $timeout(() => { started = false; }, 1000);
         }
     }
-
+    /**
+     * set the proper icon
+     * @function addIcon
+     * @param {Object} element Angular object
+     * @param {Object} scope Angular object
+     * @return {Object} directive Angular object
+     */
     function addIcon(element, scope) {
         // set the proper icon from the collapsible element state
         element.prepend(
