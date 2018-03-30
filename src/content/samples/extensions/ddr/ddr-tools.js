@@ -8,7 +8,7 @@ const translations = {
         fmeUserPH: 'Enter Username...',
         fmePassPH: 'Enter Password...',
         fmeLogin: 'Login',
-        fmeErrorConn: 'Connection error: bad user name and/or password',
+        fmeErrorConn: 'Connection error: the connection to the server failed',
         register: 'If you do not have a DDR account, contact support at ',
         upload: 'Upload',
         delete: 'Delete',
@@ -17,14 +17,15 @@ const translations = {
         runupload: 'Start Upload',
         update: 'Update existing package',
         size: 'bytes',
+        configFileName: 'Config File Name',
         chooseFile: 'Choose a zip file',
         userEmail: 'User Email: ',
         deletelist: 'Select folders to delete ',
         publishlist: 'Select folder to publish ',
         publishenv: 'Select environnement to publish to',
-        privatelist: 'Private',
-        internallist: 'Internal',
-        externallist: 'External',
+        privatelist: 'Private;privateInternal',
+        internallist: 'Internal;publicInternal',
+        externallist: 'External;publicExternal',
         messType: 'Message Type: ',
         messSev: 'Message Severity: ',
         messTypeAll: 'All',
@@ -37,13 +38,18 @@ const translations = {
         messSevSucc: 'Success',
         messSevFatal: 'Fatal',
         progress: 'Execution in progress...',
-        wait: 'Wait for Execution Report',
+        wait: 'Please wait.',
         reportTitle: 'Execution Report',
         fgpId: 'FGP ID: ',
         jobId: 'Job Id: ',
         headTime: 'Timestamp',
         headSev: 'Severity',
-        headMess: 'Messages'
+        headMess: 'Messages',
+        snippetLabel: 'HTML Snippet in ZIP file',
+        snippet1: 'None',
+        snippet2: 'PreSnippet.html',
+        snippet3: 'PostSnippet.html',
+        snippet4: 'All'
     },
 
     'fr-CA': {
@@ -52,7 +58,7 @@ const translations = {
         fmeUserPH: 'Entrer un nom d\'usagé...',
         fmePassPH: 'Entrer un mot de passe...',
         fmeLogin: 'Identification',
-        fmeErrorConn: 'Erreur de connexion : mauvais nom d\'utilisateur et/ou mot de passe',
+        fmeErrorConn: 'Erreur de connexion : la connexion au serveur à échoué',
         register: 'Si vous ne possédez pas de compte DDR, contactez le support technique à ',
         upload: 'Téléverser',
         delete: 'Supprimer',
@@ -61,14 +67,15 @@ const translations = {
         runupload: 'Débuter le Téléversement',
         update: 'Mettre à jour un paquet existant',
         size: 'octets',
+        configFileName: 'Nom du fichier de configuration',
         chooseFile: 'Sélectionnez un fichier zip',
         userEmail: 'Courriel utilisateur : ',
         deletelist: 'Sélectionnez les répertoires à supprimer ',
         publishlist: 'Sélectionnez le répertoire à publier ',
         publishenv: 'Sélectionnez l\'environnement dans lequel publier',
-        privatelist: 'Privé',
-        internallist: 'Interne',
-        externallist: 'Externe',
+        privatelist: 'Privé;privateInternal',
+        internallist: 'Interne;publicInternal',
+        externallist: 'Externe;publicExternal',
         messType: 'Type du message : ',
         messSev: 'Sévéritée du message : ',
         messTypeAll: 'Tous',
@@ -81,13 +88,18 @@ const translations = {
         messSevSucc: 'Succès',
         messSevFatal: 'Fatal',
         progress: 'Exécution en cours...',
-        wait: 'Attendre le rapport d\'exécution',
+        wait: 'Veuillez patienter.',
         reportTitle: 'rapport d\'exécution',
         fgpId: 'PGF id :',
         jobId: 'Traitement Id :',
         headTime: 'Horodatage',
         headSev: 'Sévéritée',
-        headMess: 'Messages'
+        headMess: 'Messages',
+        snippetLabel: 'Snippet HTML dans le fichier ZIP',
+        snippet1: 'Aucun',
+        snippet2: 'PreSnippet.html',
+        snippet3: 'PostSnippet.html',
+        snippet4: 'Tous'
     }
 };
 
@@ -103,7 +115,7 @@ function bindHTML(element, data, att) {
 }
 
 // set login interface
-bindHTML(document.getElementById('avFMEUser'), translations[lang].fmeUser);
+bindHTML(document.getElementById('avFMEUser'), translations[lang].userEmail);
 bindHTML(document.getElementById('avFMEPass'), translations[lang].fmePass);
 bindHTML(document.getElementById('avTokenUser'), translations[lang].fmeUserPH, 'placeholder');
 bindHTML(document.getElementById('avTokenPass'), translations[lang].fmePassPH, 'placeholder');
@@ -122,9 +134,9 @@ bindHTML(document.getElementById('avRunUpload'), translations[lang].runupload, '
 bindHTML(document.getElementById('avUpdateLabel'), translations[lang].update);
 
 // set delete interface
-bindHTML(document.getElementById('avDeletePrivate'), translations[lang].privatelist);
-bindHTML(document.getElementById('avDeleteInternal'), translations[lang].internallist);
-bindHTML(document.getElementById('avDeleteExternal'), translations[lang].externallist);
+bindHTML(document.getElementById('avDeletePrivate'), translations[lang].privatelist.split(';')[0]);
+bindHTML(document.getElementById('avDeleteInternal'), translations[lang].internallist.split(';')[0]);
+bindHTML(document.getElementById('avDeleteExternal'), translations[lang].externallist.split(';')[0]);
 bindHTML(document.getElementById('avDeleteList'), translations[lang].deletelist);
 bindHTML(document.getElementById('avRunDelete'), translations[lang].delete, 'value');
 
@@ -171,29 +183,44 @@ let files;
 let outputStream;
 let serverUrl;
 
-// https://playground.fmeserver.com/javascript/server-uploads/upload-file-drag-drop/
+// DDR_Registry table query results in json
+let registry;
+let publisher;
+let publisherRole;
+let publisherInfo;
+let publisherName;
+let publisherNameConcat;
+let publisherDepartment;
+let departmentID;
+let publisherID;
+let authorDepartmentID;
+let authorPublisherID;
+let publisherEmail;
+
+
 $(document).ready(function() {
 
     // FME Server repository and url for the DDR Modules
     repository = 'AuthoringTool';
-    workspace = 'AuthoringTool.fmw'
-    serverUrl = 'http://xxx.xxx.xxx.xxx';
+
+    /**
+     *--------------------------------------------------
+     * FGP SERVER URL
+     *--------------------------------------------------
+     */
+    // DEV
+    serverUrl="http://fgp-0001030.dev.global.gc.ca";
+    // PROD
+    // serverUrl="http://fgp-5001985.prod.global.gc.ca";
+    //
+    // Get fme "guest" token
+    getToken();
+
 });
 
-//--------------------------------------------------
-//  SECTION 1 - Login
-//--------------------------------------------------
-function login() {
-    // FIXME
-    $('.av-function-section').show();
-    $('.av-login-section').hide();
-
-    getToken();
-}
-
 function getToken() {
-    const username = $('#avTokenUser').val();
-    const password = $('#avTokenPass').val();
+    const username = "guest";
+    const password = "guest";
 
     const url = serverUrl + '/fmetoken/generate.json?user=' + username + '&password=' + password;
     $.ajax({
@@ -204,15 +231,85 @@ function getToken() {
                 server : serverUrl,
                 token : json.serviceResponse.token
             });
-            // Ask FME Server for the current session id and set it
-            FMEServer.getSession(repository, workspace, setVars);
+            // Create an instance of DDRRegistry class
+            registry = new DDRRegistry(username, password, serverUrl);
 
-            $('.av-login-section').hide();
+            $(".av-login-section").show();
+
+            // Login page - On submit button click event
+            $('#avFMELogin').click(function(event) {
+                event.preventDefault();
+
+                // Reset validate publisher error element
+                $('.av-error-validatePublisher').hide().empty();
+
+                const user_email = $("#avTokenUser").val();
+                const user_password = $("#avTokenPass").val();
+
+
+                // Run ValidatePublisher.fmw workspace to validate publisher credentials
+                // Returns :
+                //      - On ERROR : Error mesage
+                //      - On SUCCESS : Publisher role
+                FMEServer.runDataStreaming(repository, "validatePublisher.fmw", "PUBLISHER_EMAIL=" + user_email +"&PUBLISHER_PASSWORD=" + user_password, getPublisherRole);
+
+                // Hide login section
+                $('.av-login-section').hide();
+                $('.av-progress-section').show();
+
+            });
+
+
         },
         error: function() {
             document.getElementsByClassName('av-error-connect')[0].classList.remove('hidden');
         }
     });
+}
+
+function getPublisherRole(json) {
+
+
+    $('.av-progress-section').hide();
+
+    response = json.MessageList[0];
+
+    if (response.MessageType == "INTERNAL") {
+
+        // Get publisher attributes needed for populating registry table auyhor_dataset
+        publisherInfo = response.EnMessage;
+        publisherNameConcat = publisherInfo.split(',')[0];
+        publisherDepartment = publisherInfo.split(',')[1];
+        publisherID = publisherInfo.split(',')[2];
+        departmentID = publisherInfo.split(',')[3];
+        publisherEmail= publisherInfo.split(',')[4];
+        publisherName = publisherInfo.split(',')[5];
+
+        // Switch on publisher role
+        switch (response.FrMessage) {
+            case 'admin_publisher':
+                publisherRole = 'admin_publisher';
+                break;
+            case 'department_publisher':
+                publisherRole = 'department_publisher';
+                break;
+            case 'basic_publisher':
+                publisherRole = 'basic_publisher';
+                // Basic publisher doesn't have the privilege to publish in external (PROD) directory
+                $('.avPublish').hide();
+        }
+        $('.av-function-section').show();
+    }
+    else {
+        // Hide login section
+        $('.av-login-section').show();
+        if (lang == 'fr-CA') {
+            $('.av-error-validatePublisher').show().append('Erreur: ' + response.FrMessage);
+        }
+        else if (lang == 'en-CA') {
+            $('.av-error-validatePublisher').show().append('Error: ' + response.EnMessage);
+        }
+    }
 }
 
 //--------------------------------------------------
@@ -221,28 +318,94 @@ function getToken() {
 function selectUpload() {
     $('.av-function-section').hide();
     $('.av-upload-section').show();
+
+    workspace = 'AT_Upload.fmw'
+    // Ask FME Server for the current session id and set it
+    FMEServer.getSession( repository, workspace, setVars );
 }
 
 function selectDelete() {
-    getDeleteList();
 
+
+    $('.av-progress-section').show();
     $('.av-function-section').hide();
-    $('.av-delete-section').show();
+
+
+    // Switch on publisher role
+    switch (publisherRole) {
+        case 'admin_publisher':
+            registry.getRecord('get_author_publisher_department', getDeleteList);
+            break;
+        case 'department_publisher':
+            registry.getRecord('get_author_publisher_department', getDeleteList, 'department_id=' + departmentID);
+            break;
+        case 'basic_publisher':
+            registry.getRecord('get_author_publisher_department', getDeleteList, 'publisher_id=' + publisherID);
+
+    }
 }
 
 function selectPublish() {
-    getPublishList();
 
+    $('.av-progress-section').show();
     $('.av-function-section').hide();
-    $('.av-publish-section').show();
+
+    // Switch on publisher role
+    switch (publisherRole) {
+        case 'admin_publisher':
+            registry.getRecord('get_author_publisher_department', getPublishList, 'author_dataset_env=private');
+            break;
+        case 'department_publisher':
+            registry.getRecord('get_author_publisher_department', getPublishList, 'department_id=' + departmentID + '&author_dataset_env=private');
+    }
 }
 
-function getDeleteList() {
-    // FIXME ajax call is here
+function getDeleteList(json) {
+
+    $('.av-progress-section').hide();
+    $('.av-delete-section').show();
+
     const list = {
-        private: ['folderA', 'folderB', 'folderC'],
-        internal: ['folderA1', 'folderB1', 'folderC1'],
-        external: ['folderA2', 'folderB2', 'folderC3']
+        private: [],
+        internal: [],
+        external: []
+    }
+
+    if (json.matched_records != 0) {
+        for (let i=0; i<json.get_author_publisher_department.length; i++) {
+
+
+            if (json.get_author_publisher_department[i].author_dataset_env === 'private') {
+                list.private.push(
+                    json.get_author_publisher_department[i].dataset_folder_name + ';' +
+                    json.get_author_publisher_department[i].author_dataset_id + ';' +
+                    json.get_author_publisher_department[i].dataset_folder_path + ';' +
+                    json.get_author_publisher_department[i].author_dataset_env + ';' +
+                    json.get_author_publisher_department[i].tbs_department_acronym_en + ';' +
+                    json.get_author_publisher_department[i].publisher_name
+                );
+            }
+            else if (json.get_author_publisher_department[i].author_dataset_env === 'internal') {
+                list.internal.push(
+                    json.get_author_publisher_department[i].dataset_folder_name + ';' +
+                    json.get_author_publisher_department[i].author_dataset_id + ';' +
+                    json.get_author_publisher_department[i].dataset_folder_path + ';' +
+                    json.get_author_publisher_department[i].author_dataset_env + ';' +
+                    json.get_author_publisher_department[i].tbs_department_acronym_en + ';' +
+                    json.get_author_publisher_department[i].publisher_name
+                );
+            }
+            else if (json.get_author_publisher_department[i].author_dataset_env === 'external') {
+                list.external.push(
+                    json.get_author_publisher_department[i].dataset_folder_name + ';' +
+                    json.get_author_publisher_department[i].author_dataset_id + ';' +
+                    json.get_author_publisher_department[i].dataset_folder_path + ';' +
+                    json.get_author_publisher_department[i].author_dataset_env + ';' +
+                    json.get_author_publisher_department[i].tbs_department_acronym_en + ';' +
+                    json.get_author_publisher_department[i].publisher_name
+                );
+            }
+        }
     }
 
     // create privatelist
@@ -255,12 +418,31 @@ function getDeleteList() {
     setInterface('av-deletelist-external', list.external, 'delexternal');
 }
 
-function getPublishList() {
-    // FIXME ajax call is here
+function getPublishList(json) {
+
+    $('.av-progress-section').hide();
+    $('.av-publish-section').show();
+
     const list = {
-        private: ['folderA', 'folderB', 'folderC']
+        private: []
     }
 
+    if (json.matched_records != 0) {
+        for (let i=0; i<json.get_author_publisher_department.length; i++) {
+
+            list.private.push(
+                json.get_author_publisher_department[i].dataset_folder_name + ';' +
+                json.get_author_publisher_department[i].author_dataset_id + ';' +
+                json.get_author_publisher_department[i].publisher_id + ';' +
+                json.get_author_publisher_department[i].department_id + ';' +
+                json.get_author_publisher_department[i].tbs_department_acronym_en + ';' +
+                json.get_author_publisher_department[i].publisher_name + ';' +
+                json.get_author_publisher_department[i].author_metadata_id + ';' +
+                json.get_author_publisher_department[i].author_dataset_env + ';' +
+                json.get_author_publisher_department[i].dataset_folder_path
+            );
+        }
+    }
     // create privatelist
     setInterface('av-publishlist-private', list.private, 'pubprivate');
 
@@ -284,7 +466,7 @@ function setInterface(id, list, type) {
 
             const label = document.createElement('label');
             label.setAttribute('for', input.id);
-            label.innerHTML = list[i];
+            label.innerHTML = list[i].split(';')[0] + ' (' + list[i].split(';')[4] + ' | ' + list[i].split(';')[5] + ')';
 
             elem.append(input);
             elem.append(label);
@@ -302,26 +484,29 @@ function deleteList() {
     const deleteArr = [];
     $('.av-deletelist-private :checkbox').each(function() {
         if (this.checked) {
-            deleteArr.push('private/' + this.value);
+            deleteArr.push(this.value);
         }
     });
     $('.av-deletelist-internal :checkbox').each(function() {
         if (this.checked) {
-            deleteArr.push('internal/' + this.value);
+            deleteArr.push(this.value);
         }
     });
     $('.av-deletelist-external :checkbox').each(function() {
         if (this.checked) {
-            deleteArr.push('external/' + this.value);
+            deleteArr.push(this.value);
         }
     });
 
     // FIXME send info to FME...
     console.log(deleteArr);
 
+    // Run AT_Delete.fmw
+    FMEServer.runDataStreaming(repository, "AT_Delete.fmw", "USER_EMAIL=" + publisherEmail + "&DELETE_ARRAY=" + deleteArr, showMessages);
+
     // FIXME show message, then have a button to go back to menu
     $('.av-delete-section').hide();
-    $('.av-function-section').show();
+    $('.av-progress-section').show();
 }
 
 function publish() {
@@ -342,23 +527,32 @@ function publish() {
     const update = $('#avUpdatePublish')[0].checked;
 
     // FIXME send info to FME...
-    console.log(publishArr + ', env: ' + publishEnv + ', update: ' + update);
+    console.log(publishArr + ',' + publishEnv + ',' + update);
+
+    // Run AT_Publish.fmw
+    FMEServer.runDataStreaming(repository, "AT_Publish.fmw", "PUBLISHER_EMAIL=" + publisherEmail + "&PUBLISH_ARRAY=" + publishArr +"&PUBLISH_ENV=" + publishEnv +"&UPDATE_FLAG=" + update, showMessages);
 
     // FIXME show message, then have a button to go back to menu
     $('.av-publish-section').hide();
-    $('.av-function-section').show()
+    $('.av-progress-section').show();
 }
 
 //--------------------------------------------------
 //  SECTION 4 - Package Upload and update
 //--------------------------------------------------
 // run workspace button
-function runUpdate(event) {
-    event.preventDefault();
+function runUpdate() {
 
     // Remove message when changing section
     $('.av-upload-section').hide();
     $('.av-progress-section').show();
+
+    // check if need to Update
+    const update = $('#avUpdate')[0].checked;
+    console.log('update: ', update);
+
+    $("input[name='UPLOAD_OVERWRITE']").val(update);
+
     runWorkspace();
 }
 
@@ -389,40 +583,44 @@ function buildOptions(json) {
 
     // Attach the upload button to the form file input
     const inputs = document.getElementById('options').getElementsByTagName('input');
-    fileInput = inputs[2];
+    const selects = document.getElementById('options').getElementsByTagName('select');
 
     // customize user email text
-    inputs[0].parentElement.getElementsByTagName('label')[0].innerText = translations[lang].userEmail;
+    inputs[0].parentElement.getElementsByTagName('label')[0].innerText = translations[lang].configFileName;
+    selects[0].parentElement.getElementsByTagName('label')[0].innerText = translations[lang].snippetLabel;
+    selects[0].options[0].innerHTML = translations[lang].snippet1;
+    selects[0].options[1].innerHTML = translations[lang].snippet2;
+    selects[0].options[2].innerHTML = translations[lang].snippet3;
+    selects[0].options[3].innerHTML = translations[lang].snippet4;
+
+    // Set hidden parameters values for AT_Upload.fmw FME workspace
+    $("input[name='SESSION_ID']").val(session);
+    $("input[name='PUBLISHER_INFO']").val(publisherInfo);
+    $('.UPLOAD_OVERWRITE').hide();
+    $('.PUBLISHER_INFO').hide();
+    $('.SESSION_ID').hide();
+
+    // Show the upload section
+    $('.av-upload-section').show();
 
     // generate a new file input (original not bilangual)
-    fileInput = inputs[2];
+    fileInput = inputs[3];
     createFileInput($(fileInput));
 
-    // hide non usefull input then show section
-    $('.SESSION_ID').hide();
-    $('.av-upload-section').show();
 }
 
 function createFileInput(input) {
     // limit to zip file and set id to link with label
-    input.attr({ 'id': 'fileInpt', 'accept': '.zip', 'tabindex': -1 });
+    input.attr({'accept': '.zip', 'tabindex': -1 });
 
     // set label to act as a button because file input is not bilingual
     const label = input.parent().find('label');
     label[0].innerText = translations[lang].chooseFile;
-    label[0].classList.add('av-button');
-    label.attr({ 'for': 'fileInpt', 'tabindex': '1' });
 
     // call upload files on FME Server
     input.change(function() {
         uploadFile();
     });
-    label.keypress(function(e) {
-        if (e.keyCode === 13) { input.click(); }
-    });
-
-    label.focus();
-    input.hide();
 }
 
 // List files picked in chooser
@@ -431,7 +629,9 @@ function processFiles(json) {
     if (typeof json.serviceResponse !== 'undefined') {
         files = json.serviceResponse.files.archive;
 
-        for (let file in files) {
+        for (let i=0; i<files.length; i++) {
+            let file=files[i];
+            console.log('typeof file.name', typeof file.name);
             if (typeof file.name !== 'undefined') {
                 list.append('<p>' + file.name + ' | <em>' + file.size + ' ' +  translations[lang].size + '</em></p>');
             }
@@ -441,20 +641,45 @@ function processFiles(json) {
 }
 
 // Manage form parameters
-function processParams() {
+function processParams(element_id) {
     // Convert HTML NodeList types to regular array types
-    let inputs = document.getElementById('options').getElementsByTagName('input');
-    let options = Array.prototype.slice.call(inputs);
+    var inputs = document.getElementById( element_id ).getElementsByTagName( "input" );
+  var selects = document.getElementById( element_id ).getElementsByTagName( "select" );
+  var options = [];
+  var properties = "";
 
-    let properties = '';
-    for (let opt in options) {
-        if (opt.value && opt.name !== fileInput.name && opt.type !== 'button') {
-            properties += opt.name + '=' + opt.value + '&';
+  // Convert HTML NodeList types to regular array types
+  inputs = Array.prototype.slice.call( inputs );
+  selects = Array.prototype.slice.call( selects );
+
+  // Merge the regular arrays
+  options = inputs.concat( selects );
+
+  for( var opt in options ) {
+    var option = options[opt];
+    if(element_id === "options"){
+      if( option.value && option.name != fileInput.name && option.type != "button") {
+        properties += option.name+"=";
+        if( option.type == "select" ) {
+          properties += option[ option.selectedIndex ].value;
+        } else {
+          properties += option.value;
         }
+        properties += "&";
+      }
     }
-
-    properties = properties.substr(0, properties.length - 1);
-    return properties;
+    else if(option.type === "select-one" || option.type === "text"){
+      properties += option.name+"=";
+      if( option.type == "select" ) {
+        properties += option[ option.selectedIndex ].value;
+      } else {
+        properties += option.value;
+      }
+      properties += "&";
+    }
+  }
+  properties = properties.substr( 0, properties.length - 1 );
+  return properties;
 }
 
 function runWorkspace() {
@@ -474,7 +699,7 @@ function runWorkspace() {
 function showMessages(json) {
     $('.av-progress-section').hide();
     $('.av-report-section').show();
-    setMessages(json.MessageList || []);
+    setMessages(json.MessageList);
 }
 
 // Callback function for FMEServer.runWorkspaceWithData and FMEServer.runDataStreaming
@@ -486,7 +711,8 @@ function setMessages(message) {
     setHeader(message[0]);
 
     let table = document.getElementById('avReportTable');
-    for (let row in outputStream) {
+    for (let i = 0; i < outputStream.length; i++) {
+        let row = outputStream[i];
         let messageRow = (lang === 'en-CA') ? row.EnMessage.replace(/\n/g,'<br>') : row.FrMessage.replace(/\n/g,'<br>');
         let color_code = (row.Severity === 'ERROR' || row.Severity === 'FATAL') ? 'red' : 'green';
         messageRow = messageRow + '<br><br><div style=\'color:' + color_code + '\'>' + row.ExecutionTrace + '</div>';
@@ -515,7 +741,8 @@ function addRow(tableBody, rowInfo, message) {
     let row = document.createElement('tr');
     row.classList.add('av-row', rowInfo.MessageType, rowInfo.Severity);
 
-    for (let cell in info) {
+    for (let i = 0; i < info.length; i++) {
+        let cell = info[i];
         let cellData = document.createElement('td');
         cellData.innerHTML = cell;
         row.appendChild(cellData)
