@@ -20,9 +20,17 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
     const _state = {};
 
+    let legendState = true;
+
+    // on legend validation
+    events.$on(events.avLegendError, () => {
+        legendState = false;
+    });
+
     return service;
 
     /*********/
+
 
     /**
      * Get state object
@@ -86,6 +94,10 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         // Since map is much more complicated we isolate it
         if (modelName === 'map') {
+
+            // broadcast event to generate accordionvalidate legend
+            events.$broadcast(events.avValidateLegend);
+
             const arrKeys = updateSummaryFormMap(_state[modelName], modelName, cleanForm);
 
             // Generate state records for basemaps and layers
@@ -103,6 +115,9 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         // Set custom title
         setCustomTitles(_state[modelName], modelName);
+
+        // Set legend title and validity
+        if (modelName === 'map') setLegendAttributes(_state[modelName], model);
 
         // UNDEFINED SECTION
         // Undefined parameters
@@ -629,6 +644,40 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 });
             }
         });
+    }
+
+    /**
+     * Set validity for legend.root element and change root
+     * for autopopulate legend or structured legend
+     *
+     * @function setLegendAttributes
+     * @private
+     * @param {Object}  mapStateModel the map stateModel
+     * @param {Object}  model the model
+     */
+    function setLegendAttributes(mapStateModel, model) {
+
+        for (let item of mapStateModel.items) {
+            if (item.key === 'legend') {
+
+                // root element is always second
+                let root = item.items[1];
+
+                // Structured or autopopulate
+                if (model.legend.type === 'autopopulate') {
+                    root.title = $translate.instant('form.map.legendauto');
+                    root.valid = true;
+                } else {
+                    root.title = $translate.instant('form.map.legendstruct');
+                    root.valid = legendState;
+
+                    // Set state back to is original value
+                    legendState = true;
+                    let path = ['legend', 'root'];
+                    setStateValueUp(mapStateModel, path, 'valid', root.valid);
+                }
+            }
+        }
     }
 
     /**

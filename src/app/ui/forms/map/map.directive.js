@@ -114,6 +114,10 @@ function Controller($scope, $translate, $timeout,
         stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
     });
 
+    events.$on(events.avValidateLegend, () => {
+        validateLegend();
+    });
+
     /**
      * Initialize header (collapsible element) value (form element) from model values when it loads.
      *
@@ -297,6 +301,13 @@ function Controller($scope, $translate, $timeout,
             $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
             document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
+            // Validate layers ID
+            const idsErrors = validateLayerID($scope.model.legend.root);
+
+            if (idsErrors !== '') {
+                const e = `${$translate.instant('form.map.legenderror')} ${idsErrors}`
+                throw(e);
+            }
             // set class and message
             help.classList.remove('av-legend-json-error');
             help.classList.add('av-legend-json-valid');
@@ -308,7 +319,40 @@ function Controller($scope, $translate, $timeout,
 
             // set message
             help.innerHTML = e;
+
+            // Broadcast error if needed
+            events.$broadcast(events.avLegendError);
         }
+    }
+
+    /**
+     * Validate legend's layers ID
+     *
+     * @function validateLayerID
+     * @private
+     * @param  {String} json json content
+     * @return {String} ids in error
+     */
+    function validateLayerID(json) {
+
+        // Extract JSON layers IDs
+        const ids = [];
+        const regexp = /"layerId": "(\w+)\W/g;
+        json.replace(regexp, (s, match) => ids.push(match));
+
+        // Compare extracted ids with available ids
+        let layersList = [];
+        for (let item of $scope.model.layers) layersList.push(item.id);
+
+        let noMatches = [];
+        for (let id of ids) {
+            if (layersList.includes(id) === false) noMatches.push(id);
+        }
+
+        let idsErrors = '';
+        idsErrors = noMatches.join(', ');
+
+        return idsErrors;
     }
 
     /**

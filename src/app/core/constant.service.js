@@ -70,7 +70,9 @@ function events($rootScope) {
         avShowSplash: 'avShowSplash',
         avLayersIdUpdate: 'avLayersIdUpdate', // Fired when layers id is updated. Will be use inside UI model to update table layer id
         avUpdateFocus: 'avUpdateFocus', // Fired when user click on element of summary tree
-        avShowHelp: 'avShowHelp' // Fired when help dialog window opening is completed
+        avShowHelp: 'avShowHelp', // Fired when help dialog window opening is completed
+        avLegendError: 'avLegendError', // Fired when there's an id in error in the structured legend
+        avValidateLegend: 'avValidateLegend' // Fired legend validation
     };
 }
 
