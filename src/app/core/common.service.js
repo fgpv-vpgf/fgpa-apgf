@@ -10,6 +10,15 @@ angular
     .module('app.core')
     .factory('commonService', commonService);
 
+/**
+ * define common Javascript methods
+ * @function commonService
+ * @param {Object} $translate  translation service Angular object
+ * @param {Object} events  Angular object
+ * @param {Object} $timeout promise with timeout Angular object
+ * @param {Object} constants  modules that contain all the constants
+ * @return {Object} service  Angular object
+ */
 function commonService($translate, events, $timeout, constants) {
 
     const service = {
