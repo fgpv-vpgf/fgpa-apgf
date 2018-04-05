@@ -156,7 +156,7 @@
             "properties": {
                 "folderName": {
                     "type": "string",
-                    "description": "Help folder name who contain the help description and images",
+                    "description": "Help folder name who contain the help description and images. IMPORTANT: Can not be tested in preview mode. Opening the help will generate an error.",
                     "title": "Folder Name",
                     "default": "default"
                 }
@@ -224,7 +224,7 @@
                   "required": true
               },
               "folderName": {
-                  "description": "About properties from configuration file or Markdown folder",
+                  "description": "About properties from configuration file or Markdown folder. IMPORTANT: Can not be tested in preview mode. Opening the about will generate an error.",
                   "title": "Folder Name",
                   "type": "string",
                   "required": true
