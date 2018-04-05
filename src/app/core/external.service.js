@@ -49,7 +49,7 @@ function externalService($mdDialog, $compile, $rootScope, translations, $transla
         /**
          * @description extension dialog controller
          * @function extensionDialogController
-         * @param  {Object} $mdDialog
+         * @param  {Object} $mdDialog Angulat mdDialog object
          */
         function extensionDialogController($mdDialog) {
             'ngInject';

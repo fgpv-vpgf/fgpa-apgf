@@ -1,177 +1,120 @@
 # General Information
 
-The Federal Geospatial Platform Author tool is can be used to create, read, validate and preview json format configuration files to be used by the Federal Geospatial Platform Viewer.
+The Federal Geospatial Platform Authoring (FGPA) tool is used to create, update, validate and preview configuration files
+used by the Federal Geospatial Platform Viewer (FGPV).
 
-A configuration file may be read from an existing file, by clicking on the up arrow icon  ![](uparrow.png).
+The FGPA tool is based on the [Angular Schema Form](https://github.com/json-schema-form/angular-schema-form) library. This library
+generates forms from JSON schemas using AngularJS. The FGPA tool uses the same schema as the FGPV and lets user modify values to easily
+create new configuration files. The schema is composed of 5 sections:
++ **Map**
+    + Map is divided in 5 sections (Extents and Levels of Details, Basemaps, Layers, Legend and Components)
++ **UI**
+    + UI is divided in 4 sections (General, Application Bar, Navigation and Side Menu)
++ **Services**
+    + Services is divided in 3 sections (Export Map, Geo Search and Service End Points)
++ **Version**
++ **Language**
 
-To created new configuration file, click on the plus sign icon ![](plussign.png).
+For more information about schema structure, go to the [FGPV schema](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
+section in our wiki page. This section will also give you information on schema values and their effect in the viewer.
 
-To save the configuration file once finished, click on the diskette icon ![](diskette.png) .
+##### Useful information
 
-By default 3 templates that contain default values for your organization when
-creating a configuration file are listed. Select either the config-authorA, config-AuthorB or config-full template.
+To switch the interface language, use the language dropdown menu located in the upper right corner ![](languagebutton.png "Language dropdown menu").
 
-You can change the language of this application by selecting the language at the right upper corner using the pull down list.
+At any time, when available, you can use the expand or collapse buttons ![](expandcollapse.png "Expand and collapse buttons")
+to expand or collapse all the items inside a section.
 
- ![](languagebutton.png).
+Some configuration items are for more advanced user. You can show/hide these items with the _Show advanced configuration
+options_ checkbox located under each section name.
 
-To close this help window click on the X at the right upper corner of this help window.
+Some items like basemaps, layers and layer fields can be reordered. You can easily identify reorderable items with the
+drag handle ![](draghandle.png "Drag handle icon"). To reorder an item, click the handle then drag the item to the desired
+position. A yellow box will appear under the item where it will be placed when you release the handle.
+_Note:_ it is easier to drag an item when all items inside the section are collapsed.
+
+To upload user configuration file or template directly from url you can use the following syntax:
++ _your instance url_?filename=_your file name_ (e.g. https://xxx/fgpv-author.html?filename=https://myfolder/myfilename.json)
++ _your instance url_?template=_your template name_ (e.g. https://xxx/fgpv-author.html?template=mytemplate.json)
+
+_Note:_ if the application can't read the configuration file or if the template doesn't exist, it will open the default configuration or the first template inside the list on templates.
+
+> Unanticipated behavior may occur if any interactions occur before data is fully loaded. Please allow the webpage to
+> load completely before triggering any functions. If you still encounter bugs, please [submit an issue](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+> in our GitHub repository. Someone from our development team will take care of it as soon as possible.
 
 
-# Map
+# Header
 
-The map section  lists tabs that contain information about the map to be created. It  is the default section that is displayed.
+![](header.png "Header overview")
 
-The map section is divided into tabs that contain information on : Extents and Levels of Detail, Map components, Basemaps, Layers and Legend.
+The header toolbar allows you to:
++ Open the FGPA help window from the question mark button.
++ Create a new configuration file from scratch ![](plussign.png "Plus sign") _- only available when no templates are provided -_.
++ Create a new configuration file from templates ![](templates.png "Templates dropdown menu") _- only available when templates are provided -_.
+    + Templates are managed by the organization in charge of this FGPA instance. Contact the organization if you need more information
+    or would like an update to the list of templates.
++ Upload an existing configuration file ![](uparrow.png "Arrow sign").
++ Save the configuration file once finished ![](diskette.png "Diskette sign").
+    + All files are saved in your Downloads folder.
+
+The file name you are working on is shown to the left of the save icon. However, if you save a file using an existing file name, it
+will be renamed by your operating system and may no longer match the file name you used (e.g. Test is shown as the used
+file name but renamed file name is Test(1)).
+
+> When you create or upload a configuration file, loading time may vary based on the number of layers and basemaps being loaded.
 
 
 # Map - Extents and Levels of Detail
 
-This section contains tabs that list the Tile schemas,Extents and Levels of detail.
+This section is used to define the tile schemas for your viewer application. For each tile schema, a spatial reference
+systems must be defined in the _Spatial Extents Sets_ section. Again, for each tile schema, levels of detail (LODs) must
+be defined in the _Levels of Detail Sets_ section. For this, an ESRI tile cache layer must be used to retrieve the list of LODs from.
+Each LOD corresponds to a map at a given scale or resolution. Therefore each basemap linked to a tile schema must share the same
+spatial extent and LODs.
 
-#### Tile Schemas
-
-The fields to enter are the following:
-
-+ Id - The unique identifier of the tileschema ( combination of extent set and zoom scale).
-
-+ Name - The projection name used to be displayed for this base map selector and for the set of basemaps referencing the schema.
-
-+ Exendsetid - It is the extend set to be used for the basemap. It should reference the map.extentSets.id .
-
-+ Lodsetid - This field indicates the level of detail to be used for this basemap. It should reference the map.lod.id .
-
-+ Static overview map - The overview map displayed at top left corner of viewer viewport.
-
-+ Layer type - The layer type indicates ESRI type  of the layer for the overview map. It only works with esriImage and esriTile layers.
-
-+ URL - This field indicates the service end point of the layer of the static overview map and should match the type indicated in the layer type.
-
-#### Extents
-
-This section lists the extents to be used by the basemap.
-
-Setextend (default),Setextend (full), Setextend (maximum)
-
-Click on the set extent button to select a default , full, or maximum extent dynamically.
-
-+ Id - The identifier of the extent set.
-
-+ WKID - Select the number of the well known Id that corresponds to the projection to be used.
-
-+ VcsWKID - Select the number of the vertical control system wkid Id that corresponds to the vertical datum to be used.
-
-+ LatestWKID - Set the number of the Latest wkid  that corresponds to the projection to be used.
-
-+ LatestVcsWKID - Set the well known text to be used.
-
-+ WKT - Select the number of the Well Known Text that corresponds to the projection to be used.
-
-+ Default Extent - Enter the xmin and ymax extent when the extent is first loaded either interactively or by scrolling over the + sign and select a bounding box extent or a whole extent set.
-
-+ Full Extent - Enter the xmin and ymax extent when the user selects the home button either interactively or by scrolling over the + sign and select a bounding box extent or a whole extent set.
-
-+ Maximum Extent - Enter the xmin and ymax extent when the user zooms or pans out to a maximum level either interactively or by scrolling over the + sign and select a bounding box extent or a whole extent set. The default extent is used if no maximum is supplied.
-
-#### Levels of Detail Sets
-
-The id of the level of detail set is listed.
-
-The Levels of detail lists for each level:
-
-+ level number
-+ map resolution
-+ scale
-
-Click on the set level of details button to enter a tile cache layer url from which to obtain the levels of detail set.
-
-You may click on the X button to remove a level of detail entry from the set of entries.
+>For more information about how to setup the _Extents and Levels of Detail_ section, see the help dropdown menu located below the section header.
 
 
 # Map - Basemaps
 
-The Basemaps tab lists the base map id of the initial base map to be used and all basemaps that are available listed under the basemaps collection.
+This section is used to add basemaps to your viewer application. To add a basemap, a tile schema appropriate for this basemap
+must already have been created. Once a basemap is added, the following information must be provided:
++ Name _- it will be used to generate the basemap id -_
++ Description
++ Alternate Text
++ Tile Schema ID (selected from existing tile schema)
++ At least one layer with ID, Layer Type and URL.
 
-For all base maps the fields to be entered are the following:
+You must set the initial basemap that will appear when the viewer launches. To do so, select the basemap id (name-_unique key_
+from _Initial Basemap ID_) from the dropdown menu.
 
-+ Basemap Id - The identifier of the basemap.
-
-+ Name - The name of the basemap used for labelling.
-
-+ Description - The description of basemap displayed when the basemap selector is expanded.
-
-+ Type summary - A summary which is an optional basemap type.
-
-+ Alternate Text - The text to be displayed with the basemap thumbnail image.
-
-+ Thumbnail Url - The url which is the path to the thumbnail image use with the basemap selector.
-
-+ Tileschema Id - The tile schema identifier to be used with the basemap.
-
-+ Id - The identifier of the layer
-
-+ Layertype - The type from the pull down list either feature, dynamic, image , tile or ogcWms.
-
-+ Url - The url of the layer
-
-  Attribution   
-
-  + Text checkbox - If the text description is enabled.
-
-  + Description - This optional field contains the attribution value. If empty, it will use copyright text from the server.
-
-  + Logo checkbox - Select the checkbox if enabled.
-
-  + Alternate text - The alternate text to be displayed.
-
-  + URL - The url if the basemap if clicked.
+>For more information about how to setup the _Basemaps_ section, see the help dropdown menu located below the section header.
 
 
 # Map - Layers
 
-The layers tab lists the map layers to be displayed.
-For each map layer to be displayed the  fields to enter are:
+This section is used to add layers to your viewer application. Once a layer is added, the following information must be provided:
++ Layer Type
+    + esriDynamic
+    + esriFeature
+    + esriImage
+    + esriTile (an appropriate tile schema must exist)
+    + ogcWms
++ Name _- it will be used to generate the layer id -_
++ URL
 
-+ layer type selector - either one of these five types of layers that can be selected in the dropdown:
+At least one layer entry must be added if the selected layer type is esriDynamic or ocgWms. The following properties must be set:
++ Index for esriDynamic
++ ID for ogcWMS
 
-|Layer Type|Interactive|Server Renders|Datatable support|Notes|
-|----|----|----|----|----|
-| Feature | Yes | No | Yes | Fast, efficient - local rendering for small to medium size geometry sets |
-| Dynamic | Yes | Yes | Yes | Good choice for large, complex geometry that would be slow to render locally |
-| Image | No | Yes | No | Raster and image file support |
-| Tile | No | Yes | No | Fast, efficient - server contains pre-rendered map tiles |
-| WMS | Yes | Yes | No | Georeferenced map images which server generates using data from a GIS database |
+You can make a esriDynamic layer look like a esriFeature layer inside the legend with the _Single entry collapse_ option.
+This option will render a single layered dynamic layer with a single layer without its root group.
 
-+ Layerid - The identifier of the layer.
+Optionally you can set URL values for the Metadata URL and Catalog URL options to display the relative information inside the
+viewer's metadata panel available in the _Layer Controls_ section.
 
-+ Layer name - The layer name to be displayed.
-
-+ Url - The url of the service endpoint of the layer.
-
-+ Meta data url  - The service endpoint for the metadata.
-
-+ Layer type - The type of the service either ESRI Feature, ESRI Dynamic, ogcWMS,ESRI Tile or ESRI Image.
-
-+ Check box for symbology toggle - This will allow individual symbols display to be toggled on or off
-tolerance in pixels to determine if a feature was selected by a click.
-
-For each Layer entry the:
-
-+ Layer index - Index of the layer in the map service.
-
-+ Name - A name for the layer that can override the name from the service.
-
-+ Outfields - This is a comma separated list of attributes to be returned on a query
-
-+ State only - This flag indicates that state tracking is set for the layer. All controls will be ignored but the layer will be displayed with it's given state settings.
-
-Layer Controls and state
-
-![](layersettings.png)
-
-This list all the controls that you can select for a specified layer.
-The checkboxes for all controls that can be enabled on the specified layer are the following:
-
+For each layer and layer entries, the following _Layer Controls_ options can be selected:
 + opacity
 + visibility
 + boundingBox
@@ -186,327 +129,212 @@ The checkboxes for all controls that can be enabled on the specified layer are t
 + data
 + styles
 
-There is a pull down list of same controls which are visible, but disabled for user modification.
-
-#### State
-
-Opacity - Initial opacity requires you select a numerical value using the up or down arrows.
-
-Select the checkbox desired for the following settings:
-
+For each layer and layer entries, the following _State_ options can be selected:
++ Opacity - Initial opacity value.
 + Visibility - Initial visibility setting.
++ Bounding box - Set initial display of the layer's bounding box.
++ Query - Enable querying of map feature and display information inside the viewer's details panel. Will only work with
+esriFeature and esriDynamic layer type.
++ Snapshot - Retrieve all feature data immediately on load. Will only work with esriFeature layer type.
++ Hovertips - Enable hover tips. Will only work with esriFeature layer type.
 
-+ Bounding box - Display bounding box.
+For every esriFeature layer and every esriDynamic layer entries a table is created automatically when the URL or entry Index option
+is set. The table section is optional and is populated from the service information by default. You can customize the following table properties:
++ Title - Custom table title to apply. Default title is the layer name.
++ Description - Specifies additional information to be displayed in the table settings panel.
++ Maximize - Specifies if the table window is maximized on open. Default window size is split view.
++ Apply map - Specifies if table filters (from columns filters) are applied to the map (definition query).
++ Fields Customization - Specifies the array of table columns to display. Columns can be reinitialize with the _Set Fields_
+button at any time. The following properties can be customized:
+    + Title - Custom column title. Default column title is set with column's alias name from the service.
+    + Description - Specifies additional information to be displayed in the table settings panel.
+    + Visible - Specifies if the field is visible by default.
+    + Width - Column's width. If no width is set, best width will be calculated.
+    + Sort - Sort ascending (asc) or descending (dsc).
+    + Searchable - Specifies if column can be filtered or not.
+    + Filters - For each column, the following filter properties can be customized:
+        + Type - Specifies the filter type to use. If Type is not specified, data field type will be used. String filter
+        can be string or selector. Other filters must be of the same type.
+        + Value - Specifies the filter value.
+        + Static - Specifies if filter value can be modified or not.
 
-+ Query - Allow querying.
+**Important** - Modifying the layer type of an existing layer is not a good practice. It is better to create a new layer
+and then delete the old one.
 
-+ Snapshot - Retrieve all feature data immediately on load.
-
-+ Hovertips - Disable hover tips.
-
-#### Table
-
-![](tablepanel.png)
-
-The table section lists the fields to be returned on query in the table panel.
-
-+ Title of table - Specifies the title to apply.
-
-+ Description - This field specifies additional information to be displayed in the settings panel.
-
-+ Maximize - Specifies default table size if the table is to be maximized on open or if false in a split view.
-
-+ Apply map - This specifies if the default filters (from columns filter) are applied to the map (definition query). True: it is applied; False: it is not applied.
-
-#### Fields section
-
-Customize fields - Specifies the array of columns for the table. When there is an item in this array, it will be use to define which and how column will be set for the table. If a column is not in the array it will be assume as disabled.
-
-Single entry collapse - Indicates that the dynamic layer with a single layer entry should be rendered without the root group. The list of fields that can be expanded or collapsed.
+>For more information about how to setup _Layers_ section, see the help dropdown menu located below the section header.
 
 
 # Map - Legend
 
-This tab indicates if the legend is auto populated by the listed layers or  if a customized user built structured legend is used.
+This section is used to define legend for your viewer application. There are 2 types of legends to choose from: Autopopulate
+and Structured. The Autopopulate legend will read the layers as they appear in the Layers section in order to create a simple default legend.
+
+The Structured legend allows you to customize the display order of the layers, the layer grouping, descriptions and many other settings.
+
+>For more information about legend customization options, see the dropdown help menu located below the section header.
 
 
 # Map - Components
 
-The maps components tab lists the if mouse coordinates are enabled and
-the numerical values selectable by a click for the projection displayed by selecting the
- wkid, vcsid ( vertical coordinate wkid) and latestwkid, latestvcswkid, and wkt( Well-known text (WKT)
-is a text markup language for representing vector geometry objects on a map,
-spatial reference systems of spatial objects and transformations between spatial reference systems.
-
-The mouse coordinates to be displayed at the bottom of the map.
-
-The positioning coordinates can be in degrees minutes seconds (DMS), decimal degrees or
-meters depending on the projection and configuration used.
-
-It also lists the checkboxes if enabled for the display of the north arrow ![](northarrow.png).
-
-The display of the scale bar at the bottom of the map ![](scalebar.png).
-
-The display of the over view map at the upper right corner ![](overviewmap.png).
-
-It also lists if the over view map is enabled, its scale factor and if visible.
+This section is used to define map component:
++ Mouse Coordinates
+    + WKID must be set to display mouse coordinates on the map
+    + Coordinates can be in degrees minutes seconds (DMS) and decimal degrees or meters depending on the projection (WKID)
++ North Arrow
++ Scale Bar
++ Overview Map
+    + To change the overview map basemap, use _Static Overview Map_ in the appropriate tile schema of _Extents and Levels of Detail_ section
 
 
 # User Interface
 
-The user interface section table lists general information for the application bar, navigation bar and side menu.
+##### General
 
-#### General tab
+The General section is for customizing the following information:
++ Full screen - Used to set viewer application’s initial size to Full Screen (a.k.a. entire  viewport).
++ On Viewer Failure
+    + Failure Message -  Custom message to use instead of the default failure message.
+    + Failure Image Url - Custom image to use instead of the default failure image.
++ Legend
+    + _Is Reorderable_ Set to allow interactive reordering of layers inside the viewer application's legend.
+    Structured legends ignore this option.
+    + _Allow Layers Import_ Set to allow interactive importing of additional layers inside the viewer application.
++ Legend Opening Options - Set to display the legend's initial view in small, medium and/or large display.
++ Table Opening Options - Set to display the table's initial view in small, medium and/or large display.
+    + For table to open by default, a layer id must be selected.
 
-General tab lists the following information.
+##### Application Bar
 
-+ Full screen checkbox -  Selected if the viewer is to take the entire viewport.
+![](applicationbar.png "Application bar")
 
-+ Theme - Select the UI theme of the viewer from the pull down list.
+The Application Bar section allows you to add or remove the following tools:
++ Side Menu
++ Geosearch
++ Basemap Selector
++ Layers Selector (legend)
 
-+ Failure message -  Message if the viewer fails to override the viewer default message.
+##### Navigation Bar
 
-+ Failure Image Url- The url of the image to be used to override the viewers default image.
+The Navigation Bar allows you to add or remove the following navigation components:
++ geolocator - Display user position on the map
++ home - Zoom to initial extent
++ basemap - Open Basemap Selector _- also available in the Application Bar -_
++ help - Open help window _- also available in the Side Menu -_
++ fullscreen - Open viewer in fullscreen _- also available in the Side Menu -_
++ geoSearch - Open Geosearch tool _- also available in the Application Bar -_
++ sidemenu - Open the Side Menu _- also available in the Application Bar -_
++ layers - Open the Layers Selector (legend) _- also available in the Application Bar -_
 
-![](menu.png)
+You can restrict navigation within the maximum extent by checking the _Restrict Navigation_ checkbox.
 
-The legend is reorderable but the selection of a structured legend ignores this option.
-Provides an alternative to the click-hold and drag reordering already available. When selected, layers are only reorderable by holding onto the handle icon next to each layer. Most useful for touch devices
+##### Side Menu
 
-![](reorder.png)
+The Side Menu allows you to configure how the side menu will appear. First you can set a title and a logo. If no title or
+logo are provided, the default title ("FGP R2 Viewer") and logo will be used. Then you can add as many group of tools as you want
+from the following options:
++ layers - Layers Selector (legend) _- also available in the Application Bar -_
++ basemap - Basemap Selector _- also available in the Application Bar -_
++ geosearch - Geosearch tool _- also available in the Application Bar -_
++ about - Display additional information about the map
+    + About can be of type string or file. When type file is selected, you must provide a folder name for your custom About
+    markdown formatted files located inside the FGPV instance.
+    + **Important** About of type file will not show up inside preview mode.
++ fullscreen - Open viewer in fullscreen _- also available in the Navigation Bar -_
++ export - Export the map view as png image
++ share - Create a URL link to share the map
++ touch - Enable touch mode for touch screen (to enhance layout spacing and button size)
++ help - Open Help window _- also available in the Navigation Bar -_
+    + If you do not want to use the default Help, you must provide a folder name for your custom Help markdown formatted files
+    located inside the FGPV instance.
+    + **Important** Custom Help will not show up inside preview mode.
++ language - Set interface language
++ plugins - Container to receive custom plugins
+    + **Important** plugins section will not show up inside preview mode. A piece of code must be added to the viewer application
+    HTML page to activate the plugin(s).
 
-Allow layers import indicates that users can import additional layers at runtime besides those in the configuration file.
-Additional layers can be added to the map viewer. Supported formats include: ESRI Feature Layer, ESRI Dynamic Layer, ESRI Tile Layer, ESRI Image Layer, OGC Web Map Service, or a Raster Layer. The '+' button at the top of the Legend menu will launch the Add Layers menu.
-
-![](add.png)
-
-Legend opening options
-
-Click on the checkbox to specify whether the legend is opened by default on initial loading of the map for small, medium, and large viewports.
-
-+ Open by default in large display- Whether the legend is opened by default on initial loading of the map for large viewports
-
-+ Open by default in medium display- Whether the legend is opened by default on initial loading of the map for medium viewports
-
-+ Open by default in small display- Whether the legend is opened by default on initial loading of the map for small viewports
-
-![](tablepanel.png)
-
-The following controls specify if the table panel is opened by default upon loading of a layer for different size viewports.
-
-+ Layer Id - The id of the layer for referencing within the viewer.
-
-Table opening options
-
-Click on the checkbox to specify whether the table panel is opened by default on initial loading of the map for small, medium, and large viewports
-
-+ Open by default in large display -Whether the table panel is opened by default on initial loading of the map for large viewports
-
-+ Open by default in medium display- Whether the table panel is opened by default on initial loading of the map for medium viewports
-
-+ Open by default in small display- Whether the table panel is opened by default on initial loading of the map for small viewports
-
-#### Application bar
-
-![](applicationbar.png)
-
-The application bar lists the configuration of the main toolbar.
-The tools that can be selectable via a check box in the main toolbar are the following:
-
-+ Side Menu - Shows the side menu button in the main app toolbar
-
-+ Geosearch- Shows the geosearch button in the main app toolbar. The button will be hidden if the geosearch component is disabled or no search service URLs are provided.
-
-+ Basemap Selector -Shows the basemap selector button in the main app toolbar.
-
-+ Layers Selector -Shows the layers button in the main app toolbar.
-
-#### Navigation Bar
-
-![](sidemenulist.png)
-
-The navigation bar lists check boxed fields for extra navigation components:
-
-+ geolocator
-
-+ marquee
-
-+ home
-
-+ history
-
-+ basemap
-
-+ help
-
-+ fullscreen
-
-+ geosearch
-
-+ restrict navigation to within the maximum extent
-
-#### Side Menu
-
-The side menu tab list the following fields
-
-+ Title - Specifies an optional title instead of the viewer default.
-
-+ Showlogo - Checkbox if the logo should be shown on the left side window.
-
-+ Logo Url - Specifies a Url for an optional viewer logo.
-
-![](menulist.png)
-
-The Side Menu items to be listed in the side menu that are selectable via a check box:
-
-+ layers
-+ basemap
-+ geosearch
-+ about
-+ fullscreen
-+ export
-+ share
-+ touch
-+ help
-+ language
-+ plugins
-
-Help File
-
-+ Folder name  - Specifies the folder name containing the help description and images.
-
-The following fields are for About Map properties specified from a configuration file or markdown folder.
-
-+ About source - Specifies a string or file content from a pull down list.
-
-+ Content - Enter a string containing the about map text.
+_Note:_ tools inside groups are not ordered as they appear inside the group list. They are ordered by selection order e.g. if
+you click on _basemap_ then _layers_, inside the side menu _basemap_ will appear first because it was the first item selected from
+the group.
 
 
 # Services
 
-#### Export map
+##### Export Map
 
-You can export an image of the map and its visible layers along with a legend, title, north arrow with scalebar, custom footnote, and a timestamp.
+Export Map allows you to configure what components will be displayed by default and/or be customizable on the map when
+exported as a png image. The _Is present_ checkbox under each component allows you to add the components by default to the exported map. The
+_User can remove it_ checkbox allows you to choose if you want the user to be able to remove the component from the exported map.
 
-The title of the exported graphic can be customized by entering a value.
+The following components can be displayed or customized:
++ Title _- a default value can be set -_
++ Map
++ Legend
++ Map Elements (north arrow and scalebar)
++ Footnote _- a default value can be set -_.
++ Timestamp
 
-Check boxes are used to indicate if each of these export components is present or customizable.
+##### Geosearch
 
-+ Title - Enter the text value for the title of the exported graphic.
+The Geosearch section allows you to configure the geosearch tool capabilities. Geosearch allows you to find Canadian locations
+by different categories like cities, provinces, topographic entities and so on leveraging the Geonames API. In addition of this,
+Geosearch allows you to find locations by National Topographic System (NTS) name, forward sortation area (FSA) code and Latitude/Longitude values.
+The last 3 search types options can be enabled by checking the corresponding checkbox on.
 
-+ Map component - The map is included in the exported graphic.
+All URLs required by Geosearch are read-only values. If you encounter a problem whit these services, contact the person in
+charge of the FGPA application instance you are using and/or [submit an issue](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+to the FGPA developers team.
 
-+ Legend component - The legend is included in the exported graphic.
+##### Service endpoints
 
-+ Map elements - The north arrow and sidebar components are included in the exported graphic.
-
-+ Footnote - Enter a text footnote to be added to the exported map as text.
-
-+ Timestamp component - The timestamp is included in the exported graphic.
-
-If customizable a dialog will appear with an image of the map, and an option to enter a map title if desired.
-
-![](exportmapwindowv2.png)
-
-Also, users can add or remove sections of the exported image such as a legend,
-by clicking on the options cogwheel in the header.
-Users will be able to select/deselect the sections to appear in the exported image.
-
-#### Geosearch
-
-This section lists  sections for service End points for the coordinate info url and print url,
-Geosearch service endpoints and export of the map configuration settings.
-
-![](geosearchmenu.png)
-
-This tab lists the customizable properties of the geosearch function and urls of it's service endpoints.
-
-+ Geo Names URl - Endpoint url for geoNames service
-
-+ Geo Location URl -Endpoint url for geoLocation service
-
-+ Geo Suggest URl -Endpoint url for geoSuggest service
-
-+ Provinces URL - Endpoint url for provinces service
-
-+ Type URL- Endpoint url for types service
-
-You can also use checkboxes to disable the NTS, Postal Code and Latitude/Longitude types of  which
-are available in the geosearch window.
-
-![](geosearchexample.png)
-
-#### Service endpoints
-
-This tab lists the url for the service endpoints for the coordinate information and print function.
-
-For advanced configuration options this tabs let you change the following service endpoints.
-
-+ Proxy URL- An optional proxy to be used for dealing with same-origin issues. The URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.
-
-+ Export Map URL - An ESRI service endpoint for generating map images. Should point directly to an endpoint that can be consumed by ESRI PrintTask.
-
-+ Geometry URL - A URL to an ESRI ArcGIS geometry service REST endpoint.
-
-+ Google API URL - Google API key to enable geo location and share link shortening.
+The Service endpoints section lists all the services URLs the viewer application requires. These URLs are read-only values
+and therefor cannot be modified. If you encounter a problems with these services, contact contact the person in charge of
+the FGPV application instance you are using.
 
 
 # Version
 
-The version tab lets you select the version of the FGP viewer schema file using a pull down list.
-
-By default the present version is 2.0.
+The version section allows you to select the version number of the FGPV schema you would like to use. Only one value available: the
+latest FGPV schema version.
 
 
 #  Language
 
-The language tab let you select the language of the configuration file , using a pull down list.
-Select en-CA for english or fr-CA for french.
-
-The value is a ISO 639-1 code indicating the language of strings in the schema file.
+The language section allows you to select the appropriate language for the configuration file.
 
 
 #  Summary Panel
 
-![](summarypanel.png)
+![](summarypanel.png "Summary panel")
 
-The summary panel permits you to validate the fields in the configuration file by clicking on the validate button ![](validate.png).
+The Summary Panel allows you to verify that your configuration file respects the FGPV schema. You can validate your configuration
+file by clicking the Validate button ![](validate.png "Validate button").
 
-The summary panel also permits you to preview the configuration file in a viewport by clicking on the preview button ![](preview.png).
+After a validation is executed, green check marks ![](greencheckbox.png "Green check symbol") will appear besides configuration
+fields that pass validation and red exclamation mark ![](redcircle.png "Red exclamation symbol") will appear besides configuration
+fields that do not pass validation. To view a specific input field in the FGPA application, click on the desired field listed in
+the validation summary tree; you will be automatically redirected to the appropriate tab or input field in the FGPA application.
++ Blue coloured items indicate items contained in groups such as Tile Schema, Spatial Extents Sets, Level of Detail sets, Basemaps and Layers groups.
++ _Italic_ formatted items are _advance configuration_ items. These items are hidden from the validation summary tree if the _Show advanced configuration
+options_ checkbox is not checked.
 
-![](previewsample.png)
+Once all the configuration file fields pass validation, the Preview button ![](preview.png "Preview button") will be enabled.
+You will be then able to click this button to preview your configuration file in an instance of the FGPV application. This
+preview instance displays all the layers, basemaps, menus and options you have set as they would appear in a fully functional
+FGPV application. Note that any custom Help and About file content  cannot be displayed in the preview instance.
 
-A preview of the map displays all the layers of he map as it will be displayed in the FGP viewer.
-It is a fully functional viewer containing all the functionality of the viewer application.
+The preview instance may require a few seconds to initialize depending on:
++ Network location
++ Bandwidth availability
++ Number of layers in the map + Layer types and their sizes
 
-The preview may require a few seconds to display.
+![](previewsample.png "Viewer preview")
 
-The summary panel lets you  validate the configuration file by pressing on the
-validate button ![](validate.png)to list all the fields in the file.
+The summary panel might display other buttons (functions) alongside the Preview button. These optional functions are extensions
+to the FGPA application and might not be available to all FGPA users.
 
-A green checkbox ![](greencheckbox.png) will appear beside the fields that are
-valid.
+You will find the following FGPA application version information at the bottom of the summary panel:
++ Version/build number
++ Date of version/build
++ Link of FGPA GitHub repository to report issues
 
-A red box ![](redcircle.png) with an exclamation mark appears beside fields that
-are not valid.
-
-You can use the expand or collapse buttons ![](expandcollapse.png) to see all the fields in the different sections of
-the viewer configuration file.
-
-
-# Load Times/Unanticipated Behavior
-
-![](startingwheel.png)
-
-The spinning wheel occurs at the loading of the application and during execution of a file in preview mode.
-
-You can press the F12 function key to enter into debug mode and select
-the console tab to obtain additional error messages if execution time takes too long.
-
-Load times for this application and the preview viewer configuration may vary based on:
-- network location
-- bandwidth availability
-- number of layers being loaded
-- Layer types and their sizes
-
-Unanticipated behavior may occur if any interactions occur before data is fully loaded. Please allow the webpage to load completely before triggering any functions.
+![](summaryinfo.png "FGPA version information")

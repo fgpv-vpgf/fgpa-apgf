@@ -1,158 +1,131 @@
-﻿# Generale
+# Information générale
 
-L'application Auteur pour la plateforme géospatiale fédérale est utiliser pour cree des fichier de configuration json pour le visualisateur pour la plateforme géospatiale fédérale.
+L'outil APGF (Auteur de la Plateforme géospatiale fédérale) est utilisé pour créer, mettre à jour, valider et prévisualiser
+les fichiers de configuration utilisé par la visualiseur de la Plateforme géospatiale fédérale (VPGF).
 
-Ouvrir un fichier existante en cliqant sur l'icône ![](uparrow.png).
+L'outil APGF est basé sur la bibliothèque [Angular Schema Form](https://github.com/json-schema-form/angular-schema-form).
+Cette bibliothèque permet de génèrer des formulaires à partir de schémas en format JSON en utilisant AngularJS. L'outil APGF
+utilise le même schéma que le VPGF et permet à l'utilisateur de modifier facilement les valeurs afin de créer de nouveaux
+fichiers de configuration. Le schéma est composé de 5 sections:
++ ** Carte **
+    + La carte est divisée en 5 sections (Étendues et niveaux de détail, Cartes de base, Couches, Légende et Composantess)
++ ** UI **
+    + L'interface utilisateur est divisée en 4 sections (Général, Barre d'application, Navigation et Menu latéral)
++ ** Services **
+    + Les services sont divisés en 3 sections (Exporter la carte, Recherche par lieux et Liens pour les services)
++ ** Version **
++ ** Langue **
 
-Creer un nouveau fichier de configuration en cliqant sur l'icône ![](plussign.png).
+Pour plus d'informations sur la structure du schéma, vous pouvez consulter le [schéma VPGF](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
+dans notre page wiki. Cette section vous donnera également des informations sur les valeurs du schéma et leur effet dans le visualiseur.
 
-Sauvegarder un fichier de configuration en cliqant sur l'icône ![](diskette.png) .
+##### Informations utiles
 
-Par defaut 3 gabarits de configuration sont disponible pour des valeurs de defaut.
+Pour changer la langue de l'interface, utilisez le menu déroulant _Langue_ situé dans le coin supérieur droit ![](languagebuttonFR.png "Menu déroulant Langue").
 
-Choissiez entre config-authorA, config-AuthorB ou config-full.
+A tout moment, si disponible, vous pouvez utiliser les boutons Ouvrir ou Fermer ![](expandcollapseFR.png "Développer et réduire les boutons")
+pour développer ou réduire tous les éléments d'une section.
+
+Certains éléments de configuration sont utiles seulement pour des utilisateurs plus avancé. Vous pouvez afficher / masquer ces éléments
+en utilisant la case à cocher _Affichier les options de configuration avancée_ situé sous chaque nom de section.
+
+Certains éléments comme les cartes de base, les couches et les champs des tables de couche peuvent être réordonnés. Vous pouvez
+facilement identifier les éléments réordonnable avec le symbol de poignée ![](draghandle.png "Symbol de poignée"). Pour réordonner
+un élément, cliquez sur la poignée, puis faites glisser l'élément vers le position désirée. Une boîte jaune apparaîtra sous
+l'élément où il sera placé lorsque vous relâchez la poignée.
+
+_Note:_ il est plus facile de faire glisser un élément lorsque tous les éléments de la section sont réduits.
+
+Pour charger le fichier de configuration ou le modèle directement depuis l'URL, vous pouvez utiliser la syntaxe suivante:
++ _votre instance url_?filename=_votre nom de fichier_ (par exemple https://xxx/fgpv-author.html?filename=https://myfolder/myfilename.json)
++ _votre instance url_?template=_votre nom de modèle_ (par exemple https://xxx/fgpv-author.html?template=mytemplate.json)
+
+_Remarque:_ si l'application ne peut pas lire le fichier de configuration ou si le modèle n'existe pas, elle ouvrira
+une configuration par défaut ou le premier modèle dans la liste des modèles.
+
+> Un comportement imprévu peut se produire si des interactions se produisent avant que les données soient entièrement chargées. Veuillez laissez la page Web
+> charger complètement avant de l'utiliser. Si vous rencontrez toujours des bogues, veuillez [soumettre un problème](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+> dans dépôt GitHub. Quelqu'un de notre équipe de développement s'en occupera le plus rapidement possible.
 
 
-# Carte
+# Entête
 
-La section carte est composer des onglets qui contient les informations sur les composantes de la carte.
+![](headerFR.png "Vue d'ensemble de l'en-tête")
 
-Cette section carte est diviser dans le onglets suivante:Extendues et details, composantes,cartes de base,couches,legende.
+La barre d'outils d'en-tête vous permet de:
++ Ouvrir la fenêtre d'aide de l'outil APGF à partir du bouton point d'interrogation.
++ Créer un nouveau fichier de configuration à partir de zéro ![](plussign.png "Signe addition") _- uniquement disponible lorsque aucun modèle n'est fourni -_.
++ Créer un nouveau fichier de configuration à partir de modèles ![](templatesFR.png "Menu déroulant modèle") _- uniquement disponible lorsque des modèles sont fournis -_.
+    + Les modèles sont gérés par l'organisation en charge de cette instance APGF. Contactez l'organisation si vous avez besoin de plus d'informations
+    ou souhaitez une mise à jour de la liste des modèles.
++ Télécharger un fichier de configuration existant ![](uparrow.png "Flèche").
++ Enregistrer le fichier de configuration une fois terminé ![](diskette.png "Signe de disquette").
+    + Tous les fichiers sont enregistrés dans votre dossier Téléchargements.
+
+Le nom du fichier sur lequel vous travaillez est affiché à gauche de l'icône de sauvegarde. Cependant, si vous enregistrez
+un fichier en utilisant un nom de fichier existant, il sera renommé par votre système d'exploitation et ne correspondra plus
+au nom de fichier que vous avez utilisé (par exemple, Test est affiché comme le nom de fichier mais le nom de fichier renommé est Test (1)).
+
+> Lorsque vous créez ou téléchargez un fichier de configuration, le temps de chargement peut varier en fonction du nombre
+> de couches et de cartes de base en cours de chargement.
 
 
-# Carte - Etendues et details
+# Carte - Étendues et niveaux de détail
 
-Cette section liste des sous sections: Schéma des tuiles,Extents et Lots d'étendues spatiales,Lots de niveaux de détail.
+Cette section est utilisée pour définir les schémas de tuiles de votre application de visualisation. Pour chaque schéma de tuile,
+un système de référence spatiale doit être définis dans la section _Lots d'étendues spatiales_. Encore une fois, pour chaque
+schéma de tuile, les niveaux de détail (LOD) doivent être défini dans la section _Lots de niveaux de détail_. Pour cela,
+une couche ESRI de type "tile cache" doit être utilisée pour extraire la liste des LOD. Chaque LD correspond à la carte à
+une échelle ou une résolution donnée. Par conséquent, chaque carte de base doit être lié à un schéma de tuile et doit partager la même
+étendue spatiale et les mêmes LOD.
 
-#### Schéma des tuiles
-
-+ L'identifiant - l'identifiant unique d'un schéma de tuiles (combinaison de l'étendue et de l'échelle)
-
-+ Nom - Le nom utilisé dans le sélecteur de cartes de base.
-
-+ ID du lot d'étendues - Le lot d'étendues à utiliser pour la carte de base.
-
-+ ID du lot de niv. de détail - Optionnel. Lot de niveaux de détail utilisé pour la carte de base.
-
-+ Carte d'aperçu statique
-
-+ Type de couche -Selectionne entre esriTile ou esriImage.
-
-+ URL - Le point de service de la couche. Le type de couche retourné par le service et le type de couche identifié dans les paramètres doivent être les mêmes.
-
-#### Lots d'étendues spatiales
-
-Cette section liste les lots d'etendues spatiale pour la  carte de base.
-Étendue par défaut,Étendue complète, Étendue maximale
-
-+ ID -l'identifiant d'étendues spatiale.
-
-+ WKID =Entrez le numero de la projection a utiliser.
-
-+ VcsWKID - Entrez le numero VcsWkid la plus recente a utiliser.
-
-+ latestWKID - Entrez le numero Wkid la plus recente a utiliser.
-
-+ Étendue par défaut - Étendue utilisée par défaut ainsi que pour le chargement initial.
-
-+ Étendue complète - Étendue utilisée lorsque l'utilisateur clique sur le bouton étendue initiale.
-L'étendue par défaut sera utilisée si l'étendue complète n'est pas définie.
-
-+ Étendue maximale - L'étendue maximale permet de limiter le zoom et le pan.
-L'étendue complète ou par défaut sera utilisée si l'étendue maximale n'est pas définie.
-
-#### Lots de niveaux de détail
-
-Niveau de détail pour un schéma de tuiles spécifique.
-
-Les niveaux de détail selon l'échelle offerts pour la carte.
-
-Entrez les Lots de niveaux de détai par
-
-+ niveau
-+ resolution
-+ echelle.
-
-Utilise les fleches pour selectionner les valeurs par niveau de resolution et echelle.
+> Pour plus d'informations sur la configuration de la section _Étendues et niveaux de détail_, consultez le menu déroulant
+> d'aide situé sous l'en-tête de la section.
 
 
 # Carte - Cartes de base
 
-+ ID - l'identifiant de la carte de base initiale.
+Cette section est utilisée pour ajouter des cartes de base à votre application de visualisation. Pour ajouter une carte de base,
+un schéma de tuile approprié pour cette carte de basae doit déjà avoir été créé. Une fois qu'une carte de base est ajoutée,
+les informations suivantes doivent être fournies:
++ Nom _- il sera utilisé pour générer l'identifiant de la carte de base -_
++ Description
++ Texte alternatif
++ Identifiant du schéma de tuile (sélectionné un schéma de tuile existant)
++ Au moins une couche avec identifiant, type de couche et URL.
 
- Carte de base utilisée lors du chargement initial. Si celle-ci n'a pas été configurée, une autre carte de base sera sélectionnée.
+Vous devez définir la carte de base initiale qui apparaîtra au lancement du visualisateur. Pour ce faire, sélectionnez l'identifiant
+de carte de base (nom-_clé unique_ à partir de _ID de la carte de base initiale_) dans le menu déroulant.
 
-+ ID carte de base - Un identifiant unique pour la carte de base.
-
-+ Nom - Nom de la carte de base utilisé pour l'étiquettage.
-
-+ Description - Description de la carte de base. Apparaît lorsque le sélecteur de carte de base est étendu.
-
-+ Type sommaire - Optionnel. Type de la carte de base à afficher dans le sélecteur de carte de base.
-
-+ Texte alternatif - Texte alternatif pour l'imagette de la carte de base.
-
-+ URL imagette - Chemin vers le fichier image à afficher dans le sélecteur de carte de base.
-
-+ ID schéma de tuiles - Le schéma de tuiles pour la carte de base.
-
-Couches
-
-+ ID - L'identifiant de la couche pour référencement interne au visualisateur ( n'est pas directement lié à un service externe).
-
-+ Type de couche - Selectionner entre esriFeature, esriDynamic, esriTile, EsriImage, ou ogcWms.
-
-+ Url  - Un ensemble d'URLs qui permettent la composition d'un carte de base
-
-Crédit
-
-+ Texte - Activée ou non pour le description.
-
-+ Description - Optionnel. Contient la valeur de l'attribution. Si celle-ci est vide, l'attribution retournée par le serveur sera utilisée.
-
-Logo
-
-+ Logo visibe - Activée ou non.
-
-+ Texte alternatif - URL pour l'image.
-
-+ Url - URL de la destination lorsque l'utilisateur clique sur le logo.
+> Pour plus d'informations sur la configuration de la section _Cartes de base_, consultez le menu déroulant d'aide situé
+> sous l'en-tête de la section.
 
 
 # Carte - Couches
 
-+ Sélecteur de type de couche - selectionnez entre esriFeature, esriDynamic, esri Image, esriTile, ogcWms.
+Cette section est utilisée pour ajouter des couches à votre application de visualisation. Une fois qu'une couche est ajoutée,
+les informations suivantes doivent être fournies:
++ Type de couche
+    + esriDynamic
+    + esriFeature
+    + esriImage
+    + esriTile (un schéma de tuile approprié doit exister)
+    + ogcWms
++ Nom _- il sera utilisé pour générer l'identifiant de la couche -_
++ URL
 
-+ L'ID - L'identifiant de la couche - pour référencement interne au visualisateur ( n'est pas directement lié à un service externe).
+Au moins une entrée de couche doit être ajoutée si le type de couche sélectionné est esriDynamic ou ocgWms. Les propriétés
+suivantes doivent être définies:
++ Index pour esriDynamic
++ Identifiant pour ogcWMS
 
-+ Nom - Le nom de la couche pour les fins d'affichage. Si vide, le visualisateur tentera de trouver un nom
+Vous pouvez faire en sorte qu'une couche esriDynamic ressemble à une couche esriFeature avec l'option de légende _Grouper en une seule entrée_.
+Cette option affichera une couche dynamique à une seule couche sans son groupe racine.
 
-+ URL - Le point de service de la couche. Le type de couche retourné par le service et le type de couche identifié dans les paramètres doivent être les mêmes
+En option, vous pouvez définir des valeurs d'URL pour les métadonnées et le catalogue pour afficher ces informations à l'intérieur
+du panneau de métadonnées accessible par  _Contrôle de la couche_ .
 
-+ URL des métadonnées - L'URL du service de carte pour les métadonnées.
-
-+ Basculer la symbologie - Permet de basculer la visibilité ( allumé/éteint ) pour un symbole particulier.
-
-+ Tolerance - Spécifie la tolérance en pixels de la région cliquable entourant un élément. Doit êtreun entier positif
-
-#### Couches Utilisées
-
-+ Index- L'index de la couche dans la service de la carte.
-
-+ nom - Nom personnalise pourn la couche. Peut replacer celui fourni par le service.
-
-+ Champs externe - Liste des noms des attributs separer par un virgule.
-
-+ Etat seulement - Un indicateur afin d'informer que l'entree est utilisee suelement pourbble suivi de l'etat. Par consequent tous les controles seront abscent de l'interface.
-
-Controle et etat de la couche
-
-![](layersettings.png)
-
-Contient un liste des controles possible qu'on peut selcetionner pour la couche.
-
-Une liste des contrôles à activer sur une couche en particulier
-
+Pour chaque couche et entrées de couche, les options _Contrôle de la couche_ suivantes peuvent être sélectionnées:
 + opacity
 + visibility
 + boundingBox
@@ -167,326 +140,221 @@ Une liste des contrôles à activer sur une couche en particulier
 + data
 + styles
 
-#### Table
+Pour les entrées de couche et les couches, les options _État_ suivantes peuvent être sélectionnées:
++ Opacité - Valeur d'opacité initiale.
++ Visibilité - Réglage de la visibilité initiale.
++ Rectangle englobant - Définit l'affichage initial du rectangle englobant de la couche.
++ Requête - Activer l'interrogation de la couche et afficher les informations dans le panneau des détails de la visionneuse.
+Ne fonctionnera qu'avec les couches de type esriFeature et esriDynamic.
++ Copie instantannée - Récupérer toutes les données d'entité immédiatement au chargement. Ne fonctionnera qu'avec les couches
+de type esriFeature.
++ Affichage de survol - Activer l'affichage de survol. Ne fonctionnera qu'avec les couches de type esriFeature.
 
- ![](tablepanel.png)
+pour chaque couche esriFeature et chaque entrée de la couche esriDynamic, une table est créée automatiquement lorsque l'URL
+ou l'option Index de l'entrée est réglée. La section table est facultative et est remplie à partir des informations du
+service. Vous pouvez personnaliser les propriétés de la table suivantes:
++ Titre - Titre personnalisé de la table à appliquer. Le titre par défaut est le nom de la couche.
++ Description - Spécifie les informations supplémentaires à afficher dans le panneau des paramètres de la table.
++ Maximiser - Spécifie si la fenêtre de la table est agrandie à l'ouverture. La taille de la fenêtre par défaut est la vue partagée.
++ Appliquer à la carte - Spécifie si les filtres de la table (à partir des filtres de colonnes) sont appliqués à la carte
+(requête de définition).
++ Personnalisation des champs - Spécifie les colonnes de la table à afficher. Les colonnes peuvent être réinitialisées
+à l'aide du bouton _Définir les champs_. Les propriétés suivantes peuvent être personnalisées:
+    + Titre - Titre personnalisé. Le titre par défaut est défini avec le nom d'alias de la colonne provenant du service.
+    + Description - Spécifie les informations supplémentaires à afficher dans le panneau des paramètres de la table.
+    + Visible - Indique si le champ est visible par défaut.
+    + Largeur - Largeur de la colonne. Si aucune largeur n'est définie, la meilleure largeur sera calculée.
+    + Tri - Tri ascendant (asc) ou descendant (dsc).
+    + Interrogeable - Indique si la colonne peut être filtrée ou non.
+    + Filtres - Pour chaque colonne, les propriétés de filtre suivantes peuvent être personnalisées:
+        + Type - Spécifie le type de filtre à utiliser. Si le type n'est pas spécifié, le type de champ de données sera utilisé.
+        Un filtre texte peut être une "string" ou un "selector". Les autres filtres doivent être du même type.
+        + Valeur - Spécifie la valeur du filtre.
+        + Statique - Spécifie si la valeur du filtre peut être modifiée ou non.
 
-La section table specifie comment les champs et la recherche globales sont configurees.
+**Important** - Modifier le type de couche d'une couche existante n'est pas une bonne pratique. Il est préférable de créer
+une nouvelle couche puis supprimez l'ancienne.
 
-+ Titre - Le titre de la table.
-
-+ Description - Information additionnelle à propos de la table à afficher dans le panneau de configuration.
-
-+ Maximiser - Taille de la table lors d'ouverture.
-
-+ Appliquer a la carte - Determiner si le filtres par defaut sont appliquer a la carte.
-
-Personnalisation des champs - Permet l'utilisateur de changer le noms des champs.
+> Pour plus d'informations sur la configuration de la section _Couches_, consultez le menu déroulant de'aide situé sous
+> l'en-tête de la section.
 
 
 # Carte - Légende
 
-+ Type de légende - Selectionner entre un type de legende automatique ou structuree.
+Cette section est utilisée pour définir la légende de votre application de visualisation. Il y a 2 types de légendes à disponible:
+"Autopopulate" et "Structured". La légende "Autopopulate" lit les couches telles qu'elles apparaissent dans la section Cosuches
+afin de créer une légende par défaut. La légende "Structured" vous permet de personnaliser l'ordre d'affichage des couches,
+le regroupement des couches, les descriptions et de nombreux autres paramètres.
 
-Si un legende structuree et selectionner vous devez remplir la legende en fomat json avec un fichier json pour definir la legende personnaliser
-
-+ Ajouter une section à la légende - Vosu pouvez ajouter une section à la légende entre entree, groupe, information, couche non liée, et groupe visibilité.
+> Pour plus d'informations sur les options de personnalisation des légendes, consultez le menu d'aide déroulant situé sous
+> l'en-tête de la section.
 
 
 # Carte - Composantes
 
-La section composantes liste si les Coordonnées de la souris sont afficher.
-
-Coordonnées de la souris
-
-Selectionnez si les coordonnees de la souris sont afficher.
-
-Référence spatiale
-
-Séléctionnez la référence spatiale utilisée pour l'affichage des coordonnées pour la souris.
-
-Séléctionnez la
-
-+ WKID - Well-Known ID
-
-+ VcsWKID - Systeme de référence verticale WKID
-
-+ WKID le plus récent
-
-+ VcsWKID le plus récent
-
-+ WKT - Well-Known Text
-
-Aussi vous pouvez activée les composantes suivant.
-
-+ flèche du Nord
-
-+ echelle
-
-+ carte d'aperçu
-
-+ facteur d'expansion - facteur pour la carte d'aperçu peuvent etre activée.
-
-
-# Interface Usager
-
-#### Général
-
-+ Plein ecran - Indique si le visualisateur utilise l'entièreté de la fenêtre d'affichage
-
-+ Theme - Le thème de l'interface utilisateur du visualisateur.
-
-Lors de la défaillance du visualisateur
-
-+ Message d'échec - (Optionnel) - Un message à afficher en cas de défaillance.
-
-+ URL image d'échec - (Optionnel) - Une image à utiliser en cas de défaillance.
-
-![](menu.png)
-
-Légende
-
-Cliquez pour accéder aux propriétés de la légende dans la section UI.
-
-+ Est réordonnable - indique si les éléments de la légende sont réordonnables. Cette propriété est ignorée si la légende est du type structurée.
-
-![](reorder.png)
-
-+ Permettre l'importation de couches -Indique si l'utilisateur peut ajouter des couches à partir de l'interface.
-
-![](add.png)
-
-Options d'ouverture de la légende
-
-+ Indique si la légende est ouverte par défaut lors du chargement initial pour les fenêtres d'affichage restreinte, moyenne et étendue.
-
-+ Ouvrir par défaut dans l'affichage étendu - Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue
-
-+ Ouvrir par défaut dans l'affichage moyen - Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne
-
-+ Ouvrir par défaut dans l'affichage restreint - Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte
-
-+ Options d'ouverture de la table- Indique si la table est ouverte par défaut lors du chargement initial pour les fenêtres d'affichage restreinte, moyenne et étendue.
-
-+ ID de la couche - L'identifiante de la couche pour des fins de référencement à l'intérieur du visualisateur
-
-+ Ouvrir par défaut dans l'affichage étendu - Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue
-
-+ Ouvrir par défaut dans l'affichage moyen - Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne
-
-+ Ouvrir par défaut dans l'affichage restreint - Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte
-
-#### Barre d'application
-
-![](applicationbar.png)
-
-La Barre d'application vous permet de configuree la barre d'application et les boutons visible.
-
-+ Menu latéral - Affiche le bouton du menu latéral dans la barre d'application principale.
-
-+ Géorecherche - Affiche le bouton de la géorecherche dans la barre d'application principale. Le bouton sera cachée si la géorecherche est désactivée ou si aucun URL n'est fourni.
-
-+ Sélecteur de carte de base - Affiche le bouton du sélecteur de carte de base dans la barre d'application principale.
-
-+ Sélecteur de couches - Affiche le bouton du sélecteur de couches dans la barre d'application principale.
-
-#### Navigation
-
-![](sidemenulist.png)
-
-+ Navigation restreinte - Empêche l'utilisateur d'effectuer des déplacements au delà de l'étendue maximale.
-
-+ Barre de navigation
-
-+ Zoom
-
-Composantes de navigation en extra.
-
-Selectionner les options voulu dans la barre de navigation.
-
-+ geoLocator
-+ marquee
-+ home
-+ history
-+ basemap
-+ help
-+ fullscreen
-+ geoSearch
-+ sideMenu
-+ couches
-
-#### Menu latéral
-
-+ Titre - (Optionnel)  Un titre pour remplacer celui utilisé par défaut par le visualisateur.
-
-+ Afficher le logo - Indique si le logo doit être affiché dans le menu latéral à gauche.
-
-+ URL du logo  - (Optionnel) Une image pour remplacer le logo utilisé par défaut par le visualisateur.
-
-![](menulist.png)
-
-Items du menu latéral
-
-Selectionner les items voulu dans le menu latéral.
-
-+ layers
-+ basemap
-+ geoSearch
-+ about
-+ fullscreen
-+ export
-+ share
-+ touch
-+ help
-+ language
-+ plugins
-
-Fichier d'aide
-
-Propriétés de l'aide
-
-+ Nom du dossier - Nom du dossier contenant les fichiers d'aide et les images connexes.
-
-À propos de la carte - L'à propos de la carte provenant du fichier de configuration ou d'un répertoire contenant un fichier de type Markdown.
-
-+ Source de l'à propos - Indique si le texte est entree ou la source du contenu est dans un fichier.
-
-+ Texte - À propos provenant d'un texte fourni (chaîne de caractères).
+Cette section est utilisée pour définir les composantes de la carte:
++ Coordonnées de la souris
+    + WKID doit être configuré pour afficher les coordonnées de la souris sur la carte
+    + Les coordonnées peuvent être en degrés minutes secondes (DMS) et en degrés décimaux ou mètres selon la projection (WKID)
++ Flèche du Nord
++ Échelle
++ Carte d'aperçu
+    + Pour modifier la carte de base de la carte d'aperçu, utilisez _Carte d'aperçu statique_ dans le schéma de tuile approprié
+    de la section _Étendues et niveaux de détaill_
+
+
+# Interface utilisateur
+
+##### Général
+
+La section Général permet de personnaliser les informations suivantes:
++ Plein écran - Utilisé pour définir la taille initiale de l'application de visualisation.
++ Lors de la défaillance du visualisateur
+    + Message d'échec - Message personnalisé à utiliser à la place du message d'échec par défaut.
+    + ULR image d'échec - Image personnalisée à utiliser à la place de l'image d'échec par défaut.
++ Légende
+    + _Est réordonnable_ Permet d'autoriser la réorganisation interactive des couches dans la légende de l'application.
+    Les légendes structurées ignorent cette option.
+    + _Permettre l'importation de couches_ Permet d'importer de manière interactive des couches supplémentaires dans l'application de visualisation.
+    + Options d'ouverture de la légende - Permet d'afficher la vue initiale de la légende dans un affichage de petite, moyenne et / ou grande taille.
+    + Options d'ouverture de table - Permet d'afficher la vue initiale de la table dans un affichage de petite, moyenne et / ou grande taille.
+        + Pour que la table s'ouvre par défaut, un identifiant de couche doit être sélectionné.
+
+##### Barre d'application
+
+![](applicationbarFR.png "Barre d'application")
+
+La section Barre d'application vous permet d'ajouter ou de supprimer les outils suivants:
++ Menu latéral
++ Géorecherche
++ Sélecteur de carte de base
++ Sélecteur de couches (légende)
+
+##### Navigation
+
+La bsection navigation vous permet d'ajouter ou de supprimer les composantes de navigation suivantes:
++ geolocator - Afficher la position de l'utilisateur sur la carte
++ home - Zoom sur l'étendue initiale
++ basemaps - Ouvrir le sélecteur de fond de carte _- également disponible dans la barre d'application -_
++ help - Ouvrir la fenêtre d'aide _- également disponible dans le menu latéral -_
++ fullscreen - Ouvrir la visionneuse en plein écran _- également disponible dans le menu latéral -_
++ geoSearch - Ouvrir l'outil géorecherche _- également disponible dans la barre d'application -_
++ sidemenu - Ouvrir le menu latéral _- également disponible dans la barre d'application -_
++ couches - Ouvrir le sélecteur de couches (légende) _- également disponible dans la barre d'application -_
+
+Vous pouvez limiter la navigation à l'étendue maximale en cochant la case _Navigation restreinte_.
+
+##### Menu latéral
+
+Le menu latéral vous permet de configurer l'affichage du menu latéral. Vous pouvez d'abord définir un titre et un logo.
+Si aucun titre ou logo ne sont fournis, le titre par défaut ("Visualiseur PGF R2") et le logo seront utilisés. Ensuite, vous
+pouvez ajouter autant de groupes d'outils que vous le souhaitez parmi les options suivantes:
++ layers - Sélecteur de couches (légende) _- également disponible dans la barre d'application -_
++ basemaps - Sélecteur de cartes de base _- également disponible dans la barre d'application -_
++ geosearch - Outil de géorecherche _- également disponible dans la barre d'application -_
++ about - Afficher des informations supplémentaires sur la carte
+    + "A propos de la carte" peut être de type texte ou contenu d'un fichier. Lorsque le type fichier est sélectionné, vous devez fournir
+    un nom de dossier pour votre "A propos de la carte" personnalisé contenant les fichiers au format markdown situés à l'intérieur de l'instance VPGF.
+    + **Important** "A propos de la carte" dde type fichier n'apparaîtra pas en mode aperçu.
++ fullscreen - Ouvrir la visionneuse en plein écran _- également disponible dans la barre de navigation -_
++ export - Exporter l'affichage de la carte en tant qu'image de format png
++ share - Créer un lien URL pour partager la carte
++ touch - Activer le mode pour écran tactile (pour améliorer l'espacement, la disposition et la taille du bouton)
++ help - Ouvrir la fenêtre d'aide _- également disponible dans la barre de navigation -_
+    + Si vous ne souhaitez pas utiliser l'aide par défaut, vous devez fournir un nom de dossier pour vos fichiers personnalisé d'aide en format markdown
+    situé à l'intérieur de l'instance VPGF.
+    + **Important** L'aide personnalisée n'apparaîtra pas en mode de mode aperçu.
++ language - Définir la langue de l'interface
++ plugins - Espace pour recevoir des "plugins" personnalisés
+    + **Important** La section des "plugins" n'apparaîtra pas en mode de aperçu. Du code doit être ajouté à l'application de visualisation
+    dans la page HTML pour activer le(s) "plugin(s)".
+
+_Note:_ les outils à l'intérieur des groupes ne sont pas classés tels qu'ils apparaissent dans la liste des groupes.
+Ils sont classés par ordre de sélection. Par exemple, si vous cliquez sur _basemap_ puis _layers_, dans le menu latéral
+_basemap_ apparaîtra d'abord parce que c'était le premier élément sélectionné dans le groupe.
 
 
 # Services
 
-#### Exporter la Carte
+##### Exporter la carte
 
-Vous pouvez exporter une image de la carte et de ses couches visibles avec une légende, un titre, la flèche nord avec scalebar, la note en bas de page personnalisée et un horodateur.
+La section exporter la carte vous permet de configurer les composantes qui seront affichés par défaut et / ou être personnalisables
+sur la carte lorsqu'elle est exporté en tant qu'image png. La case à cocher _Est présent_ sous chaque composante vous permet
+d'ajouter cette composante par défaut lorsque la carte est exportée. La case à cocher _L'utilisateur peut l'enlever_ vous permet
+de choisir si vous voulez que l'utilisateur puisse supprimer la composante lorsque la carte est exportée.
 
-Si personnalisable un dialogue apparaîtra avec une image de la carte et d'une option pour entrer dans un titre de carte si désiré.
-
-Le titre de l'image exportée peut être fabriqué sur commande en entrant une valeur.
-
-+ Titre - Valeur du Titre du graphique à exporter.
-
-+ Composantes de la carte
-
+Les composantes suivants peuvent être affichés ou personnalisés:
++ Titre _- une valeur par défaut peut être définie -_
++ Carte
 + Légende
-
-Éléments de la carte
-
-+ La flèche du Nord et l'échelle.
-
-+ Note de bas de page - Valeur du note de bas de page de la carte à exporter.
-
++ Éléments de la carte (flèche du Nord et barre d'échelle)
++ Note de bas de page _- une valeur par défaut peut être définie -_.
 + Horodateur
 
-Si personnalisable un dialogue apparaîtra avec une image de la carte et d'une option pour entrer dans un titre de carte si désiré.
+##### Recherche par lieux
 
-![](exportmapwindowv2.png)
+La section Recherche par lieux vous permet de configurer les capacités de l'outil de géorecherche. Il vous permet de trouver
+des emplacements canadiens par différentes catégories comme les villes, les provinces, les entités topographiques et ainsi de suite
+en utilisant l'API Geonames. En plus de cela, l'outil de géorecherche vous permet de trouver des emplacements selon le nom
+du Système national de référence cartographique (SNRC), le code de zone de tri d'acheminement (RTA) et les valeurs de latitude / longitude.
+Les 3 dernières options de recherche peuvent être activées en cochant la case correspondante.
 
-Aussi, les utilisateurs peuvent ajouter ou enlever des sections de l'image exportée comme une légende,
-en cliquant sur la roue d'options dans l'en-tête.
+Toutes les URL requises par l'outil de géorecherche sont des valeurs en lecture seule. Si vous rencontrez un problème avec ces services, contactez la personne
+chargé de l'application APGF que vous utilisez et / ou [soumettez un problème](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+à l'équipe des développeurs l'outil APGF.
 
-Les utilisateurs seront en mesure de choisir/désélectionner les sections pour apparaître dans l'image exportée.
+##### Liens pour les services
 
-#### Recherche par lieux
-
-![](geosearchmenu.png)
-
- URLs des service
-
- URLs des points de service
-
-+ URL noms géographiques - URL du point de service pour les noms géographiques.
-
-+ URL du point de service pour les noms géographiques  - URL du point de service pour la géolocalisation.
-
-+ URL géolocalisation - URL du point de service pour la géolocalisation.
-
-+ URL géosuggestion - URL du point de service pour la géosuggestion.
-
-+ URL du point de service pour la géosuggestion.
-
-+ URL provinces - URL du point de service pour les provinces.
-
-+ URL types - URL du point de service pour les types.
-
-Désactiver des types de recherche spécifiques (SNRC, code postal/RTA, ou LAT/LNG)
-
-+ SNRC -  Recherche par numéro du systeme nationale de références.
-
-+ Code postal - Recherche par code postale.
-
-+ Latitude / Longitude - Recherche par coordonnée géographique.
-
-![](geosearchexample.png)
-
-#### Liens pour les services
-
-+ URL du proxy - Un proxy optionnel pouvante être utilisé afin de pallier au problème des origines semblables. L'URL doit être soit un chemin relatif pointant vers le même serveur ou bien un chemin absolu pointant vers un serveur qui met en place les entêtes des requêtes d'origines croisées (CORS).
-
-+ URL de la carte à exporter - Un point de service ESRI pour générer des images à partir de cartes. Doit pointer directement vers un point de service qui peut être utilisé par un service d'impression d'ESRI (ESRI PrintTask).
-
-+ URL de la géométrie - URL pointant sur un point de service REST ArcGIS d'ESRI pour la géométrie.
-
-+ URL de l'API Google - Clé de l'API Google afin d'activer la géolocalisation et la simplification du lien de partage.
-
-+ URL de l'API de géolocalisation
-
-+ URL pour les coordonnées
-
-+ URL pour l'impression
+La section Liens pour les services répertorie toutes les URL des services requises par l'application de visualisation.
+Ces URL sont des valeurs en lecture seule et par conséquent ne peuvent pas être modifié. Si vous rencontrez un problème avec
+ces services, contactez le responsable de l'application VPGF que vous utilisez.
 
 
 # Version
 
-L'étiquette de version vous permet de choisir la version de schéma utilisé pour valider le fichier de configuration.
-
-Par défaut la présente version est 2.0.
-
-
-# Langue
-
-L'étiquette de langue vous permet de choisir la langue du dossier de configuration, en utilisant un coup énumère en bas .
-
-Choisissez entre en-CA pour l'anglais ou fr-CA pour le français.
-
-La valeur est un ISO 639-1 code indiquant la langue de fichier de configuration.
+La section version vous permet de sélectionner le numéro de version du schéma VPGF que vous souhaitez utiliser. Une seule
+valeur est disponible, la dernière version du schéma VPGF.
 
 
-# Panneau Sommaire
+#  La langue
 
-Le panneau sommaire vous autorise à valider les champs dans le dossier de configuration en cliquant sur le bouton valide).![](valider.png)
-
-Le  panneau sommaire vous autorise aussi à présenter le dossier de configuration dans un viewport en cliquant sur le bouton d'avant-première.
-![](apercu.png)
-
-![](previewsample.png)
-
-Une apercu de la carte affiche toutes les couches d'il de la carte comme il sera affiché par le visualisateur FGP.
-C'est un visualisateur complètement fonctionnel contenant toute la fonctionnalité de l'application de visualisateur.
-
-L'avant-première peut exiger à quelques secondes d'afficher.
-
-Le panneau sommaire vous permet de valider le fichier de configuration en appuyant sur le
- le bouton validez ![](valider.png) pour valider tous les champs dans le fichier de configuration.
-
- Une fleche vert ![](greencheckbox.png) apparaîtra à côté des champs qui sont
-valide.
-
-Une boîte rouge ![](redcircle.png) avec un point d'exclamation apparaît à côté des champs qui
-ne sont pas valides.
-
-Vous pouvez utiliser des boutons d'effondrement ou le fait de développer ![](expandcollapse.png) pour voir tous les champs dans les différentes sections de
-le dossier de configuration de téléspectateur.
+La section langue vous permet de sélectionner la langue appropriée pour le fichier de configuration.
 
 
-# Durée du chargement / Comportement imprévu
+# Panneau de sommaire
 
-La durée des chargements peut varier selon:
-- l’emplacement réseau
-- la disponibilité de la bande passante
-- le nombre de couches chargées
-- types de couches et leur taille
+![](summarypanelFR.png "Panneau de résumé")
 
-Un comportement imprévu peut survenir lorsque des interactions avec la carte ont lieu avant la conclusion du chargement des données. Veuillez permettre le chargement complet de la page Web avant d’activer d’autres fonctions sur la carte.
+Le panneau de sommaire vous permet de vérifier que votre fichier de configuration respecte le schéma VPGF. Vous pouvez
+valider votre fichier de configuration en cliquant sur le bouton Valider ![](validate.png "Valider le bouton").
 
-**Remarque**: Si l'indicateur de chargement de ligne de défilement apparaît au bas de la carte ou dans la légende, ou lorsque le tableau de données affiche un message de chargement en cours, attendez que l’indicateur de chargement disparaisse avant d’activer d’autres fonctions sur la carte.
+Après l'exécution d'une validation, des coches vertes ![](Greencheckbox.png "Green check symbol") apparaîtront à côté des
+champs qui réussissent la validation et des points d'exclamation rouge ![](redcircle.png "Red exclamation symbol") apparaîtront à côté des
+des champs qui ne réussissent pas la validation. Pour être redirigé vers un champ spécifique dans l'application APGF,
+cliquez sur le champ souhaité dans l'arbre de validation et vous serez automatiquement redirigé vers l'onglet ou le champ de saisie approprié.
++ Les éléments de couleur bleue indiquent les éléments contenus dans des groupes tels que les schéma de tuile, les lots d'étendues spatiales,
+les lots de niveaux de détail, les groupes des cartes de base et des couches.
++ Les éléments en format _Italique_ sont des éléments de _configuration avancée_. Ces éléments sont masqués dans l'arborescence de validation sommaire
+si la case _Afficher les options de configuration avancée_ n'est pas cochée.
+
+Une fois que tous les champs du fichier de configuration sont validés, le bouton Aperçu ![](Preview.png "Bouton Aperçu") sera activé.
+Vous pourrez ensuite cliquer sur ce bouton pour prévisualiser votre fichier de configuration dans une instance de l'application VPGF. Cette
+instance de prévisualisation affiche toutes les couches, cartes de base, menus et options comme ils apparaîtraient dans l'application VPGF.
+Notez que toute aide personnalisée et "À propos del a carte" de type fichier ne peuvent pas être affichées dans l'instance de prévisualisation.
+
+L'instance de prévisualisation peut nécessiter quelques secondes pour s'initialiser selon:
++ Emplacement du réseau
++ Disponibilité de la bande passante
++ Nombre de couches dans la carte + Types de couches et leurs tailles
+
+![](previewsampleFR.png "Aperçu de la visionneuse")
+
+Le panneau sommaire peut afficher d'autres boutons (fonctions) à côté du bouton Aperçu. Ces fonctions optionnelles sont des extensions
+à l'application APGF et pourrait ne pas être disponible pour tous les utilisateurs.
+
+Vous trouverez les informations suivantes sur la version de l'application APGF au bas du panneau sommaire:
++ Version / numéro de gabarit
++ Date de la version / gabarit
++ Lien du référentiel APGF sur GitHub pour signaler les problèmes
+
+![](summaryinfo.png "Informations sur la version APGF")

@@ -573,19 +573,20 @@ function Controller($scope, $translate, $timeout,
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
                                         { 'key': 'extentSets[].spatialReference.wkid' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                        { 'key': 'extentSets[].spatialReference.vcsWkid' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                        { 'key': 'extentSets[].spatialReference.latestWkid' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                        { 'key': 'extentSets[].spatialReference.latestVcsWkid' }
-                                    ] },
-                                    { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                        { 'key': 'extentSets[].spatialReference.wkt' }
                                     ] }
+                                    // Not use,
+                                    // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    //     { 'key': 'extentSets[].spatialReference.vcsWkid' }
+                                    // ] },
+                                    // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    //     { 'key': 'extentSets[].spatialReference.latestWkid' }
+                                    // ] },
+                                    // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    //     { 'key': 'extentSets[].spatialReference.latestVcsWkid' }
+                                    // ] },
+                                    // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                    //     { 'key': 'extentSets[].spatialReference.wkt' }
+                                    // ] }
                                 ] },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'key': 'extentSets[].default', 'items': [
@@ -688,9 +689,10 @@ function Controller($scope, $translate, $timeout,
                                     'model': 'tileSchemaId',
                                     'array': true
                                 },
-                                { 'key': 'baseMaps[].layers', 'add': $translate.instant('button.add'), 'items': [
-                                    { 'key': 'baseMaps[].layers[].id' },
-                                    { 'key': 'baseMaps[].layers[].layerType' },
+                                { 'key': 'baseMaps[].layers', 'add': $translate.instant('button.add'), 'onChange': (model, form) => {
+                                    if (model[model.length - 1].id === '') { model[model.length - 1].id = commonService.getUUID(); } }, 'items': [
+                                    { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden' },
+                                    { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].url' }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
@@ -862,19 +864,20 @@ function Controller($scope, $translate, $timeout,
                             { 'key': 'components.mouseInfo.spatialReference', 'type': 'section', 'htmlClass': 'av-form-advance hidden row', 'items': [
                                 { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
                                     { 'key': 'components.mouseInfo.spatialReference.wkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.vcsWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.latestWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.latestVcsWkid' }
-                                ] },
-                                { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.wkt' }
                                 ] }
+                                // Not use,
+                                // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                //     { 'key': 'components.mouseInfo.spatialReference.vcsWkid' }
+                                // ] },
+                                // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                //     { 'key': 'components.mouseInfo.spatialReference.latestWkid' }
+                                // ] },
+                                // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                //     { 'key': 'components.mouseInfo.spatialReference.latestVcsWkid' }
+                                // ] },
+                                // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
+                                //     { 'key': 'components.mouseInfo.spatialReference.wkt' }
+                                // ] }
                             ] }
                         ] },
                         { 'key': 'components.northArrow' },

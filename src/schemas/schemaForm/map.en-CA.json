@@ -23,7 +23,7 @@
                       "type": "number",
                       "title": "WKID",
                       "description": "Well-Known ID ( WKID )",
-                      "default": ""
+                      "default": 4326
                   },
                   "vcsWkid": {
                       "type": "number",
@@ -48,7 +48,8 @@
                       "default": ""
                   }
               },
-                "additionalProperties": false
+              "required": ["wkid"],
+              "additionalProperties": false
               },
               "default": {
                 "description": "The default extent is the extent the map uses when first loaded.",
@@ -213,7 +214,7 @@
                 "title": "Level of Detail sets"
               },
               "description": "The levels of detail (zoom scales) available for the map",
-              "title": "Level of detail sets",
+              "title": "Levels of detail sets",
               "minItems": 1
         },
         "tileSchemas": {
@@ -298,7 +299,7 @@
                                     "type": "number",
                                     "title": "WKID",
                                     "description": "Well-Known ID ( WKID )",
-                                    "default": ""
+                                    "default": 4326
                                 },
                                 "vcsWkid": {
                                     "type": "number",
@@ -323,6 +324,7 @@
                                     "default": ""
                                 }
                             },
+                            "required": ["wkid"],
                             "additionalProperties": false
                         }
                     },
@@ -443,7 +445,7 @@
                         },
                         "layerType": {
                           "type": "string",
-                          "default": "",
+                          "default": "esriFeature",
                           "title": "Layer type"
                         },
                         "url": {

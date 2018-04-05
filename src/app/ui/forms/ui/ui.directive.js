@@ -267,7 +267,8 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'sideMenu.logo', 'htmlClass': 'av-form-advance hidden' },
                     { 'key': 'logoUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.sideMenu.logo' },
                     { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu },
-                    { 'key': 'help', 'htmlClass': 'av-form-advance hidden', 'condition': isHelp },
+                    { 'key': 'help', 'condition': isHelp },
+                    // do not set as advance config, there is a bug. We need to uncheck and check again to see the help section
                     { 'type': 'fieldset', 'key': 'about', 'condition': isAbout,'items': [
                         {   'key': 'about.aboutChoice',
                             'title': $translate.instant('form.ui.aboutChoice'),
