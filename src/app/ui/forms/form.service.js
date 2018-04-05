@@ -18,6 +18,21 @@ angular
     .module('app.ui')
     .factory('formService', formService);
 
+/**
+ * Form service form controller
+ *
+ * @function formService
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} $rootScope Angular rootscope object
+ * @param {Object} events Angular events object
+ * @param {Object} $mdDialog Angular dialog window object
+ * @param {Object} $translate Angular translation object
+ * @param {Object} commonService service with common functions
+ * @param {Object} constants service with all constants for the application
+ * @param {Object} projectionService service to project geometries
+ * @param {Object} $http Angular http object
+ * @return {Object} the form service
+ */
 function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService,
     $http) {
 
@@ -52,7 +67,9 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Reset show advance fields if needed when there is a new model or language switch
+     *
      * @function resestShowAdvance
+     * @private
      * @private
      */
     function resestShowAdvance() {
@@ -61,6 +78,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Show advance fields
+     *
      * @function showAdvance
      */
     function showAdvance() {
@@ -73,6 +91,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Toggle one section of accordion panel
+     *
      * @function toggleSection
      * @param  {Object} event  event who trigger the action
      */
@@ -88,6 +107,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Create a custom accordion container
+     *
      * @function addCustomAccordion
      * @param  {String} title  accordion title
      * @param {String} content accordion content
@@ -112,6 +132,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Toggle all sections of accordion panel (array of accordion items)
+     *
      * @function toggleAll
      * @param  {Object} event  event who trigger the action
      * @param  {Bolean} collapse  true if collapse false if expand
@@ -134,6 +155,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Set extent from the viewer itself open in an iFrame
+     *
      * @function setExtent
      * @param  {String} type  type of extent ('default', 'full' or 'maximum')
      * @param  {Array} extentSets  array of extent set to set the extent for
@@ -166,6 +188,13 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             }
         });
 
+        /**
+         * setExtent controller
+         *
+         * @function extentController
+         * @private
+         * @param  {Object} $mdDialog  Angular dialog window object
+         */
         function extentController($mdDialog) {
             'ngInject';
             const self = this;
@@ -176,6 +205,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Set lods from service
+     *
      * @function setLods
      * @param  {Array} lods  lods model object
      * @param  {Integer} index  model array index to set
@@ -190,6 +220,13 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             fullscreen: false
         });
 
+        /**
+         * setLods controller
+         *
+         * @function lodsController
+         * @private
+         * @param  {Object} $mdDialog  Angular dialog window object
+         */
         function lodsController($mdDialog) {
             'ngInject';
             const self = this;
@@ -224,6 +261,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     /**
      * Set custom validation error message
      * inside translation.csv the variable to replace needs to be there inside {}
+     *
      * @function setErrorMessage
      * @param  {Object} form  form object to get value from
      * @param  {String} message  message to get from translation.csv
@@ -247,6 +285,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Update the id automatically from a model value
+     *
      * @function updateId
      * @param  {String} model  model value
      * @param  {Object} scope model to update
@@ -263,6 +302,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Get model array index from active element
+     *
      * @function getActiveElemIndex
      * @param  {String} parentClass  class to find on parent element
      * @return {Integer} the index
@@ -288,6 +328,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
      *  'targetLink': 'legend.0', the target tag inside inside target parent and the array index for children
      *  'targetParent': 'av-accordion-toggle', the parent element target class
      *  'default': a default value for the tag when model value is empty
+     *
      * @function copyValueToFormIndex
      * @param  {Object} model  value to set
      * @param  {String} item item from the form
@@ -312,6 +353,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
      * Copy a value from the model to a form element who contain index when form loads
+     *
      * @function initValueToFormIndex
      * @param  {Array} modelArray  model array of values to apply
      * @param  {Array} classEl array of classes/index on the form element to retrieve it
@@ -354,6 +396,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
      * Need to have on the item:
      *  'targetElement': ['layers', 'layerType'], array of keys to to get the element to update
      *  'targetParent': 'av-accordion-content', the parent element target class to find index of
+     *
      * @function copyValueToModelIndex
      * @param  {Object} modelValue  model value
      * @param  {String} item form item
@@ -392,6 +435,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     * For a sample with a broadcast event, look at avLayersIdupdateEvents
     *
     * Known issue: onChange is not fired on the last item delete inside an array. Will need to find a workaround if need be
+    *
     * @function updateLinkValues
     * @param  {Object} scope  form scope
     * @param  {Array} keys the path to the key to get value from
@@ -415,6 +459,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     /**
     * Find values from the model element
+    *
     * @function findValues
     * @private
     * @param  {Object} model  model to find from

@@ -44,6 +44,21 @@ function avHeader() {
     return directive;
 }
 
+/**
+ * Header controller
+ *
+ * @function Controller
+ * @param {Object} $q Angular promise object
+ * @param {Object} $mdDialog, Angular mddialog window object
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} $rootElement Angular rootelement object
+ * @param {Object} $http Angular http object
+ * @param {Object} events Angular events object
+ * @param {Object} modelManager service to manage Angular Schema Form model
+ * @param {Object} commonService service with common functions
+ * @param {Object} constants service with all constants for the application
+ * @param {Object} helpService service to create help
+ */
 function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelManager, commonService, constants, helpService) {
     'ngInject';
     const self = this;
@@ -70,7 +85,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * When create is clicked, broadcast a newModel event
+     *
      * @function create
+     * @private
      */
     function create() {
         // show splash with update event as parameter
@@ -82,7 +99,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * Open the help dialog
+     *
      * @function help
+     * @private
      */
     function help() {
         helpService.open();
@@ -90,7 +109,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * Set the current language
+     *
      * @function setLanguage
+     * @private
      */
     function setLanguage() {
         commonService.setLang(self.language);
@@ -99,7 +120,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * Get templates available for the user from data-av-config attribute on html page
+     *
      * @function getTemplates
+     * @private
      * @return {Array} templates templates available for the user
      */
     function getTemplates() {
@@ -117,7 +140,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * Set the current template
+     *
      * @function setTemplate
+     * @private
      */
     function setTemplate() {
         // load selected configuration and create the new file
@@ -129,7 +154,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * Starts file upload.
+     *
      * @function filesSubmitted
+     * @private
      * @param {Array} files uploaded array of files
      */
     function filesSubmitted(files) {
@@ -169,6 +196,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
         /**
          * Reads HTML5 File object data.
+         *
+         * @function _readFile
          * @private
          * @param {File} file a file object to read
          * @param {Function} progressCallback a function which is called during the process of reading file indicating how much of the total data has been read
@@ -192,7 +221,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
     /**
      * Open a dialog window to save current model
+     *
      * @function save
+     * @private
      */
     function save() {
         // FIXME: we can't know the real saved file name because FileSaver.onwriteend doesn/t workaround
@@ -208,6 +239,14 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
         });
     }
 
+    /**
+     * save controller
+     *
+     * @function extentController
+     * @private
+     * @param  {Object} $mdDialog  Angular dialog window object
+     * @param {Object} constants service with all constants for the application
+     */
     function SaveController($mdDialog, constants) {
         'ngInject';
         const self = this;
@@ -219,7 +258,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
 
         /**
          * Save current models to file
+         *
          * @function save
+         * @private
          */
         function save() {
             // save the file. Some browsers like IE and Edge doesn't support File constructor, use blob

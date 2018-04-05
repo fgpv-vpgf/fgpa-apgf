@@ -36,6 +36,19 @@ function avUi() {
     return directive;
 }
 
+/**
+ * UI form controller
+ *
+ * @function Controller
+ * @param {Object} $scope module scope
+ * @param {Object} $translate Angular translation object
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} events Angular events object
+ * @param {Object} modelManager service to manage Angular Schema Form model
+ * @param {Object} stateManager service to manage model state for validation
+ * @param {Object} formService service with common functions for form
+ * @param {Object} commonService service with common functions
+ */
 function Controller($scope, $translate, $timeout, events, modelManager, stateManager, formService, commonService) {
     'ngInject';
     const self = this;
@@ -68,6 +81,12 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
         $scope.initLayerId = data;
     });
 
+    /**
+     * Initialize UI form
+     *
+     * @function init
+     * @private
+     */
     function init() {
         $scope.schema = modelManager.getSchema(self.modelName);
 
@@ -82,9 +101,17 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
         stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
     });
 
-    // FIXME: when we use condition, the item is remove from the model. When the item come back it looses all the
-    // previously set info. We need a way to persist this info.
+    /**
+     * Check side menu to see if we should show help anbd/or about section
+     *
+     * @function checkMenu
+     * @private
+     * @param {String} model model value
+     * @param {Object} form form object
+     */
     function checkMenu(model, form) {
+        // FIXME: when we use condition, the item is remove from the model. When the item come back it looses all the
+        // previously set info. We need a way to persist this info.
         self.showHelp = false;
         self.showAbout = false;
         model.forEach(item => {
@@ -113,7 +140,9 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
 
     /**
      * Set about content and file for persistence
+     *
      * @function getAboutChoice
+     * @private
      * @param {Object} model model
      */
     function getAboutChoice(model) {
@@ -132,24 +161,59 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
         }
     }
 
+    /**
+     * Return if help should be shown
+     *
+     * @function isHelp
+     * @private
+     * @return {Boolean} if help section should be shown
+     */
     function isHelp() {
         return self.showHelp;
     }
 
+    /**
+     * Return if about should be shown
+     *
+     * @function isAbout
+     * @private
+     * @return {Boolean} if about section should be shown
+     */
     function isAbout() {
         return self.showAbout;
     }
 
+    /**
+     * Return if about string should be shown
+     *
+     * @function isAboutString
+     * @private
+     * @return {Boolean} if about string section should be shown
+     */
     function isAboutString() {
         const about = $scope.model.about;
         return self.showAbout && typeof about !== 'undefined' && about.aboutChoice === 'string';
     }
 
+    /**
+     * Return if about folder should be shown
+     *
+     * @function isAboutFolder
+     * @private
+     * @return {Boolean} if about folder section should be shown
+     */
     function isAboutFolder() {
         const about = $scope.model.about;
         return self.showAbout && typeof about !== 'undefined' && about.aboutChoice === 'folder';
     }
 
+    /**
+     * Set UI form
+     *
+     * @function setForm
+     * @private
+     * @return {Object} the UI form
+     */
     function setForm() {
         return [
             { 'type': 'tabs', 'tabs': [

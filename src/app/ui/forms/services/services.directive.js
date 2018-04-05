@@ -36,6 +36,18 @@ function avServices() {
     return directive;
 }
 
+/**
+ * Services form controller
+ *
+ * @function Controller
+ * @param {Object} $scope module scope
+ * @param {Object} $translate Angular translation object
+ * @param {Object} events Angular events object
+ * @param {Object} modelManager service to manage Angular Schema Form model
+ * @param {Object} stateManager service to manage model state for validation
+ * @param {Object} formService service with common functions for form
+ * @param {Object} commonService service with common functions
+ */
 function Controller($scope, $translate, events, modelManager, stateManager, formService, commonService) {
     'ngInject';
     const self = this;
@@ -61,6 +73,12 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         init();
     });
 
+    /**
+     * Initialize Services form
+     *
+     * @function init
+     * @private
+     */
     function init() {
         $scope.schema = modelManager.getSchema(self.modelName);
 
@@ -73,6 +91,13 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
     });
 
+    /**
+     * Set Services form
+     *
+     * @function setForm
+     * @private
+     * @return {Object} the Services form
+     */
     function setForm() {
         return [
             { 'type': 'tabs', 'tabs': [

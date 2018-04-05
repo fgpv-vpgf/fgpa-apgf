@@ -74,6 +74,7 @@ function avContentPanel($compile) {
 
     /**
      * Sets defaults; binds the `closePanel` method from the panel plug controller; compiles footer and extra header controls.
+     *
      * @function link
      * @param {Object} scope Angular scope
      * @param {Object} element HTML element
@@ -103,6 +104,7 @@ function avContentPanel($compile) {
 
         /**
         * Add controls to panel header
+        *
         * @private
         * @function addHeaderControl
         * @param {Object} element panel header to add control to
@@ -124,6 +126,7 @@ function avContentPanel($compile) {
 
         /**
         * Initialize footer
+        *
         * @private
         * @function initFooter
         */

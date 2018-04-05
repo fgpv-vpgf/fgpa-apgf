@@ -32,6 +32,14 @@ function avTab() {
     return directive;
 }
 
+/**
+ * avTab controller
+ *
+ * @function Controller
+ * @param {Object} $translate Angular translation object
+ * @param {Object} events Angular events object
+ * @param {Object} constants service with all constants for the application
+ */
 function Controller($translate, events, constants) {
     'ngInject';
     const self = this;
@@ -56,6 +64,7 @@ function Controller($translate, events, constants) {
      * Set tabs information, name and directive tag
      *
      * @function mapTabs
+     * @private
      * @param {String} item the file name to use to create tab
      * @return {Object} who contain the name for the tab and the directive tag
      */
