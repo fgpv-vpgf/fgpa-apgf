@@ -749,10 +749,18 @@ function Controller($scope, $translate, $timeout,
                                 'array': false,
                                 'title': $translate.instant('form.map.legendidstitle'),
                                 'description': $translate.instant('form.map.legendidsdesc'),
-                                'onChange': model => {
+                                'onChange': (model, item) => {
                                     $scope.model.legend.root = [$scope.model.legend.root.slice(0, self.legendCursor),
                                         model,
                                         $scope.model.legend.root.slice(self.legendCursor)].join('');
+
+                                    // if model is not null (null is because it is fire from this modification $scope.initLayerId = ['null'])
+                                    // reinit the optionData to unselect previous selection
+                                    if (model !== null) {
+                                        const temp = $scope.initLayerId;
+                                        $scope.initLayerId = ['null'];
+                                        $timeout(() => { $scope.initLayerId = temp }, 500);
+                                    }
                                 }
                             },
                             { 'key': 'legend.root', 'notitle': true, 'htmlClass': 'av-legend-text', 'type': 'textarea', 'onChange': () => {
