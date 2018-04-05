@@ -163,7 +163,7 @@
                 "required": true
             },
             "folderName": {
-                "description": "À propos provenant d'un fichier de type Markdown",
+                "description": "À propos provenant d'un fichier de type Markdown. IMPORTANT: Ne peux pas être testé en mode aperçu. Ouvrir l'à propos va générer une erreur.",
                 "title": "Dossier contenant le fichier Markdown",
                 "type": "string",
                 "required": true
@@ -185,7 +185,7 @@
             "properties": {
                 "folderName": {
                     "type": "string",
-                    "description": "Nom du dossier contenant les fichiers d'aide et les images connexes",
+                    "description": "Nom du dossier contenant les fichiers d'aide et les images connexes. IMPORTANT: Ne peux pas être testé en mode aperçu. Ouvrir l'aide va générer une erreur.",
                     "title": "Nom du dossier",
                     "default": "default"
                 }
