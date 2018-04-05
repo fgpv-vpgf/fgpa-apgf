@@ -41,12 +41,29 @@ function avTree(recursionService) {
     return directive;
 }
 
+/**
+ * tree directive controller
+ *
+ * @function Controller
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} $scope Angular scope directive object
+ * @param {Object} events Angular events object
+ * @param {Object} constants service with all constants for the application
+ * @param {Object} commonService service with common functions
+ */
 function Controller($timeout, $scope, events, constants, commonService) {
     'ngInject';
     const self = this;
 
     self.setFocus = setFocus;
 
+    /**
+     * Set focus on tree object
+     *
+     * @function setFocus
+     * @private
+     * @param {Object} tree summary tree
+     */
     function setFocus(tree) {
         if (tree.masterlink === tree.hlink) {
             commonService.clickTab(tree.hlink);

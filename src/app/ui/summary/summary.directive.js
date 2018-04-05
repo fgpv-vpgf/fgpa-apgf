@@ -35,6 +35,21 @@ function avSummary() {
     return directive;
 }
 
+/**
+ * summary controller
+ *
+ * @function Controller
+ * @param {Object} $mdDialog Angular dialog window object
+ * @param {Object} $rootScope Angular rootscope object
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} $interval Angular interval object
+ * @param {Object} events Angular events object
+ * @param {Object} constants service with all constants for the application
+ * @param {Object} modelManager service to manage Angular Schema Form model
+ * @param {Object} stateManager service to manage model state for validation
+ * @param {Object} commonService service with common functions
+ * @param {Object} version service provides current version numbers and the timestap
+ */
 function Controller($mdDialog, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
     version) {
     'ngInject';
@@ -91,6 +106,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
      * Expand or collapse the summary
      *
      * @function expandSummary
+     * @private
      * @param {Object} summary summary object
      * @param {Boolean} value Value to set
      */
@@ -106,6 +122,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
      * Walk the tree to set expand or collapse
      *
      * @function walkTree
+     * @private
      * @param {Object} tree Tree to walk
      * @param {String} key Key to set value for
      * @param {Boolean} value Value to set
@@ -121,6 +138,12 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         }
     }
 
+    /**
+     * Launch forms validation
+     *
+     * @function validateForm
+     * @private
+     */
     function validateForm() {
         initState();
         $rootScope.$broadcast(events.avValidateForm);
@@ -128,7 +151,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
     /**
      * Open a dialog window to show current configuration
+     *
      * @function initState
+     * @private
      */
     function initState() {
         constants.schemas.forEach(schema => {
@@ -138,7 +163,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
     /**
      * Check if preview can be done
+     *
      * @function previewReady
+     * @private
      * @return {Boolean} true if ready and false if not
      */
     function previewReady() {
@@ -147,7 +174,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
     /**
      * Open a dialog window to show current configuration
+     *
      * @function openPreview
+     * @private
      */
     function openPreview() {
 
@@ -173,6 +202,13 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         }
     }
 
+    /**
+     * openPreview controller
+     *
+     * @function previewController
+     * @private
+     * @param  {Object} $mdDialog  Angular dialog window object
+     */
     function previewController($mdDialog) {
         'ngInject';
         const self = this;
@@ -181,11 +217,12 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
     }
 
     /**
- * Set subTab ids once the document has loaded
- * @function setSubTab
- * @private
- * @param {Object} constants Constants service
- */
+    * Set subTab ids once the document has loaded
+    *
+    * @function setSubTab
+    * @private
+    * @param {Object} constants Constants service
+    */
     function setSubTab(constants) {
 
         $timeout(() => {
@@ -199,11 +236,12 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
     }
 
     /**
- * Set subtab element id in document
- * @function setSubTabID
- * @private
- * @param {Object} constants Constants service
- */
+     * Set subtab element id in document
+     *
+     * @function setSubTabID
+     * @private
+     * @param {Object} constants Constants service
+     */
     function setSubTabID(constants) {
 
         const sections = Object.getOwnPropertyNames(constants.subTabs);

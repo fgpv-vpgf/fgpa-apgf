@@ -32,6 +32,13 @@ function dynamicSelect() {
     return directive;
 }
 
+/**
+ * Dynamic Select directive Controller
+ *
+ * @function Controller
+ * @param {Object} $scope Angular directive scope
+ * @param {Object} sfSelect dynamic select object - not used
+ */
 function Controller($scope, sfSelect) {
     'ngInject';
     const self = this;
@@ -55,6 +62,15 @@ function Controller($scope, sfSelect) {
         });
     }
 
+    /**
+     * Set options for Dynamic Select
+     *
+     * @function processOptions
+     * @private
+     * @param {Object} optionSource Source for options - not used
+     * @param {Array} data data options
+     * @param {Array} current current options - not used
+     */
     function processOptions(optionSource, data, current) {
         let enumTitleMap = [];
 

@@ -55,6 +55,18 @@ function selectFilter() {
     };
 }
 
+/**
+ * Help service form controller
+ *
+ * @function helpService
+ * @param {Object} $mdDialog Angular dialog window object
+ * @param {Object} $translate Angular translation object
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} translations translation service
+ * @param {Object} events Angular events object
+ * @param {Object} constants service with all constants for the application
+ * @return {Object} the help service
+ */
 function helpService($mdDialog, $translate, $timeout, translations, events, constants) {
     const service = {
         open
@@ -66,7 +78,6 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
      * Opens help panel.
      *
      * @function open
-     * @param {Object} scope Angular scope onject
      */
     function open() {
         $mdDialog.show({
@@ -113,6 +124,13 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
         const language = localStorage.getItem('fgpa-lang');
         useMarkdown(language);
 
+        /**
+         * Use markdown marked library to parse markdown and format it properly
+         *
+         * @function useMarkdown
+         * @private
+         * @param {String} language current language
+         */
         function useMarkdown(language) {
             // make it easier to use images in markdown by prepending path to href if href is not an external source
             // this avoids the need for ![](help/images/myimg.png) to just ![](myimg.png). This overrides the default image renderer completely.
@@ -156,7 +174,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
         self.searchTerm = '';
 
         /**
-         * Closes the Help panel.
+         * Close Help panel.
          *
          * @function closeHelpSummary
          * @private

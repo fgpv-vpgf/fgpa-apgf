@@ -36,6 +36,17 @@ function avVersion() {
     return directive;
 }
 
+/**
+ * Version form controller
+ *
+ * @function Controller
+ * @param {Object} $scope module scope
+ * @param {Object} $translate Angular translation object
+ * @param {Object} events Angular events object
+ * @param {Object} modelManager service to manage Angular Schema Form model
+ * @param {Object} stateManager service to manage model state for validation
+ * @param {Object} formService service with common functions for form
+ */
 function Controller($scope, $translate, events, modelManager, stateManager, formService) {
     'ngInject';
     const self = this;
@@ -61,6 +72,12 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         init();
     });
 
+    /**
+     * Initialize Version form
+     *
+     * @function init
+     * @private
+     */
     function init() {
         $scope.schema = modelManager.getSchema(self.modelName);
 
@@ -74,6 +91,13 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form, $scope.model);
     });
 
+    /**
+     * Set Version form
+     *
+     * @function setForm
+     * @private
+     * @return {Object} the version form
+     */
     function setForm() {
         return [{ 'key': 'version' }];
     }

@@ -30,6 +30,7 @@ AV.gapiPromise = geoapi(AV.dojoURL, window);
 
 /**
  * Checks if a property is already set and applies the default.
+ *
  * @param  {String} name  property name
  * @param  {String|Object|Number} value default value
  */

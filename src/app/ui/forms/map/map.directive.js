@@ -36,6 +36,22 @@ function avMap() {
     return directive;
 }
 
+/**
+ * Map form controller
+ *
+ * @function Controller
+ * @param {Object} $scope module scope
+ * @param {Object} $translate Angular translation object
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} events Angular events object
+ * @param {Object} modelManager service to manage Angular Schema Form model
+ * @param {Object} stateManager service to manage model state for validation
+ * @param {Object} formService service with common functions for form
+ * @param {Object} debounceService service to debounce user input
+ * @param {Object} constants service with all application constant
+ * @param {Object} layerService service use to get info from ESRI layers
+ * @param {Object} commonService service with common functions
+ */
 function Controller($scope, $translate, $timeout,
     events, modelManager, stateManager, formService, debounceService, constants, layerService, commonService) {
     'ngInject';
@@ -66,7 +82,8 @@ function Controller($scope, $translate, $timeout,
     });
 
     /**
-     * Initialize the map form.
+     * Initialize the map form
+     *
      * @function init
      * @private
      */
@@ -99,6 +116,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Initialize header (collapsible element) value (form element) from model values when it loads.
+     *
      * @function setCollapsibleHeader
      * @private
      */
@@ -137,6 +155,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Initialize header (collapsible element) value (form element) for layer entry from model values when it loads.
+     *
      * @function setCollapsibleHeaderEntry
      * @private
      * @param  {String} layerType  type of layer
@@ -171,6 +190,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Initialize layer columns for datatable from the layer url and layer entry index
+     *
      * @function setColumns
      * @private
      * @param  {Object} event  the event
@@ -264,6 +284,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Validate JSON structure legend
+     *
      * @function validateLegend
      * @private
      */
@@ -292,7 +313,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Set default JSON structure legend
-     * FIXME: this is a workaround to parse the legend string to JSON objects because the graphic ui is not designed yet
+     *
      * @function setDefaultStructureLegend
      * @private
      * @param {Interger} time the timeout duration (optional, default = 0)
@@ -321,6 +342,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Add a legend section snippet
+     *
      * @function addLegendSnippet
      * @private
      * @param  {String} section  type of section to add
@@ -381,6 +403,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Show/update legend cursor position
+     *
      * @function updateCursorPos
      * @private
      * @param  {Integer} pos  cursor position
@@ -458,7 +481,8 @@ function Controller($scope, $translate, $timeout,
     }
 
     /**
-     * Set the map form
+     * Set map form
+     *
      * @function setForm
      * @private
      * @return {Object} the map form
@@ -824,6 +848,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Set the map table section form
+     *
      * @function setTableSection
      * @private
      * @param {String} model model value
@@ -863,6 +888,7 @@ function Controller($scope, $translate, $timeout,
 
     /**
      * Add a button for legend section
+     *
      * @function addLegendSection
      * @private
      * @param {String} type type of button to add
