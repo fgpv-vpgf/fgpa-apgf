@@ -23,7 +23,7 @@
                       "type": "number",
                       "title": "WKID",
                       "description": "Well-Known ID",
-                      "default": ""
+                      "default": 4326
                   },
                   "vcsWkid": {
                       "type": "number",
@@ -48,7 +48,8 @@
                       "default": ""
                   }
               },
-                "additionalProperties": false
+              "required": ["wkid"],
+              "additionalProperties": false
               },
               "default": {
                 "description": "Étendue utilisée par défaut ainsi que pour le chargement initial.",
@@ -287,7 +288,7 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean",
-                            "title": "Enabled",
+                            "title": "Activée",
                             "default": true
                         },
                         "spatialReference": {
@@ -298,7 +299,7 @@
                                     "type": "number",
                                     "title": "WKID",
                                     "description": "Well-Known ID",
-                                    "default": ""
+                                    "default": 4326
                                 },
                                 "vcsWkid": {
                                     "type": "number",
@@ -323,6 +324,7 @@
                                     "default": ""
                                 }
                             },
+                            "required": ["wkid"],
                             "additionalProperties": false
                         }
                     },
@@ -443,7 +445,7 @@
                         },
                         "layerType": {
                           "type": "string",
-                          "default": "",
+                          "default": "esriFeature",
                           "title": "Type de couche"
                         },
                         "url": {
@@ -810,7 +812,7 @@
                                                     "type": "boolean",
                                                     "default": false,
                                                     "description": "Détermine si le filtre peut être modifié. Vrai: la valeur du filtre ne peut être modifiée; Faux: la valeur du filtre peut être modifiée.",
-                                                    "title": "Est statique ?"
+                                                    "title": "Est statique"
                                                 }
                                             },
                                             "required": ["type"],

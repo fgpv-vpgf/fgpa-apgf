@@ -133,7 +133,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'search.disabledSearches', 'titleMap': {
                         'NTS': $translate.instant('form.service.nts'),
                         'FSA': $translate.instant('form.service.fsa'),
-                        'LAT/LNG': 'Latitude / Longitude'
+                        'LAT/LNG': $translate.instant('form.service.latlong')
                     } },
                     { 'key': 'search.serviceUrls', 'htmlClass': 'av-form-advance hidden', 'readonly': true }
                 ] },

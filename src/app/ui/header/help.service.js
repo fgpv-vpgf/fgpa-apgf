@@ -145,7 +145,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             $http.get(mdLocation).then(r => {
                 // matches help sections from markdown file where each section begins with one hashbang and a space
                 // followed by the section header, exactly 2 spaces, then up to but not including a double space
-                // note that the {2,} below is used as the double line deparator since each double new line is actually 6
+                // note that the {2,} below is used as the double line separator since each double new line is actually 6
                 // but we'll also accept more than a double space
                 const reg = /^#\s(.*)\n{2}(?:.+|\n(?!\n{2,}))*/gm;
                 let mdStr = r.data; // markdown file contents

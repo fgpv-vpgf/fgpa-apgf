@@ -3,15 +3,11 @@
     "version": "2.0",
     "map": {
         "components": {
-            "geoSearch": {
-                "enabled": true,
-                "showGraphic": true,
-                "showInfo": true
-            },
+            "geoSearch":{"enabled":true,"showGraphic":true,"showInfo":true},
             "mouseInfo": {
                 "enabled": true,
                 "spatialReference": {
-                    "wkid": 4269
+                    "wkid": 4326
                 }
             },
             "northArrow": {
@@ -302,6 +298,7 @@
                 "altText": "altText - The Canada Base Map - Transportation (CBMT)",
                 "layers": [{
                     "id": "CBMT",
+                    "opacity": 0.5,
                     "layerType": "esriFeature",
                     "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer"
                 }],

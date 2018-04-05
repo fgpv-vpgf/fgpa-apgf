@@ -207,7 +207,7 @@
                         }
                     },
                 "additionalProperties": false,
-                "title": "Legend openning options"
+                "title": "Legend Opening Options"
                 }
             }
         },
@@ -271,7 +271,7 @@
             },
             "additionalProperties": false,
             "required": ["id"],
-            "title": "Table openning options"
+            "title": "Table Opening Options"
         },
         "widgetsWidget": {
             "type": "object",
