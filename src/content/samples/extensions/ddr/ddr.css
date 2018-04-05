@@ -93,7 +93,7 @@ span {
   font-size: 14px;
 }
 
-.av-error-connect {
+.av-error-connect, .av-error-validatePublisher {
   color: red;
 }
 .hidden, .hidden-sev, .hidden-type {

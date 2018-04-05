@@ -9,19 +9,20 @@
 
 <body>
     <!-- login  -->
-    <div class="av-login-section">
+    <div class="av-login-section hidden">
         <label id="avFMEUser"></label>
         <input id="avTokenUser" type="text" name="username" placeholder="Enter Username" required></input>
         <br>
         <label id="avFMEPass"></label>
         <input id="avTokenPass" type="password" name="password" placeholder="Enter Password" required></input>
         <br>
-        <input id="avFMELogin" class="av-button" type="button" onclick="login()"></input>
+        <input id="avFMELogin" class="av-button" type="button"></input>
         <div class="av-register">
             <span id="avRegister"></span>
             <a href="mailto:nrcan.ddrsupport.rncan@canada.ca?Subject=DDR%20Subscription/Inscription">nrcan.ddrsupport.rncan@canada.ca</a>
         </div>
         <p class="av-error-connect hidden"></p>
+        <p class="av-error-validatePublisher hidden"></p>
     </div>
 
     <!--  functions -->
@@ -39,9 +40,9 @@
             <hr>
             <form id="options" class="form-group"></form>
         </div>
-        <hr>
         <input id="avUpdate" type="checkbox"></input>
         <label id="avUpdateLabel" for="avUpdate"></label>
+        <hr>
         <input id="avRunUpload" class="av-button block" type="button" onclick="runUpdate()" disabled></button>
     </div>
 
@@ -121,6 +122,7 @@
   crossorigin="anonymous">
 </script>
 <script src="./ddr-tools.js"></script>
+<script src="./ddr_registry.js"></script>
 
 </body>
 </html>
