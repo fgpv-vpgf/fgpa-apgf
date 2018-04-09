@@ -284,7 +284,7 @@ function getPublisherRole(json) {
         departmentID = publisherInfo.split(',')[3];
         publisherEmail= publisherInfo.split(',')[4];
         publisherName = publisherInfo.split(',')[5];
-
+        console.log('response.FrMessage',response.FrMessage);
         // Switch on publisher role
         switch (response.FrMessage) {
             case 'admin_publisher':
@@ -296,7 +296,7 @@ function getPublisherRole(json) {
             case 'basic_publisher':
                 publisherRole = 'basic_publisher';
                 // Basic publisher doesn't have the privilege to publish in external (PROD) directory
-                $('.avPublish').hide();
+                $('#avPublish').hide();
         }
         $('.av-function-section').show();
     }
@@ -466,7 +466,13 @@ function setInterface(id, list, type) {
 
             const label = document.createElement('label');
             label.setAttribute('for', input.id);
-            label.innerHTML = list[i].split(';')[0] + ' (' + list[i].split(';')[4] + ' | ' + list[i].split(';')[5] + ')';
+            if (!input.id.includes('pubenv')){
+                label.innerHTML = list[i].split(';')[0] + ' (' + list[i].split(';')[4] + ' | ' + list[i].split(';')[5] + ')';
+            }
+            else {
+                label.innerHTML = list[i].split(';')[0];
+            }
+
 
             elem.append(input);
             elem.append(label);
@@ -642,11 +648,11 @@ function processFiles(json) {
 
 // Manage form parameters
 function processParams(element_id) {
-    // Convert HTML NodeList types to regular array types
-    var inputs = document.getElementById( element_id ).getElementsByTagName( "input" );
-  var selects = document.getElementById( element_id ).getElementsByTagName( "select" );
-  var options = [];
-  var properties = "";
+  // Convert HTML NodeList types to regular array types
+  let inputs = document.getElementById( element_id ).getElementsByTagName( "input" );
+  let selects = document.getElementById( element_id ).getElementsByTagName( "select" );
+  let options = [];
+  let properties = "";
 
   // Convert HTML NodeList types to regular array types
   inputs = Array.prototype.slice.call( inputs );
@@ -655,8 +661,8 @@ function processParams(element_id) {
   // Merge the regular arrays
   options = inputs.concat( selects );
 
-  for( var opt in options ) {
-    var option = options[opt];
+  for( let opt in options ) {
+    let option = options[opt];
     if(element_id === "options"){
       if( option.value && option.name != fileInput.name && option.type != "button") {
         properties += option.name+"=";
