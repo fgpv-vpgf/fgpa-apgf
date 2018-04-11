@@ -10,6 +10,18 @@ angular
     .module('app.core')
     .factory('modelManager', modelManager);
 
+
+
+/**
+ * @description service that manages the model used by Angular Schema Forms
+ * @function modelmanager
+ * @param {Object} $timeout timeout promise Angular Object
+ * @param {Object} $translate translate service Angular Object
+ * @param {Object} events  events that are shared across app instance
+ * @param {Object} constants  javascript methods that are to be common
+ * @param {Object} commonService  service that defines common Javascript methods
+ * @return {Object} service model service
+ */
 function modelManager($timeout, $translate, events, constants, commonService) {
 
     const service = {

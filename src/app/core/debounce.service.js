@@ -9,6 +9,14 @@ angular
     .module('app.core')
     .factory('debounceService', debounceService);
 
+/**
+* @description Registers a function for debouncing. If the returned function is executed more than once at intervals less that the detection period, only the first call will go through.
+* @function debounceService
+* @param {Object} $rootScope top of the hierarchy of all scopes in an Angular app
+* @param {Object} $timeout promise with timeout Angular object
+* @param {Object} $q promise Angular object
+* @return {Object} service debounce service
+*/
 function debounceService($rootScope, $timeout, $q) {
 
     const service = {

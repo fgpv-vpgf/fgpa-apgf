@@ -1,3 +1,11 @@
+/**
+ *
+ * @name core-loader.js
+ * @module app.core
+ *
+ * @description import required common and all core services
+ *
+ */
 import './constant.service.js';
 import './common.service.js';
 import './core.config.js';

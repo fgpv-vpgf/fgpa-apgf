@@ -9,6 +9,12 @@ angular
     .module('app.core')
     .factory('recursionService', recursionService);
 
+/**
+ * Manually compiles the element, fixing the recursion loop.
+ * @function recursionService
+ * @param {Object} $compile compile html to template Angular object
+ * @returns {Object}  service recursion service
+ */
 function recursionService($compile) {
 
     const service = {
