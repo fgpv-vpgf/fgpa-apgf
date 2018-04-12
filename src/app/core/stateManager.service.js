@@ -667,15 +667,17 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 if (model.legend.type === 'autopopulate') {
                     root.title = $translate.instant('form.map.legendauto');
                     root.valid = true;
+
                 } else {
                     root.title = $translate.instant('form.map.legendstruct');
                     root.valid = legendState;
 
                     // Set state back to is original value
                     legendState = true;
-                    let path = ['legend', 'root'];
-                    setStateValueUp(mapStateModel, path, 'valid', root.valid);
                 }
+
+                let path = ['legend', 'root'];
+                setStateValueUp(mapStateModel, path, 'valid', root.valid);
             }
         }
     }
