@@ -1,17 +1,146 @@
 {
-    "language": "",
-    "version": "",
     "map": {
-        "components": {},
+        "components": {
+            "mouseInfo": {
+                "enabled": true,
+                "spatialReference": {
+                    "wkid": 4326,
+                    "vcsWkid": null,
+                    "latestWkid": null,
+                    "latestVcsWkid": null,
+                    "wkt": ""
+                }
+            },
+            "northArrow": {
+                "enabled": true
+            },
+            "basemap": {
+                "enabled": true
+            },
+            "overviewMap": {
+                "enabled": true,
+                "expandFactor": 4,
+                "initiallyExpanded": true
+            },
+            "scaleBar": {
+                "enabled": true
+            }
+        },
         "initialBasemapId": "",
         "extentSets": [],
-        "lodSets": [{
-            "lods": []
-        }],
+        "lodSets": [],
         "tileSchemas": [],
-      "baseMaps": [],
-      "layers": []
+        "baseMaps": [],
+        "layers": [],
+        "legend": {
+            "legendChoice": "autopopulate",
+            "type": "autopopulate",
+            "root": {
+                "name": "root",
+                "children": []
+            }
+        }
     },
-    "services": {},
-    "ui": {}
+    "ui": {
+        "sideMenu": {
+            "items": [],
+            "logo": true
+        },
+        "about": {
+            "aboutChoice": "string"
+        },
+        "fullscreen": false,
+        "theme": "default",
+        "logoUrl": "",
+        "failureFeedback": {
+            "failureMessage": "",
+            "failureImageUrl": ""
+        },
+        "title": "",
+        "appBar": {
+            "sideMenu": true,
+            "geoSearch": true,
+            "basemap": true,
+            "layers": true
+        },
+        "navBar": {
+            "zoom": "buttons",
+            "extra": ["fullscreen", "geoLocator", "home", "help"]
+        },
+        "restrictNavigation": false,
+        "help": {
+            "folderName": "default"
+        },
+        "legend": {
+            "reorderable": true,
+            "allowImport": true,
+            "isOpen": {
+                "large": false,
+                "medium": false,
+                "small": false
+            }
+        },
+        "tableIsOpen": {
+            "id": "",
+            "large": false,
+            "medium": false,
+            "small": false
+        },
+        "widgetsWidget": ""
+    },
+    "services": {
+        "proxyUrl": "http://167.40.64.74/wmsproxy/ws/wmsproxy/executeFromProxy",
+        "geometryUrl": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+        "exportMapUrl": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+        "search": {
+            "serviceUrls": {
+                "geoNames": "https://geogratis.gc.ca/services/geoname/en/geonames.json",
+                "geoLocation": "https://geogratis.gc.ca/services/geolocation/en/locate?q=",
+                "geoSuggest": "https://geogratis.gc.ca/services/geolocation/en/suggest?q=",
+                "provinces": "https://geogratis.gc.ca/services/geoname/en/codes/province.json",
+                "types": "https://geogratis.gc.ca/services/geoname/en/codes/concise.json"
+            },
+            "disabledSearches": ["NTS", "FSA", "LAT/LNG"]
+        },
+        "export": {
+            "title": {
+                "isSelected": true,
+                "isSelectable": true,
+                "value": ""
+            },
+            "footnote": {
+                "isSelected": true,
+                "isSelectable": true,
+                "value": ""
+            },
+            "map": {
+                "isSelected": true,
+                "isSelectable": false,
+                "value": ""
+            },
+            "mapElements": {
+                "isSelected": true,
+                "isSelectable": true,
+                "value": ""
+            },
+            "legend": {
+                "isSelected": true,
+                "isSelectable": true,
+                "value": "",
+                "showInfoSymbology": false,
+                "showControlledSymbology": false
+            },
+            "timestamp": {
+                "isSelected": true,
+                "isSelectable": true,
+                "value": ""
+            }
+        },
+        "googleAPIKey": "",
+        "geolocation": "",
+        "coordInfo": "",
+        "print": ""
+    },
+    "version": "2.0",
+    "language": "en-CA"
 }
