@@ -81,7 +81,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
         self.templates[0] : { 'path': 'config-default.json', 'file': 'default' };
 
     // set active file name
-    self.saveName = self.template.file;
+    events.$on(events.avNewSaveName, (obj, name)  => { self.saveName = name });
 
     /**
      * When create is clicked, broadcast a newModel event

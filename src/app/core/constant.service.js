@@ -72,7 +72,8 @@ function events($rootScope) {
         avUpdateFocus: 'avUpdateFocus', // Fired when user click on element of summary tree
         avShowHelp: 'avShowHelp', // Fired when help dialog window opening is completed
         avLegendError: 'avLegendError', // Fired when there's an id in error in the structured legend
-        avValidateLegend: 'avValidateLegend' // Fired legend validation
+        avValidateLegend: 'avValidateLegend', // Fired legend validation
+        avNewSaveName: 'avNewSaveName' // Fired new save name
     };
 }
 

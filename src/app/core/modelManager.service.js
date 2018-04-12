@@ -11,7 +11,6 @@ angular
     .factory('modelManager', modelManager);
 
 
-
 /**
  * @description service that manages the model used by Angular Schema Forms
  * @function modelmanager

@@ -83,9 +83,11 @@ function initShortcut(keyNames, formService) {
  * @private
  * @param  {Object} $rootElement Angular object
  * @param  {Object} $http Angular object to read file
+ * @param  {Object} $timeout Angular timeout object
+ * @param  {Object} events author events
  * @param  {Object} modelManager Model Manager service
  */
-function uploadDefault($rootElement, $http, modelManager) {
+function uploadDefault($rootElement, $http, $timeout, events, modelManager) {
     // check if there is user define template. If not, use default one
     // we need a default one to make sure model object exist. At the same time we need to defined
     // readonly field inside it
@@ -93,9 +95,33 @@ function uploadDefault($rootElement, $http, modelManager) {
     const configList = (configAttr && angular.fromJson(configAttr).length > 0) ?
         angular.fromJson(configAttr) : ['config-default.json'];
 
-    // load default configuration
-    const location = configList[0];
-    $http.get(location).then(obj => modelManager.setDefault(obj.data));
+    // check if application is call with option to open a predefine configuration file
+    const url = new URL(window.location.href);
+    const template = url.searchParams.get('template');
+    const filename = url.searchParams.get('filename');
+    let configUrl = [];
+
+    if (template !== null) {
+        // if config file exist, select it. If not, default or first template will be selected
+        configUrl = configList.filter(item => item.split('/')[item.split('/').length - 1] === template);
+    } else if (filename !== null) {
+        configUrl = [filename];
+    }
+
+    // load default configuration. If configUrl fails, redirect to default
+    const location = (configUrl.length === 0) ? configList[0] : configUrl[0];
+    let name = location.split('/')[location.split('/').length - 1].replace('.json', '');
+
+    $http.get(location).then(obj => {
+        // set current file name and set default
+        $timeout(() => { events.$broadcast(events.avNewSaveName, name) }, 1000);
+        modelManager.setDefault(obj.data)
+    }).catch(error => $http.get(configList[0]).then(obj => {
+        // set current file name and set default
+        name = configList[0].split('/')[configList[0].split('/').length - 1].replace('.json', '');
+        $timeout(() => { events.$broadcast(events.avNewSaveName, name) }, 1000);
+        modelManager.setDefault(obj.data);
+    }));
 }
 
 /**
