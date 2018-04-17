@@ -31,12 +31,28 @@
                 border-bottom: none;
             }
 
+            p {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            h5 {
+                font-size: 18px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
             table {
                 margin-bottom: rem(1.5);
             }
 
             td, th {
                 padding: 0 rem(0.5);
+            }
+
+            blockquote {
+                padding: 2px 15px;
+                border-left: 5px solid $primary-color;
             }
         }
 

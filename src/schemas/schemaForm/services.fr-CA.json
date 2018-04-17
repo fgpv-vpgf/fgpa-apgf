@@ -57,7 +57,7 @@
     },
     "search": {
       "type": "object",
-      "description": "Propriétés de la recherche incluant la possibilité de désactiver certains types de recherche (SNRC, code postal/RTA, et/ou LAT/LNG) et d'identifier les URLs des points de service",
+      "description": "Propriétés de la recherche incluant la possibilité d'activer certains types de recherche (Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude) et d'identifier les URLs des points de service",
       "properties": {
         "disabledSearches": {
           "type": "array",
@@ -70,8 +70,8 @@
             ]
           },
           "uniqueItems": true,
-          "description": "Désactiver des types de recherche spécifiques (SNRC, code postal/RTA ou LAT/LNG)",
-          "title": "Type de recherche à désactiver",
+          "description": "Activer des types de recherche spécifiques incluant: Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude (ex. 58.12;-100.67)",
+          "title": "Type de recherche à activer",
           "help": "",
           "default": []
         },

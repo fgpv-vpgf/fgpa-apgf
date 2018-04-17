@@ -82,7 +82,6 @@ function avDragHandle($compile, $timeout, events, constants) {
      * @function addIcon
      * @param {Object} element html element
      * @param {Object} scope Angular object
-     * @return {Object} compiled element
      */
     function addIcon(element, scope) {
         // set the proper icon from the collapsible element state

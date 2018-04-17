@@ -57,7 +57,7 @@
     },
     "search": {
       "type": "object",
-      "description": "Search properties including ability to disable certain types of searches (NTS, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls",
+      "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls",
       "properties": {
         "disabledSearches": {
           "type": "array",
@@ -70,8 +70,8 @@
             ]
           },
           "uniqueItems": true,
-          "description": "Disable specific types of searches including NTS, Postal Code/FSA or LAT/LNG",
-          "title": "Search type to disable",
+          "description": "Enable specific types of searches including: National Topographic System, Postal Code/Foward Sorting Area or Latitude/Longitude (e.g. 58.12;-100.67)",
+          "title": "Search type to enable",
           "help": "",
           "default": []
         },

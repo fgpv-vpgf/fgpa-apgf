@@ -74,6 +74,11 @@
         color: $good-color;
     }
 
+    .av-legend-link {
+        text-decoration: underline;
+        color: $primary-color;
+    }
+
     .av-lods-error {
         color: $alert-color;
     }
