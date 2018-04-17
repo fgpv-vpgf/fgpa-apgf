@@ -298,20 +298,22 @@ function Controller($scope, $translate, $timeout,
 
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
-            $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
-            document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
+            if  ($scope.model.legend.type === 'structured') {
+                $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+                document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
-            // Validate layers ID
-            const idsErrors = validateLayerID($scope.model.legend.root);
+                // Validate layers ID
+                const idsErrors = validateLayerID($scope.model.legend.root);
 
-            if (idsErrors !== '') {
-                const e = `${$translate.instant('form.map.legenderror')} ${idsErrors}`
-                throw(e);
+                if (idsErrors !== '') {
+                    const e = `${$translate.instant('form.map.legenderror')} ${idsErrors}`
+                    throw(e);
+                }
+                // set class and message
+                help.classList.remove('av-legend-json-error');
+                help.classList.add('av-legend-json-valid');
+                help.innerHTML = $translate.instant('form.map.legendtextvalid');
             }
-            // set class and message
-            help.classList.remove('av-legend-json-error');
-            help.classList.add('av-legend-json-valid');
-            help.innerHTML = $translate.instant('form.map.legendtextvalid');
         } catch (e) {
             // set class
             help.classList.add('av-legend-json-error');
@@ -337,7 +339,7 @@ function Controller($scope, $translate, $timeout,
 
         // Extract JSON layers IDs
         const ids = [];
-        const regexp = /"layerId": "(\w+)\W/g;
+        const regexp = /"layerId": "(.*?)"/g;
         json.replace(regexp, (s, match) => ids.push(match));
 
         // Compare extracted ids with available ids
@@ -371,8 +373,10 @@ function Controller($scope, $translate, $timeout,
             if (legend.legendChoice !== 'structured') {
                 elem.classList.add('hidden');
             } else {
-                legend.root = (typeof legend.root === 'undefined') ? { "name": "root", "children": [] } :
-                    (typeof legend.root === 'object') ? JSON.stringify(legend.root, null, 4) : legend.root;
+                if (typeof legend.root === 'undefined' || legend.root === '') {
+                    legend.root = { "name": "root", "children": [] }
+                }
+                legend.root = JSON.stringify(legend.root, null, 4);
 
                 elem.classList.remove('hidden');
             }
