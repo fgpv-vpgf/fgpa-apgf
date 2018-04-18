@@ -64,13 +64,15 @@ function modelManager($timeout, $translate, events, constants, commonService) {
 
         // FIXME: this is a workaround to parse the legend string to JSON objects
         // and set it back to string after save/preview
+        // only parse when legens is structured type. If autopopulate, legend.root is not use
         let root = models.map.legend.root;
-        if (typeof root === 'string') {
+        if (models.map.legend.type === 'structured' && typeof root === 'string') {
             models.map.legend.root = JSON.parse(root);
+
+            $timeout(() => {
+                models.map.legend.root = JSON.stringify(models.map.legend.root, null, 4);
+            }, 1000);
         }
-        $timeout(() => {
-            models.map.legend.root = JSON.stringify(models.map.legend.root, null, 4);
-        }, 1000);
 
         // remove $$haskkey from model
         let cleanModels = commonService.parseJSON(models);
