@@ -32,29 +32,6 @@
       "help": "Do we really need this?",
       "default": ""
     },
-    "geolocation": {
-      "type": "object",
-      "description": "FIXME",
-      "title": "Geolocation API URL",
-      "help": "",
-      "default": ""
-    },
-    "coordInfo": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "FIXME",
-      "title": "Coordinates Info URL",
-      "help": "",
-      "default": ""
-    },
-    "print": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "FIXME",
-      "title": "Print URL",
-      "help": "hummmmm sert a quoi",
-      "default": ""
-    },
     "search": {
       "type": "object",
       "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls",
@@ -156,7 +133,7 @@
             },
             "titleValue": {
               "type": "string",
-              "description": "Value to appear by default",
+              "description": "Value to appear by default. If value is empty, title will not be present even if Is present is selected.",
               "title": "Value",
               "help": "",
               "default": ""
@@ -183,14 +160,7 @@
                 "description": "",
                 "title": "User can remove it",
                 "help": ""
-              },
-            "value": {
-              "type": "string",
-              "description": "services.export.footnote.value.description",
-              "title": "Value",
-              "help": "",
-              "default": ""
-            }
+              }
           },
           "additionalProperties": false,
           "title": "Map",
@@ -213,14 +183,7 @@
                 "description": "",
                 "title": "User can remove it",
                 "help": ""
-              },
-            "value": {
-              "type": "string",
-              "description": "services.export.footnote.value.description",
-              "title": "Value",
-              "help": "",
-              "default": ""
-            }
+              }
           },
           "additionalProperties": false,
           "title": "Map Elements",
@@ -243,13 +206,6 @@
                 "description": "",
                 "title": "User can remove it",
                 "help": ""
-              },
-            "value": {
-              "type": "string",
-              "description": "Value to be passed to the generation function of this export component.",
-              "title": "",
-              "help": "",
-              "default": ""
             },
             "showInfoSymbology": {
               "type": "boolean",
@@ -290,7 +246,7 @@
               },
               "footnoteValue": {
                 "type": "string",
-                "description": "Value to appear by default",
+                "description": "Value to appear by default. If value is empty, footnote will not be present even if Is present is selected.",
                 "title": "Value",
                 "help": "",
                 "default": ""
@@ -317,14 +273,7 @@
                 "description": "",
                 "title": "User can remove it",
                 "help": ""
-              },
-            "value": {
-              "type": "string",
-              "description": "",
-              "title": "Value to appear by default",
-              "help": "",
-              "default": ""
-            }
+              }
           },
           "additionalProperties": false,
           "title": "Timestamp",

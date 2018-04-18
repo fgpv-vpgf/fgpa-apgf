@@ -32,29 +32,6 @@
       "help": "Do we really need this?",
       "default": ""
     },
-    "geolocation": {
-      "type": "object",
-      "description": "FIXME",
-      "title": "URL de l'API de géolocalisation",
-      "help": "",
-      "default": ""
-    },
-    "coordInfo": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "FIXME",
-      "title": "URL pour les coordonnées",
-      "help": "",
-      "default": ""
-    },
-    "print": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "FIXME",
-      "title": "URL pour l'impression",
-      "help": "hummmmm sert a quoi",
-      "default": ""
-    },
     "search": {
       "type": "object",
       "description": "Propriétés de la recherche incluant la possibilité d'activer certains types de recherche (Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude) et d'identifier les URLs des points de service",
@@ -156,7 +133,7 @@
             },
             "titleValue": {
               "type": "string",
-              "description": "Valeur par défaut",
+              "description": "Valeur par défaut. Si la valeur est vide, le titre ne sera pas présent même si Est présent est sélectionné.",
               "title": "Valeur",
               "help": "",
               "default": ""
@@ -183,14 +160,7 @@
                 "description": "",
                 "title": "L'utilisateur peut les enlever",
                 "help": ""
-              },
-            "value": {
-              "type": "string",
-              "description": "services.export.footnote.value.description",
-              "title": "Valeur",
-              "help": "",
-              "default": ""
-            }
+              }
           },
           "additionalProperties": false,
           "title": "Carte",
@@ -213,13 +183,6 @@
               "description": "",
               "title": "L'utilisateur peut les enlever",
               "help": ""
-            },
-            "value": {
-              "type": "string",
-              "description": "services.export.footnote.value.description",
-              "title": "",
-              "help": "",
-              "default": ""
             }
           },
           "additionalProperties": false,
@@ -244,13 +207,6 @@
                 "title": "L'utilisateur peut l'enlever",
                 "help": ""
               },
-            "value": {
-              "type": "string",
-              "description": "Value to be passed to the generation function of this export component.",
-              "title": "",
-              "help": "",
-              "default": ""
-            },
             "showInfoSymbology": {
               "type": "boolean",
               "default": false,
@@ -290,7 +246,7 @@
               },
             "footnoteValue": {
               "type": "string",
-              "description": "Valeur par défaut",
+              "description": "Valeur par défaut. Si la valeur est vide, la note de base de page ne sera pas présent même si Est présent est sélectionné.",
               "title": "Valeur",
               "help": "",
               "default": ""
@@ -317,14 +273,7 @@
                 "description": "",
                 "title": "L'utilisateur peut l'enlever",
                 "help": ""
-              },
-            "value": {
-              "type": "string",
-              "description": "",
-              "title": "Valeur par défaut",
-              "help": "",
-              "default": ""
-            }
+              }
           },
           "additionalProperties": false,
           "title": "Horodateur",
