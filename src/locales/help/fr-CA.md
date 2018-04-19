@@ -16,7 +16,7 @@ fichiers de configuration. Le schéma est composé de 5 sections:
 + ** Version **
 + ** Langue **
 
-Pour plus d'informations sur la structure du schéma, vous pouvez consulter le [schéma VPGF](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
+Pour plus d'informations sur la structure du schéma, vous pouvez consulter le [**schéma VPGF**](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
 dans notre page wiki. Cette section vous donnera également des informations sur les valeurs du schéma et leur effet dans le visualiseur.
 
 ##### Informations utiles

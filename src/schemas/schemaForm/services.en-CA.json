@@ -27,7 +27,7 @@
     },
     "googleAPIKey": {
       "type": "string",
-      "description": "Google API key to enable geo location and share link shortening.",
+      "description": "Google API key to enable geo location.",
       "title": "Google API URL",
       "help": "Do we really need this?",
       "default": ""
