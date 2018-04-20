@@ -58,7 +58,7 @@
     localStorage.removeItem('configpreview');
 </script>
 
-<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.2.0/rv-main.js"></script>
+<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.2.0/dev/rv-main.js"></script>
 
 </body>
 </html>

@@ -25,6 +25,7 @@ header save file,header.save,Save file,0,Sauvegarder fichier,0
 header save dialog title,header.savedialog.title,Save Configuration File,0,Sauvegarder le fichier de configuration,0
 header save dialog desc,header.savedialog.desc,Enter file name. It will be save inside your download folder,0,Entrez un nom de fichier. Il sera sauvegardé dans le répertoire téléchargement.,0
 header save dialog hint,header.savedialog.hint,* no extension,0,* sans extension,0
+header save dialog hint,header.savedialog.error,Error in Legend Structured section. Solve the issue before saving!,0,Erreur dans la section légende Structurée. Résolvez le problème avant de sauvegarder!,0
 header error dialog title,header.errordialog.title,Configuration File Upload Error,0,Erreur de téléchargement du fichier de configuration,0
 header error dialog desc,header.errordialog.desc,"There was a problem when uploading the file. Please, correct the error then retry.",0,"Un problème est survenu lors du téléchargement du fichier. Veuillez corriger l'erreur, puis réessayez.",0
 header tempalte,header.template,Templates,0,Gabarits,0

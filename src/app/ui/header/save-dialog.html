@@ -1,13 +1,15 @@
 <md-dialog aria-label="{{ 'header.savedialog.title' | translate }}" class="av-save-dialog">
     <av-content-panel close-panel="self.close()" title-style="title" title-value="{{ 'header.savedialog.title' | translate }}">
         <p class="av-save-desc">{{ 'header.savedialog.desc' | translate }}</p>
-        <md-input-container class="md-block" flex-gt-xs>
-            <input class="" type="text" ng-model="self.fileName" av-focus />
+        <md-input-container class="md-block" md-is-error="self.error === true" flex-gt-xs>
+            <input id="avInputFileSaveName" class="" type="text" ng-model="self.fileName" av-focus />
             <div class="av-hint">{{ 'header.savedialog.hint' | translate }}</div>
+            <div class="av-error">{{ self.error }}</div>
         </md-input-container>
         <md-button
             class="av-button-square md-raised md-primary"
-            ng-click="self.save()">
+            ng-click="self.save()"
+            ng-disabled="self.fileName.length === 0 || self.isError === true">
             {{ 'button.save' | translate }}
             <md-tooltip>{{ 'button.save' | translate }}</md-tooltip>
         </md-button>
