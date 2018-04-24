@@ -23,7 +23,8 @@
                       "type": "number",
                       "title": "WKID",
                       "description": "Well-Known ID ( WKID )",
-                      "default": 4326
+                      "default": 4326,
+                      "minimum": "0"
                   },
                   "vcsWkid": {
                       "type": "number",
@@ -299,7 +300,8 @@
                                     "type": "number",
                                     "title": "WKID",
                                     "description": "Well-Known ID ( WKID )",
-                                    "default": 4326
+                                    "default": 4326,
+                                    "minimum": "0"
                                 },
                                 "vcsWkid": {
                                     "type": "number",
@@ -353,6 +355,7 @@
                             "type": "number",
                             "description": "The ratio between the size of the overview map and the extent rectangle displayed on the overview map. The default value is 2, meaning the overview map will be at least twice the size of the extent rectangle.",
                             "default": 2,
+                            "minimum": "0",
                             "title": "Expand Factor"
                         },
                         "initiallyExpanded": {
@@ -594,6 +597,7 @@
                     "tolerance": {
                         "type": "number",
                         "default": 5,
+                        "minimum": "0",
                         "description": "Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer",
                         "title": "Tolerance"
                     },
@@ -672,7 +676,9 @@
                         "opacity": {
                           "type": "number",
                           "default": 1,
-                          "description": "Initial opacity",
+                          "minimum": "0",
+                          "maximum": "1",
+                          "description": "Initial opacity. Value must be between 0 and 1.",
                           "title": "Initial opacity"
                         },
                         "visibility": {
@@ -775,6 +781,7 @@
                                         },
                                         "width": {
                                             "type": "number",
+                                            "minimum": "0",
                                             "description": "Specifies the column width. If missing, calculated column width will be use.",
                                             "title": "Width"
                                         },
@@ -835,6 +842,7 @@
                                 "index": {
                                     "type": "number",
                                     "title": "Index",
+                                    "minimum": "0",
                                     "description": "The index of the layer in the map service."
                                 },
                                 "name": {
@@ -938,6 +946,7 @@
                                                     "width": {
                                                         "type": "number",
                                                         "title": "Width",
+                                                        "minimum": "0",
                                                         "description": "Specifies the column width. If missing, calculated column width will be use."
                                                     },
                                                     "sort": {
@@ -1045,7 +1054,9 @@
                                     "opacity": {
                                       "type": "number",
                                       "default": 1,
-                                      "description": "Initial opacity",
+                                      "minimum": "0",
+                                      "maximum": "1",
+                                      "description": "Initial opacity. Value must be between 0 and 1.",
                                       "title": ""
                                     },
                                     "visibility": {

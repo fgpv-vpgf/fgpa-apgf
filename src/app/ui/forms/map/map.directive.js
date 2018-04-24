@@ -474,6 +474,7 @@ function Controller($scope, $translate, $timeout,
      * @param  {Object} layers  array of layers to initialize
      */
     function initLayer(layers) {
+        let flag = false;
         // When we add a new layer, initialize the controls array to avoid linked layers controls bug
         if (self.layers !== -1 && layers.length - 1 > self.layers) {
             const layer = layers[layers.length - 1];
@@ -492,9 +493,22 @@ function Controller($scope, $translate, $timeout,
 
             // broadcast the new item even to update accordion
             events.$broadcast(events.avNewItems);
+            flag = true;
         } else if (self.layers === -1) {
             // special case when it is the first layer
             events.$broadcast(events.avNewItems);
+            flag = true;
+        }
+
+        // FIXME: there so bugs with ASF.
+        // We are not able to set step value... we need to set them manually
+        if (flag) {
+            // set opacity input step value
+            $timeout(() => {
+                $('.av-opacity-input input').each((index, element) => {
+                    element.step = 0.05;
+                });
+            }, constants.debInput);
         }
 
         // update layers numbers
@@ -526,6 +540,14 @@ function Controller($scope, $translate, $timeout,
             for (let input of Array.from(inputs)) {
                 input.checked = true;
             }
+
+            // FIXME: there so bugs with ASF.
+            // We are not able to set step value... we need to set them manually
+            $timeout(() => {
+                $('.av-opacity-input input').each((index, element) => {
+                    element.step = 0.05;
+                });
+            }, constants.debInput);
 
             // broadcast the new item even to update accordion
             events.$broadcast(events.avNewItems);
@@ -758,7 +780,14 @@ function Controller($scope, $translate, $timeout,
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                                     { 'key': 'layers[].layerEntries[].controls', 'htmlClass': 'av-controls-bug' },
                                                     // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
-                                                    { 'key': 'layers[].layerEntries[].state' }
+                                                    { 'key': 'layers[].layerEntries[].state', 'items': [
+                                                        { 'key': 'layers[].layerEntries[].state.opacity', 'htmlClass': 'av-opacity-input'  },
+                                                        { 'key': 'layers[].layerEntries[].state.visibility' },
+                                                        { 'key': 'layers[].layerEntries[].state.boundingBox' },
+                                                        { 'key': 'layers[].layerEntries[].state.query' },
+                                                        { 'key': 'layers[].layerEntries[].state.snapshot' },
+                                                        { 'key': 'layers[].layerEntries[].state.hovertips' }
+                                                    ] }
                                                 ] }
                                             ] },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].layerEntries[].table', 'esriDynamic') }
@@ -791,7 +820,14 @@ function Controller($scope, $translate, $timeout,
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                         { 'key': 'layers[].controls' },
                                         // We don't set this section because it is internal to the viewer { 'key': 'layers[].disabledControls' },
-                                        { 'key': 'layers[].state' }
+                                        { 'key': 'layers[].state', 'items': [
+                                            { 'key': 'layers[].state.opacity', 'htmlClass': 'av-opacity-input'  },
+                                            { 'key': 'layers[].state.visibility' },
+                                            { 'key': 'layers[].state.boundingBox' },
+                                            { 'key': 'layers[].state.query' },
+                                            { 'key': 'layers[].state.snapshot' },
+                                            { 'key': 'layers[].state.hovertips' }
+                                        ] }
                                     ] }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].table', 'esriFeature') }
