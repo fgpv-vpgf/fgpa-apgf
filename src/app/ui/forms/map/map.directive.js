@@ -375,8 +375,9 @@ function Controller($scope, $translate, $timeout,
             } else {
                 if (typeof legend.root === 'undefined' || legend.root === '') {
                     legend.root = { "name": "root", "children": [] }
+                } else if (typeof legend.root === 'object') {
+                    legend.root = JSON.stringify(legend.root, null, 4);
                 }
-                legend.root = JSON.stringify(legend.root, null, 4);
 
                 elem.classList.remove('hidden');
             }
