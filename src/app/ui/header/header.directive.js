@@ -235,7 +235,10 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             parent: $('.fgpa'),
             clickOutsideToClose: true,
             fullscreen: false,
-            onRemoving: element => { self.saveName = element[0].getElementsByTagName('input')[0].value; }
+            locals: { name: self.saveName },
+            onRemoving: element => {
+                self.saveName = document.getElementById('avInputFileSaveName').value;
+            }
         });
     }
 
@@ -246,15 +249,21 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @private
      * @param  {Object} $mdDialog  Angular dialog window object
      * @param {Object} constants service with all constants for the application
+     * @param {String} name previous file save name
      */
-    function SaveController($mdDialog, constants) {
+    function SaveController($mdDialog, $translate, constants, name) {
         'ngInject';
         const self = this;
 
         self.close = $mdDialog.hide;
-        self.cancel = $mdDialog.hide;
+        self.cancel = cancel;
         self.save = save;
-        self.fileName = '';
+        self.error = '';
+        self.isError = false;
+
+        // increment final name from existing file name
+        self.fileName = (name.search('^.*-V[0-9][0-9]$') === 0) ?
+            `${name.slice(0, -2)}${(parseInt(name.slice(-2)) + 1).toString().padStart(2, '0')}` : `${name}-V01`;
 
         /**
          * Save current models to file
@@ -263,10 +272,28 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
          * @private
          */
         function save() {
-            // save the file. Some browsers like IE and Edge doesn't support File constructor, use blob
-            // https://stackoverflow.com/questions/39266801/saving-file-on-ie11-with-filesaver
-            const file = new Blob([modelManager.save()], { type: 'application/json' });
-            FileSaver.saveAs(file, `${self.fileName}.json`);
+            try {
+                // save the file. Some browsers like IE and Edge doesn't support File constructor, use blob
+                // https://stackoverflow.com/questions/39266801/saving-file-on-ie11-with-filesaver
+                const file = new Blob([modelManager.save()], { type: 'application/json' });
+                FileSaver.saveAs(file, `${self.fileName}.json`);
+
+                self.close();
+            } catch (e) {
+                self.error = $translate.instant('header.savedialog.error');
+                self.isError = true;
+            }
+        }
+
+        /**
+         * Cancel save action.
+         *
+         * @function cancel
+         * @private
+         */
+        function cancel() {
+            // set back the original name for save file name to be not changed
+            document.getElementById('avInputFileSaveName').value = name;
             self.close();
         }
     }

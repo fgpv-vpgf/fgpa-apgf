@@ -56,7 +56,7 @@ The header toolbar allows you to:
     or would like an update to the list of templates.
 + Upload an existing configuration file ![](uparrow.png "Arrow sign").
 + Save the configuration file once finished ![](diskette.png "Diskette sign").
-    + All files are saved in your Downloads folder.
+    + All files are saved in your Downloads folder. The application automatically increments the file name at each backup.
 
 The file name you are working on is shown to the left of the save icon. However, if you save a file using an existing file name, it
 will be renamed by your operating system and may no longer match the file name you used (e.g. Test is shown as the used

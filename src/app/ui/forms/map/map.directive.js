@@ -491,6 +491,9 @@ function Controller($scope, $translate, $timeout,
 
             // broadcast the new item even to update accordion
             events.$broadcast(events.avNewItems);
+        } else if (self.layers === -1) {
+            // special case when it is the first layer
+            events.$broadcast(events.avNewItems);
         }
 
         // update layers numbers

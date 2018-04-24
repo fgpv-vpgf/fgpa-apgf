@@ -60,7 +60,7 @@ La barre d'outils d'en-tête vous permet de:
     ou souhaitez une mise à jour de la liste des modèles.
 + Télécharger un fichier de configuration existant ![](uparrow.png "Flèche").
 + Enregistrer le fichier de configuration une fois terminé ![](diskette.png "Signe de disquette").
-    + Tous les fichiers sont enregistrés dans votre dossier Téléchargements.
+    + Tous les fichiers sont enregistrés dans votre dossier Téléchargements. L'application incrémente automatiquement le nom de fichier a chaque sauvegarde.
 
 Le nom du fichier sur lequel vous travaillez est affiché à gauche de l'icône de sauvegarde. Cependant, si vous enregistrez
 un fichier en utilisant un nom de fichier existant, il sera renommé par votre système d'exploitation et ne correspondra plus
