@@ -126,19 +126,19 @@ En option, vous pouvez définir des valeurs d'URL pour les métadonnées et le c
 du panneau de métadonnées accessible par  _Contrôle de la couche_ .
 
 Pour chaque couche et entrées de couche, les options _Contrôle de la couche_ suivantes peuvent être sélectionnées:
-+ opacity
-+ visibility
-+ boundingBox
-+ query
-+ snapshot
-+ metadata
-+ boundaryZoom
-+ refresh
-+ reload
-+ remove
-+ settings
-+ data
-+ styles
++ Opacité (_opacity_)
++ Visibilité (_visibility_)
++ Boîte de délimitation (_boundingBox_)
++ Requête (_query_)
++ Instantané (_snapshot_)
++ Métadonnée (_metadata_)
++ Zoom à la délimitation (_boundaryZoom_)
++ Rafraîchir (_refresh_)
++ Recharger (_reload_)
++ Enlever (_remove_)
++ Paramètres (_settings_)
++ Table (_data_)
++ Styles (_styles_)
 
 Pour les entrées de couche et les couches, les options _État_ suivantes peuvent être sélectionnées:
 + Opacité - Valeur d'opacité initiale.
@@ -227,20 +227,20 @@ La section Général permet de personnaliser les informations suivantes:
 La section Barre d'application vous permet d'ajouter ou de supprimer les outils suivants:
 + Menu latéral
 + Géorecherche
-+ Sélecteur de carte de base
++ Sélecteur de cartes de base
 + Sélecteur de couches (légende)
 
 ##### Navigation
 
 La bsection navigation vous permet d'ajouter ou de supprimer les composantes de navigation suivantes:
-+ geolocator - Afficher la position de l'utilisateur sur la carte
-+ home - Zoom sur l'étendue initiale
-+ basemaps - Ouvrir le sélecteur de fond de carte _- également disponible dans la barre d'application -_
-+ help - Ouvrir la fenêtre d'aide _- également disponible dans le menu latéral -_
-+ fullscreen - Ouvrir la visionneuse en plein écran _- également disponible dans le menu latéral -_
-+ geoSearch - Ouvrir l'outil géorecherche _- également disponible dans la barre d'application -_
-+ sidemenu - Ouvrir le menu latéral _- également disponible dans la barre d'application -_
-+ couches - Ouvrir le sélecteur de couches (légende) _- également disponible dans la barre d'application -_
++ Votre emplacement (_geolocator_) - Afficher la position de l'utilisateur sur la carte
++ Étendue initiale (_home_) - Zoom sur l'étendue initiale
++ Sélecteur de cartes de base (_basemaps_) - Ouvrir le sélecteur de fond de carte _- également disponible dans la barre d'application -_
++ Aide (_help_) - Ouvrir la fenêtre d'aide _- également disponible dans le menu latéral -_
++ Plein écran (_fullscreen_) - Ouvrir la visionneuse en plein écran _- également disponible dans le menu latéral -_
++ Géorecherche (_geoSearch_) - Ouvrir l'outil géorecherche _- également disponible dans la barre d'application -_
++ Menu latéral (_sidemenu_) - Ouvrir le menu latéral _- également disponible dans la barre d'application -_
++ Sélecteur de couches (_layers_) - Ouvrir le sélecteur de couches (légende) _- également disponible dans la barre d'application -_
 
 Vous pouvez limiter la navigation à l'étendue maximale en cochant la case _Navigation restreinte_.
 
@@ -249,25 +249,25 @@ Vous pouvez limiter la navigation à l'étendue maximale en cochant la case _Nav
 Le menu latéral vous permet de configurer l'affichage du menu latéral. Vous pouvez d'abord définir un titre et un logo.
 Si aucun titre ou logo ne sont fournis, le titre par défaut ("Visualiseur PGF R2") et le logo seront utilisés. Ensuite, vous
 pouvez ajouter autant de groupes d'outils que vous le souhaitez parmi les options suivantes:
-+ layers - Sélecteur de couches (légende) _- également disponible dans la barre d'application -_
-+ basemaps - Sélecteur de cartes de base _- également disponible dans la barre d'application -_
-+ geosearch - Outil de géorecherche _- également disponible dans la barre d'application -_
-+ about - Afficher des informations supplémentaires sur la carte
++ Sélecteur de couches (_layers_) - Sélecteur de couches (légende) _- également disponible dans la barre d'application -_
++ Sélecteur de cartes de base (_basemaps_) - Sélecteur de cartes de base _- également disponible dans la barre d'application -_
++ Géorecherche (_geoSearch_) - Outil de géorecherche _- également disponible dans la barre d'application -_
++ Description de la carte (_about_) - Afficher des informations supplémentaires sur la carte
     + "A propos de la carte" peut être de type texte ou contenu d'un fichier. Lorsque le type fichier est sélectionné, vous devez fournir
     un nom de dossier pour votre "A propos de la carte" personnalisé contenant les fichiers au format markdown situés à l'intérieur de l'instance VPGF.
     + **Important** "A propos de la carte" dde type fichier n'apparaîtra pas en mode aperçu.
-+ fullscreen - Ouvrir la visionneuse en plein écran _- également disponible dans la barre de navigation -_
-+ export - Exporter l'affichage de la carte en tant qu'image de format png
-+ share - Créer un lien URL pour partager la carte
-+ touch - Activer le mode pour écran tactile (pour améliorer l'espacement, la disposition et la taille du bouton)
-+ help - Ouvrir la fenêtre d'aide _- également disponible dans la barre de navigation -_
++ Plein écran (_fullscreen_) - Ouvrir la visionneuse en plein écran _- également disponible dans la barre de navigation -_
++ Exporter la carte (_export_) - Exporter l'affichage de la carte en tant qu'image de format png
++ Partager la carte (_share_) - Créer un lien URL pour partager la carte
++ Mode tactile (_touch_) - Activer le mode pour écran tactile (pour améliorer l'espacement, la disposition et la taille du bouton)
++ Aide (_help_) - Ouvrir la fenêtre d'aide _- également disponible dans la barre de navigation -_
     + Si vous ne souhaitez pas utiliser l'aide par défaut, vous devez fournir un nom de dossier pour vos fichiers personnalisé d'aide en format markdown
     situé à l'intérieur de l'instance VPGF.
     + **Important** L'aide personnalisée n'apparaîtra pas en mode de mode aperçu.
-+ language - Définir la langue de l'interface
-+ plugins - Espace pour recevoir des "plugins" personnalisés
-    + **Important** La section des "plugins" n'apparaîtra pas en mode de aperçu. Du code doit être ajouté à l'application de visualisation
-    dans la page HTML pour activer le(s) "plugin(s)".
++ Sélecteur de langues (_language_) - Définir la langue de l'interface
++ Section Liens (_plugins_) - Espace pour recevoir des liens personnalisés
+    + **Important** La section Liens n'apparaîtra pas en mode de aperçu. Du code doit être ajouté à l'application de visualisation
+    dans la page HTML pour activer le(s) lien(s).
 
 _Note:_ les outils à l'intérieur des groupes ne sont pas classés tels qu'ils apparaissent dans la liste des groupes.
 Ils sont classés par ordre de sélection. Par exemple, si vous cliquez sur _basemap_ puis _layers_, dans le menu latéral

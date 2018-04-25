@@ -46,6 +46,20 @@ form ui,form.ui.aboutChoice, About source,0,Source de l'à propos,0
 form ui,form.ui.aboutstring,String content,0,Texte,0
 form ui,form.ui.titlevalidation,"String is too long ({viewValue.length} chars), maximum {schema.maxLength} chars.",0,"La chaîne est trop longue ({viewValue.length} caractères), maximum {schema.maxLength} caractères."
 form ui,form.ui.aboutfile,File content,0,Contenu dans un fichier,0
+form ui,form.ui.enumgeoLocator,Your location,0,Votre emplacement,0
+form ui,form.ui.enumhome,Initial extent,0,Étendue initiale,0
+form ui,form.ui.enumbasemap,Basemaps selector,0,Sélecteur de cartes de base,0
+form ui,form.ui.enumhelp,Help,0,Aide,0
+form ui,form.ui.enumfullscreen,Full screen,0,Plein écran,0
+form ui,form.ui.enumgeoSearch,Geo search,0,Géorecherche,0
+form ui,form.ui.enumsideMenu,Side menu,0,Menu latéral,0
+form ui,form.ui.enumlayers,Layers selector,0,Sélecteur de couches
+form ui,form.ui.enumabout,Map description,0,Description de la carte,0
+form ui,form.ui.enumexport,Map export,0,Exporter la carte,0
+form ui,form.ui.enumshare,Share the map,0,Partager la carte,0
+form ui,form.ui.enumtouch,Touch mode,0,Mode tactile,0
+form ui,form.ui.enumlanguage,Languages selector,0,Sélecteur de langues,0
+form ui,form.ui.enumplugins,Plugins section,0,Section Liens,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
@@ -96,6 +110,19 @@ form map go to ui legend,form.map.goui,"Click here to access legend's properties
 form map legend layer id,form.map.legendidstitle,Copy layer id,0,"Copier l'identifiant des couches",0
 form map legend layer id,form.map.legendidsdesc,Select your cursor position where you want the id to be copied then select it,0,"Sélectionnez la position du curseur à l'endroit où vous souhaitez copier l'identifiant, puis sélectionnez-le",0
 form map legend id error, form.map.legenderror,Bad id(s):,0,Mauvais id(s) :,0
+form map,form.map.enumopacity,Opacity,0,Opacité,0
+form map,form.map.enumvisibility,Visibility,0,Visibilité,0
+form map,form.map.enumboundingBox,Bounding box,0,Boîte de délimitation,0
+form map,form.map.enumquery,Query,0,Requête,0
+form map,form.map.enumsnapshot,Snapshot,0,Instantané,0
+form map,form.map.enummetadata,Metadata,0,Métadonnée,0
+form map,form.map.enumboundaryZoom,Boundary zoom,0,Zoom à la délimitation,0
+form map,form.map.enumrefresh,Refresh,0,Rafraîchir,0
+form map,form.map.enumreload,Reload,0,Recharger,0
+form map,form.map.enumremove,Remove,0,Enlever,0
+form map,form.map.enumsettings,Settings,0,Paramètres,0
+form map,form.map.enumdata,Table,0,Table,0
+form map,form.map.enumstyles,Styles,0,Styles,0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0

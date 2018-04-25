@@ -777,18 +777,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
-                                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                                    { 'key': 'layers[].layerEntries[].controls', 'htmlClass': 'av-controls-bug' },
-                                                    // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
-                                                    { 'key': 'layers[].layerEntries[].state', 'items': [
-                                                        { 'key': 'layers[].layerEntries[].state.opacity', 'htmlClass': 'av-opacity-input'  },
-                                                        { 'key': 'layers[].layerEntries[].state.visibility' },
-                                                        { 'key': 'layers[].layerEntries[].state.boundingBox' },
-                                                        { 'key': 'layers[].layerEntries[].state.query' },
-                                                        { 'key': 'layers[].layerEntries[].state.snapshot' },
-                                                        { 'key': 'layers[].layerEntries[].state.hovertips' }
-                                                    ] }
-                                                ] }
+                                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[].layerEntries[]', 'av-controls-bug') }
                                             ] },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].layerEntries[].table', 'esriDynamic') }
                                         ] }
@@ -804,11 +793,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'key': 'layers[].layerEntries[].allStyles' },
                                             { 'key': 'layers[].layerEntries[].currentStyle' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
-                                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                                    { 'key': 'layers[].layerEntries[].controls', 'htmlClass': 'av-controls-bug' },
-                                                    // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
-                                                    { 'key': 'layers[].layerEntries[].state' }
-                                                ] }
+                                                { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[].layerEntries[]', 'av-controls-bug') }
                                             ] }
                                         ] }
                                     ] }
@@ -817,18 +802,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].featureInfoMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
                                 { 'key': 'layers[].legendMimeType', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\''  },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
-                                    { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                        { 'key': 'layers[].controls' },
-                                        // We don't set this section because it is internal to the viewer { 'key': 'layers[].disabledControls' },
-                                        { 'key': 'layers[].state', 'items': [
-                                            { 'key': 'layers[].state.opacity', 'htmlClass': 'av-opacity-input'  },
-                                            { 'key': 'layers[].state.visibility' },
-                                            { 'key': 'layers[].state.boundingBox' },
-                                            { 'key': 'layers[].state.query' },
-                                            { 'key': 'layers[].state.snapshot' },
-                                            { 'key': 'layers[].state.hovertips' }
-                                        ] }
-                                    ] }
+                                    { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[]') }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].table', 'esriFeature') }
                             ] }
@@ -935,6 +909,42 @@ function Controller($scope, $translate, $timeout,
                 ] }
             ] }
         ];
+    }
+
+    /**
+     * Set controls and state section
+     *
+     * @function setControlSection
+     * @private
+     * @param {String} key key to use fo the section
+     * @param {String} htmlClass HTML class to add - optional
+     * @return {Object} the map control and state section
+     */
+    function setControlSection(key, htmlClass = '') {
+        return [{ 'key': `${key}.controls`, 'htmlClass': htmlClass, 'titleMap': {
+            'opacity': $translate.instant('form.map.enumopacity'),
+            'visibility': $translate.instant('form.map.enumvisibility'),
+            'boundingBox': $translate.instant('form.map.enumboundingBox'),
+            'query': $translate.instant('form.map.enumquery'),
+            'snapshot': $translate.instant('form.map.enumsnapshot'),
+            'metadata': $translate.instant('form.map.enummetadata'),
+            'boundaryZoom': $translate.instant('form.map.enumboundaryZoom'),
+            'refresh': $translate.instant('form.map.enumrefresh'),
+            'reload': $translate.instant('form.map.enumreload'),
+            'remove': $translate.instant('form.map.enumremove'),
+            'settings': $translate.instant('form.map.enumsettings'),
+            'data': $translate.instant('form.map.enumdata'),
+            'styles': $translate.instant('form.map.enumstyles')
+        } },
+        // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
+        { 'key': `${key}.state`, 'items': [
+            { 'key': `${key}.state.opacity`, 'htmlClass': 'av-opacity-input'  },
+            { 'key': `${key}.state.visibility` },
+            { 'key': `${key}.state.boundingBox` },
+            { 'key': `${key}.state.query` },
+            { 'key': `${key}.state.snapshot` },
+            { 'key': `${key}.state.hovertips` }
+        ] }]
     }
 
     /**

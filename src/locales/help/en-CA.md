@@ -115,19 +115,19 @@ Optionally you can set URL values for the Metadata URL and Catalog URL options t
 viewer's metadata panel available in the _Layer Controls_ section.
 
 For each layer and layer entries, the following _Layer Controls_ options can be selected:
-+ opacity
-+ visibility
-+ boundingBox
-+ query
-+ snapshot
-+ metadata
-+ boundaryZoom
-+ refresh
-+ reload
-+ remove
-+ settings
-+ data
-+ styles
++ Opacity (_opacity_)
++ Visibility (_visibility_)
++ Bounding box (_boundingBox_)
++ Query (_query_)
++ Snapshot (_snapshot_)
++ Metadata (_metadata_)
++ Boundary zoom (_boundaryZoom_)
++ Refresh (_refresh_)
++ Reload (_reload_)
++ Remove (_remove_)
++ Settings (_settings_)
++ Table (_data_)
++ Styles (_styles_)
 
 For each layer and layer entries, the following _State_ options can be selected:
 + Opacity - Initial opacity value.
@@ -216,14 +216,14 @@ The Application Bar section allows you to add or remove the following tools:
 ##### Navigation Bar
 
 The Navigation Bar allows you to add or remove the following navigation components:
-+ geolocator - Display user position on the map
-+ home - Zoom to initial extent
-+ basemap - Open Basemap Selector _- also available in the Application Bar -_
-+ help - Open help window _- also available in the Side Menu -_
-+ fullscreen - Open viewer in fullscreen _- also available in the Side Menu -_
-+ geoSearch - Open Geosearch tool _- also available in the Application Bar -_
-+ sidemenu - Open the Side Menu _- also available in the Application Bar -_
-+ layers - Open the Layers Selector (legend) _- also available in the Application Bar -_
++ Your location (_geolocator_) - Display user position on the map
++ Initial extent (_home_) - Zoom to initial extent
++ Basemaps selector (_basemap_) - Open Basemap Selector _- also available in the Application Bar -_
++ Help (_help_) - Open help window _- also available in the Side Menu -_
++ Full screen (_fullscreen_) - Open viewer in fullscreen _- also available in the Side Menu -_
++ Geo search (_geoSearch_) - Open Geosearch tool _- also available in the Application Bar -_
++ Side menu (_sidemenu_) - Open the Side Menu _- also available in the Application Bar -_
++ Layers selector (_layers_) - Open the Layers Selector (legend) _- also available in the Application Bar -_
 
 You can restrict navigation within the maximum extent by checking the _Restrict Navigation_ checkbox.
 
@@ -232,23 +232,23 @@ You can restrict navigation within the maximum extent by checking the _Restrict 
 The Side Menu allows you to configure how the side menu will appear. First you can set a title and a logo. If no title or
 logo are provided, the default title ("FGP R2 Viewer") and logo will be used. Then you can add as many group of tools as you want
 from the following options:
-+ layers - Layers Selector (legend) _- also available in the Application Bar -_
-+ basemap - Basemap Selector _- also available in the Application Bar -_
-+ geosearch - Geosearch tool _- also available in the Application Bar -_
-+ about - Display additional information about the map
++ Layers selector (_layers_) - Layers Selector (legend) _- also available in the Application Bar -_
++ Basemaps selector (_basemap_) - Basemap Selector _- also available in the Application Bar -_
++ Geo search (_geoSearch_) - Geosearch tool _- also available in the Application Bar -_
++ Map description (_about_) - Display additional information about the map
     + About can be of type string or file. When type file is selected, you must provide a folder name for your custom About
     markdown formatted files located inside the FGPV instance.
     + **Important** About of type file will not show up inside preview mode.
-+ fullscreen - Open viewer in fullscreen _- also available in the Navigation Bar -_
-+ export - Export the map view as png image
-+ share - Create a URL link to share the map
-+ touch - Enable touch mode for touch screen (to enhance layout spacing and button size)
-+ help - Open Help window _- also available in the Navigation Bar -_
++ Full screen (_fullscreen_) - Open viewer in fullscreen _- also available in the Navigation Bar -_
++ Map export (_export_) - Export the map view as png image
++ Share the map (_share_) - Create a URL link to share the map
++ Touch mode (_touch_) - Enable touch mode for touch screen (to enhance layout spacing and button size)
++ Help (_help_) - Open Help window _- also available in the Navigation Bar -_
     + If you do not want to use the default Help, you must provide a folder name for your custom Help markdown formatted files
     located inside the FGPV instance.
     + **Important** Custom Help will not show up inside preview mode.
-+ language - Set interface language
-+ plugins - Container to receive custom plugins
++ Languages selector (_language_) - Set interface language
++ Plugins section (_plugins_) - Container to receive custom plugins
     + **Important** plugins section will not show up inside preview mode. A piece of code must be added to the viewer application
     HTML page to activate the plugin(s).
 

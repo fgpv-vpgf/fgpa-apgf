@@ -257,7 +257,16 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'restrictNavigation' },
                     { 'key': 'navBar', 'items': [
                         // FIXME: not working in the viewer, see if still needed { 'key': 'navBar.zoom' },
-                        { 'key': 'navBar.extra' }
+                        { 'key': 'navBar.extra', 'titleMap': {
+                            'geoLocator': $translate.instant('form.ui.enumgeoLocator'),
+                            'home': $translate.instant('form.ui.enumhome'),
+                            'basemap': $translate.instant('form.ui.enumbasemap'),
+                            'help': $translate.instant('form.ui.enumhelp'),
+                            'fullscreen': $translate.instant('form.ui.enumfullscreen'),
+                            'geoSearch': $translate.instant('form.ui.enumgeoSearch'),
+                            'sideMenu': $translate.instant('form.ui.enumsideMenu'),
+                            'layers': $translate.instant('form.ui.enumlayers')
+                        } }
                         // FIXME those are in the schema "geoLocator","marquee","home","history","basemap","help","fullscreen","geoSearch","sideMenu","layers"
                         // removed "marquee", "history" are not implemented
                     ] }
@@ -266,7 +275,19 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'title', 'validationMessage': form => self.formService.setErrorMessage(form, 'form.ui.titlevalidation', ['viewValue.length', 'schema.maxLength']) },
                     { 'key': 'sideMenu.logo', 'htmlClass': 'av-form-advance hidden' },
                     { 'key': 'logoUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.sideMenu.logo' },
-                    { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu },
+                    { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu, 'titleMap': {
+                        'layers': $translate.instant('form.ui.enumlayers'),
+                        'basemap': $translate.instant('form.ui.enumbasemap'),
+                        'geoLocator': $translate.instant('form.ui.enumgeoLocator'),
+                        'about': $translate.instant('form.ui.enumabout'),
+                        'fullscreen': $translate.instant('form.ui.enumfullscreen'),
+                        'help': $translate.instant('form.ui.enumhelp'),
+                        'export': $translate.instant('form.ui.enumexport'),
+                        'share': $translate.instant('form.ui.enumshare'),
+                        'touch': $translate.instant('form.ui.enumshare'),
+                        'language': $translate.instant('form.ui.enumlanguage'),
+                        'plugins': $translate.instant('form.ui.enumplugins')
+                    } },
                     { 'key': 'help', 'condition': isHelp },
                     // do not set as advance config, there is a bug. We need to uncheck and check again to see the help section
                     { 'type': 'fieldset', 'key': 'about', 'condition': isAbout,'items': [
