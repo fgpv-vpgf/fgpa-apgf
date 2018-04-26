@@ -120,6 +120,7 @@
                     "default": [["layers","basemap"],["fullscreen","export","share","touch","help","about"],["language"],["plugins"]],
                     "items": {
                         "type": "array",
+                        "title": "Items",
                         "items": {
                             "type": "string",
                             "enum": [
