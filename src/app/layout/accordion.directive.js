@@ -68,7 +68,7 @@ function avAccordion($compile, $timeout, events, constants) {
             });
 
             // add button for expand and collapse all getElementsByTagName
-            // to enable this, add htmml class av-accordion-all at the base level af an array inside the form
+            // to enable this, add htmml class av-accordion-all at the base level of an array inside the form
             element.find('.av-accordion-all').not(':has(>button)').each((index, element) => {
                 addButton($(element), scope);
             });

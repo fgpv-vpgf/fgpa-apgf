@@ -500,7 +500,7 @@ function Controller($scope, $translate, $timeout,
             flag = true;
         }
 
-        // FIXME: there so bugs with ASF.
+        // FIXME: there is bugs with ASF.
         // We are not able to set step value... we need to set them manually
         if (flag) {
             // set opacity input step value
@@ -977,7 +977,38 @@ function Controller($scope, $translate, $timeout,
                             { 'key': `${model}.columns[].searchable` },
                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablefilter'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                    { 'key': `${model}.columns[].filter`, 'notitle': true }
+                                    { 'key': `${model}.columns[].filter`, 'notitle': true, 'items': [
+                                        { 'key': `${model}.columns[].filter.type`, 'onChange': () => {
+                                            const element = document.activeElement
+
+                                            if (element.type !== 'button') {
+                                                element.parentElement.parentElement.children[3].children[1].value = '';
+                                            }
+                                        } },
+                                        { 'key': `${model}.columns[].filter.value`, 'validationMessage': {
+                                            'selector': $translate.instant('form.map.selectorerror')
+                                        },
+                                        '$validators': {
+                                            selector: value => {
+                                                let flag = true;
+                                                const element = document.activeElement
+
+                                                const type = (element.type === 'text') ?
+                                                    element.parentElement.parentElement.children[2].children[1].value :
+                                                    'not text';
+
+                                                if (type === 'string:selector') {
+                                                    try {
+                                                        if (value !== '') JSON.parse(value);
+                                                    } catch (e) {
+                                                        flag = false;
+                                                    }
+                                                }
+                                                return flag
+                                            }
+                                        } },
+                                        { 'key': `${model}.columns[].filter.static` }
+                                    ] }
                                 ] }
                             ] }
                         ] }

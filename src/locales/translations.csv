@@ -123,6 +123,7 @@ form map,form.map.enumremove,Remove,0,Enlever,0
 form map,form.map.enumsettings,Settings,0,Paramètres,0
 form map,form.map.enumdata,Table,0,Table,0
 form map,form.map.enumstyles,Styles,0,Styles,0
+form map,form.map.selectorerror,Wrong format - each item needs to be inside double quotes and all items inside brackets,0,Mauvais format - chaque élément doit être entre guillemets et les éléments entre crochets,0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
