@@ -100,9 +100,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         $(targetParent.getElementsByClassName('av-accordion-content')).slideToggle(400, 'swing');
 
         const icons = targetParent.getElementsByTagName('md-icon');
-        for (let elem of icons) {
-            elem.classList.toggle('hidden');
-        }
+        icons[0].classList.toggle('hidden');
+        icons[1].classList.toggle('hidden');
     }
 
     /**
