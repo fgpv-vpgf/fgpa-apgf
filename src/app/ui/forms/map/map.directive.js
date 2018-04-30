@@ -231,7 +231,6 @@ function Controller($scope, $translate, $timeout,
                 else if (field.type === 'esriFieldTypeDate') { fieldType = 'date'; }
 
                 const item = {
-                    'remove': false,
                     'data': field.name,
                     'title': field.alias,
                     'visible':  true,
