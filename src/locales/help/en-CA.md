@@ -15,7 +15,7 @@ create new configuration files. The schema is composed of 5 sections:
 + **Version**
 + **Language**
 
-For more information about schema structure, go to the [FGPV schema](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
+For more information about schema structure, go to the [**FGPV schema**](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
 section in our wiki page. This section will also give you information on schema values and their effect in the viewer.
 
 ##### Useful information

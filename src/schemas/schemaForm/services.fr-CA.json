@@ -27,7 +27,7 @@
     },
     "googleAPIKey": {
       "type": "string",
-      "description": "Clé de l'API Google afin d'activer la géolocalisation et la simplification du lien de partage.",
+      "description": "Clé de l'API Google afin d'activer la géolocalisation.",
       "title": "URL de l'API Google",
       "help": "Do we really need this?",
       "default": ""
