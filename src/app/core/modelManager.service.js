@@ -30,7 +30,8 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         setModels,
         getModel,
         updateModel,
-        setDefault
+        setDefault,
+        checkVersion
     };
 
     const _state = {};
@@ -221,5 +222,28 @@ function modelManager($timeout, $translate, events, constants, commonService) {
      */
     function setDefault(defaultValues) {
         _default = defaultValues;
+    }
+
+    /**
+     * Check if model is in dev version
+     * @function checkVersion
+     * @param {String} type of version {'prod' | 'dev'}
+     * @return {Boolean} true 
+     */
+    function checkVersion(type = 'dev') {
+        const model = _model['version'];
+        let version = constants.devVersion;
+
+        if (type === 'prod') {
+            version = constants.prodVersion;
+        }
+
+        if (model === undefined) {
+            return false
+        } else if (parseFloat(model.version) === version) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

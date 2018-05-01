@@ -1,6 +1,6 @@
 {
     "language": "en-CA",
-    "version": "2.2",
+    "version": "2.3",
     "map": {
         "components": {
             "geoSearch":{"enabled":true,"showGraphic":true,"showInfo":true},
@@ -11,7 +11,9 @@
                 }
             },
             "northArrow": {
-                "enabled": true
+                "enabled": true,
+                "arrowIcon": "",
+                "poleIcon": ""
             },
             "basemap": {
                 "enabled": true
@@ -498,6 +500,8 @@
                 "id": "somepowerplants",
                 "name": "Power Plants with visibility disabled initially",
                 "layerType": "esriDynamic",
+                "refreshInterval": 0,
+                "imageFormat": "png32",
                 "layerEntries": [{
                         "index": 21
                     },
@@ -518,6 +522,7 @@
                 "id": "somepowerplants1",
                 "name": "Feat",
                 "layerType": "esriFeature",
+                "refreshInterval": 0,
                 "layerEntries": [],
                 "disabledControls": [
                     "opacity"
@@ -532,6 +537,7 @@
                 "id": "somepowerplants2",
                 "name": "Feat",
                 "layerType": "esriFeature",
+                "refreshInterval": 0,
                 "layerEntries": [],
                 "disabledControls": [
                     "opacity"

@@ -81,6 +81,11 @@ function Controller($scope, $translate, $timeout,
         init();
     });
 
+    // when version is set, reset schema and form
+    events.$on(events.avVersionSet, () => {
+        init();
+    });
+
     /**
      * Initialize the map form
      *
@@ -755,11 +760,13 @@ function Controller($scope, $translate, $timeout,
                                         $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
                                     }
                                 }, constants.delayUpdateColumns, false) },
+                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden', 'condition': `${modelManager.checkVersion('dev')}` },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
                                 // hidden read only field { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
+                                { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\' && ${modelManager.checkVersion('dev')}` },
                                 { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'onChange': debounceService.registerDebounce(model => { initLayerEntry(model) }, constants.debInput, false), 'items': [
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
@@ -897,7 +904,11 @@ function Controller($scope, $translate, $timeout,
                                 // ] }
                             ] }
                         ] },
-                        { 'key': 'components.northArrow' },
+                        { 'key': 'components.northArrow', 'items': [
+                            { 'key': 'components.northArrow.enabled' },
+                            { 'key': 'components.northArrow.arrowIcon', 'htmlClass': 'av-form-advance hidden', 'condition': `${modelManager.checkVersion('dev')}` },
+                            { 'key': 'components.northArrow.poleIcon', 'htmlClass': 'av-form-advance hidden', 'condition': `${modelManager.checkVersion('dev')}` }
+                        ] },
                         { 'key': 'components.scaleBar' },
                         { 'key': 'components.overviewMap', 'items': [
                             { 'key': 'components.overviewMap.enabled' },

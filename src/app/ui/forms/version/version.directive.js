@@ -46,8 +46,9 @@ function avVersion() {
  * @param {Object} modelManager service to manage Angular Schema Form model
  * @param {Object} stateManager service to manage model state for validation
  * @param {Object} formService service with common functions for form
+ * @param {Object} debounceService service to debounce user input
  */
-function Controller($scope, $translate, events, modelManager, stateManager, formService) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService, debounceService) {
     'ngInject';
     const self = this;
     self.modelName = 'version';
@@ -80,9 +81,22 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function init() {
         $scope.schema = modelManager.getSchema(self.modelName);
+        setLocalVersion();
 
         $scope.form = angular.copy($scope.form);
         $scope.form = setForm();
+
+        events.$broadcast(events.avVersionSet);
+    }
+
+    /**
+     * Set local storage viewerversion parameter
+     *
+     * @function setLocalVersion
+     * @private
+     */
+    function setLocalVersion() {
+        localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
     }
 
     events.$on(events.avValidateForm, () => {
@@ -99,6 +113,9 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      * @return {Object} the version form
      */
     function setForm() {
-        return [{ 'key': 'version' }];
+        return [{ 'key': 'version', 'onChange': debounceService.registerDebounce(model => {
+                setLocalVersion();
+                events.$broadcast(events.avVersionSet);
+            }) }];
     }
 }

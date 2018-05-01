@@ -78,12 +78,14 @@
                       "description": "Affiche le bouton du sélecteur de couches dans la barre d'application principale.",
                       "title": "Sélecteur de couches"
                     }
-                  },
-              "additionalProperties": false,
-              "title": "Barre d'application"
+            },
+            "default": { "sideMenu": true, "geoSearch": true, "layers": true },
+            "additionalProperties": false,
+            "title": "Barre d'application"
         },
         "navBar": {
             "type": "object",
+            "description": "Permet de configurer la barre de navigation. Si rien n'est indiqué, la barre de navigation par défaut s'appliquera.",
             "properties": {
                 "zoom": {
                     "type": "string",
