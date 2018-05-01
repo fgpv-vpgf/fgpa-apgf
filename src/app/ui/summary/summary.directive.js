@@ -191,9 +191,6 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
             localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
 
-            // set version to use
-            localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
-
             $mdDialog.show({
                 controller: previewController,
                 controllerAs: 'self',

@@ -170,8 +170,13 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             // read the file but add a timeout for the animation to start
             const file = files[0];
             $timeout(() => {
-                _readFile(file.file).then(data => modelManager.setModels(JSON.parse(data))
-                ).catch(error => {
+                _readFile(file.file).then(data => {
+                    modelManager.setModels(JSON.parse(data));
+
+                    // Validate data here check conformity with actual used schema
+                    // TODO Upgrade to actual version. Strip non-conform object
+
+                }).catch(error => {
                     $mdDialog.show({
                         controller: ErrorController,
                         controllerAs: 'self',
