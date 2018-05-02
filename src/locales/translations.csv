@@ -100,9 +100,9 @@ form map basemap attribution,form.map.basemapattrib,Attribution,0,Crédit,0
 form map,form.map.legendauto,Autopopulate,0,Automatique,0
 form map,form.map.legendstruct,Structured,0,Structurée,0
 form map extent dialog,form.map.extentdialog,Set Extent: zoom and pan to the extent then close the window,0,"Définir étendue: zoomer et déplacer l'étendue puis fermer la fenêtre",0
-form map set extent default,form.map.extentdefault,Set Extent (Default),0,"Définir l'étendue par défaut",0
-form map set extent full,form.map.extentfull,Set Extent (Full),0,"Définir l'étendue complète",0
-form map set extent max,form.map.extentmax,Set Extent (Max),0,"Définir l'étendue (maximale)",0
+form map set extent default,form.map.extentdefault,Set Default Extent,0,"Définir l'étendue par défaut",0
+form map set extent full,form.map.extentfull,Set Full Extent,0,"Définir l'étendue complète",0
+form map set extent max,form.map.extentmax,Set Max Extent,0,"Définir l'étendue maximale",0
 form map lods dialog title,form.map.setlods,Set Levels of Details,0,Définir les niveaux de détails,0
 form map lods dialog desc,form.map.lodsdesc,Enter a tile cache layer url to select the level of details from,0,"Entrez le url d'une couche tuilé afin d'obtenir les niveaux de détail",0
 form map lods dialog error,form.map.lods.invalidurl,This is not a valid ESRI tile cache URL,0,Cette adresse URL n'est pas une couche de tuile ESRI valide,0
