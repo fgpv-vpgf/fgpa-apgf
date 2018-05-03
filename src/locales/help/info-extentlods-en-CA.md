@@ -7,7 +7,8 @@ the "show advanced configuration options" check box then follow these steps:
 1. You need to add one Tile schema by spatial reference
     * Enter a name.The name will be use to generate the tile schema ID.
 2. You need to create one Spatial Extent set by Tile Schema. In this section you will define the spatial reference system to use
-    * To find which WKID to use you can refer to this [spatial reference list](http://spatialreference.org/ref/).
+    * To find which WKID to use you can refer to this
+    <a href="http://spatialreference.org/ref/" target="_blank">spatial reference list</a>.
     * Enter a unique ID then set at least the default extent.
 3. You can set one LODs (Levels of Details Sets) by Tile Schema
     * Enter a unique ID.

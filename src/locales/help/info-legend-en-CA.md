@@ -23,7 +23,7 @@ When you choose _Structured_ legend type a new section appears at the bottom of 
 
 #### 1. Manual edition
 
-This section contains a text editor in which Legend JSON object can be edited manually. The content should respect the [JSON schema draft-4 specifications](http://json-schema.org/specification-links.html#draft-4).
+This section contains a text editor in which Legend JSON object can be edited manually. The content should respect the <a href="http://json-schema.org/specification-links.html#draft-4" target="_blank">JSON schema draft-4 specifications</a>.
 
 #### 2. Validation
 

@@ -7,7 +7,8 @@ modifier ces paramètres, cochez la case "Afficher les options de configuration 
 1. Vous devez ajouter un schéma de tuile par référence spatiale
     * Entrez un nom. Le nom sera utilisé pour générer l'identifiant unique schéma de tuile.
 2. Vous devez créer une étendue spatiale par schéma de tuile. Dans cette section, vous allez définir le système de référence spatiale à utiliser
-    * Pour trouver quel WKID utiliser, vous pouvez vous référer à cette [liste de références spatiale](http://spatialreference.org/ref/).
+    * Pour trouver quel WKID utiliser, vous pouvez vous référer à cette
+    <a href="http://spatialreference.org/ref/" target="_blank">liste de références spatiale</a>.
     * Entrez un identifiant unique puis définissez au moins l'étendue par défaut.
 3. Vous pouvez définir un LOD (Niveaux de détails) par schéma de tuile
     * Entrez un identifiant unique.
