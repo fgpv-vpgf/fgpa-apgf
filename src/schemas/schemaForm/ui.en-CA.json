@@ -233,7 +233,7 @@
               "aboutChoice": {
                   "description": "",
                   "type": "enum",
-                  "enum": ["string", "folder"],
+                  "enum": ["textarea", "folder"],
                   "title": "About source",
                   "default": "string",
                   "required": true

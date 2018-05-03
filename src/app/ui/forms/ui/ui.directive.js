@@ -299,7 +299,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                                 { 'value': "folder", 'name': $translate.instant('form.ui.aboutfile') }
                             ]
                         },
-                        { 'key': 'about.content', 'condition': isAboutString },
+                        { 'key': 'about.content', 'type':"textarea",'condition': isAboutString },
                         { 'key': 'about.folderName', 'condition': isAboutFolder }
                     ]}
                 ] }
