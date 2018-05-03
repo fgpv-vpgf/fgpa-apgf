@@ -69,7 +69,7 @@
                     "basemap": {
                       "type": "boolean",
                       "default": true,
-                      "description": "Affiche le bouton du sélecteur de carte de base dans la barre d'application principale.",
+                      "description": "Affiche le bouton du sélecteur de carte de base dans la barre d'application principale quand le menu couches est ouvert.",
                       "title": "Sélecteur de carte de base"
                     },
                     "layers": {
