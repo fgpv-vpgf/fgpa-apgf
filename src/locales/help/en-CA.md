@@ -3,7 +3,7 @@
 The Federal Geospatial Platform Authoring (FGPA) tool is used to create, update, validate and preview configuration files
 used by the Federal Geospatial Platform Viewer (FGPV).
 
-The FGPA tool is based on the [Angular Schema Form](https://github.com/json-schema-form/angular-schema-form) library. This library
+The FGPA tool is based on the <a href="https://github.com/json-schema-form/angular-schema-form" target="_blank">Angular Schema Form </a> library. This library
 generates forms from JSON schemas using AngularJS. The FGPA tool uses the same schema as the FGPV and lets user modify values to easily
 create new configuration files. The schema is composed of 5 sections:
 + **Map**
@@ -15,7 +15,8 @@ create new configuration files. The schema is composed of 5 sections:
 + **Version**
 + **Language**
 
-For more information about schema structure, go to the [**FGPV schema**](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
+For more information about schema structure, go to the
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc" target="_blank">**FGPV schema**</a>
 section in our wiki page. This section will also give you information on schema values and their effect in the viewer.
 
 ##### Useful information
@@ -34,13 +35,14 @@ position. A yellow box will appear under the item where it will be placed when y
 _Note:_ it is easier to drag an item when all items inside the section are collapsed.
 
 To upload user configuration file or template directly from url you can use the following syntax:
-+ _your instance url_?filename=_your file name_ (e.g. https://xxx/fgpv-author.html?filename=https://myfolder/myfilename.json)
-+ _your instance url_?template=_your template name_ (e.g. https://xxx/fgpv-author.html?template=mytemplate.json)
++ _your instance url_?filename=_your file name_ (e.g. https: //xxx/fgpv-author.html?filename=https: //myfolder/myfilename.json)
++ _your instance url_?template=_your template name_ (e.g. https: //xxx/fgpv-author.html?template=mytemplate.json)
 
 _Note:_ if the application can't read the configuration file or if the template doesn't exist, it will open the default configuration or the first template inside the list on templates.
 
 > Unanticipated behavior may occur if any interactions occur before data is fully loaded. Please allow the webpage to
-> load completely before triggering any functions. If you still encounter bugs, please [submit an issue](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+> load completely before triggering any functions. If you still encounter bugs, please
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/issues" target="_blank">submit an issue </a>
 > in our GitHub repository. Someone from our development team will take care of it as soon as possible.
 
 
@@ -281,7 +283,8 @@ Geosearch allows you to find locations by National Topographic System (NTS) name
 The last 3 search types options can be enabled by checking the corresponding checkbox on.
 
 All URLs required by Geosearch are read-only values. If you encounter a problem whit these services, contact the person in
-charge of the FGPA application instance you are using and/or [submit an issue](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+charge of the FGPA application instance you are using and/or
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/issues" target="_blank">submit an issue</a>
 to the FGPA developers team.
 
 ##### Service endpoints

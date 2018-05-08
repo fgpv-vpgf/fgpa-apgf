@@ -3,7 +3,8 @@
 L'outil APGF (Auteur de la Plateforme géospatiale fédérale) est utilisé pour créer, mettre à jour, valider et prévisualiser
 les fichiers de configuration utilisés par la visualiseur de la Plateforme géospatiale fédérale (VPGF).
 
-L'outil APGF est basé sur la bibliothèque [Angular Schema Form](https://github.com/json-schema-form/angular-schema-form).
+L'outil APGF est basé sur la bibliothèque
+<a href="https://github.com/json-schema-form/angular-schema-form" target="_blank">Angular Schema Form </a> .
 Cette bibliothèque permet de générer des formulaires à partir de schémas en format JSON en utilisant AngularJS. L'outil APGF
 utilise le même schéma que le VPGF et permet à l'utilisateur de modifier facilement les valeurs afin de créer de nouveaux
 fichiers de configuration. Le schéma est composé de 5 sections:
@@ -16,7 +17,8 @@ fichiers de configuration. Le schéma est composé de 5 sections:
 + ** Version **
 + ** Langue **
 
-Pour plus d'informations sur la structure du schéma, vous pouvez consulter le [**schéma VPGF**](https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc)
+Pour plus d'informations sur la structure du schéma, vous pouvez consulter le
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc" target="_blank">**schéma VPGF** </a>
 dans notre page wiki. Cette section vous donnera également des informations sur les valeurs du schéma et leur effet dans le visualiseur.
 
 ##### Informations utiles
@@ -37,14 +39,15 @@ l'élément où il sera placé lorsque vous relâchez la poignée.
 _Note:_ il est plus facile de faire glisser un élément lorsque tous les éléments de la section sont réduits.
 
 Pour charger le fichier de configuration ou le modèle directement depuis l'URL, vous pouvez utiliser la syntaxe suivante:
-+ _votre instance url_?filename=_votre nom de fichier_ (par exemple https://xxx/fgpv-author.html?filename=https://myfolder/myfilename.json)
-+ _votre instance url_?template=_votre nom de modèle_ (par exemple https://xxx/fgpv-author.html?template=mytemplate.json)
++ _votre instance url_?filename=_votre nom de fichier_ (par exemple https: //xxx/fgpv-author.html?filename=https ://myfolder/myfilename.json)
++ _votre instance url_?template=_votre nom de modèle_ (par exemple https: //xxx/fgpv-author.html? template=mytemplate.json)
 
 _Remarque:_ si l'application ne peut pas lire le fichier de configuration ou si le modèle n'existe pas, elle ouvrira
 une configuration par défaut ou le premier modèle dans la liste des modèles.
 
 > Un comportement imprévu peut se produire si des interactions se produisent avant que les données soient entièrement chargées. Veuillez laissez la page Web
-> charger complètement avant de l'utiliser. Si vous rencontrez toujours des bogues, veuillez [soumettre un problème](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+> charger complètement avant de l'utiliser. Si vous rencontrez toujours des bogues, veuillez
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/issues" target="_blank">soumettre un problème</a>
 > dans dépôt GitHub. Quelqu'un de notre équipe de développement s'en occupera le plus rapidement possible.
 
 
@@ -300,7 +303,8 @@ du Système national de référence cartographique (SNRC), le code de zone de tr
 Les 3 dernières options de recherche peuvent être activées en cochant la case correspondante.
 
 Toutes les URL requises par l'outil de géorecherche sont des valeurs en lecture seule. Si vous rencontrez un problème avec ces services, contactez la personne
-chargé de l'application APGF que vous utilisez et / ou [soumettez un problème](https://github.com/fgpv-vpgf/fgpa-apgf/issues)
+chargé de l'application APGF que vous utilisez et / ou
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/issues" target="_blank">soumettre un problème</a>
 à l'équipe des développeurs l'outil APGF.
 
 ##### Liens pour les services

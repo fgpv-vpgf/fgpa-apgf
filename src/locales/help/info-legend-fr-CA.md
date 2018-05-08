@@ -24,7 +24,7 @@ Lorsque vous choisissez le type légende _structurée_, une nouvelle section app
 
 #### 1. Édition manuelle
 
-Cette section contient un éditeur de texte où les objets JSON de la légende peuvent être édités manuellement. Le contenu doit respecter les [spécifications de l'ébauche 4 de l'hyper schéma JSON](http://json-schema.org/specification-links.html#draft-4).
+Cette section contient un éditeur de texte où les objets JSON de la légende peuvent être édités manuellement. Le contenu doit respecter les <a href="http://json-schema.org/specification-links.html#draft-4" target="_blank">spécifications de l'ébauche 4 de l'hyper schéma JSON</a>.
 
 #### 2. Validation
 
