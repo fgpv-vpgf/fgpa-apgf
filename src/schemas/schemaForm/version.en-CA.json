@@ -8,10 +8,11 @@
             "title": "Version",
             "type": "string",
             "enum": [
-                "2.0"
+                "2.2",
+                "2.3"
             ],
-            "default": "2.0",
-            "description": "The schema version used to validate the configuration file."
+            "default": "2.2",
+            "description": "The viewer version used to validate the configuration file."
         }
     }
 }

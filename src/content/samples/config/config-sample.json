@@ -1,6 +1,6 @@
 {
     "language": "en-CA",
-    "version": "2.0",
+    "version": "2.2",
     "map": {
         "components": {
             "geoSearch":{"enabled":true,"showGraphic":true,"showInfo":true},
