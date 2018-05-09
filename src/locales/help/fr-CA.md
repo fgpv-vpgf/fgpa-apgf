@@ -316,8 +316,7 @@ ces services, contactez le responsable de l'application VPGF que vous utilisez.
 
 # Version
 
-La section version vous permet de sélectionner le numéro de version du schéma VPGF que vous souhaitez utiliser. Une seule
-valeur est disponible, la dernière version du schéma VPGF.
+La section version vous permet de sélectionner le numéro de version du visualiseur PGF que vous souhaitez utiliser.
 
 
 #  La langue
@@ -332,8 +331,8 @@ La section langue vous permet de sélectionner la langue appropriée pour le fic
 Le panneau de sommaire vous permet de vérifier que votre fichier de configuration respecte le schéma VPGF. Vous pouvez
 valider votre fichier de configuration en cliquant sur le bouton Valider ![](validate.png "Valider le bouton").
 
-Après l'exécution d'une validation, des coches vertes ![](Greencheckbox.png "Green check symbol") apparaîtront à côté des
-champs qui réussissent la validation et des points d'exclamation rouge ![](redcircle.png "Red exclamation symbol") apparaîtront à côté des
+Après l'exécution d'une validation, des coches vertes ![](greencheckbox.png "Symbol crochet vert") apparaîtront à côté des
+champs qui réussissent la validation et des points d'exclamation rouge ![](redcircle.png "Symbol point d'exclamation rouge") apparaîtront à côté des
 des champs qui ne réussissent pas la validation. Pour être redirigé vers un champ spécifique dans l'application APGF,
 cliquez sur le champ souhaité dans l'arbre de validation et vous serez automatiquement redirigé vers l'onglet ou le champ de saisie approprié.
 + Les éléments de couleur bleue indiquent les éléments contenus dans des groupes tels que les schéma de tuile, les lots d'étendues spatiales,
@@ -341,7 +340,7 @@ les lots de niveaux de détail, les groupes des cartes de base et des couches.
 + Les éléments en format _Italique_ sont des éléments de _configuration avancée_. Ces éléments sont masqués dans l'arborescence de validation sommaire
 si la case _Afficher les options de configuration avancée_ n'est pas cochée.
 
-Une fois que tous les champs du fichier de configuration sont validés, le bouton Aperçu ![](Preview.png "Bouton Aperçu") sera activé.
+Une fois que tous les champs du fichier de configuration sont validés, le bouton Aperçu ![](preview.png "Bouton Aperçu") sera activé.
 Vous pourrez ensuite cliquer sur ce bouton pour prévisualiser votre fichier de configuration dans une instance de l'application VPGF. Cette
 instance de prévisualisation affiche toutes les couches, cartes de base, menus et options comme ils apparaîtraient dans l'application VPGF.
 Notez que toute aide personnalisée et "À propos de la carte" de type fichier ne peuvent pas être affichées dans l'instance de prévisualisation.

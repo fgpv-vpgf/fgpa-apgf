@@ -296,8 +296,7 @@ the FGPV application instance you are using.
 
 # Version
 
-The version section allows you to select the version number of the FGPV schema you would like to use. Only one value available: the
-latest FGPV schema version.
+The version section allows you to select the version number of the FGP viewer you would like to use.
 
 
 #  Language

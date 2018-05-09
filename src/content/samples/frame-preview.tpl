@@ -54,11 +54,17 @@
     // set viewer array of languages
     document.getElementById('fgpmap').setAttribute('data-rv-langs', localStorage.getItem('configlangs'));
 
+    // set viewer version
+    var scriptTag = document.createElement('script');
+    var version = parseFloat(localStorage.getItem('viewerversion')) > 2.2 ? localStorage.getItem('viewerversion') : 2.2;
+    scriptTag.src = 'https://geoappext.nrcan.gc.ca/fgpv/fgpv-x.x.0/dev/rv-main.js'
+        .replace('x.x', version);
+    document.body.appendChild(scriptTag);
+
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');
+    localStorage.removeItem('viewerversion');
 </script>
-
-<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.2.0/dev/rv-main.js"></script>
 
 </body>
 </html>
