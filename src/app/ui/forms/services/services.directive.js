@@ -120,7 +120,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { 'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelectable' }] }
                     ] },
                     { 'key': 'export.footnote', 'items': [
-                        { 'key': 'export.footnote.footnoteValue', 'notitle': true },
+                        { 'key': 'export.footnote.footnoteValue','type':'textarea', 'notitle': true },
                         { 'type': 'section', 'items': [{ 'key': 'export.footnote.isSelected' }] },
                         { 'type': 'section', 'items': [{ 'key': 'export.footnote.isSelectable' }] }
                     ] },
