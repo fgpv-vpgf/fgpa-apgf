@@ -11,7 +11,7 @@
     <!-- login  -->
     <div class="av-login-section hidden">
         <label id="avFMEUser"></label>
-        <input id="avTokenUser" type="text" name="username" placeholder="Enter Username" required></input>
+        <input id="avTokenUser" type="text" name="username" autocomplete="on" placeholder="Enter Username" required></input>
         <br>
         <label id="avFMEPass"></label>
         <input id="avTokenPass" type="password" name="password" placeholder="Enter Password" required></input>
@@ -43,7 +43,8 @@
         <input id="avUpdate" type="checkbox"></input>
         <label id="avUpdateLabel" for="avUpdate"></label>
         <hr>
-        <input id="avRunUpload" class="av-button block" type="button" onclick="runUpdate()" disabled></button>
+        <input id="avRunUpload" class="av-button" type="button" onclick="runUpdate()" disabled></input>
+        <input id="avCancelUpload" class="av-button" type="button" onclick="returnMainMenu('upload')"></input>
     </div>
 
     <!-- package delete -->
@@ -58,7 +59,8 @@
         <fieldset class="av-deletelist-external av-checkbox-list">
             <legend id="avDeleteExternal"></legend>
         </fieldset>
-        <input id="avRunDelete" class="av-button block" type="button" onclick="deleteList()"></button>
+        <input id="avRunDelete" class="av-button" type="button" onclick="deleteList()"></input>
+        <input id="avCancelDelete" class="av-button" type="button" onclick="returnMainMenu('delete')"></input>
     </div>
 
     <!-- package publish -->
@@ -73,7 +75,8 @@
             <input id="avUpdatePublish" type="checkbox"></input>
             <label id="avUpdatePublishLabel" for="avUpdatePublish"></label>
         </div>
-        <input id="avRunPublish" class="av-button block" type="button" onclick="publish()"></button>
+        <input id="avRunPublish" class="av-button" type="button" onclick="publish()"></input>
+        <input id="avCancelPublish" class="av-button" type="button" onclick="returnMainMenu('publish')"></input>
     </div>
 
     <!-- progress -->
@@ -113,9 +116,11 @@
             <tbody>
             </tbody>
         </table>
+        <input id="avCancelReport" class="av-button" type="button" onclick="returnMainMenu('report')"></input>
     </div>
 
-<script src="https://api.fmeserver.com/js/v1.1/FMEServer.js"></script>
+<!-- <script src="https://api.fmeserver.com/js/v1.1/FMEServer.js"></script> -->
+<script src="https://geoappext.nrcan.gc.ca/fgpv/FME/FMEServer.js"></script>
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
