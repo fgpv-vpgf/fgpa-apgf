@@ -201,12 +201,12 @@
         },
         "legend": {
             "type": "object",
-            "title": "Légende",
+            "title": "Panneau des couches (Légende)",
             "properties": {
                 "reorderable": {
                   "type": "boolean",
                   "default": true,
-                  "description": "indique si les éléments de la légende sont réordonnables. Cette propriété est ignorée si la légende est du type structurée.",
+                  "description": "indique si les éléments du panneau des couches (légende) sont réordonnables. Cette propriété est ignorée si la légende est du type structurée.",
                   "title": "Est réordonnable"
                 },
                 "allowImport": {
@@ -217,29 +217,29 @@
                 },
                 "isOpen": {
                     "type": "object",
-                    "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour les fenêtres d'affichage restreinte, moyenne et étendue.",
+                    "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour les fenêtres d'affichage restreinte, moyenne et étendue.",
                     "properties": {
                         "large": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue",
+                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue",
                               "title": "Ouvrir par défaut dans l'affichage étendu"
                         },
                         "medium": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne",
+                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne",
                               "title": "Ouvrir par défaut dans l'affichage moyen"
                         },
                         "small": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Indique si la légende est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte",
+                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte",
                               "title": "Ouvrir par défaut dans l'affichage restreint"
                         }
                     },
                 "additionalProperties": false,
-                "title": "Options d'ouverture de la légende"
+                "title": "Options d'ouverture du panneau des couches (légende)"
                 }
             }
         },
