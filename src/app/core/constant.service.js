@@ -44,7 +44,9 @@ angular
                 index: 2,
                 keys: ['export', 'search', 'form.service.urls']
             }
-        }
+        },
+        devVersion: 2.3,
+        prodVersion: 2.2
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
 function events($rootScope) {
@@ -73,7 +75,8 @@ function events($rootScope) {
         avShowHelp: 'avShowHelp', // Fired when help dialog window opening is completed
         avLegendError: 'avLegendError', // Fired when there's an id in error in the structured legend
         avValidateLegend: 'avValidateLegend', // Fired legend validation
-        avNewSaveName: 'avNewSaveName' // Fired new save name
+        avNewSaveName: 'avNewSaveName', // Fired new save name,
+        avVersionSet: 'avVersionSet' // Fired when version has been set
     };
 }
 

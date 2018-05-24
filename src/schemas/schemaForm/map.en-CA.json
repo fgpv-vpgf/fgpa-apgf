@@ -334,14 +334,13 @@
                 },
                 "northArrow": {
                     "type": "object",
+                    "title": "North arrow",
+                    "version": "2.3",
                     "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Enabled",
-                            "default": true
-                        }
-                    },
-                    "title": "North Arrow"
+                        "enabled":  { "type": "boolean", "title": "Enabled", "default": true },
+                        "arrowIcon": { "type": "string", "title": "Arrow icon", "description": "The graphical icon url/data url of the north arrow to replace the default one." },
+                        "poleIcon": { "type": "string", "title": "North pole icon", "description": "The graphical icon url/data url of the north pole that replaces north arrow when it's on north pole (will replace the default one)." }
+                    }
                 },
                 "overviewMap": {
                     "type": "object",
@@ -573,6 +572,15 @@
                         "description": "The service endpoint of the layer. It should match the type provided in layerType.",
                         "title": "URL"
                     },
+                    "refreshInterval": {
+                        "type": "number",
+                        "title": "Refresh interval",
+                        "version": "2.3",
+                        "default": 0,
+                        "minimum": 0,
+                        "maximum": 100,
+                        "description": "The automatic refresh interval of the layer in minutes. Maximum interval is 100 minutes."
+                    },
                     "metadataUrl": {
                         "type": "string",
                         "description": "The metadata url of the layer service",
@@ -600,6 +608,14 @@
                         "minimum": "0",
                         "description": "Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer",
                         "title": "Tolerance"
+                    },
+                    "imageFormat": {
+                        "type": "string",
+                        "version": "2.3",
+                        "title": "Map image format",
+                        "description": "The format of the layer image output. It should only be in one of png, png8, png28, png32, jpg, pdf, bmp, gif, svg.  Defaults to png32 if not provided",
+                        "enum": [ "png", "png8", "png24", "png32", "jpg", "pdf", "bmp", "gif", "svg" ],
+                        "default": "png32"
                     },
                     "singleEntryCollapse": {
                         "type": "boolean",

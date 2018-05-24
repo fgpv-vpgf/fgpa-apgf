@@ -78,12 +78,14 @@
                       "description": "Shows the layers button in the main app toolbar.",
                       "title": "Layers Selector"
                     }
-                  },
-              "additionalProperties": false,
-              "title": "Application Bar"
+            },
+            "default": { "sideMenu": true, "geoSearch": true, "layers": true },
+            "additionalProperties": false,
+            "title": "Application Bar"
         },
         "navBar": {
             "type": "object",
+            "description": "Provides configuration to the nav bar. If not supplied the default nav bar buttons are shown.",
             "properties": {
                 "zoom": {
                     "type": "string",

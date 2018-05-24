@@ -334,14 +334,13 @@
                 },
                 "northArrow": {
                     "type": "object",
+                    "title": "Flèche du Nord",
+                    "version": "2.3",
                     "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "title": "Activée",
-                            "default": true
-                        }
-                    },
-                    "title": "Flèche du Nord"
+                        "enabled":  { "type": "boolean", "title": "Activée", "default": true },
+                        "arrowIcon": { "type": "string", "title": "Icône flèche du Nord", "description": "L'icône url/data url pour la flèche du Nord qui remplace l'icône par défaut." },
+                        "poleIcon": { "type": "string", "title": "Icône pôle Nord", "description": "L'icône url/data url du pôle Nord qui remplace la flèche du Nord lorsque le pôle Nord est visible (remplacera l'icône par défaut)." }
+                    }
                 },
                 "overviewMap": {
                     "type": "object",
@@ -573,6 +572,15 @@
                         "description": "Le point de service de la couche. Le type de couche retourné par le service et le type de couche identifié dans les paramètres doivent être les mêmes.",
                         "title": "URL"
                     },
+                    "refreshInterval": {
+                        "type": "number",
+                        "title": "Taux de rafraîchissement",
+                        "version": "2.3",
+                        "default": 0,
+                        "minimum": 0,
+                        "maximum": 100,
+                        "description": "Le taux de rafraîssement automatique en minutes. Le taux maximal est 100 minutes."
+                    },
                     "metadataUrl": {
                         "type": "string",
                         "description": "L'URL du service de carte pour les métadonnées.",
@@ -601,6 +609,14 @@
                         "minimum": "0",
                         "description": "Spécifie la tolérance en pixels de la région cliquable entourant un élément. Doit êtreun entier positif",
                         "title": "Tolérance"
+                    },
+                    "imageFormat": {
+                        "type": "string",
+                        "version": "2.3",
+                        "title": "Format de l'image de la carte",
+                        "description": "Le format de sortie de l'image de la carte. Le format peut être l'un des suivants: png, png8, png28, png32, jpg, pdf, bmp, gif, svg. La valeur par défaut est png32 si rien n'est fourni",
+                        "enum": [ "png", "png8", "png24", "png32", "jpg", "pdf", "bmp", "gif", "svg" ],
+                        "default": "png32"
                     },
                     "singleEntryCollapse": {
                         "type": "boolean",
