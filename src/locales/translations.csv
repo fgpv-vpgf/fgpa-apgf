@@ -36,7 +36,7 @@ summary preview,summary.preview,Preview,0,Aperçu,0
 summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
 summary missing name,summary.missing.name,Missing name or id,0,Nom ou identifiant manquant,0
 form ui,form.ui.general,General,0,Général,0
-form ui go to map legend,form.ui.gomap,"Click here to access legend's properties in Map section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section Carte",0
+form ui go to map legend,form.ui.gomap,"Click here to access the layers panel`s (legend) properties in Map section",0,"Cliquez ici pour accéder aux propriétés du panneau des couches (légende) dans la section Carte",0
 form ui,form.ui.appbar,Application Bar,0,Barre d'application,0
 form ui,form.ui.nav,Navigation,0,Navigation,0
 form ui,form.ui.sidemenu,Side Menu,0,Menu latéral,0
@@ -106,7 +106,7 @@ form map set extent max,form.map.extentmax,Set Max Extent,0,"Définir l'étendue
 form map lods dialog title,form.map.setlods,Set Levels of Details,0,Définir les niveaux de détails,0
 form map lods dialog desc,form.map.lodsdesc,Enter a tile cache layer url to select the level of details from,0,"Entrez le url d'une couche tuilé afin d'obtenir les niveaux de détail",0
 form map lods dialog error,form.map.lods.invalidurl,This is not a valid ESRI tile cache URL,0,Cette adresse URL n'est pas une couche de tuile ESRI valide,0
-form map go to ui legend,form.map.goui,"Click here to access legend's properties in UI section",0,"Cliquez ici pour accéder aux propriétés de la légende dans la section UI",0
+form map go to ui legend,form.map.goui,"Click here to access layers panel`s (legend) properties in UI section",0,"Cliquez ici pour accéder aux propriétés du panneau des couches (légende) dans la section UI",0
 form map legend layer id,form.map.legendidstitle,Copy layer id,0,"Copier l'identifiant des couches",0
 form map legend layer id,form.map.legendidsdesc,Select your cursor position where you want the id to be copied then select it,0,"Sélectionnez la position du curseur à l'endroit où vous souhaitez copier l'identifiant, puis sélectionnez-le",0
 form map legend id error, form.map.legenderror,Bad id(s):,0,Mauvais id(s) :,0
