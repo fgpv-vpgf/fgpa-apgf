@@ -71,6 +71,23 @@ Core map properties (extent sets, levels of detail).
 &emsp;}
 
 ***
+>#### [**`attributionNode JSON tree`**](#nodeattributionnode)
+
+&emsp;{<br/>
+&emsp;&emsp;&emsp;[**"text"**](#nodeattributiontext): {<br/>
+&emsp;&emsp;&emsp;&emsp;["enabled"](#nodeattributiontext): ...<br/>
+&emsp;&emsp;&emsp;&emsp;["value"](#nodeattributiontext): ...<br/>
+&emsp;&emsp;&emsp;},<br/>
+&emsp;&emsp;&emsp;[**"logo"**](#nodeattributionlogo): {<br/>
+&emsp;&emsp;&emsp;&emsp;["enabled"](#nodeattributionlogo): ...<br/>
+&emsp;&emsp;&emsp;&emsp;["altText"](#nodeattributionlogo): ...<br/>
+&emsp;&emsp;&emsp;&emsp;["value"](#nodeattributionlogo): ...<br/>
+&emsp;&emsp;&emsp;&emsp;["link"](#nodeattributionlogo): ...<br/>
+&emsp;&emsp;&emsp;}<br/>
+&emsp; }<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
 >#### [**`ExtentSetNode JSON tree`**](#nodeextentsetnode)
 
 &emsp;{<br/>
@@ -130,15 +147,14 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;&emsp;["tileSchemaId"](#nodebasemapnodetileschemaid): ...,<br/>
 &emsp;&emsp;&emsp;&emsp;[**"layers"**](#nodebasemapnodelayers): [<br/>
 &emsp;&emsp;&emsp;&emsp;{<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;["id"](#nodebasemapnodelayersid): ...,<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;["layerType"](#nodebasemapnodelayerslayertype): ...,<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;["url"](#nodebasemapnodelayersurl): ...<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;["id"](#nodebasemapnodelayers): ...,<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;["layerType"](#nodebasemapnodelayers): ...,<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;["url"](#nodebasemapnodelayers): ...<br/>
 &emsp;&emsp;&emsp;&emsp;},<br/>
 &emsp;&emsp;&emsp;&emsp;{...},<br/>
 &emsp;&emsp;&emsp;&emsp;{...}<br/>
 &emsp;&emsp;&emsp;&emsp;],<br/>
-&emsp;&emsp;&emsp;&emsp;["attribution"](#nodebasemapnodeattribution): ...,<br/>
-&emsp;&emsp;&emsp;&emsp;["zoomLevels"](#nodebasemapnodezoomlevels): ...<br/>
+&emsp;&emsp;&emsp;&emsp;["attribution"](#nodeattributionnode): ...,<br/>
 &emsp;&emsp;&emsp;&emsp;}<br/>
 &emsp;&emsp;}<br/>
 
@@ -172,10 +188,75 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["metadataUrl"](#nodebasiclayernodemetadataurl): ...,<br/>
 &emsp;&emsp;&emsp;["catalogueUrl"](#nodebasiclayernodecatalogueurl): ...,<br/>
 &emsp;&emsp;&emsp;["layerType"](#nodebasiclayernodelayertype): ...,<br/>
-&emsp;&emsp;&emsp;["**extent**"](#nodebasiclayernodeextent): {...},<br/>
-&emsp;&emsp;&emsp;["**controls**"](#nodebasiclayernodecontrols): {...},<br/>
-&emsp;&emsp;&emsp;["**disabledControls**"](#nodebasiclayernodedisabledcontrols): {...},<br/>
-&emsp;&emsp;&emsp;["**state**"](#nodebasiclayernodestate): {...}<br/>
+&emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
+&emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`featureLayerNode JSON tree`**](#nodefeaturelayernode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["id"](#nodefeaturelayernodeid): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodefeaturelayernodename): ...,<br/>
+&emsp;&emsp;&emsp;["url"](#nodefeaturelayernodeurl): ...,<br/>
+&emsp;&emsp;&emsp;["refreshInterval"](#nodefeaturelayernoderefreshinterval): ...,<br/>
+&emsp;&emsp;&emsp;["metadataUrl"](#nodefeaturelayernodemetadataurl): ...,<br/>
+&emsp;&emsp;&emsp;["catalogueUrl"](#nodefeaturelayernodecatalogueurl): ...,<br/>
+&emsp;&emsp;&emsp;["layerType"](#nodefeaturelayernodelayertype): ...,<br/>
+&emsp;&emsp;&emsp;["toggleSymbology"](#nodefeaturelayernodetogglesymbology): {...},<br/>
+&emsp;&emsp;&emsp;["tolerance"](#nodefeaturelayernodetolerance): {...},<br/>
+&emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
+&emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
+&emsp;&emsp;&emsp;["**table**"](#nodetablenode): {...}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`wmsLayerNode JSON tree`**](#nodewmslayernode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["id"](#nodewmslayernodeid): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodewmslayernodename): ...,<br/>
+&emsp;&emsp;&emsp;["url"](#nodewmslayernodeurl): ...,<br/>
+&emsp;&emsp;&emsp;["refreshInterval"](#nodewmslayernoderefreshinterval): ...,<br/>
+&emsp;&emsp;&emsp;["metadataUrl"](#nodewmslayernodemetadataurl): ...,<br/>
+&emsp;&emsp;&emsp;["catalogueUrl"](#nodewmslayernodecatalogueurl): ...,<br/>
+&emsp;&emsp;&emsp;["layerType"](#nodewmslayernodelayertype): ...,<br/>
+&emsp;&emsp;&emsp;["featureInfoMimeType"](#nodewmslayernodefeatureinfomimetype): ...,<br/>
+&emsp;&emsp;&emsp;["legendMimeType"](#nodewmslayernodelegendmimetype): ...,<br/>
+&emsp;&emsp;&emsp;["**layerEntries**"](#nodewmslayernodelayerentries): [...],<br/>
+&emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
+&emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`dynamicLayerNode JSON tree`**](#nodedynamiclayerNode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["id"](#nodedynamiclayernodeid): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodedynamiclayernodename): ...,<br/>
+&emsp;&emsp;&emsp;["url"](#nodedynamiclayernodeurl): ...,<br/>
+&emsp;&emsp;&emsp;["refreshInterval"](#nodedynamiclayernoderefreshinterval): ...,<br/>
+&emsp;&emsp;&emsp;["metadataUrl"](#nodedynamiclayernodemetadataurl): ...,<br/>
+&emsp;&emsp;&emsp;["catalogueUrl"](#nodedynamiclayernodecatalogueurl): ...,<br/>
+&emsp;&emsp;&emsp;["layerType"](#nodedynamiclayernodelayertype): ...,<br/>
+&emsp;&emsp;&emsp;["toggleSymbology"](#nodedynamiclayernodetogglesymbology): ...,<br/>
+&emsp;&emsp;&emsp;["tolerance"](#nodedynamiclayernodetolerance): ...,<br/>
+&emsp;&emsp;&emsp;["singleEntryCollapse"](#nodedynamiclayernodesingleentrycollapse): ...,<br/>
+&emsp;&emsp;&emsp;["imageFormat"](#nodedynamiclayernodeimageformat): ...,<br/>
+&emsp;&emsp;&emsp;["**layerEntries**"](#nodedynamiclayernodelayerentries): [...],<br/>
+&emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
+&emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -316,6 +397,30 @@ Core map properties (extent sets, levels of detail).
 ## **Nodes**
 **Nodes are objects that are part of other object definition**
 
+
+>### [node:attribution:_**`text`**_](#node--attribution--text)
+>>Attribution text information.
+
+| Name | Type | Description | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| enabled | *boolean* | - | `true` | `"true"` | Map/Basemaps | Yes | Yes |
+| value | *string* | Optional. Contains the attribution value. If empty, it will use copyright text from the server. | `-` | `-` | Map/Basemaps | Yes | Yes |
+
+
+
+>### [node:attribution:_**`logo`**_](#node--attribution--logo)
+>>Attribution logo.
+
+| Name | Type | Description | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| enabled | *boolean* | - | `true` | `true` | Map/Basemaps | Yes | Yes |
+| value | *string* | URL for the image. | `-` | `"https://path2Image/myAttributionLogo.png"` | Map/Basemaps | Yes | Yes |
+| altText | *string* | Alternate text for the image. | `-` | `"Attribution is here !"` | Map/Basemaps | Yes | Yes |
+| link | *string* | URL to go to when clicked. | `-` | `http://www.canada.ca"` | Map/Basemaps | Yes | Yes |
+
+[:arrow_up: back to attributionNode](#attributionnode-json-tree)
+***
+
 >### [node:extentSetNode:_**`id`**_](#node--extentsetnode)
 >>Extents set id.
 
@@ -443,7 +548,7 @@ Core map properties (extent sets, levels of detail).
 | *string* | - | `"esriTile"` | Map/Extents and Levels of Details | Yes | Yes |
 
 >### [node:tileSchemaNode:overviewUrl:_**`url`**_](#node--tileschemanode--overviewurl--url)
->>The service endpoint of the layer. It should match the type provided in [layerType]((#maptileschemasoverviewurllayertype).
+>>The service endpoint of the layer. It should match the type provided in [layerType]((#nodetileschemanodeoverviewurllayertype).
 
 | Type | Default value | Example | Author section | Advance | Required |
 | ------- | ------- | ------- | ------- | ------- | ------- |
@@ -461,6 +566,359 @@ Core map properties (extent sets, levels of detail).
 | xmax | *number* | `-` | `3549492` | Map | - | - |
 | ymax | *number* | `-` | `3482193` | Map | - | - |
 
-[:arrow_up: back to Map top](#Map)
+[:arrow_up: back to extentNode](#extentnode-json-tree)
+***
 
+>### [node:_**`baseMapNode`**_](#node--basemapnode)
+>>BaseMaps node properties.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Basemaps | - | - |
+
+>### [node:baseMapNode:_**`id`**_](#node--basemapnode--id)
+>>A unique identifier for the basemap.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"baseRNCan_transport"` | Map/Basemaps | - | Yes |
+
+>### [node:baseMapNode:_**`name`**_](#node--basemapnode--name)
+>>Name of the basemap used for labeling.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Transport with labels."` | Map/Basemaps | - | Yes |
+
+>### [node:baseMapNode:_**`description`**_](#node--basemapnode--description)
+>>Description of the basemap. Will be visible when basemap selector is expanded.Description of the basemap. Will be visible when basemap selector is expanded.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"This Canadian basemap provides geographic context with bilingual labels and an emphasis on transportation networks.  From Natural Resources Canada."` | Map/Basemaps | - | Yes |
+
+>### [node:baseMapNode:_**`altText`**_](#node--basemapnode--alttext)
+>>Alt text for the basemap thumbnail image.Alt text for the basemap thumbnail image.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Transport with labels."` | Map/Basemaps | - | Yes |
+
+>### [node:baseMapNode:_**`thumbnailUrl`**_](#node--basemapnode--thumbnailurl)
+>>Path to image file to display in the basemap selector.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"https://path2Image/myThumbnailImage.png"` | Map/Basemaps | Yes | Yes |
+
+>### [node:baseMapNode:_**`tileSchemaId`**_](#node--basemapnode--tileschemaid)
+>The tile schema for this basemap (should reference [map.tileSchemas.id](#nodetileschemanodeid)).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"canadaLambert-01"` | Map/Basemaps | - | Yes |
+
+>### [node:baseMapNode:_**`layers`**_](#node--basemapnode--layers)
+>>A set of URLs which should be composited to form a basemap entry.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *array* | Map/Basemaps | - | - |
+
+Each item contains these three properties
+| Name | Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| id | *string* | `-` | `"CBMT"` | Map/Basemaps | Yes | Yes |
+| layerType | *string* | `-` | `"esriFeature"` | Map/Basemaps | Yes | Yes |
+| url | *string* | `-` | `"https://.../services/BaseMaps/CBMT3978/MapServer"` | Map/Basemaps | - | Yes |
+
+[:arrow_up: back to baseMapNode](#basemapnode-json-tree)
+***
+
+>### [node:_**`basicLayerNode`**_](#node--basiclayernode)
+>>Layers coming from either esri image or tile services.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers or Map/Extents and Levels of Details | - | - |
+
+>### [node:basicLayerNode:_**`id`**_](#node--basiclayernode--id)
+>>The id of the layer for referencing within the viewer (does not relate directly to any external service).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"basicLayer_1"` | Map/Layers or Map/Extents and Levels of Details | - | Yes |
+
+>### [node:basicLayerNode:_**`name`**_](#node--basiclayernode--name)
+>>The display name of the layer. If it is not present the viewer will make an attempt to scrape this information.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Elevation"` | Map/Layers or Map/Extents and Levels of Details | - | Yes |
+
+>### [node:basicLayerNode:_**`url`**_](#node--basiclayernode--url)
+>>The service endpoint of the layer. It should match the type provided in [layerType](#nodebasiclayernodelayertype).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"https://.../arcgis/rest/services/tileService"` | Map/Layers or Map/Extents and Levels of Details | - | Yes |
+
+>### [node:basicLayerNode:_**`refreshInterval`**_](#node--basiclayernode--refreshinterval)
+>>The automatic refresh interval of the layer in minutes. Maximum interval is 100 minutes.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | `0` | `5` | Map/Layers or Map/Extents and Levels of Details | Yes | - |
+
+>### [node:basicLayerNode:_**`metadataUrl`**_](#node--basiclayernode--metadataurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../metaDat"` | Map/Layers or Map/Extents and Levels of Details | Yes | - |
+
+>### [node:basicLayerNode:_**`catalogueUrl`**_](#node--basiclayernode--catalogueurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../catalogue"` | Map/Layers or Map/Extents and Levels of Details | Yes | - |
+
+>### [node:basicLayerNode:_**`layerType`**_](#node--basiclayernode--layertype)
+>>Type of layer. Can be either `esriImage` or `esriTile`.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"esriFeature"` | Map/Layers or Map/Extents and Levels of Details | - | Yes |
+
+[:arrow_up: back to basicLayerNode](#basiclayernode-json-tree)
+***
+
+>### [node:_**`featureLayerNode`**_](#node--featurelayernode)
+>>Layers coming from an esri feature service.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | - | - |
+
+>### [node:featureLayerNode:_**`id`**_](#node--featurelayernode--id)
+>>The id of the layer for referencing within the viewer (does not relate directly to any external service).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"featureLayer_1"` | Map/Layers | - | Yes |
+
+>### [node:featureLayerNode:_**`name`**_](#node--featurelayernode--name)
+>>The display name of the layer. If it is not present the viewer will make an attempt to scrape this information.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Power plants"` | Map/Layers | - | Yes |
+
+>### [node:featureLayerNode:_**`url`**_](#node--featurelayernode--url)
+>>The service endpoint of the layer. It should match the type provided in [layerType](#nodefeaturelayernodelayertype).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"https://.../MapServer/20"` | Map/Layers | - | Yes |
+
+>### [node:featureLayerNode:_**`refreshInterval`**_](#node--featurelayernode--refreshinterval)
+>>The automatic refresh interval of the layer in minutes. Maximum interval is 100 minutes.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | `0` | `5` | Map/Layers | Yes | - |
+
+>### [node:featureLayerNode:_**`metadataUrl`**_](#node--featurelayernode--metadataurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../metaDat"` | Map/Layers | Yes | - |
+
+>### [node:featureLayerNode:_**`catalogueUrl`**_](#node--featurelayernode--catalogueurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../catalogue"` | Map/Layers | Yes | - |
+
+>### [node:featureLayerNode:_**`layerType`**_](#node--featurelayernode--layertype)
+>>Type of layer which can only be `esriFeature`.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"esriFeature"` | Map/Layers | - | Yes |
+
+>### [node:featureLayerNode:_**`toggleSymbology`**_](#node--featurelayernode--togglesymbology)
+>>Allows individual symbols to have visibility toggled on/off.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | Yes | - |
+
+>### [node:featureLayerNode:_**`tolerance`**_](#node--featurelayernode--tolerance)
+>>Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `5` | `8` | Map/Layers | Yes | - |
+
+[:arrow_up: back to featureLayerNode](#featurelayernode-json-tree)
+***
+
+>### [node:_**`wmsLayerNode`**_](#node--wmslayernode)
+>>Layers coming from an esri feature service.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | - | - |
+
+>### [node:wmsLayerNode:_**`id`**_](#node--wmslayernode--id)
+>>The id of the layer for referencing within the viewer (does not relate directly to any external service).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"wmsLayer_1"` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerNode:_**`name`**_](#node--wmslayernode--name)
+>>The display name of the layer. If it is not present the viewer will make an attempt to scrape this information.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Power plants"` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerNode:_**`url`**_](#node--wmslayernode--url)
+>>The service endpoint of the layer. It should match the type provided in [layerType](#nodewmslayernodelayertype).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"https://.../WMSServer"` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerNode:_**`refreshInterval`**_](#node--wmslayernode--refreshinterval)
+>>The automatic refresh interval of the layer in minutes. Maximum interval is 100 minutes.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | `0` | `5` | Map/Layers | Yes | - |
+
+>### [node:wmsLayerNode:_**`metadataUrl`**_](#node--wmslayernode--metadataurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../metaDat"` | Map/Layers | Yes | - |
+
+>### [node:wmsLayerNode:_**`catalogueUrl`**_](#node--wmslayernode--catalogueurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../catalogue"` | Map/Layers | Yes | - |
+
+>### [node:wmsLayerNode:_**`layerType`**_](#node--wmslayernode--layertype)
+>>Type of layer which can only be `ogcWms`.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"ogcWms"` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerNode:_**`featureInfoMimeType`**_](#node--wmslayernode--featureinfomimetype)
+>>If specified indicates that GetFeatureInfo should be enabled for this WMS and indicates the format that should be requested. Possible values are [ "text/html;fgpv=summary", "text/html", "text/plain", "application/json" ].
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"text/plain"` | Map/Layers | - | - |
+
+>### [node:wmsLayerNode:_**`legendMimeType`**_](#node--wmslayernode--legendmimetype)
+>>If specified indicates that GetLegendGraphic should be enabled for this WMS and indicates the format that should be requested. Possible values are [ "image/png", "image/gif", "image/jpeg", "image/svg", "image/svg+xml" ].
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"image/png"` | Map/Layers | - | - |
+
+[:arrow_up: back to wmsLayerNode](#wmslayernode-json-tree)
+
+***
+
+>### [node:_**`dynamicLayerNode`**_](#node--dynamiclayernode)
+>>Layers coming from an esri feature service.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | - | - |
+
+>### [node:dynamicLayerNode:_**`id`**_](#node--dynamiclayernode--id)
+>>The id of the layer for referencing within the viewer (does not relate directly to any external service).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"dynamicLayer_1"` | Map/Layers | - | Yes |
+
+>### [node:dynamicLayerNode:_**`name`**_](#node--dynamiclayernode--name)
+>>The display name of the layer. If it is not present the viewer will make an attempt to scrape this information.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Power plants"` | Map/Layers | - | Yes |
+
+>### [node:dynamicLayerNode:_**`url`**_](#node--dynamiclayernode--url)
+>>The service endpoint of the layer. It should match the type provided in [layerType](#nodedynamiclayernodelayertype).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"https://.../MapServer/"` | Map/Layers | - | Yes |
+
+>### [node:dynamicLayerNode:_**`refreshInterval`**_](#node--dynamiclayernode--refreshinterval)
+>>The automatic refresh interval of the layer in minutes. Maximum interval is 100 minutes.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | `0` | `5` | Map/Layers | Yes | - |
+
+>### [node:dynamicLayerNode:_**`metadataUrl`**_](#node--dynamiclayernode--metadataurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../metaDat"` | Map/Layers | Yes | - |
+
+>### [node:dynamicLayerNode:_**`catalogueUrl`**_](#node--dynamiclayernode--catalogueurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../catalogue"` | Map/Layers | Yes | - |
+
+>### [node:dynamicLayerNode:_**`layerType`**_](#node--dynamiclayernode--layertype)
+>>Type of layer which can only be `esriDynamic`.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"esriDynamic"` | Map/Layers | - | Yes |
+
+>### [node:dynamicLayerNode:_**`toggleSymbology`**_](#node--dynamiclayernode--togglesymbology)
+>>Allows individual symbols to have visibility toggled on/off.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | Yes | - |
+
+>### [node:dynamicLayerNode:_**`singleEntryCollapse`**_](#node--dynamiclayernode--singleentrycollapse)
+>>Indicates that the dynamic layer with a single layer entry should be rendered without the root group.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | - | - |
+
+>### [node:dynamicLayerNode:_**`tolerance`**_](#node--dynamiclayernode--tolerance)
+>>Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `5` | `8` | Map/Layers | Yes | - |
+
+[:arrow_up: back to dynamicLayerNode](#dynamiclayernode-json-tree)
+
+[:arrow_up: back to Map top](#Map)
 ## **Annex**
