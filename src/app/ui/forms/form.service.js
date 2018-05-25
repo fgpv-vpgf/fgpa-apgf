@@ -293,10 +293,10 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     function updateId(model, scope, type) {
         const index = getActiveElemIndex(type);
         const modelId = scope.model[type][index].id;
-        const id = (typeof modelId !== 'undefined' && modelId.split('--/').length === 2) ?
-            modelId.split('--/')[1] : commonService.getUUID();
 
-        scope.model[type][index].id = `${model.split('--/')[0]}--/${id}`;
+        // if empty, generate id. If not keep original or split to only keep id if it is a combine value
+        scope.model[type][index].id = (typeof modelId === 'undefined' || modelId === '') ? commonService.getUUID() :
+            (modelId.split('--/').length === 2) ? modelId.split('--/')[1] : modelId;
     }
 
     /**
@@ -425,7 +425,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     * 'model' must be the last key in the path for this element (it is use inside dynamicSelect.module for ngModel)
     *
     * Need items with an values to updateModel
-    * { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); } },
+    * { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false); } },
     * 'onChange' function to use the self.formService.updateLinkValues where
     * scope is the form scope
     * Array of keys made from key element
@@ -437,13 +437,25 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     *
     * @function updateLinkValues
     * @param  {Object} scope  form scope
-    * @param  {Array} keys the path to the key to get value from
+    * @param  {Array} keys the path to the key to get value from. It is an array of key [name, id]. If only one is provided, id will be duplicate
     * @param  {String} link the value to update (need to be the same on optionData as the the field who receive the link)
     * @param  {String} broadcast optional - the event to broadcast. This will be use to update link in another scope model
+    * @param  {String} showId optional - show the id inside the dropdown menu
     */
-    function updateLinkValues(scope, keys, link, broadcast = false) {
+    function updateLinkValues(scope, keys, link, broadcast = false, showId = false) {
         // find values then remove undefined
-        scope[link] = findValues(scope.model, keys, 0, []).filter(val => (typeof val !== 'undefined'));
+        const id = findValues(scope.model, keys[0], 0, []).filter(val => (typeof val !== 'undefined'));
+        const name = (keys.length === 2) ?
+            findValues(scope.model, keys[1], 0, []).filter(val => (typeof val !== 'undefined')) : [];
+
+        // create a pair of key [name--/id] it will be decrypted inside processOptions of dynamicSelect to show name in dropdown but apply id value
+        const linkValues = [];
+        for (let [index, value] of id.entries()) {
+            let id = (value.split('--/').length === 2) ? value.split('--/')[1] : value;
+            let final = showId ? ` (${id})` : '';
+            linkValues.push((name.length > 0) ? `${name[index]}${final}--/${id}` : `${id}--/${id}`)
+        }
+        scope[link] = linkValues;
 
         // if array of options is empty, add a message. This way validation will apply
         // when options are empty, the last item removed doesn't trigger validation
