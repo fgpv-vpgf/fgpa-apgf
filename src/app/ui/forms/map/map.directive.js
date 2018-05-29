@@ -106,7 +106,7 @@ function Controller($scope, $translate, $timeout,
         self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId');
         self.formService.updateLinkValues($scope, [['baseMaps', 'id'], ['baseMaps', 'name']], 'initBaseId');
         self.formService.updateLinkValues($scope, [['tileSchemas', 'id'], ['tileSchemas', 'name']], 'tileId');
-        self.formService.updateLinkValues($scope, [['layers', 'id'], ['layers', 'name']], 'initLayerId', 'avLayersIdUpdate', true);
+        self.formService.updateLinkValues($scope, [['layers', 'id']], 'initLayerId', 'avLayersIdUpdate');
 
         $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
 
@@ -750,8 +750,8 @@ function Controller($scope, $translate, $timeout,
                                 // hidden read only field { 'key': 'layers[].id', 'readonly': true },
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);
-                                    self.formService.updateId(model, $scope, 'layers');
-                                    self.formService.updateLinkValues($scope, [['layers', 'id'], ['layers', 'name']], 'initLayerId', 'avLayersIdUpdate', true); }, constants.debInput, false) },
+                                    self.formService.updateId(model, $scope, 'layers', true);
+                                    self.formService.updateLinkValues($scope, [['layers', 'id']], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false) },
                                 { 'key': 'layers[].url', 'onChange': debounceService.registerDebounce(model => {
                                     // check if it is a feature layer. If so, set fields. For dynamic we set when index change
                                     if (!isNaN(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
