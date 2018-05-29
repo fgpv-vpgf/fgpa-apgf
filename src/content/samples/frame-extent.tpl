@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="./config/config-extent.json" rv-extensions="extensions/extent.js">
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="./config/..." rv-extensions="extensions/extent.js">
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -44,6 +44,13 @@
         // more info on script loading: https://www.html5rocks.com/en/tutorials/speed/script-loading/
         document.write('<script src="../ie-polyfills.js"><\/script>');
     }
+</script>
+
+<script type="text/javascript">
+    // set config name to data-rv-config
+    document.getElementById('fgpmap').setAttribute('data-rv-config', './config/' + localStorage.getItem('configextent') + '.json');
+
+    localStorage.removeItem('configextent');
 </script>
 
 <script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.3.0/rv-main.js"></script>

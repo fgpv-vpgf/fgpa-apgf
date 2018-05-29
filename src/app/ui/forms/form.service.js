@@ -160,6 +160,16 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
      * @param  {Array} extentSets  array of extent set to set the extent for
      */
     function setExtent(type, extentSets) {
+        // get the extentset wkid and index
+        let wkid = document.activeElement.parentElement.getElementsByClassName('av-extentset-wkid')[0]
+            .getElementsByTagName('input')[0].value;
+        const index = extentSets.findIndex(item => item.spatialReference.wkid.toString() === wkid);
+
+        // set wkid to local storage to know wich one to use from frame-extent.html
+        // if wkid = 102100, replace with 3857 because is deprecated
+        wkid = (wkid === '102100') ? '3857' : wkid;
+        localStorage.setItem('configextent', `config-extent-${wkid}`);
+
         $mdDialog.show({
             controller: extentController,
             controllerAs: 'self',
@@ -169,21 +179,27 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             fullscreen: false,
             onRemoving: () => {
                 // get the extent from local storage
-                const extent = JSON.parse(localStorage.getItem('mapextent'));
+                let extent = JSON.parse(localStorage.getItem('mapextent'));
+
+                // set default bound if user close the viewer without changing the extent
+                if (extent === null) {
+                    const ext = {
+                        xmin: -124,
+                        ymin: 35,
+                        xmax: -12,
+                        ymax: 57,
+                        spatialReference: { wkid: 4326 }
+                    }
+                    extent = projectionService.projectExtent(ext, extentSets[index].spatialReference);
+                }
                 localStorage.removeItem('mapextent');
 
-                // for each extent set, project the extent in the proper projection then set values
-                extentSets.forEach(extentSet => {
-                    // project extent
-                    const ext = projectionService.projectExtent(extent, extentSet.spatialReference);
-
-                    // itnitialze the value because it will not work if it doesn't exist then apply values
-                    extentSet[type] = {};
-                    extentSet[type].xmin = ext.x0;
-                    extentSet[type].ymin = ext.y0;
-                    extentSet[type].xmax = ext.x1;
-                    extentSet[type].ymax = ext.y1;
-                })
+                // itnitialze the value because it will not work if it doesn't exist then apply values
+                extentSets[index][type] = {};
+                extentSets[index][type].xmin = extent.xmin;
+                extentSets[index][type].ymin = extent.ymin;
+                extentSets[index][type].xmax = extent.xmax;
+                extentSets[index][type].ymax = extent.ymax;
             }
         });
 

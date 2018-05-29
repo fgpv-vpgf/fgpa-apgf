@@ -114,8 +114,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function setForm() {
         return [{ 'key': 'version', 'onChange': debounceService.registerDebounce(model => {
-                setLocalVersion();
-                events.$broadcast(events.avVersionSet);
-            }) }];
+            setLocalVersion();
+            events.$broadcast(events.avVersionSet);
+        }) }];
     }
 }

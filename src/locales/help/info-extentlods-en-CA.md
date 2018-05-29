@@ -9,7 +9,7 @@ the "show advanced configuration options" check box then follow these steps:
 2. You need to create one Spatial Extent set by Tile Schema. In this section you will define the spatial reference system to use
     * To find which WKID to use you can refer to this
     <a href="http://spatialreference.org/ref/" target="_blank">spatial reference list</a>.
-    * Enter a unique ID then set at least the default extent.
+    * Enter a unique ID then set at least the default extent (set extent buttons only works for those wkid: 3978, 3857 and 102100).
 3. You can set one LODs (Levels of Details Sets) by Tile Schema
     * Enter a unique ID.
     * Use "Set Levels of Details" button with your basemap URL. A TileLayer has a number of LODs and each LOD corresponds
