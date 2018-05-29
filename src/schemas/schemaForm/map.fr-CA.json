@@ -23,7 +23,7 @@
                       "type": "number",
                       "title": "WKID",
                       "description": "Well-Known ID",
-                      "default": 4326,
+                      "default": 3978,
                       "minimum": "0"
                   },
                   "vcsWkid": {

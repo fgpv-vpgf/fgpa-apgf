@@ -253,6 +253,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
      * @function extentController
      * @private
      * @param  {Object} $mdDialog  Angular dialog window object
+     * @param  {Object} $translate  Angular translation object
      * @param {Object} constants service with all constants for the application
      * @param {String} name previous file save name
      */

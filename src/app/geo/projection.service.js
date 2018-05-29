@@ -34,6 +34,13 @@ function projectionService(gapiService) {
      * @return {Object} the reprojected extent
      */
     function projectExtent(extent, outWKID) {
-        return gapiService.gapi.proj.localProjectExtent(extent, outWKID);
+        // project extent and add xmin... syntax
+        let extentProj = gapiService.gapi.proj.localProjectExtent(extent, outWKID);
+        extentProj.xmin = extentProj.x0;
+        extentProj.ymin = extentProj.y0;
+        extentProj.xmax = extentProj.x1;
+        extentProj.ymax = extentProj.y1;
+
+        return extentProj;
     }
 }

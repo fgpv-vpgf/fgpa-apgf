@@ -110,6 +110,22 @@ function Controller($scope, $translate, $timeout,
 
         $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
 
+        // enable/disable setExtent buttons
+        $timeout(() => {
+            const buttons = [...document.getElementsByClassName('av-extentsets')[0].getElementsByClassName('av-button-square')];
+
+            for (let [index, extentset] of $scope.model.extentSets.entries()) {
+                // get buttons onlly for this extent set
+                const extentSetBtn = buttons.slice(index * 3, index * 3 + 3);
+
+                // check if projection is supported by setExtent buttons and disable/enable buttons accordingly
+                let apply = (constants.supportWkid.findIndex(item => item === extentset.spatialReference.wkid) === -1) ?  'setAttribute' : 'removeAttribute';
+                for (let btn of extentSetBtn) {
+                    btn[apply]('disabled', '');
+                }
+            }
+        }, constants.delaySplash);
+
         // set default structure legend values
         setDefaultStructureLegend(constants.delayCollapseLink);
     }
@@ -599,14 +615,22 @@ function Controller($scope, $translate, $timeout,
                     ] },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.extentset'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                            { 'type': 'template', 'template': addButton('extentdefault', 'setExtent'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
-                            { 'type': 'template', 'template': addButton('extentfull', 'setExtent'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
-                            { 'type': 'template', 'template': addButton('extentmax', 'setExtent'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
-                            { 'key': 'extentSets', 'onChange': () => self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                            { 'key': 'extentSets', 'htmlClass': 'av-extentsets', 'onChange': () => self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
+                                { 'type': 'template', 'template': addButton('extentdefault', 'setExtent'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': addButton('extentfull', 'setExtent'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': addButton('extentmax', 'setExtent'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
                                 { 'key': 'extentSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false) },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                        { 'key': 'extentSets[].spatialReference.wkid' }
+                                        { 'key': 'extentSets[].spatialReference.wkid', 'htmlClass': 'av-extentset-wkid', 'onChange': debounceService.registerDebounce(model => {
+                                            const buttons = document.activeElement.closest('.av-extentsets').getElementsByTagName('button');
+
+                                            // check if projection is supported by setExtent buttons and disable/enable buttons accordingly
+                                            let apply = (constants.supportWkid.findIndex(item => item === model) === -1) ?  'setAttribute' : 'removeAttribute';
+                                            for (let btn of buttons) {
+                                                btn[apply]('disabled', '');
+                                            }
+                                        }, constants.debInput, false) }
                                     ] }
                                     // Not use,
                                     // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [

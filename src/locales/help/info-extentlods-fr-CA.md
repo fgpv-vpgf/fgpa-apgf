@@ -9,7 +9,7 @@ modifier ces paramètres, cochez la case "Afficher les options de configuration 
 2. Vous devez créer une étendue spatiale par schéma de tuile. Dans cette section, vous allez définir le système de référence spatiale à utiliser
     * Pour trouver quel WKID utiliser, vous pouvez vous référer à cette
     <a href="http://spatialreference.org/ref/" target="_blank">liste de références spatiale</a>.
-    * Entrez un identifiant unique puis définissez au moins l'étendue par défaut.
+    * Entrez un identifiant unique puis définissez au moins l'étendue par défaut (les boutons pour définir l'étendue ne fonctionnent qu'avec ces wkid : 3978, 3857 et 102100).
 3. Vous pouvez définir un LOD (Niveaux de détails) par schéma de tuile
     * Entrez un identifiant unique.
     * Utilisez le bouton "Définir les niveaux de détails" avec l'URL de votre carte de base. Un _TileLayer_ contient un
