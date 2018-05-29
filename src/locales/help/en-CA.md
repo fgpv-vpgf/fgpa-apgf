@@ -340,3 +340,9 @@ You will find the following FGPA application version information at the bottom o
 + Link of FGPA GitHub repository to report issues
 
 ![](summaryinfo.png "FGPA version information")
+
+# Accessibility
+
+This page is WCAG 2.0 AA compliant.
+
+Keyboard Accessibility - Keyboard functionality is provided as an alternative for users who are unable to use a mouse. Use the Tab key to navigate forward to links and controls on the page. Press Shift+Tab to go back one step. Use the Enter or Spacebar keys to activate links and controls. Press Alt+s/Alt+x to expand or collapse the collection of layers.

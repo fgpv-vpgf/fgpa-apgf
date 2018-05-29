@@ -361,3 +361,9 @@ Vous trouverez les informations suivantes sur la version de l'application APGF a
 + Lien du référentiel APGF sur GitHub pour signaler les problèmes
 
 ![](summaryinfo.png "Informations sur la version APGF")
+
+# Accessibilité
+
+Cette page respecte les règles pour l’accessibilité des contenus Web WCAG 2.0 AA.
+
+Accessibilité au clavier - La fonctionnalité du clavier est offerte en tant qu’alternative pour les utilisateurs qui sont dans l'impossibilité d’utiliser une souris. Utilisez la touche de tabulation pour naviguer vers les liens et les contrôles sur la page. Appuyez simultanément sur les touches « Majuscule+Tabulation » pour revenir un pas en arrière. Utilisez la touche « Entrée » ou la barre d’espacement pour activer les liens et les contrôles. Appuyez  simultanément sur les touches Alt+s/Alt+x pour ouvrir ou fermer le lot de couches.
