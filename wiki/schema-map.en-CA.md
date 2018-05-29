@@ -88,7 +88,7 @@ Core map properties (extent sets, levels of detail).
 
 [:arrow_up: back to Map](#map-json-tree)
 
->#### [**`ExtentSetNode JSON tree`**](#nodeextentsetnode)
+>#### [**`extentSetNode JSON tree`**](#nodeextentsetnode)
 
 &emsp;{<br/>
 &emsp;&emsp;&emsp;["id"](#nodeextentsetnodeid): ...,<br/>
@@ -99,6 +99,33 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;[**"full"**](#nodeextentsetnodefull): {...},<br/>
 &emsp;&emsp;&emsp;[**"maximum"**](#nodeextentsetnodemaximum): {...}<br/>
 &emsp; }<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`extentWithReferenceNode JSON tree`**](#nodeextentwithreferencenode)
+
+&emsp;{<br/>
+&emsp;&emsp;&emsp;["xmin"](#nodeextentwithreferencenode): {<br/>
+&emsp;&emsp;&emsp;["ymin"](#nodeextentwithreferencenode): {<br/>
+&emsp;&emsp;&emsp;["xmax"](#nodeextentwithreferencenode): {<br/>
+&emsp;&emsp;&emsp;["ymax"](#nodeextentwithreferencenode): {<br/>
+&emsp;&emsp;&emsp;[**"spatialReference"**](##nodespatialreference): {<br/>
+&emsp;&emsp;&emsp;&emsp;["wkid"](##nodespatialreferencewkid): ...<br/>
+&emsp;&emsp;&emsp;},<br/>
+&emsp; }<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`initialLayerSettings JSON tree`**](#nodeinitiallayersettings)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["opacity"](#nodeinitiallayersettings): ...,<br/>
+&emsp;&emsp;&emsp;["visibility"](#nodeinitiallayersettings): ...,<br/>
+&emsp;&emsp;&emsp;["boundingBox"](#nodeinitiallayersettings): ...,<br/>
+&emsp;&emsp;&emsp;["query"](#nodeinitiallayersettings): ...,<br/>
+&emsp;&emsp;&emsp;["snapshot"](#nodeinitiallayersettings): ...,<br/>
+&emsp;&emsp;&emsp;["hovertips"](#nodeinitiallayersettings): ...,<br/>
+&emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
 
@@ -229,10 +256,29 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["layerType"](#nodewmslayernodelayertype): ...,<br/>
 &emsp;&emsp;&emsp;["featureInfoMimeType"](#nodewmslayernodefeatureinfomimetype): ...,<br/>
 &emsp;&emsp;&emsp;["legendMimeType"](#nodewmslayernodelegendmimetype): ...,<br/>
-&emsp;&emsp;&emsp;["**layerEntries**"](#nodewmslayernodelayerentries): [...],<br/>
+&emsp;&emsp;&emsp;["**layerEntries**"](#nodewmslayernodelayerentries): [<br/>
+&emsp;&emsp;&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;[**`wmsLayerEntryNode`**](#nodewmslayerentrynode)<br/>
+&emsp;&emsp;&emsp;&emsp;},<br/>
+&emsp;&emsp;&emsp;&emsp;{...},<br/>
+&emsp;&emsp;&emsp;&emsp;{...}<br/>
+&emsp;&emsp;&emsp;],<br/>
 &emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
 &emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
 &emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`wmsLayerEntryNode JSON tree`**](#nodewmslayerentrynode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["id"](#nodewmslayerentrynodeid): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodewmslayerentrynodename): ...,<br/>
+&emsp;&emsp;&emsp;["allStyles"](#nodewmslayerentrynodeallstyles): [...],<br/>
+&emsp;&emsp;&emsp;["currentStyle"](#nodewmslayerentrynodecurrentstyle): ...,<br/>
+&emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
 &emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
 &emsp;&emsp;}<br/>
 
@@ -252,11 +298,32 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["tolerance"](#nodedynamiclayernodetolerance): ...,<br/>
 &emsp;&emsp;&emsp;["singleEntryCollapse"](#nodedynamiclayernodesingleentrycollapse): ...,<br/>
 &emsp;&emsp;&emsp;["imageFormat"](#nodedynamiclayernodeimageformat): ...,<br/>
-&emsp;&emsp;&emsp;["**layerEntries**"](#nodedynamiclayernodelayerentries): [...],<br/>
+&emsp;&emsp;&emsp;["**layerEntries**"](#nodedynamiclayernodelayerentries): [<br/>
+&emsp;&emsp;&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;[**`dynamicLayerEntryNode`**](#nodedynamiclayerentrynode)<br/>
+&emsp;&emsp;&emsp;&emsp;},<br/>
+&emsp;&emsp;&emsp;&emsp;{...},<br/>
+&emsp;&emsp;&emsp;&emsp;{...}<br/>
+&emsp;&emsp;&emsp;],<br/>
 &emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
 &emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
 &emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
 &emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`dynamicLayerEntryNode JSON tree`**](#nodedynamiclayerentrynode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["index"](#nodedynamiclayerentrynodeindex): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodedynamiclayerentrynodename): ...,<br/>
+&emsp;&emsp;&emsp;["outfields"](#nodedynamiclayerentrynodeoutfields): ...,<br/>
+&emsp;&emsp;&emsp;["stateOnly"](#nodedynamiclayerentrynodestateonly): ...,<br/>
+&emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
+&emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
+&emsp;&emsp;&emsp;["**table**"](#nodetablenode): {...}<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -569,6 +636,45 @@ Core map properties (extent sets, levels of detail).
 [:arrow_up: back to extentNode](#extentnode-json-tree)
 ***
 
+>### [node:_**`extentWithReferenceNode`**_](#node--extentwithreferencenode)
+>>Extents coordinates in projection system used by the layer.
+
+| Name | Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| xmin | *number* | `-` | `-2681457` | Map/Layers | - | Yes |
+| ymin | *number* | `-` | `-883440` | Map/Layers | - | Yes |
+| xmax | *number* | `-` | `3549492` | Map/Layers | - | Yes |
+| ymax | *number* | `-` | `3482193` | Map/Layers | - | Yes |
+
+[:arrow_up: back to extentWithReferenceNode](#extentwithreferencenode-json-tree)
+***
+
+>### [node:_**`initialLayerSettings`**_](#node--initiallayersettings)
+>>Initial layer settings.
+
+| Name | Type | Description | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| opacity | *number* | Initial opacity. | `1` | `true` | Map/Layers | Yes | - |
+| visibility | *boolean* | Initial visibility setting. | `true` | `true` | Map/Layers | Yes | - |
+| boundingBox | *boolean* | Display bounding box. | `false` | `true` | Map/Layers | Yes | - |
+| query | *boolean* | Allow querying. | `true` | `true` | Map/Layers | Yes | - |
+| snapshot | *boolean* | Retrieve all feature data immediately on load. | `false` | `true` | Map/Layers | Yes | - |
+| hovertips | *boolean* | Disable hover tips. | `true` | `true` | Map/Layers | Yes | - |
+
+[:arrow_up: back to initialLayerSettings](#initialLayerSettings-json-tree)
+***
+
+>### [node:_**`legendEntryControls`**_](#node--legendentrycontrols)
+>>A list of all controls to be enabled on the specified layer. Possible values are: 
+`"opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"`
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *array* | - | `["opacity", "visibility", "boundingBox", "refresh", "reload", "remove", "settings"]` | Map/Layers | Yes | - |
+
+[:arrow_up: back to layerNode](#layernode-json-tree)
+***
+
 >### [node:_**`baseMapNode`**_](#node--basemapnode)
 >>BaseMaps node properties.
 
@@ -840,7 +946,44 @@ Each item contains these three properties
 [:arrow_up: back to wmsLayerNode](#wmslayernode-json-tree)
 
 ***
+>### [node:_**`wmsLayerEntryNode`**_](#node--wmslayerentrynode)
+>>One layer entry in a WMS service.
 
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | - | - |
+
+>### [node:wmsLayerEntryNode:_**`id`**_](#node--wmslayerentrynode--id)
+>>The id of the layer entry in the WMS.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"wind_en"` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerEntryNode:_**`name`**_](#node--wmslayerentrynode--name)
+>>A descriptive name for the layer.  To be used in the legend.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Wind layer"` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerEntryNode:_**`allStyles`**_](#node--wmslayerentrynode--allstyles)
+>>All the styles for the layer entry in the WMS.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *array* | - | `[ "WINDARROW", "WINDARROWKMH", "WINDSPEED", "WINDSPEEDKMH" ]` | Map/Layers | - | Yes |
+
+>### [node:wmsLayerEntryNode:_**`currentStyle`**_](#node--wmslayerentrynode--currentstyle)
+>>The current style for the layer entry in the WMS.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"WINDSPEEDKMH"` | Map/Layers | Yes | - |
+
+[:arrow_up: back to wmsLayerEntryNode](#wmslayerentrynode-json-tree)
+
+***
 >### [node:_**`dynamicLayerNode`**_](#node--dynamiclayernode)
 >>Layers coming from an esri feature service.
 
@@ -917,6 +1060,44 @@ Each item contains these three properties
 | Type | Default value | Example | Author section | Advance | Required |
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *boolean* | `5` | `8` | Map/Layers | Yes | - |
+
+[:arrow_up: back to dynamicLayerNode](#dynamiclayernode-json-tree)
+***
+
+>### [node:_**`dynamicLayerEntryNode`**_](#node--dynamiclayerentrynode)
+>>Layer entry coming from an esri dynamic service.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | - | - |
+
+>### [node:dynamicLayerEntryNode:_**`index`**_](#node--dynamiclayerentrynode--id)
+>>The index of the layer in the map service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | - | `0` | Map/Layers | - | Yes |
+
+>### [node:dynamicLayerEntryNode:_**`name`**_](#node--dynamiclayerentrynode--name)
+>>A descriptive name for the layer, can override the name coming from the service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Solar stations"` | Map/Layers | - | - |
+
+>### [node:dynamicLayerEntryNode:_**`outfields`**_](#node--dynamiclayerentrynode--outfields)
+>>A descriptive name for the layer, can override the name coming from the service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Solar stations"` | Map/Layers | Yes | - |
+
+>### [node:dynamicLayerEntryNode:_**`stateOnly`**_](#node--dynamiclayerentrynode--stateonly)
+>>A flag indicating this entry is only for state tracking (i.e. it should not be displayed on the UI and all of the controls will be ignored, but the layer itself will be displayed on the map with the given state settings).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `true` | Map/Layers | Yes | - |
 
 [:arrow_up: back to dynamicLayerNode](#dynamiclayernode-json-tree)
 
