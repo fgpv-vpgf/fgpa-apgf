@@ -31,10 +31,11 @@ angular
  * @param {Object} constants service with all constants for the application
  * @param {Object} projectionService service to project geometries
  * @param {Object} $http Angular http object
+ * @param {Object} modelManager service to manage Angular Schema Form model
  * @return {Object} the form service
  */
 function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService,
-    $http) {
+    $http, modelManager) {
 
     const service = {
         showAdvance,
@@ -60,6 +61,15 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
 
     // when we add basemap or layers, if show advance is click, remove hidden
     events.$on(events.avNewItems, () => { $timeout(() => showAdvance(), constants.debInput) });
+
+    // when version is set, show/hide dev version fields
+    events.$on(events.avVersionSet, () => {
+        const show = modelManager.checkVersion();
+
+        const items = document.getElementsByClassName('av-version-dev');
+        const func = (show) ? 'removeClass' : 'addClass';
+        $(items)[func]('av-version-dev-hide');
+    });
 
     return service;
 
