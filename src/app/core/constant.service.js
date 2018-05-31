@@ -14,6 +14,7 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debInput: 500, // time for debouncing when user enter value
+        delayWCAG: 250,
         delayAccordion: 2500,
         delayHandle: 3500,
         delayCollapseLink: 2800,

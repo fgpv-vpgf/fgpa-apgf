@@ -17,6 +17,8 @@ angular
 const DEFAULT_LANGS = ['en-CA', 'fr-CA'];
 let languages = DEFAULT_LANGS;
 
+let activeElement;
+
 /**
  * Initialize author by setting the languages.
  * @function initLanguages
@@ -69,10 +71,21 @@ function loadExtensions($rootElement, $rootScope, externalService) {
 function initShortcut(keyNames, formService) {
     $('body').keydown(e => {
         // Alt-s/Alt-x can also be use to expand or collapse the collection
-        if (e.keyCode === keyNames.S && e.altKey || e.keyCode === keyNames.X && e.altKey)  {
+        if (e.which === keyNames.S && e.altKey || e.which === keyNames.X && e.altKey)  {
             const obj = { currentTarget: { parentElement: document.getElementsByClassName('av-layers')[0] } };
-            const collapse = (e.keyCode === keyNames.X) ? true : false;
+            const collapse = (e.which === keyNames.X) ? true : false;
             formService.toggleAll(obj, collapse);
+        }
+
+        // Alt-q/ to focus to summary panel
+        if (e.which === keyNames.Q)  {
+            activeElement = document.activeElement;
+            document.getElementsByClassName('av-summary-validate')[0].focus();
+            e.preventDefault();
+        }
+        if (e.which === keyNames.A)  {
+            if (typeof activeElement !== 'undefined') activeElement.focus();
+            e.preventDefault();
         }
     });
 }

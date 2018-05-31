@@ -126,7 +126,7 @@ Vous pouvez faire en sorte qu'une couche esriDynamic ressemble à une couche esr
 Cette option affichera une couche dynamique à une seule couche sans son groupe racine.
 
 En option, vous pouvez définir des valeurs d'URL pour les métadonnées et le catalogue pour afficher ces informations à l'intérieur
-du panneau de métadonnées accessible par  _Contrôle de la couche_ .
+du panneau de métadonnées accessible par _Contrôle de la couche_ .
 
 Pour chaque couche et entrées de couche, les options _Contrôle de la couche_ suivantes peuvent être sélectionnées:
 + Opacité (_opacity_)
@@ -368,3 +368,8 @@ Vous trouverez les informations suivantes sur la version de l'application APGF a
 Cette page respecte les règles pour l’accessibilité des contenus Web WCAG 2.0 AA.
 
 Accessibilité au clavier - La fonctionnalité du clavier est offerte en tant qu’alternative pour les utilisateurs qui sont dans l'impossibilité d’utiliser une souris. Utilisez la touche de tabulation pour naviguer vers les liens et les contrôles sur la page. Appuyez simultanément sur les touches « Majuscule+Tabulation » pour revenir un pas en arrière. Utilisez la touche « Entrée » ou la barre d’espacement pour activer les liens et les contrôles. Appuyez  simultanément sur les touches Alt+s/Alt+x pour ouvrir ou fermer le lot de couches.
+
+Vous pouvez réorganiser le tableau des cartes de fond et des couches à partir du clavier. Pour ce faire, lorsque le focus est sur l'un de ces éléments, appuyez sur la touche flèche vers le bas pour le déplacer vers le bas ou appuyez sur la touche flèche vers le haut pour le déplacer vers le haut.
+
+Vous pouvez focuser directement au panneau de sommaire en pressant Alt+q. En pressant Alt+a, le focus retournera
+à l'élément original.

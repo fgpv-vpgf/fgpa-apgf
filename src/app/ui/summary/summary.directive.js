@@ -197,7 +197,10 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
                 templateUrl: templateUrls.preview,
                 parent: $('.fgpa'),
                 clickOutsideToClose: true,
-                fullscreen: false
+                fullscreen: false,
+                onRemoving: () => { $timeout(() => {
+                    document.getElementsByClassName('av-preview-button')[0].focus();
+                }, constants.delayWCAG); }
             });
         }
     }

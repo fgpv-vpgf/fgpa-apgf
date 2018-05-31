@@ -183,7 +183,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
                         templateUrl: templateUrls.error,
                         parent: $('.fgpa'),
                         clickOutsideToClose: true,
-                        fullscreen: false
+                        fullscreen: false,
+                        onRemoving: () => { document.getElementsByClassName('av-load-button')[0].focus(); }
                     });
 
                     function ErrorController($mdDialog) {
@@ -243,6 +244,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             locals: { name: self.saveName },
             onRemoving: element => {
                 self.saveName = document.getElementById('avInputFileSaveName').value;
+                document.getElementsByClassName('av-save-button')[0].focus();
             }
         });
     }
@@ -288,6 +290,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             } catch (e) {
                 self.error = $translate.instant('header.savedialog.error');
                 self.isError = true;
+                document.getElementsByClassName('av-savedialog-cancel')[0].focus();
             }
         }
 

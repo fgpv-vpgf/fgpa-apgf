@@ -7,14 +7,14 @@
             <div class="av-error">{{ self.error }}</div>
         </md-input-container>
         <md-button
-            class="av-button-square md-raised md-primary"
+            class="av-button-square md-raised md-primary av-savedialog-save"
             ng-click="self.save()"
             ng-disabled="self.fileName.length === 0 || self.isError === true">
             {{ 'button.save' | translate }}
             <md-tooltip>{{ 'button.save' | translate }}</md-tooltip>
         </md-button>
         <md-button
-            class="av-button-square md-raised"
+            class="av-button-square md-raised av-savedialog-cancel"
             ng-click="self.cancel()">
             {{ 'button.cancel' | translate }}
             <md-tooltip>{{ 'button.cancel' | translate }}</md-tooltip>
