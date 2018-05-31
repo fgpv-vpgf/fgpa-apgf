@@ -283,23 +283,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
-     * Update the id automatically from a model value
-     *
-     * @function updateId
-     * @param  {String} model  model value
-     * @param  {Object} scope model to update
-     * @param  {String} type class to find inex
-     */
-    function updateId(model, scope, type) {
-        const index = getActiveElemIndex(type);
-        const modelId = scope.model[type][index].id;
-
-        // if empty, generate id. If not keep original or split to only keep id if it is a combine value
-        scope.model[type][index].id = (typeof modelId === 'undefined' || modelId === '') ? commonService.getUUID() :
-            (modelId.split('--/').length === 2) ? modelId.split('--/')[1] : modelId;
-    }
-
-    /**
      * Get model array index from active element
      *
      * @function getActiveElemIndex
@@ -414,6 +397,27 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
+     * Update the id automatically from a model value
+     *
+     * @function updateId
+     * @param  {String} model  model value
+     * @param  {Object} scope model to update
+     * @param  {String} type class to find inex
+     * @param {Boolean} useModel optional and default to false, specify if we use model value to generate id
+     */
+    function updateId(model, scope, type, useModel = false) {
+        const index = getActiveElemIndex(type);
+        const modelId = scope.model[type][index].id;
+
+        let tempId = (typeof modelId === 'undefined' || modelId === '') ? commonService.getUUID() : modelId;
+        tempId = (tempId.split('***').length === 2) ? tempId.split('***')[1] : (tempId.split('--/').length === 2) ?
+            tempId.split('--/')[1] : tempId;
+
+        // if empty, generate id. If not keep original or split to only keep id if it is a combine value
+        scope.model[type][index].id = (!useModel) ? tempId : `${model}***${tempId}`;
+    }
+
+    /**
     * Update scope element use inside a dynamic-select drop dowm. The value is use to link field together
     * e.g. in TitleSchema, we have extentSetId who is the value of one extent set id. This function Will
     * populate the scope element with all extent set id so user don't have to type them in
@@ -453,7 +457,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         for (let [index, value] of id.entries()) {
             let id = (value.split('--/').length === 2) ? value.split('--/')[1] : value;
             let final = showId ? ` (${id})` : '';
-            linkValues.push((name.length > 0) ? `${name[index]}${final}--/${id}` : `${id}--/${id}`)
+            linkValues.push((name.length > 0) ? `${name[index]}${final}--/${value}` : `${value}--/${value}`)
         }
         scope[link] = linkValues;
 
