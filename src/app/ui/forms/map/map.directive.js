@@ -580,7 +580,7 @@ function Controller($scope, $translate, $timeout,
         const scope = $scope;
 
         return [
-            { 'type': 'tabs', 'tabs': [
+            { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
                 { 'title': $translate.instant('form.map.extentlods'), 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-extentlods-${commonService.getLang()}.md`, true) },
                     { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.tileschema'), 'items': [
@@ -611,9 +611,9 @@ function Controller($scope, $translate, $timeout,
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.extentset'), 'items': [
                         { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                             { 'key': 'extentSets', 'htmlClass': 'av-extentsets', 'onChange': () => self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                                { 'type': 'template', 'template': addButton('extentdefault', 'setExtent'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
-                                { 'type': 'template', 'template': addButton('extentfull', 'setExtent'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
-                                { 'type': 'template', 'template': addButton('extentmax', 'setExtent'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': addButton('extentdefault', 'setExtent', 'av-setdefaultext-button'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': addButton('extentfull', 'setExtent', 'av-setfullext-button'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': addButton('extentmax', 'setExtent', 'av-setmaxext-button'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
                                 { 'key': 'extentSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false) },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
@@ -696,7 +696,7 @@ function Controller($scope, $translate, $timeout,
                         { 'key': 'lodSets', 'htmlClass': 'av-accordion-content', 'onChange': () => self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId'), 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[]', 'htmlClass': `av-lods-array`, 'items': [
                                 { 'key': 'lodSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId'), constants.debInput, false) },
-                                { 'type': 'template', 'template': addButton('setlods', 'setLods'), 'setLods': () => self.formService.setLods($scope.model.lodSets, self.formService.getActiveElemIndex('av-lods-array')) },
+                                { 'type': 'template', 'template': addButton('setlods', 'setLods', 'av-setloads-button'), 'setLods': () => self.formService.setLods($scope.model.lodSets, self.formService.getActiveElemIndex('av-lods-array')) },
                                 { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
                                     { 'key': 'lodSets[].lods', 'add': null, 'items': [
                                         { 'type': 'section', 'htmlClass': 'row', 'readonly': true, 'items': [
@@ -1054,10 +1054,11 @@ function Controller($scope, $translate, $timeout,
      * @private
      * @param {String} type type of button to add
      * @param {String} func function to associate to ng-click
+     * @param {String} addClass class to add
      * @returns {String} the template for the button
      */
-    function addButton(type, func) {
-        return `<md-button class="av-button-square md-raised"
+    function addButton(type, func, addClass = '') {
+        return `<md-button class="av-button-square md-raised ${addClass}"
                         ng-click="form.${func}('${type}')">
                     {{ 'form.map.${type}' | translate }}
                     <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>

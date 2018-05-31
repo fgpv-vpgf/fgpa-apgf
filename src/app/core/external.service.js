@@ -17,9 +17,11 @@ angular
  * @param  {Object} $rootScope top of the hierarchy of all scopes in an Angular app
  * @param  {Object} translations translation object that contains one property for every language Angular object
  * @param  {Object} $translate translate service Angular Object
+ * @param {Object} $timeout Angular timeout object
+ * @param {Object} constants service with all constants for the application
  * @return {Object} service
  */
-function externalService($mdDialog, $compile, $rootScope, translations, $translate) {
+function externalService($mdDialog, $compile, $rootScope, translations, $translate, $timeout, constants) {
 
     const service = {
         setExtensionDialog,
@@ -35,15 +37,19 @@ function externalService($mdDialog, $compile, $rootScope, translations, $transla
      * Set dialog box for extension
      * @function setExtensionDialog
      * @param  {String} template  template to use
+     * @param {String} classEl   the classes to use to get back to caller button
      */
-    function setExtensionDialog(template) {
+    function setExtensionDialog(template, classEl) {
         $mdDialog.show({
             controller: extensionDialogController,
             controllerAs: 'self',
             template: template,
             parent: $('.fgpa'),
             clickOutsideToClose: true,
-            fullscreen: false
+            fullscreen: false,
+            onRemoving: () => { $timeout(() => {
+                document.getElementsByClassName(classEl)[0].focus();
+            }, constants.delayWCAG); }
         });
 
         /**
@@ -67,10 +73,11 @@ function externalService($mdDialog, $compile, $rootScope, translations, $transla
      * @param  {String} click  function to call on cliclk event. Need to be added to the scope inside the extensions
      * @param  {String} label  label item to link to. Need to be added to translation insinde the extension (addTranslations)
      * @param  {String} tooltip  tooltip item to link to. Need to be added to translation insinde the extension (addTranslations)
+     * @param {String} classEl   the classes to add
      */
-    function addButton(element, addType, click, label, tooltip) {
+    function addButton(element, addType, click, label, tooltip, classEl) {
         element[addType]($compile(`<md-button
-            class="av-button-square md-raised"
+            class="av-button-square md-raised ${classEl}"
             ng-click="${click}">
             {{ 'extensions.${label}' | translate }}
             <md-tooltip>{{ 'extensions.${tooltip}' | translate }}</md-tooltip>

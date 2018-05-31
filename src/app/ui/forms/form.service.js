@@ -27,6 +27,7 @@ angular
  * @param {Object} events Angular events object
  * @param {Object} $mdDialog Angular dialog window object
  * @param {Object} $translate Angular translation object
+ * @param  {Object} keyNames key names with corresponding key code
  * @param {Object} commonService service with common functions
  * @param {Object} constants service with all constants for the application
  * @param {Object} projectionService service to project geometries
@@ -34,7 +35,7 @@ angular
  * @param {Object} modelManager service to manage Angular Schema Form model
  * @return {Object} the form service
  */
-function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService,
+function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNames, commonService, constants, projectionService,
     $http, modelManager) {
 
     const service = {
@@ -71,15 +72,42 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         $(items)[func]('av-version-dev-hide');
     });
 
+    // set WCAG
+    events.$on(events.avSchemaUpdate, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
+    events.$on(events.avLoadModel, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
+    events.$on(events.avSwitchLanguage, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
+
     return service;
 
     /***/
 
     /**
+     * Add WCAG for tab inside a form
+     *
+     * @function WCAG
+     * @private
+     */
+    function WCAG() {
+        // remove tabindex on tab because href inside is tabbable and creates double tab
+        const navTabs = $(document.getElementsByClassName('nav-tabs')).children();
+        navTabs.attr('tabindex', '-1')
+
+        // on press ENTER, focus to first focusable element
+        navTabs.bind('keydown', event => {
+            $timeout(() => {
+                if (event.which === keyNames.ENTER || event.which === keyNames.SPACEBAR) {
+                    const tabList = event.target.closest('.av-inner-tab');
+                    const tabContent = tabList.querySelectorAll('.tab-pane:not(.ng-hide)')[0];
+                    tabContent.querySelectorAll(('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]):not(.hidden)'))[0].focus();
+                }
+            }, constants.delayWCAG);
+        });
+    }
+
+    /**
      * Reset show advance fields if needed when there is a new model or language switch
      *
      * @function resestShowAdvance
-     * @private
      * @private
      */
     function resestShowAdvance() {
@@ -112,6 +140,13 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         const icons = targetParent.getElementsByTagName('md-icon');
         icons[0].classList.toggle('hidden');
         icons[1].classList.toggle('hidden');
+
+        // WCAG
+        if (event.type === 'keydown') {
+            const itemClass = event.target.classList.contains('av-accordion-expand') ? 'collapse' : 'expand';
+            event.target.parentElement.getElementsByClassName(`av-accordion-${itemClass}`)[0].focus();
+            event.preventDefault();
+        }
     }
 
     /**
@@ -210,6 +245,10 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
                 extentSets[index][type].ymin = extent.ymin;
                 extentSets[index][type].xmax = extent.xmax;
                 extentSets[index][type].ymax = extent.ymax;
+
+                $timeout(() => {
+                    document.getElementsByClassName(`av-set${type}ext-button`)[parseInt(index)].focus();
+                }, constants.delayWCAG)
             }
         });
 
@@ -242,7 +281,10 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             templateUrl: templateUrls.lods,
             parent: $('.fgpa'),
             clickOutsideToClose: true,
-            fullscreen: false
+            fullscreen: false,
+            onRemoving: () => { $timeout(() => {
+                document.getElementsByClassName('av-setloads-button')[parseInt(index)].focus();
+            }, constants.delayWCAG); }
         });
 
         /**

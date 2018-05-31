@@ -2,7 +2,7 @@
     <div flex="10">
         <ul class="av-main-tab nav nav-pills nav-stacked">
             <li class="{ active: self.isSet($index + 1) }" ng-repeat="tab in self.tabs">
-                <a href ng-click="self.setTab($index + 1)">{{ tab.name }}</a>
+                <a href ng-click="self.setTab($index + 1)" ng-keypress="self.setTab($index + 1, $event)">{{ tab.name }}</a>
             </li>
         </ul>
     </div>
