@@ -1,6 +1,3 @@
-// set default bound if user close the viewer without changing the extent
-localStorage.setItem('mapextent', '-124,35,-12,57');
-
 // subscribe to extent change event to capture the new extent
 mapInstance.boundsChanged.subscribe(setExtent);
 
