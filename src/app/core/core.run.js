@@ -75,6 +75,9 @@ function initShortcut(keyNames, formService) {
             const obj = { currentTarget: { parentElement: document.getElementsByClassName('av-layers')[0] } };
             const collapse = (e.which === keyNames.X) ? true : false;
             formService.toggleAll(obj, collapse);
+            const basemapobj = { currentTarget: { parentElement: document.getElementsByClassName('av-baseMaps')[0] } }
+            const basemapcollapse = (e.which === keyNames.X) ? true : false;
+            formService.toggleAll(basemapobj, basemapcollapse);
         }
 
         // Alt-q/ to focus to summary panel
