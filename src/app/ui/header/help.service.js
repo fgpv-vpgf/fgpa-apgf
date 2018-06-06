@@ -88,7 +88,8 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             parent: ('.fgpa'),
             clickOutsideToClose: true,
             fullscreen: false,
-            onComplete: () => events.$broadcast(events.avShowHelp)
+            onComplete: () => events.$broadcast(events.avShowHelp),
+            onRemoving: () => { document.getElementsByClassName('av-help-button')[0].focus(); }
         });
     }
 

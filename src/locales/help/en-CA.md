@@ -322,7 +322,7 @@ options_ checkbox is not checked.
 Once all the configuration file fields pass validation, the Preview button ![](preview.png "Preview button") will be enabled.
 You will be then able to click this button to preview your configuration file in an instance of the FGPV application. This
 preview instance displays all the layers, basemaps, menus and options you have set as they would appear in a fully functional
-FGPV application. Note that any custom Help and About file content  cannot be displayed in the preview instance.
+FGPV application. Note that any custom Help and About file content cannot be displayed in the preview instance.
 
 The preview instance may require a few seconds to initialize depending on:
 + Network location
@@ -347,3 +347,8 @@ You will find the following FGPA application version information at the bottom o
 This page is WCAG 2.0 AA compliant.
 
 Keyboard Accessibility - Keyboard functionality is provided as an alternative for users who are unable to use a mouse. Use the Tab key to navigate forward to links and controls on the page. Press Shift+Tab to go back one step. Use the Enter or Spacebar keys to activate links and controls. Press Alt+s/Alt+x to expand or collapse the collection of layers.
+
+You can reorder the array of basemaps and layers from the keyboard. To do so, when focus is one of the array item container, press down arrow key to move it downward or press up arrow key to move it upward.
+
+You can focus directly to the Summary panel by pressing Alt+q. By pressing Alt+a, the focus will go back to the original
+element.

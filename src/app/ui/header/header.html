@@ -14,7 +14,7 @@
         <md-button
             translate
             aria-label="{{ 'header.help' | translate }}"
-            class="md-icon-button av-button-32 black"
+            class="md-icon-button av-button-32 black av-help-button"
             ng-click="self.help()">
             <md-tooltip>{{ 'header.help' | translate }}</md-tooltip>
             <md-icon md-svg-src="community:help"></md-icon>
@@ -42,7 +42,7 @@
         <md-button
             flow-init="{ singleFile: true, allowDuplicateUploads : true }"
             flow-files-submitted="self.filesSubmitted($files, $event, $flow)"
-            class="md-icon-button av-button-32 black"
+            class="md-icon-button av-button-32 black av-load-button"
             aria-label="{{ 'header.open' | translate }}"
             flow-btn
             flow-progress="console.log()"
@@ -54,7 +54,7 @@
         <md-button
             translate
             aria-label="{{ 'header.save' | translate }}"
-            class="md-icon-button av-button-32 black"
+            class="md-icon-button av-button-32 black av-save-button"
             ng-click="self.save()">
             <md-tooltip>{{ 'header.save' | translate }}</md-tooltip>
             <md-icon md-svg-src="content:save"></md-icon>
