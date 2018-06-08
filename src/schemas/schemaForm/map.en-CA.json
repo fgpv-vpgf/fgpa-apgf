@@ -827,7 +827,7 @@
                                                 "value": {
                                                     "type": "string",
                                                     "default": "",
-                                                    "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100). For selector it needs an array like [\"Fire\", \"Fatality\"]",
+                                                    "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100 or for date 2005-02-22,2005-04-30). The date format is YYYY-MM-DD. For selector it needs an array like [\"Fire\", \"Fatality\"]",
                                                     "title": "Value"
                                                 },
                                                 "static": {
@@ -992,7 +992,7 @@
                                                                 "type": "string",
                                                                 "title": "Value",
                                                                 "default": "",
-                                                                "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100). For selector it needs an array like [\"Fire\", \"Fatality\"]"
+                                                                "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100 or for date 2005-02-22,2005-04-30). The date format is YYYY-MM-DD. For selector it needs an array like [\"Fire\", \"Fatality\"]"
                                                             },
                                                             "static": {
                                                                 "type": "boolean",

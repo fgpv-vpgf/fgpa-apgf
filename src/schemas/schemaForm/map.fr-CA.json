@@ -827,7 +827,7 @@
                                                 "value": {
                                                     "type": "string",
                                                     "default": "",
-                                                    "description": "La valeur du filtre. Les dates et les nombres sont divisés par une virgule ',' (ex: 0,100). Pour les sélecteurs ( selector ) une liste doit être fournie ( ex: [\"Fire\", \"Fatality\"] )",
+                                                    "description": "La valeur du filtre. Les dates et les nombres sont divisés par une virgule ',' (ex: 0,100 ou pour les dates 2005-02-22,2005-04-30). Le format des dates est AAAA-MM-JJ. Pour les sélecteurs ( selector ) une liste doit être fournie ( ex: [\"Fire\", \"Fatality\"] )",
                                                     "title": "Valeur"
                                                 },
                                                 "static": {
@@ -990,7 +990,7 @@
                                                           "value": {
                                                               "type": "string",
                                                               "default": "",
-                                                              "description": "La valeur du filtre. Les dates et les nombres sont divisés par une virgule ',' (ex: 0,100). Pour les sélecteurs ( selector ) une liste doit être fournie ( ex: [\"Fire\", \"Fatality\"] )",
+                                                              "description": "La valeur du filtre. Les dates et les nombres sont divisés par une virgule ',' (ex: 0,100 ou pour les dates 2005-02-22,2005-04-30). Le format des dates est AAAA-MM-JJ. Pour les sélecteurs ( selector ) une liste doit être fournie ( ex: [\"Fire\", \"Fatality\"] )",
                                                               "title": "Valeur"
                                                           },
                                                           "static": {
