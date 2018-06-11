@@ -238,8 +238,11 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
 &emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
 &emsp;&emsp;&emsp;["**disabledControls**"](#nodelegendentrycontrols): {...},<br/>
-&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
-&emsp;&emsp;&emsp;["**table**"](#nodetablenode): {...}<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...},<br/>
+&emsp;&emsp;&emsp;["**table**"](#nodetablenode):<br/>
+&emsp;&emsp;&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;[**`tableNode`**](#tablenode-json-tree)<br/>
+&emsp;&emsp;&emsp;&emsp;}<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -258,7 +261,7 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["legendMimeType"](#nodewmslayernodelegendmimetype): ...,<br/>
 &emsp;&emsp;&emsp;["**layerEntries**"](#nodewmslayernodelayerentries): [<br/>
 &emsp;&emsp;&emsp;&emsp;{<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;[**`wmsLayerEntryNode`**](#nodewmslayerentrynode)<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;[**`wmsLayerEntryNode`**](#nodewmslayerentrynode-json-tree)<br/>
 &emsp;&emsp;&emsp;&emsp;},<br/>
 &emsp;&emsp;&emsp;&emsp;{...},<br/>
 &emsp;&emsp;&emsp;&emsp;{...}<br/>
@@ -300,7 +303,7 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["imageFormat"](#nodedynamiclayernodeimageformat): ...,<br/>
 &emsp;&emsp;&emsp;["**layerEntries**"](#nodedynamiclayernodelayerentries): [<br/>
 &emsp;&emsp;&emsp;&emsp;{<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;[**`dynamicLayerEntryNode`**](#nodedynamiclayerentrynode)<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;[**`dynamicLayerEntryNode`**](#dynamiclayerentrynode-json-tree)<br/>
 &emsp;&emsp;&emsp;&emsp;},<br/>
 &emsp;&emsp;&emsp;&emsp;{...},<br/>
 &emsp;&emsp;&emsp;&emsp;{...}<br/>
@@ -322,8 +325,61 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["stateOnly"](#nodedynamiclayerentrynodestateonly): ...,<br/>
 &emsp;&emsp;&emsp;["**extent**"](#nodeextentwithreferencenode): {...},<br/>
 &emsp;&emsp;&emsp;["**controls**"](#nodelegendentrycontrols): {...},<br/>
-&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...}<br/>
-&emsp;&emsp;&emsp;["**table**"](#nodetablenode): {...}<br/>
+&emsp;&emsp;&emsp;["**state**"](#nodeinitiallayersettings): {...},<br/>
+&emsp;&emsp;&emsp;["**table**"](#nodetablenode):<br/>
+&emsp;&emsp;&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;[**`tableNode`**](#tablenode-json-tree)<br/>
+&emsp;&emsp;&emsp;&emsp;}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`tableNode JSON tree`**](#nodetablenode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["title"](#nodetablenodetitle): ...,<br/>
+&emsp;&emsp;&emsp;["description"](#nodetablenodedescription): ...,<br/>
+&emsp;&emsp;&emsp;["maximize"](#nodetablenodemaximize): ...,<br/>
+&emsp;&emsp;&emsp;["search"](#nodetablenodesearch): ...,<br/>
+&emsp;&emsp;&emsp;["applyMap"](#nodetablenodeapplymap): ...,<br/>
+&emsp;&emsp;&emsp;["**columns**"](#nodecolumnsnode): [<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[**`columnNode`**](#columnnode-json-tree)<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;}<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;{...},<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;{...}<br/>
+&emsp;&emsp;&emsp;&emsp;]<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`columnNode JSON tree`**](#nodecolumnnode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["data"](#columnnodedata): ...,<br/>
+&emsp;&emsp;&emsp;["title"](#columnnodetitle): ...,<br/>
+&emsp;&emsp;&emsp;["description"](#columnnodedescription): ...,<br/>
+&emsp;&emsp;&emsp;["visible"](#columnnodevisible): ...,<br/>
+&emsp;&emsp;&emsp;["width"](#columnnodewidth): ...,<br/>
+&emsp;&emsp;&emsp;["sort"](#columnnodesort): ...,<br/>
+&emsp;&emsp;&emsp;["searchable"](#columnnodesearchable): ...,<br/>
+&emsp;&emsp;&emsp;["**filter**"](#nodefilternode): [<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[**`filterNode`**](#filternode-json-tree)<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;}<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;{...},<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;{...}<br/>
+&emsp;&emsp;&emsp;&emsp;]<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`filterNode JSON tree`**](#nodefilternode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["type"](#filternodetype): ...,<br/>
+&emsp;&emsp;&emsp;["value"](#filternodevalue): ...,<br/>
+&emsp;&emsp;&emsp;["static"](#filternodestatic): ...<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -1100,6 +1156,142 @@ Each item contains these three properties
 | *boolean* | `false` | `true` | Map/Layers | Yes | - |
 
 [:arrow_up: back to dynamicLayerNode](#dynamiclayernode-json-tree)
+***
+
+>### [node:_**`tableNode`**_](#node--tablenode)
+>>Specifies how layers columns and global search are set.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | Yes | - |
+
+>### [node:tableNode:_**`title`**_](#node--tablenode--title)
+>>Specifies the table title to apply.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"GeoChronology"` | Map/Layers | Yes | - |
+
+>### [node:tableNode:_**`description`**_](#node--tablenode--description)
+>>Specifies the additional information to display in the setting panel to give more information about a table.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Here is my description."` | Map/Layers | Yes | - |
+
+>### [node:tableNode:_**`maximize`**_](#node--tablenode--maximize)
+>>Specifies the default table size when first open. True: maximize view; False: split view.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `true` | Map/Layers | Yes | - |
+
+>### [node:tableNode:_**`search`**_](#node--tablenode--search)
+>>Specifies the default filter to apply to a table (for global search).
+
+| Name | Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| enabled | *boolean* | `true` | `true` | Map/Layers | Yes | ------- |
+| value | *string* | `null` | `"LAST_UPDATED:2005-02-22"` | Map/Layers | Yes | ------- |
+
+>### [node:tableNode:_**`applyMap`**_](#node--tablenode--applymap)
+>>Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `true` | Map/Layers | Yes | - |
+
+[:arrow_up: back to tableNode](#tablenode-json-tree)
+***
+
+>### [node:_**`columnNode`**_](#node--columnnode)
+>>Specifies option for each column. OID field must be present, if not data will not appear. The order they appears inside the table is the same as the order of this array.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`data`**_](#node--columnnode--data)
+>>Specifies the field name (data) to use to link to the layer column. Must exist in the layer.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"LAST_UPDATED"` | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`title`**_](#node--columnnode--title)
+>>Specifies the column title, uses the layer column name or alias if missing.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Last updated"` | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`description`**_](#node--columnnode--description)
+>>Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Here is my description."` | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`visible`**_](#node--columnnode--visible)
+>>Specifies if column is visible by default. True: column is visible; False: column is hidden.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`width`**_](#node--columnnode--width)
+>>Specifies the column width. If missing, calculated column width will be used.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | - | `12` | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`sort`**_](#node--columnnode--sort)
+>>Specifies if column is sort. If missing, no sort is applied. Possible values are ["asc", "desc"].
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"asc"` | Map/Layers | Yes | - |
+
+>### [node:columnNode:_**`searchable`**_](#node--columnnode--searchable)
+>>Specifies if column can be filtered. True: column can be filtered; False: no filter can be applied from global search or filter. If this is false, do not set a filter because it will not be use.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | Yes | - |
+
+[:arrow_up: back to columnNode](#columnnode-json-tree)
+***
+
+>### [node:_**`filterNode`**_](#node--filternode)
+>>Specifies the filter information for a column.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | Yes | - |
+
+>### [node:filterNode:_**`type`**_](#node--filternode--type)
+>>Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails. Possible values are [ "string", "number", "date", "selector" ].
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"date"` | Map/Layers | Yes | Yes |
+
+>### [node:filterNode:_**`value`**_](#node--filternode--value)
+>>Specifies the filter value. For date and number values are split by ',' (e.g. 0,100 or for date 2005-02-22,2005-04-30). Dates need to be in the format YYYY-MM-DD. For selector it needs an array like [\"Fire\", \"Fatality\"].
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"2005-02-22,2005-04-30"` | Map/Layers | Yes | - |
+
+>### [node:filterNode:_**`static`**_](#node--filternode--static)
+>>Specifies if filter is modifiable. True: filter value can't be modified; False: filter value can be modified.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `true` | Map/Layers | Yes | - |
+
+[:arrow_up: back to filterNode](#filternode-json-tree)
 
 [:arrow_up: back to Map top](#Map)
 ## **Annex**
