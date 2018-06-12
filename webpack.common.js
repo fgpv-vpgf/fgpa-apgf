@@ -1,7 +1,8 @@
 const webpack   = require('webpack');
 const path      = require('path');
 const fs        = require('fs');
-const ExtractTextPlugin     = require('extract-text-webpack-plugin');
+const glob      = require('glob');
+const ExtractTextPlugin  = require('extract-text-webpack-plugin');
 const TranslationPlugin     = require('./scripts/webpack/translations_plugin.js');
 const CopyWebpackPlugin     = require('copy-webpack-plugin');
 const VersionPlugin         = require('./scripts/webpack/version_plugin.js');
@@ -9,6 +10,14 @@ const WrapperPlugin         = require('wrapper-webpack-plugin');
 const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const HtmlWebpackPlugin     = require('html-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+
+// NOTE: We are with Webpack 3 because of HtmlWebpackIncludeAssetsPlugin. If we switch to Webpack 4 this plugin
+// doesn't work anymore... we will have to find a solution.
+
+const babelPresets = {
+    presets: ['env', 'stage-2'],
+    cacheDirectory: true
+}
 
 module.exports = function (env) {
 
@@ -38,7 +47,7 @@ module.exports = function (env) {
                         loader: 'ng-annotate-loader'
                     }, {
                         loader: 'babel-loader',
-                        options: { presets: ['es2015', 'stage-2'], cacheDirectory: true }
+                        options: babelPresets
                     }, {
                         loader: 'eslint-loader'
                     }]
@@ -148,21 +157,20 @@ module.exports = function (env) {
             new CleanWebpackPlugin(['build'])
         ],
 
-        // TODO: remove? externals: { 'TweenLite': 'TweenLite' },
-
         resolve: {
             modules: [path.resolve(__dirname, 'node_modules'), path.resolve(geoPath, 'node_modules')],
             alias: {
-                XSLT: path.resolve(__dirname, 'src/content/metadata/')
+                XSLT: path.resolve(__dirname, 'src/content/metadata/'),
+                jquery: 'jquery/src/jquery', // so webpack builds from src and not dist - optional but good to have
+                src: path.resolve(__dirname, 'src/'),
+                app: path.resolve(__dirname, 'src/app/')
             }
         },
-
         watchOptions: {
             aggregateTimeout: 300,
             poll: 1000,
             ignored: /node_modules/
         },
-
         devServer: {
             host: '0.0.0.0',
             publicPath: '/',
@@ -178,29 +186,24 @@ module.exports = function (env) {
         }
     };
 
-    config.plugins.push(...htmlInjectPlugins());
+    const files = glob.sync("samples/**/*", { cwd: './src/content/', nodir: true });
+    config.plugins.push(...files.map(file => {
+        if (/\.tpl$/.test(file)) {
+            const filePath = file.split('/');
+            const fileName = filePath.pop();
+            return new HtmlWebpackPlugin({
+                inject: false,
+                filename: `${filePath.join('/')}/${fileName.replace(/\.[^/.]+$/, '.html')}`,
+                template: `src/content/${file}`,
+                excludeChunks: ['ie-polyfills']
+            });
+        }
+    }).filter(x => x)
+    );
 
     if (env.geoLocal) {
         config.resolve.alias['geoApi$'] = geoPath;
     }
 
     return config;
-}
-
-function htmlInjectPlugins() {
-    return fs.readdirSync('src/content/samples').map(file => {
-        if (/\.tpl$/.test(file)) {
-            return new HtmlWebpackPlugin({
-                inject: false,
-                filename: `samples/${file.replace(/\.[^/.]+$/, '.html')}`,
-                template: `src/content/samples/${file}`,
-                excludeChunks: ['ie-polyfills'],
-                chunksSortMode: (a, b) => {  //alphabetical order
-                    if (a.names[0] < b.names[0]) { return 1; }
-                    if (a.names[0] > b.names[0]) { return -1; }
-                    return 0;
-                }
-            });
-        }
-    }).filter(x => typeof x !== 'undefined');
 }

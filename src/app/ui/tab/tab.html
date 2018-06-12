@@ -1,12 +1,20 @@
 <div layout="row">
-    <div flex="10">
+    <div flex="10" class="av-left-tabs">
         <ul class="av-main-tab nav nav-pills nav-stacked">
             <li class="{ active: self.isSet($index + 1) }" ng-repeat="tab in self.tabs">
                 <a href ng-click="self.setTab($index + 1)" ng-keypress="self.setTab($index + 1, $event)">{{ tab.name }}</a>
             </li>
         </ul>
+        <md-button
+            class="av-button-square md-raised av-extension-button"
+            ng-click="self.showExtension()"
+            ng-show="self.extensions > 0">
+            {{ 'button.extension' | translate }}
+            <md-tooltip>{{ 'button.extension' | translate }}</md-tooltip>
+        </md-button>
     </div>
     <div flex>
-        <div ng-show="self.isSet($index + 1)" ng-repeat="tab in self.tabs" av-compile-html="tab.tag"></div>
+        <div ng-show="self.isSet($index + 1) && !self.isShowExtension" ng-repeat="tab in self.tabs" av-compile-html="tab.tag"></div>
+        <div ng-show="self.isShowExtension" layout="row" class="av-extentions-container"></div>
     </div>
 </div>

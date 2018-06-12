@@ -39,8 +39,3 @@ import './addon/addon-loader.js';
 
 // styles
 import '../content/styles/main.scss';
-
-// HACKS
-// hoverintent is a function consuming the jQuery object where it adds a prototype method hoverIntent.
-// import hoverintent from 'jquery-hoverintent';
-// hoverintent($); // TODO: see if needed...

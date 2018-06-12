@@ -40,7 +40,7 @@
 
         <div class="fgpa av-large"
                 data-av-langs='["en-CA", "fr-CA"]'
-                data-av-extensions='["./extensions/ddr/ddr.js"]'
+                data-av-extensions='["./extensions/ddr/ddr.js", "./extensions/agol/agol.js"]'
                 data-av-schema="./schemaForm/"
                 data-av-config='["./config/canada-world-en.json", "./config/canada-world-fr.json", "./config/config-sample.json"]'>
             <av-header></av-header>
