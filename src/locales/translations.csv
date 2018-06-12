@@ -136,6 +136,8 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,button.validate,Validate,0,Valider,0
 ,button.set,Set,0,Définir,0
 ,button.ok,Ok,0,Ok,0
+,button.import,Import,0,Importer,0
+,button.extension,Extensions,0,Extentions,0
 ,ui.fullscreen.title,Fullscreen,1,Plein écran,1
 ,ui.theme.title,Theme,1,Thème,1
 ,ui.logoUrl.title,Logo URL,1,URL du logo,1

@@ -252,7 +252,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     /**
      * save controller
      *
-     * @function extentController
+     * @function SaveController
      * @private
      * @param  {Object} $mdDialog  Angular dialog window object
      * @param  {Object} $translate  Angular translation object

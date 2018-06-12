@@ -41,14 +41,18 @@ function avTab() {
  * @param {Object} events Angular events object
  * @param  {Object} keyNames key names with corresponding key code
  * @param {Object} constants service with all constants for the application
+ * @param {Object} externalService external service for extension functions
  */
-function Controller($translate, $timeout, events, keyNames, constants) {
+function Controller($translate, $timeout, events, keyNames, constants, externalService) {
     'ngInject';
     const self = this;
 
     self.tab = 1;
     self.setTab = setTab;
     self.isSet = isSet;
+    self.showExtension = showExentsion;
+    self.isShowExtension = false;
+    $timeout(() => { self.extensions = externalService.getExtensionsCount(); }, constants.delaySplash);
 
     // set tabs name and directive tag
     self.tabs = constants.schemas.map(item => mapTabs(item));
@@ -88,6 +92,7 @@ function Controller($translate, $timeout, events, keyNames, constants) {
      */
     function setTab(newTab, event = null) {
         self.tab = newTab;
+        self.isShowExtension = false;
 
         // WCAG
         if (event === null || event.which === keyNames.SPACEBAR) {
@@ -97,5 +102,6 @@ function Controller($translate, $timeout, events, keyNames, constants) {
         }
     }
 
+    function showExentsion() { self.isShowExtension = !self.isShowExtension }
     function isSet(tabNum) { return self.tab === tabNum; }
 }

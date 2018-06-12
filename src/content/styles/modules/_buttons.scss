@@ -6,6 +6,7 @@
     @include button-effects;
     @include button-divider;
     @include toggle-button;
+    @include extension-button;
 
     .av-switch {
         flex-direction: row-reverse;
@@ -280,5 +281,11 @@ $icon-sizes: 40, 32, 24, 20, 16, 14;
             @extend %button-divider;
             height: $item + 2px;
         }
+    }
+}
+
+@mixin extension-button {
+    .av-extension-button {
+        margin-top: 30px;
     }
 }

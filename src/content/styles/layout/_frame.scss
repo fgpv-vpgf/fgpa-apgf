@@ -3,3 +3,8 @@ av-frame {
     height: 100%;
     width: 100%;
 }
+
+.av-left-tabs {
+    display: flex;
+    flex-direction: column;
+}

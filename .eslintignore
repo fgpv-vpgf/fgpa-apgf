@@ -2,3 +2,5 @@
 **/*{.,-}min.js
 src/test/*.js
 src/polyfill/*.js
+**/geoApi
+
