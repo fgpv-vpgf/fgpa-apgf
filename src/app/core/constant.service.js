@@ -25,6 +25,7 @@ angular
         delaySetSubTab: 100,
         delaySetVersion: 2000,
         delayScroll: 100,
+        delayScrollToElement: 300,
         supportWkid: [3978, 3857, 102100],
         schemas: [
             'map.[lang].json',

@@ -40,6 +40,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
     const service = {
         showAdvance,
+        triggerValidation,
         advanceModel: false,
         toggleSection,
         toggleAll,
@@ -125,6 +126,17 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
         const func = (service.advanceModel) ? 'removeClass' : 'addClass';
         $(elems)[func]('hidden');
+    }
+
+    /**
+     * Trigger forms validation
+     *
+     * @function triggerValidation
+     */
+    function triggerValidation() {
+        $timeout(() => {
+            angular.element('#validate').triggerHandler('click');
+        });
     }
 
     /**
