@@ -207,7 +207,7 @@ function commonService($translate, events, $timeout, constants) {
     function scrollToElement(id) {
         $timeout(() => {
             angular.element(`#${id}`)[0].scrollIntoView();
-        }, constants.delayScroll);
+        }, constants.delayScrollToElement);
     }
 
     /**

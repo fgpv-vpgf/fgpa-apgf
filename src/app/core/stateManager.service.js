@@ -48,7 +48,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             'expand': false,
             'masterlink': link,
             'hlink': link,
-            'advance': false,
+            'advance': 'falseHide',
             'stype': '',
             'shlink': '',
             items: [] };
@@ -222,17 +222,16 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         let finalAdv = cleanAdv.length > 0 ? cleanAdv.slice() : adv.slice();
         let finalAdvH = cleanAdvH.length > 0 ? cleanAdvH.slice() : advH.slice();
 
-        if (cleanAdvH.length > 0) {
-            // Remove hidden advance parameters from state tree
-            for (let item of finalAdvH) {
-                removeHiddenAdvance(_state[modelName], _state, item);
-            }
-        } else {
-            // Set special style to advance parameters to be shown
-            for (let item of finalAdv) {
-                setAdvance(_state[modelName], item);
-            }
+        // Set special style to advance parameters to be shown
+        for (let item of finalAdv) {
+            setAdvance(_state[modelName], item, 'trueShow');
         }
+
+        // Set special style to advance parameters to be shown
+        for (let item of finalAdvH) {
+            setAdvance(_state[modelName], item, 'trueHide');
+        }
+
 
     }
 
@@ -289,17 +288,18 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
      * @private
      * @param {Object}  stateModel the stateModel
      * @param {Array}   keys keys
+     * @param {String}   value for style ['trueShow' | 'trueHide' | 'falseHide']
      */
-    function setAdvance(stateModel, keys) {
+    function setAdvance(stateModel, keys, value = 'trueShow') {
         if (stateModel.key === keys[0] && keys.length === 1) {
-            setStateValueDown(stateModel, 'advance', true);
+            setStateValueDown(stateModel, 'advance', value);
         } else {
             if (stateModel.key === keys[0] && keys.length > 1) {
                 keys.shift();
             }
             if (stateModel.hasOwnProperty('items')) {
                 for (let item of stateModel.items) {
-                    setAdvance(item, keys);
+                    setAdvance(item, keys, value);
                 }
             }
         }
@@ -475,7 +475,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'expand': false,
                         'masterlink': masterLink,
                         'hlink': hlink,
-                        'advance': false,
+                        'advance': 'falseHide',
                         'stype': stype,
                         'shlink': shlink,
                         'type': 'object' });
@@ -524,7 +524,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'expand': false,
                         'masterlink': masterLink,
                         'hlink': hlink,
-                        'advance': false,
+                        'advance': 'falseHide',
                         'stype': stype,
                         'shlink': '',
                         'type': 'object' });
@@ -827,7 +827,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'expand': false,
                         'masterlink': mainSection,
                         'hlink': hlink,
-                        'advance': false,
+                        'advance': 'falseHide',
                         'stype': '',
                         'shlink': '',
                         'type': 'object' });
@@ -858,7 +858,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'expand': false,
                         'masterlink': mainSection,
                         'hlink': hlink,
-                        'advance': false,
+                        'advance': 'falseHide',
                         'stype': '',
                         'shlink': '',
                         'type': 'object' });
