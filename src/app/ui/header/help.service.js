@@ -39,8 +39,10 @@ function selectFilter() {
         }
 
         let output = [];
-        if (searchTerm !== '') {
-            // replace ' by &#39; and &amp;#39; to manage search with French '
+
+          if ((searchTerm !== '')  && (searchTerm.indexOf('.') === -1)  && (searchTerm.indexOf('|') === -1) && (searchTerm.indexOf('+') === -1)&& (searchTerm.indexOf('[') === -1)&& (searchTerm.indexOf('(') === -1)
+          && (searchTerm.indexOf(')') === -1)&& (searchTerm.indexOf('^') === -1)  && (searchTerm.indexOf('$') === -1)&& (searchTerm.indexOf('?') === -1)&& (searchTerm.indexOf('*') === -1)) {
+          // replace ' by &#39; and &amp;#39; to manage search with French '
             const regexA = new RegExp(`${searchTerm.replace(/'/g, '&#39;')}`, 'g');
             const regexB = new RegExp(`${searchTerm.replace(/'/g, '&amp;#39;')}`, 'g');
             for (let section of text) {
@@ -201,7 +203,8 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
                 value = (typeof value !== 'undefined') ? value.replace(/'/gi, '&#39;') : '';
 
                 // remove previous highlight
-                if (self.previousSearch !== '') {
+                if ((self.previousSearch !== '')&& (self.previousSearch.indexOf('.') === -1)&& (self.previousSearch.indexOf('|') === -1)&& (self.previousSearch.indexOf('+') === -1)&& (self.previousSearch.indexOf('[') === -1)&& (self.previousSearch.indexOf(')') === -1)
+              && (self.previousSearch.indexOf('(') === -1)&& (self.previousSearch.indexOf('^') === -1)&& (self.previousSearch.indexOf('$') === -1)&& (self.previousSearch.indexOf('?') === -1)&& (self.previousSearch.indexOf('*') === -1)){
                     const regex = new RegExp(`<code>${self.previousSearch}<code>`, 'gi');
                     for (let section  of sections) {
                         section.info = section.info.replace(/<\/code>/gi, '<code>');
@@ -211,7 +214,8 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
                 }
 
                 // highlight search
-                if (value !== '') {
+                if ((value !== '')&& (value.indexOf('.') === -1 )&& (value.indexOf('|') === -1)&& (value.indexOf('+') === -1)&& (value.indexOf('[') === -1)&& (value.indexOf(')') === -1)
+              && (value.indexOf('(') === -1) && (value.indexOf('^') === -1)&& (value.indexOf('$') === -1)&& (value.indexOf('?') === -1)&& (value.indexOf('*') === -1)){
                     const regex = new RegExp(`${value}`, 'gi');
                     for (let section  of sections) {
                         section.info = marked(section.info.replace(regex, `\`${original}\``), { renderer });
