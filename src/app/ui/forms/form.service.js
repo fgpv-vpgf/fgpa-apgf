@@ -46,6 +46,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         toggleAll,
         addCustomAccordion,
         setExtent,
+        setAreaOfInterest,
         setLods,
         setErrorMessage,
         updateId,
@@ -271,20 +272,70 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
                 }, constants.delayWCAG)
             }
         });
+    }
 
-        /**
-         * setExtent controller
-         *
-         * @function extentController
-         * @private
-         * @param  {Object} $mdDialog  Angular dialog window object
-         */
-        function extentController($mdDialog) {
-            'ngInject';
-            const self = this;
+    /**
+     * setExtent controller
+     *
+     * @function extentController
+     * @private
+     * @param  {Object} $mdDialog  Angular dialog window object
+     */
+    function extentController($mdDialog) {
+        'ngInject';
+        const self = this;
 
-            self.close = $mdDialog.hide;
-        }
+        self.close = $mdDialog.hide;
+    }
+
+    /**
+     * Set area of interest from the viewer itself open in an iFrame
+     *
+     * @function setAreaOfInterest
+     * @param  {Array} areaOfInterestSets  array of areas of interest
+     */
+    function setAreaOfInterest(areaOfInterestSets) {
+        // we set the area in lat/long (wkid:4326)
+        const wkid = '4326';
+        const index = parseInt(document.activeElement.parentElement.getAttribute('sf-index'));
+        localStorage.setItem('configextent', `config-extent-3857`);
+
+        $mdDialog.show({
+            controller: extentController,
+            controllerAs: 'self',
+            templateUrl: templateUrls.extent,
+            parent: $('.fgpa'),
+            clickOutsideToClose: true,
+            fullscreen: false,
+            onRemoving: () => {
+                // get the extent from local storage
+                let extentMercator = JSON.parse(localStorage.getItem('mapextent'));
+                let extent = projectionService.projectExtent(extentMercator, { wkid: 4326 });
+
+                // set default bound if user close the viewer without changing the extent
+                if (extent === null) {
+                    extent = {
+                        xmin: -124,
+                        ymin: 35,
+                        xmax: -12,
+                        ymax: 57,
+                        spatialReference: { wkid: 4326 }
+                    }
+                }
+
+                localStorage.removeItem('mapextent');
+
+                // itnitialze the value because it will not work if it doesn't exist then apply values
+                areaOfInterestSets[index].xmin = extent.xmin;
+                areaOfInterestSets[index].ymin = extent.ymin;
+                areaOfInterestSets[index].xmax = extent.xmax;
+                areaOfInterestSets[index].ymax = extent.ymax;
+
+                $timeout(() => {
+                    document.getElementsByClassName('av-setareaofinterest-button')[index].focus();
+                }, constants.delayWCAG)
+            }
+        });
     }
 
     /**

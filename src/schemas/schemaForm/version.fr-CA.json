@@ -8,8 +8,8 @@
             "title": "Version",
             "type": "string",
             "enum": [
-                "2.2",
-                "2.3"
+                "2.3",
+                "2.4"
             ],
             "default": "2.2",
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration."
