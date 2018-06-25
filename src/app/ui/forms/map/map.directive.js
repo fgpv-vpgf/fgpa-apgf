@@ -621,6 +621,9 @@ function Controller($scope, $translate, $timeout,
                                     'array': true
                                 }, {
                                     'key': 'tileSchemas[].overviewUrl'
+                                }, {
+                                    'key': 'tileSchemas[].hasNorthPole',
+                                    'htmlClass': 'av-form-advance hidden  av-version-dev  av-version-dev-hide'
                                 }
                             ] }
                         ] }
@@ -784,15 +787,27 @@ function Controller($scope, $translate, $timeout,
                                     'array': true
                                 },
                                 { 'key': 'baseMaps[].layers', 'add': $translate.instant('button.add'), 'onChange': (model, form) => {
-                                    if (model[model.length - 1].id === '') { model[model.length - 1].id = commonService.getUUID(); } }, 'items': [
+                                        if (model[model.length - 1].id === '') { model[model.length - 1].id = commonService.getUUID();}
+
+                                        // remove with version 2.5
+                                        $timeout(() => { events.$broadcast(events.avVersionSet); }, 1000);
+                                     }, 'items': [
                                     { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden' },
-                                    { 'key': 'baseMaps[].layers[].url' }
+                                    { 'key': 'baseMaps[].layers[].url' },
+                                    { 'key': 'baseMaps[].layers[].opacity', 'htmlClass': 'av-opacity-input  av-form-advance  hidden  av-version-dev  av-version-dev-hide' }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
                                     { 'key': 'baseMaps[].attribution', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
                                         { 'key': 'baseMaps[].attribution.text' },
-                                        { 'key': 'baseMaps[].attribution.logo' }
+                                        // { 'key': 'baseMaps[].attribution.logo' }
+                                        // To be brought back with version 2.5 since we want the new element altext (v2.4) to be hide with prod version (2.3)
+                                        { 'key': 'baseMaps[].attribution.logo', 'items': [
+                                            { 'key': 'baseMaps[].attribution.logo.enabled' },
+                                            { 'key': 'baseMaps[].attribution.logo.value' },
+                                            { 'key': 'baseMaps[].attribution.logo.altText', 'htmlClass': 'av-form-advance hidden  av-version-dev  av-version-dev-hide' },
+                                            { 'key': 'baseMaps[].attribution.logo.link' }
+                                        ]}
                                     ] }
                                 ] }
                             ] }
@@ -820,13 +835,13 @@ function Controller($scope, $translate, $timeout,
                                         $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
                                     }
                                 }, constants.delayUpdateColumns, false) },
-                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden av-version-dev' },
+                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
                                 // hidden read only field { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden av-version-dev', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\'` },
+                                { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\'` },
                                 { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'onChange': debounceService.registerDebounce(model => { initLayerEntry(model) }, constants.debInput, false), 'items': [
                                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
@@ -966,18 +981,49 @@ function Controller($scope, $translate, $timeout,
                         ] },
                         { 'key': 'components.northArrow', 'items': [
                             { 'key': 'components.northArrow.enabled' },
-                            { 'key': 'components.northArrow.arrowIcon', 'htmlClass': 'av-form-advance hidden av-version-dev' },
-                            { 'key': 'components.northArrow.poleIcon', 'htmlClass': 'av-form-advance hidden  av-version-dev' }
+                            { 'key': 'components.northArrow.arrowIcon', 'htmlClass': 'av-form-advance hidden' },
+                            { 'key': 'components.northArrow.poleIcon', 'htmlClass': 'av-form-advance hidden' }
                         ] },
                         { 'key': 'components.scaleBar' },
                         { 'key': 'components.overviewMap', 'items': [
                             { 'key': 'components.overviewMap.enabled' },
                             { 'key': 'components.overviewMap.expandFactor', 'htmlClass': 'av-form-advance hidden' },
                             { 'key': 'components.overviewMap.initiallyExpanded', 'htmlClass': 'av-form-advance hidden' }
-                        ] }
+                        ] },
+                        { 'type': 'help', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
+                        { 'key': 'components.areaOfInterest', 'title': $translate.instant('form.map.areasofinterest'), 'htmlClass': 'av-accordion-all av-form-advance hidden av-version-dev av-version-dev-hide', 'startEmpty': true,'onChange': () => {
+                            // new item, create accordion
+                            events.$broadcast(events.avNewItems);
+                        }, 'add': $translate.instant('button.add'), 'items': [
+                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.areaofinterest'), 'items': [
+                                { 'key': 'components.areaOfInterest[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                    { 'key': 'components.areaOfInterest[].title', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.areaofinterest'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                        self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                    },
+                                    { 'type': 'template', 'template': addButton('setareaofinterest', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.components.areaOfInterest) },
+                                    { 'type': 'section', 'htmlClass': 'row ', 'items': [
+                                        { 'key': 'components.areaOfInterest[]', 'notitle': true, 'items': [
+                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                                { 'key': 'components.areaOfInterest[].xmin' }
+                                            ] },
+                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                                { 'key': 'components.areaOfInterest[].ymin' }
+                                            ] },
+                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                                { 'key': 'components.areaOfInterest[].xmax' }
+                                            ] },
+                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                                { 'key': 'components.areaOfInterest[].ymax' }
+                                            ] }
+                                        ]}
+                                    ] },
+                                    { 'key': 'components.areaOfInterest[].thumbnailUrl' }
+                                ]}
+                            ] }
+                        ]}
                     ]}
                 ] }
-            ] }
+            ]}
         ];
     }
 
