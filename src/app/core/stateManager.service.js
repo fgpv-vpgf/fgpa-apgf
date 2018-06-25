@@ -105,6 +105,9 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
             // Generate state records for tileSchemas, extentSets and lodSets
             setSpatialtemsState(_state[modelName], model, arrKeys);
+
+            // Generate state records for area of interest
+            setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
         } else {
             updateSummaryForm(_state[modelName], modelName, cleanForm);
         }
@@ -446,7 +449,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             stateModel.items[i[0]]['items'] = [];
 
             for (let [j, item] of items.entries()) {
-                const shlink = setItemId(hlink, i[1], j);
+                const shlink = setItemId(hlink, j, i[1]);
 
                 let title = item.name;
                 let stype = 'element'
@@ -481,6 +484,59 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'type': 'object' });
             }
         }
+    }
+
+    /**
+     * Set new record for area of interest items in state model
+     * @function setAreaOfInterestItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setAreaOfInterestItemsState(stateModel, model, arrKeys) {
+
+        const masterLink = constants.schemas
+            .indexOf(`map.[lang].json`) + 1;
+
+        const setID = [4, 'components', 'areaOfInterest'];
+
+        const hlink = constants.subTabs.map.keys[4].replace(/\./g, '-');
+
+        // is there a defined area of interest
+        const found = stateModel.items[4].items.filter(element => { return element.key === 'areaOfInterest'; } );
+
+        if (found.length === 1) {
+            stateModel.items[4].items[setID[0]]['items'] = [];
+            const items = model[setID[1]][setID[2]];
+    
+            for (let [j, item] of items.entries()) {
+    
+                let title = item.title;
+                let stype = 'element';
+                let valid = getValidityValue(setID[1], j, arrKeys);
+                if (item.title === undefined || item.title === '') {
+                    title = $translate.instant('summary.missing.name');
+                    stype = 'bad-element';
+                    valid = false;
+                }
+                const shlink = setItemId(hlink, j, setID[1], setID[2]);
+    
+                stateModel.items[4].items[setID[0]]['items']
+                    .push({ 'key': title,
+                        'title': title,
+                        items: [],
+                        'valid': valid,
+                        'expand': false,
+                        'masterlink': masterLink,
+                        'hlink': hlink,
+                        'advance': 'falseHide',
+                        'stype': stype,
+                        'shlink': shlink,
+                        'type': 'object' });
+            }
+        }
+
     }
 
     /**
@@ -883,14 +939,24 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
      * @function setItemId
      * @private
      * @param {String} hlink subTab link
-     * @param {String} elType element type {'baseMaps'|'layers'}
      * @param {Number} index rank in elements list
+     * @param {String} elType element type {'baseMaps'|'layers'|'components'}
+     * @param {String} elSubType element type {''|'areaOfInterest'}
      * @return {String} id
      */
-    function setItemId(hlink, elType, index) {
-        const children = Array.from(angular.element(`[ng-model=\"model['${elType}']\"]`).children());
+    function setItemId(hlink, index, elType, elSubType = '') {
 
-        const id = `${elType}-${index}`;
+        let id = '';
+        let children;
+
+        if (elSubType === '') {
+            children = Array.from(angular.element(`[ng-model=\"model['${elType}']\"]`).children());
+            id = `${elType}-${index}`;
+        } else {
+            children = Array.from(angular.element(`[ng-model=\"model['${elType}']['${elSubType}']\"]`).children());
+            id = `${elSubType}-${index}`;
+        }
+
         children[index].setAttribute('id', id);
         return id;
     }
