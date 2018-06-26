@@ -57,8 +57,14 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
     };
 
     // if show advance is true we need to toggle the hidden because the form has been reset
-    events.$on(events.avSchemaUpdate, () => { resestShowAdvance(); });
-    events.$on(events.avLoadModel, () => { resestShowAdvance(); });
+    events.$on(events.avSchemaUpdate, () => {
+        resestShowAdvance();
+        triggerValidation();
+    });
+    events.$on(events.avLoadModel, () => {
+        resestShowAdvance();
+        triggerValidation();
+    });
     events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
 
     // when we add basemap or layers, if show advance is click, remove hidden
