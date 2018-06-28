@@ -77,7 +77,7 @@ function Controller($scope, sfSelect) {
         if (data.enum && data.enum.length) {
             for (let i = 0; i < data.enum.length; i++) {
                 if (data.enum[i] && data.enum[i].length) {
-                    let values = data.enum[i].split('--/');
+                    let values = data.enum[i].split('**/');
                     enumTitleMap.push({ name: values[0], value: values[1] });
                 }
             }

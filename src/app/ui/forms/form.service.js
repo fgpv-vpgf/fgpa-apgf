@@ -226,7 +226,9 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         // get the extentset wkid and index
         let wkid = document.activeElement.parentElement.getElementsByClassName('av-extentset-wkid')[0]
             .getElementsByTagName('input')[0].value;
-        const index = extentSets.findIndex(item => item.spatialReference.wkid.toString() === wkid);
+        let id = document.activeElement.parentElement.getElementsByClassName('av-extentset-id')[0]
+            .getElementsByTagName('input')[0].value;
+        const index = extentSets.findIndex(item => item.id.toString() === id);
 
         // set wkid to local storage to know wich one to use from frame-extent.html
         // if wkid = 102100, replace with 3857 because is deprecated
@@ -496,8 +498,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         const modelId = scope.model[type][index].id;
 
         let tempId = (typeof modelId === 'undefined' || modelId === '') ? commonService.getUUID() : modelId;
-        tempId = (tempId.split('***').length === 2) ? tempId.split('***')[1] : (tempId.split('--/').length === 2) ?
-            tempId.split('--/')[1] : tempId;
+        tempId = (tempId.split('***').length === 2) ? tempId.split('***')[1] : (tempId.split('**/').length === 2) ?
+            tempId.split('**/')[1] : tempId;
 
         // if empty, generate id. If not keep original or split to only keep id if it is a combine value
         scope.model[type][index].id = (!useModel) ? tempId : `${model}***${tempId}`;
@@ -538,12 +540,11 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         const name = (keys.length === 2) ?
             findValues(scope.model, keys[1], 0, []).filter(val => (typeof val !== 'undefined')) : [];
 
-        // create a pair of key [name--/id] it will be decrypted inside processOptions of dynamicSelect to show name in dropdown but apply id value
+        // create a pair of key [name**/id] it will be decrypted inside processOptions of dynamicSelect to show name in dropdown but apply id value
         const linkValues = [];
         for (let [index, value] of id.entries()) {
-            let id = (value.split('--/').length === 2) ? value.split('--/')[1] : value;
-            let final = showId ? ` (${id})` : '';
-            linkValues.push((name.length > 0) ? `${name[index]}${final}--/${value}` : `${value}--/${value}`)
+            let final = showId ? ` (${value})` : '';
+            linkValues.push((name.length > 0) ? `${name[index]}${final}**/${value}` : `${value}**/${value}`)
         }
         scope[link] = linkValues;
 
