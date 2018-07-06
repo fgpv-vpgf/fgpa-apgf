@@ -265,6 +265,13 @@
                               "title": "URL"
                           }
                       }
+                  },
+                  "hasNorthPole": {
+                      "type": "boolean",
+                      "title": "Possède le Pôle Nord",
+                      "version": "2.4",
+                      "default": false,
+                      "description": "Indique si la projection inclut un pôle Nord. La valeur par défaut est faux afin d'éviter des erreurs."
                   }
               },
               "required": [
@@ -335,7 +342,6 @@
                 "northArrow": {
                     "type": "object",
                     "title": "Flèche du Nord",
-                    "version": "2.3",
                     "properties": {
                         "enabled":  { "type": "boolean", "title": "Activée", "default": true },
                         "arrowIcon": { "type": "string", "title": "Icône flèche du Nord", "description": "L'icône url/data url pour la flèche du Nord qui remplace l'icône par défaut." },
@@ -376,6 +382,25 @@
                         "default": true
                     },
                     "title": "Échelle"
+                },
+                "areaOfInterest": {
+                     "type": "array",
+                     "title": "Région d'intérêt",
+                     "version": "2.4",
+                     "items": {
+                         "type": "object",
+                         "title": "Région d'intérêt",
+                         "properties": {
+                            "title": { "type": "string" },
+                            "xmin": { "type": "number", "title": "X min", "description": "La coordonnée xmin (coin inférieur gauche) en lat/long" },
+                            "ymin": { "type": "number", "title": "Y min", "description": "La coordonnée ymin (coin inférieur gauche) en lat/long" },
+                            "xmax": { "type": "number", "title": "X max", "description": "La coordonnée xmax (coin supérieur droit) en lat/long" },
+                            "ymax": { "type": "number", "title": "Y max", "description": "La coordonnée ymax (coin supérieur droit) en lat/long" },
+                            "thumbnailUrl": { "type": "string", "title": "URL imagette", "description": "Chemin vers le fichier contenant l'image à afficher dans le sélecteur de régions d'intérêt." }
+                        },
+                        "required": [ "title", "xmin", "ymin", "xmax", "ymax" ]
+                      },
+                    "default": []
                 }
             },
             "additionalProperties": false
@@ -454,13 +479,23 @@
                           "type": "string",
                           "default": "",
                           "title": "URL"
+                        },
+                        "opacity": {
+                            "type": "number",
+                            "title": "Opacité",
+                            "version": "2.4",
+                            "default": 1,
+                            "minimum": "0",
+                            "maximum": "1",
+                            "description": "Opacité initiale"
                         }
                       },
                       "additionalProperties": false,
                       "required": [
                         "id",
                         "layerType",
-                        "url"
+                        "url",
+                        "opacity"
                       ]
                     },
                     "minItems": 1,
@@ -500,10 +535,16 @@
                             "title": "Activé"
                           },
                           "value": {
+                              "type": "string",
+                              "description": "URL pour l'image.",
+                              "title": "Texte alternatif",
+                              "default": ""
+                            },
+                          "altText": {
                             "type": "string",
-                            "description": "URL pour l'image.",
                             "title": "Texte alternatif",
-                            "default": ""
+                            "version": "2.4",
+                            "description": "Texte de remplacement pour l'image."
                           },
                           "link": {
                             "type": "string",
@@ -575,7 +616,6 @@
                     "refreshInterval": {
                         "type": "number",
                         "title": "Taux de rafraîchissement",
-                        "version": "2.3",
                         "default": 0,
                         "minimum": 0,
                         "maximum": 100,
@@ -612,7 +652,6 @@
                     },
                     "imageFormat": {
                         "type": "string",
-                        "version": "2.3",
                         "title": "Format de l'image de la carte",
                         "description": "Le format de sortie de l'image de la carte. Le format peut être l'un des suivants: png, png8, png28, png32, jpg, pdf, bmp, gif, svg. La valeur par défaut est png32 si rien n'est fourni",
                         "enum": [ "png", "png8", "png24", "png32", "jpg", "pdf", "bmp", "gif", "svg" ],

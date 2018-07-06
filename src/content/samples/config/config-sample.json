@@ -240,7 +240,8 @@
             "lodSetId": "LOD_NRCAN_Lambert_3978",
             "overviewUrl": {
                 "layerType": "esriTile",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "opacity": 1
             }
         }, {
             "id": "e0ceca1d",
@@ -249,7 +250,8 @@
             "lodSetId": "LOD_ESRI_World_AuxMerc_3857",
             "overviewUrl": {
                 "layerType": "esriTile",
-                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
+                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
+                "opacity": 1
             }
         }],
         "baseMaps": [{
@@ -261,7 +263,8 @@
             "layers": [{
                 "id": "CBMT",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "cad53536",
             "attribution": {
@@ -280,7 +283,8 @@
             "layers": [{
                 "id": "CBMT_CBCT_GEOM_3978",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "cad53536",
             "attribution": {
@@ -299,7 +303,8 @@
             "layers": [{
                 "id": "SMR",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Simple/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Simple/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "cad53536",
             "attribution": {
@@ -318,7 +323,8 @@
             "layers": [{
                 "id": "CBME_CBCE_HS_RO_3978",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "cad53536",
             "attribution": {
@@ -351,11 +357,13 @@
             "layers": [{
                 "id": "WorldTransportLabel",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer",
+                "opacity": 1
             }, {
                 "id": "WorldLabel",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT_TXT_3857/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT_TXT_3857/MapServer",
+                "opacity": 1
             }]
         }, {
             "id": "bb32d78a",
@@ -379,7 +387,8 @@
             "layers": [{
                 "id": "WorldTransport",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer"
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer",
+                "opacity": 1
             }]
         }, {
             "id": "e448891a",
@@ -389,7 +398,8 @@
             "layers": [{
                 "id": "World_Imagery",
                 "layerType": "esriFeature",
-                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer"
+                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "e0ceca1d",
             "attribution": {
@@ -408,7 +418,8 @@
             "layers": [{
                 "id": "World_Physical_Map",
                 "layerType": "esriFeature",
-                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer"
+                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "e0ceca1d",
             "attribution": {
@@ -427,7 +438,8 @@
             "layers": [{
                 "id": "World_Street_Map",
                 "layerType": "esriFeature",
-                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
+                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "e0ceca1d",
             "attribution": {
@@ -446,7 +458,8 @@
             "layers": [{
                 "id": "World_Shaded_Relief",
                 "layerType": "esriFeature",
-                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer"
+                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "e0ceca1d",
             "attribution": {
@@ -465,7 +478,8 @@
             "layers": [{
                 "id": "World_Topographic",
                 "layerType": "esriFeature",
-                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"
+                "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
+                "opacity": 1
             }],
             "tileSchemaId": "e0ceca1d",
             "attribution": {

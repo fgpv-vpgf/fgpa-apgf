@@ -265,6 +265,13 @@
                               "title": "URL"
                           }
                       }
+                  },
+                  "hasNorthPole": {
+                      "type": "boolean",
+                      "title": "Has North Pole",
+                      "version": "2.4",
+                      "default": false,
+                      "description": "Indicates if the map projection includes a north pole. Defaults to false to avoid errors."
                   }
               },
               "required": [
@@ -335,7 +342,6 @@
                 "northArrow": {
                     "type": "object",
                     "title": "North arrow",
-                    "version": "2.3",
                     "properties": {
                         "enabled":  { "type": "boolean", "title": "Enabled", "default": true },
                         "arrowIcon": { "type": "string", "title": "Arrow icon", "description": "The graphical icon url/data url of the north arrow to replace the default one." },
@@ -376,6 +382,25 @@
                         "default": true
                     },
                     "title": "Scale Bar"
+                },
+                "areaOfInterest": {
+                     "type": "array",
+                     "title": "Area of interest",
+                     "version": "2.4",
+                     "items": {
+                         "type": "object",
+                         "title": "Area of interest",
+                         "properties": {
+                            "title": { "type": "string", "title": "Title" },
+                            "xmin": { "type": "number", "title": "X min", "description": "The xmin coord value (lower left corner) in lat/long" },
+                            "ymin": { "type": "number", "title": "Y min", "description": "The ymin coord value (lower left corner) in lat/long" },
+                            "xmax": { "type": "number", "title": "X max", "description": "The xmax coord value (upper right corner) in lat/long" },
+                            "ymax": { "type": "number", "title": "Y max", "description": "The ymax coord value (upper right corner) in lat/long" },
+                            "thumbnailUrl": { "type": "string", "title": "Thumbnail URL", "description": "Path to image file to display in the area of interest selector." }
+                        },
+                        "required": [ "title", "xmin", "ymin", "xmax", "ymax" ]
+                      },
+                    "default": []
                 }
             },
             "title": "Map Components",
@@ -454,13 +479,23 @@
                           "type": "string",
                           "default": "",
                           "title": "URL"
+                        },
+                        "opacity": {
+                            "type": "number",
+                            "title": "Opacity",
+                            "version": "2.4",
+                            "default": 1,
+                            "minimum": "0",
+                            "maximum": "1",
+                            "description": "Initial opacity"
                         }
                       },
                       "additionalProperties": false,
                       "required": [
                         "id",
                         "layerType",
-                        "url"
+                        "url",
+                        "opacity"
                       ]
                     },
                     "minItems": 1,
@@ -500,10 +535,16 @@
                             "title": "Enabled"
                           },
                           "value": {
+                              "type": "string",
+                              "description": "URL for the image.",
+                              "title": "Image URL",
+                              "default": ""
+                            },
+                          "altText": {
                             "type": "string",
-                            "description": "URL for the image.",
-                            "title": "Alternate Text",
-                            "default": ""
+                            "title": "Alternate text",
+                            "version": "2.4",
+                            "description": "Alternate text for the image."
                           },
                           "link": {
                             "type": "string",
@@ -575,7 +616,6 @@
                     "refreshInterval": {
                         "type": "number",
                         "title": "Refresh interval",
-                        "version": "2.3",
                         "default": 0,
                         "minimum": 0,
                         "maximum": 100,
@@ -611,7 +651,6 @@
                     },
                     "imageFormat": {
                         "type": "string",
-                        "version": "2.3",
                         "title": "Map image format",
                         "description": "The format of the layer image output. It should only be in one of png, png8, png28, png32, jpg, pdf, bmp, gif, svg.  Defaults to png32 if not provided",
                         "enum": [ "png", "png8", "png24", "png32", "jpg", "pdf", "bmp", "gif", "svg" ],
