@@ -40,13 +40,11 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
     const service = {
         showAdvance,
-        triggerValidation,
         advanceModel: false,
         toggleSection,
         toggleAll,
         addCustomAccordion,
         setExtent,
-        setAreaOfInterest,
         setLods,
         setErrorMessage,
         updateId,
@@ -58,14 +56,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
     };
 
     // if show advance is true we need to toggle the hidden because the form has been reset
-    events.$on(events.avSchemaUpdate, () => {
-        resestShowAdvance();
-        triggerValidation();
-    });
-    events.$on(events.avLoadModel, () => {
-        resestShowAdvance();
-        triggerValidation();
-    });
+    events.$on(events.avSchemaUpdate, () => { resestShowAdvance(); });
+    events.$on(events.avLoadModel, () => { resestShowAdvance(); });
     events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
 
     // when we add basemap or layers, if show advance is click, remove hidden
@@ -133,17 +125,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
         const func = (service.advanceModel) ? 'removeClass' : 'addClass';
         $(elems)[func]('hidden');
-    }
-
-    /**
-     * Trigger forms validation
-     *
-     * @function triggerValidation
-     */
-    function triggerValidation() {
-        $timeout(() => {
-            angular.element('#validate').triggerHandler('click');
-        });
     }
 
     /**
@@ -227,9 +208,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         // get the extentset wkid and index
         let wkid = document.activeElement.parentElement.getElementsByClassName('av-extentset-wkid')[0]
             .getElementsByTagName('input')[0].value;
-        let id = document.activeElement.parentElement.getElementsByClassName('av-extentset-id')[0]
-            .getElementsByTagName('input')[0].value;
-        const index = extentSets.findIndex(item => item.id.toString() === id);
+        const index = extentSets.findIndex(item => item.spatialReference.wkid.toString() === wkid);
 
         // set wkid to local storage to know wich one to use from frame-extent.html
         // if wkid = 102100, replace with 3857 because is deprecated
@@ -272,70 +251,20 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
                 }, constants.delayWCAG)
             }
         });
-    }
 
-    /**
-     * setExtent controller
-     *
-     * @function extentController
-     * @private
-     * @param  {Object} $mdDialog  Angular dialog window object
-     */
-    function extentController($mdDialog) {
-        'ngInject';
-        const self = this;
+        /**
+         * setExtent controller
+         *
+         * @function extentController
+         * @private
+         * @param  {Object} $mdDialog  Angular dialog window object
+         */
+        function extentController($mdDialog) {
+            'ngInject';
+            const self = this;
 
-        self.close = $mdDialog.hide;
-    }
-
-    /**
-     * Set area of interest from the viewer itself open in an iFrame
-     *
-     * @function setAreaOfInterest
-     * @param  {Array} areaOfInterestSets  array of areas of interest
-     */
-    function setAreaOfInterest(areaOfInterestSets) {
-        // we set the area in lat/long (wkid:4326)
-        const wkid = '4326';
-        const index = parseInt(document.activeElement.parentElement.getAttribute('sf-index'));
-        localStorage.setItem('configextent', `config-extent-3857`);
-
-        $mdDialog.show({
-            controller: extentController,
-            controllerAs: 'self',
-            templateUrl: templateUrls.extent,
-            parent: $('.fgpa'),
-            clickOutsideToClose: true,
-            fullscreen: false,
-            onRemoving: () => {
-                // get the extent from local storage
-                let extentMercator = JSON.parse(localStorage.getItem('mapextent'));
-                let extent = projectionService.projectExtent(extentMercator, { wkid: 4326 });
-
-                // set default bound if user close the viewer without changing the extent
-                if (extent === null) {
-                    extent = {
-                        xmin: -124,
-                        ymin: 35,
-                        xmax: -12,
-                        ymax: 57,
-                        spatialReference: { wkid: 4326 }
-                    }
-                }
-
-                localStorage.removeItem('mapextent');
-
-                // itnitialze the value because it will not work if it doesn't exist then apply values
-                areaOfInterestSets[index].xmin = extent.xmin;
-                areaOfInterestSets[index].ymin = extent.ymin;
-                areaOfInterestSets[index].xmax = extent.xmax;
-                areaOfInterestSets[index].ymax = extent.ymax;
-
-                $timeout(() => {
-                    document.getElementsByClassName('av-setareaofinterest-button')[index].focus();
-                }, constants.delayWCAG)
-            }
-        });
+            self.close = $mdDialog.hide;
+        }
     }
 
     /**
@@ -407,17 +336,47 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
      * @return {String} mess the updated message
      */
     function setErrorMessage(form, message, variables) {
-        let mess = $translate.instant(message);
 
+      let mess = '';
+
+      let errorcode = form.error;
+      // if value is not a valid number, called by opacity if invalid value
+      if ( errorcode === 'number')  {
+         mess = $translate.instant('form.map.wkidnuminvalid');
+       }    // value is greater than maximum,called by opacity value positive 2 digits
+      if ( errorcode === 'max')     {
+         mess = $translate.instant('form.map.layeropacitymaxerr');
+       }  // value is les than minimim,called by opacity, value negative 2 digits
+      if ( errorcode === 'min')     {
+         mess = $translate.instant('form.map.extentdefxminerr');
+       }  // value is required wkid,extents,id, name,descirption,alt text
+      else if (errorcode === '302')  {
+          mess = $translate.instant('form.map.requirederr');
+         } // number less than minimum, callee by expand factor,opacty,tolerance
+      else if ((errorcode === '101') && (message ==='')) {
+          mess = $translate.instant('form.map.extentdefxminerr');
+      } // number greater than maximum called by opacity - single value
+      else if ((errorcode === '103') && (message ==='')) {
+          mess = $translate.instant('form.map.layeropacitymaxerr');
+      }
+      else if ( message !=='') {
+          mess = $translate.instant(message);
+      }
+      if (typeof variables !== 'undefined') {
         for (let variable of variables) {
-            // get the replacing value from form object
+            // get the replacing value from  the form object
             let replace = form;
             variable.split('.').map(item => { replace = replace[item] });
-
             // replace value in the message
             mess = mess.replace(`{${variable}}`, replace);
         }
-
+      }
+      else if (typeof variables === 'undefined') {
+      // replace values in message string if no parameters passed to replace them with
+         mess = mess.replace(/{.+?}/, ' ');
+         mess = mess.replace(/{.+?}/, ' ');
+         mess = mess.replace("( )", ' ');
+      }
         return mess;
     }
 
@@ -549,8 +508,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         const modelId = scope.model[type][index].id;
 
         let tempId = (typeof modelId === 'undefined' || modelId === '') ? commonService.getUUID() : modelId;
-        tempId = (tempId.split('***').length === 2) ? tempId.split('***')[1] : (tempId.split('**/').length === 2) ?
-            tempId.split('**/')[1] : tempId;
+        tempId = (tempId.split('***').length === 2) ? tempId.split('***')[1] : (tempId.split('--/').length === 2) ?
+            tempId.split('--/')[1] : tempId;
 
         // if empty, generate id. If not keep original or split to only keep id if it is a combine value
         scope.model[type][index].id = (!useModel) ? tempId : `${model}***${tempId}`;
@@ -591,11 +550,12 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         const name = (keys.length === 2) ?
             findValues(scope.model, keys[1], 0, []).filter(val => (typeof val !== 'undefined')) : [];
 
-        // create a pair of key [name**/id] it will be decrypted inside processOptions of dynamicSelect to show name in dropdown but apply id value
+        // create a pair of key [name--/id] it will be decrypted inside processOptions of dynamicSelect to show name in dropdown but apply id value
         const linkValues = [];
         for (let [index, value] of id.entries()) {
-            let final = showId ? ` (${value})` : '';
-            linkValues.push((name.length > 0) ? `${name[index]}${final}**/${value}` : `${value}**/${value}`)
+            let id = (value.split('--/').length === 2) ? value.split('--/')[1] : value;
+            let final = showId ? ` (${id})` : '';
+            linkValues.push((name.length > 0) ? `${name[index]}${final}--/${value}` : `${value}--/${value}`)
         }
         scope[link] = linkValues;
 

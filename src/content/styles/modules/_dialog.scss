@@ -56,6 +56,22 @@
         @extend %container;
     }
 
+    .av-agol-dialog {
+        height: 380px;
+        width: 600px;
+        border-radius: 0;
+
+        @extend %container;
+    }
+
+    .av-agolimport-dialog {
+        height: 80%;
+        width: 80%;
+        border-radius: 0;
+
+        @extend %container;
+    }
+
     .av-error-dialog {
         height: 190px;
         width: 800px;

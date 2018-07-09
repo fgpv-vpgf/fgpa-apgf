@@ -19,7 +19,7 @@ angular
  * @param {Object} constants  modules that contain all the constants
  * @return {Object} service  common service
  */
-function commonService($translate, events, $timeout, constants) {
+function commonService($translate, $rootScope,events, $timeout, constants) {
 
     const service = {
         parseJSON,
@@ -36,7 +36,8 @@ function commonService($translate, events, $timeout, constants) {
         clickTab,
         clickSubTab,
         scrollToElement,
-        validServiceUrl
+        validServiceUrl,
+         validateForm
     };
 
     let languages;
@@ -106,6 +107,16 @@ function commonService($translate, events, $timeout, constants) {
         return Array.from(new Set(arr));
     }
 
+    /**
+     * Validate form after the current language is set to the supplied value
+     * @function  validateForm
+     *
+     */
+     function validateForm() {
+        // validate form
+        $rootScope.$broadcast('schemaFormValidate');
+
+    }
     /**
      * Sets the current language to the supplied value and broadcasts schema initialization event.
      * @function  setLang
