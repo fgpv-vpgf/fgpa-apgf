@@ -5,6 +5,7 @@
 @import "_content-panel.scss";
 @import "_dialog.scss";
 @import "_effects.scss";
+@import "_extensions.scss";
 @import "_forms.scss";
 @import "_header.scss";
 @import "_help.scss";
@@ -16,6 +17,7 @@
 @include header;
 @include help;
 @include effects;
+@include extensions;
 @include forms;
 @include loading;
 @include summary;
