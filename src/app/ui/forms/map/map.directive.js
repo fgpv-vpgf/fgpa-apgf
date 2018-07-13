@@ -787,11 +787,11 @@ function Controller($scope, $translate, $timeout,
                                     'array': true
                                 },
                                 { 'key': 'baseMaps[].layers', 'add': $translate.instant('button.add'), 'onChange': (model, form) => {
-                                        if (model[model.length - 1].id === '') { model[model.length - 1].id = commonService.getUUID();}
+                                    if (model[model.length - 1].id === '') { model[model.length - 1].id = commonService.getUUID();}
 
-                                        // remove with version 2.5
-                                        $timeout(() => { events.$broadcast(events.avVersionSet); }, 1000);
-                                     }, 'items': [
+                                    // remove with version 2.5
+                                    $timeout(() => { events.$broadcast(events.avVersionSet); }, 1000);
+                                }, 'items': [
                                     { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].url' },

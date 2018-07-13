@@ -233,7 +233,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
         $timeout(() => {
             let to = $interval(() => {
-                if (document.readyState === "complete") {
+                if (document.readyState === 'complete') {
                     $interval.cancel(to);
                     setSubTabID(constants);
                 }
