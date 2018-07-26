@@ -407,17 +407,47 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
      * @return {String} mess the updated message
      */
     function setErrorMessage(form, message, variables) {
-        let mess = $translate.instant(message);
 
+      let mess = '';
+
+      let errorcode = form.error;
+      // if value is not a valid number, called by opacity if invalid value
+      if ( errorcode === 'number')  {
+         mess = $translate.instant('form.map.wkidnuminvalid');
+       }    // value is greater than maximum,called by opacity value positive 2 digits
+      if ( errorcode === 'max')     {
+         mess = $translate.instant('form.map.layeropacitymaxerr');
+       }  // value is les than minimim,called by opacity, value negative 2 digits
+      if ( errorcode === 'min')     {
+         mess = $translate.instant('form.map.extentdefxminerr');
+       }  // value is required wkid,extents,id, name,descirption,alt text
+      else if (errorcode === '302')  {
+          mess = $translate.instant('form.map.requirederr');
+         } // number less than minimum, callee by expand factor,opacty,tolerance
+      else if ((errorcode === '101') && (message ==='')) {
+          mess = $translate.instant('form.map.extentdefxminerr');
+      } // number greater than maximum called by opacity - single value
+      else if ((errorcode === '103') && (message ==='')) {
+          mess = $translate.instant('form.map.layeropacitymaxerr');
+      }
+      else if ( message !=='') {
+          mess = $translate.instant(message);
+      }
+      if (typeof variables !== 'undefined') {
         for (let variable of variables) {
-            // get the replacing value from form object
+            // get the replacing value from  the form object
             let replace = form;
             variable.split('.').map(item => { replace = replace[item] });
-
             // replace value in the message
             mess = mess.replace(`{${variable}}`, replace);
         }
-
+      }
+      else if (typeof variables === 'undefined') {
+      // replace values in message string if no parameters passed to replace them with
+         mess = mess.replace(/{.+?}/, ' ');
+         mess = mess.replace(/{.+?}/, ' ');
+         mess = mess.replace("( )", ' ');
+      }
         return mess;
     }
 
