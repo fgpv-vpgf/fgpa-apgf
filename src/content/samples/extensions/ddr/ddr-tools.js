@@ -120,13 +120,13 @@ const translations = {
 };
 
 /**
- * bind function to set labels in frame-ddr.html elements (http://jsfiddle.net/RkTMD/)
+ * Bind function to set labels in frame-ddr.html elements (http://jsfiddle.net/RkTMD/).
  *
  * @function bindHTML
  * @private
- * @param {Object} element html element
- * @param {Object} data  translated text
- * @param {Object} att element property either - innertext default , placeholder, value
+ * @param {Object} element html element with the specified ID
+ * @param {String} data translated text
+ * @param {String} att element property either - innertext default , placeholder, value
  */
 function bindHTML(element, data, att) {
     if (typeof att === 'undefined') {
@@ -246,6 +246,7 @@ $(document).ready(function() {
 });
 
 /**
+ * Get FME session token from login parameters.
  *
  * @function getToken
  * @private
@@ -297,7 +298,7 @@ function getToken() {
 }
 
 /**
- * determine publisher role
+ * Determine publisher role.
  *
  * @function getPublisherRole
  * @private
@@ -352,10 +353,11 @@ function getPublisherRole(json) {
 //--------------------------------------------------
 
 /**
+ * Display main menu function section by hiding displayed section via setting html attributes.
  *
  * @function returnMainMenu
  * @private
- * @param {Object} menu html user menu displayed
+ * @param {String} menu html user menu displayed
  */
  function returnMainMenu(menu) {
     $('.av-' + menu + '-section').hide();
@@ -363,7 +365,7 @@ function getPublisherRole(json) {
 }
 
 /**
- * Set FME Server workspace for the current session id
+ * Set FME Server workspace for the current session id.
  *
  * @function selectUpload
  * @private
@@ -378,7 +380,7 @@ function selectUpload() {
 }
 
 /**
- * Select publisher role to delete
+ * From selected role, get files to delete.
  *
  * @function selectDelete
  * @private
@@ -402,7 +404,7 @@ function selectDelete() {
 }
 
 /**
- * Switch on publisher role
+ * From publisher role, get files to publish.
  *
  * @function selectPublish
  * @private
@@ -422,6 +424,8 @@ function selectPublish() {
 }
 
 /**
+ *
+ * Get list of files that can be deleted and set the interface.
  *
  * @function getDeleteList
  * @private
@@ -485,7 +489,7 @@ function getDeleteList(json) {
 }
 
 /**
- * determine publisher role
+ * Determine publisher role and set the interface
  *
  * @function selectPublish
  * @private
@@ -523,12 +527,13 @@ function getPublishList(json) {
 }
 
 /**
+ * Set the user interface for published lists.
  *
  * @function setInterface
  * @private
- * @param {Object} id  html id of element
- * @param {Object} list fieldset list to display
- * @param {Object} type puiblisher type - pubprivate ,pubenv
+ * @param {String} id html id of element
+ * @param {Array} list fieldset list to display
+ * @param {String} type publisher type - pubprivate ,pubenv
  */
 function setInterface(id, list, type) {
     // remove existing values
@@ -567,6 +572,7 @@ function setInterface(id, list, type) {
 //--------------------------------------------------
 
 /**
+ * Delete list of selected files.
  *
  * @function deleteList
  * @private
@@ -598,6 +604,7 @@ function deleteList() {
 }
 
 /**
+ * Publish list of selected files.
  *
  * @function publish
  * @private
@@ -632,6 +639,7 @@ function publish() {
 //--------------------------------------------------
 
 /**
+ * Run upload zip package to FME.
  *
  * @function runUpdate
  * @private
@@ -650,9 +658,11 @@ function runUpdate() {
 }
 
 /**
+ * Set variables returend from FME getsession.
  *
  * @function setVars
  * @private
+ * @param {Object} json file from fme server
  */
 function setVars(json) {
     if (typeof json.serviceResponse.files !== 'undefined') {
@@ -733,6 +743,7 @@ function buildOptions(json) {
 }
 
 /**
+ * Create the package file input.
  *
  * @function createFileInput
  * @private
@@ -753,7 +764,7 @@ function createFileInput(input) {
 }
 
 /**
- * List files picked in chooser
+ * List files picked in chooser.
  *
  * @function  processFiles
  * @private
@@ -775,10 +786,12 @@ function processFiles(json) {
 }
 
 /**
+ * Process the form parameters for input to FME run workspace.
  *
  * @function  processParams
  * @private
  * @param {Object} elemetn_id  id of html element
+ * @return {Array} properties
  */
 function processParams(element_id) {
     // Convert HTML NodeList types to regular array types
@@ -823,6 +836,7 @@ function processParams(element_id) {
 
 
 /**
+ * Run the FME workspace.
  *
  * @function  runWorkspace
  * @private
@@ -843,7 +857,7 @@ function runWorkspace() {
 //--------------------------------------------------
 
 /**
- * Manage form parameters
+ * Show messages from FME success/error report.
  *
  * @function  showMessages
  * @private
@@ -857,11 +871,11 @@ function showMessages(json) {
 
 
 /**
- * Callback function for FMEServer.runWorkspaceWithData and FMEServer.runDataStreaming
+ * Callback function for FMEServer.runWorkspaceWithData and FMEServer.runDataStreaming.
  *
  * @function  setMessages
  * @private
- * @param {Object} message fmeserver message
+ * @param {String} message  fmeserver message
  */
  function setMessages(message) {
     // keep message as outputStream to reuse later
@@ -881,7 +895,7 @@ function showMessages(json) {
 }
 
 /**
- *  Creates the reprot Header
+ *  Creates the report Header.
  *
  * @function  setHeader
  * @private
@@ -911,7 +925,7 @@ function showMessages(json) {
  * @private
  * @param {Object} tableBody  html table to display results
  * @param {Object} rowInfo row info from fme server
- * @param {Object} message fmeserver message
+ * @param {String} message  fmeserver message
  */
 function addRow(tableBody, rowInfo, message) {
     let info = [rowInfo.TimeStamp, rowInfo.MessageType + '-' + rowInfo.Severity, message];

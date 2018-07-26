@@ -1,3 +1,23 @@
+# General Information  
+
+The Federal Geospatial Platform Authoring (FGPA) tool is used to create, update, validate and preview configuration files used by the Federal Geospatial Platform Viewer (FGPV).
+
+The FGPA tool is based on the <a href="https://github.com/json-schema-form/angular-schema-form" target="_blank">Angular Schema Form </a> library. This library
+generates forms from JSON schemas using AngularJS. The FGPA tool uses the same schema as the FGPV and lets user modify values to easily
+create new configuration files. The schema is composed of 5 sections:
++ **Map**
+    + Map is divided in 5 sections (Extents and Levels of Details, Basemaps, Layers, Legend and Components)
++ **UI**
+    + UI is divided in 4 sections (General, Application Bar, Navigation and Side Menu)
++ **Services**
+    + Services is divided in 3 sections (Export Map, Geo Search and Service End Points)
++ **Version**
++ **Language**
+
+For more information about schema structure, go to the
+<a href="https://github.com/fgpv-vpgf/fgpa-apgf/wiki/FGPV_schema_doc" target="_blank">**FGPV schema**</a>
+section in our wiki page. This section will also give you information on schema values and their effect in the viewer.
+
 # General Information
 
 The Federal Geospatial Platform Authoring (FGPA) tool is used to create, update, validate and preview configuration files
