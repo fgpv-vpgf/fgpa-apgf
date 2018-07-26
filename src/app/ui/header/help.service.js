@@ -128,7 +128,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
      * @param {Object} $http Angular http onject
      * @param {Object} $scope Angular scope onject
      */
-    function HelpSummaryController($http, $scope) {
+    function HelpSummaryController($http, $scope,$rootElement, $rootScope, externalService) {
         const self = this;
 
         // hide content until accordion finish initialization
@@ -150,6 +150,41 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
 
         // get help location
         const language = localStorage.getItem('fgpa-lang');
+
+        // test if ddr and agol extensions exist
+        const extAttr = $rootElement.attr('data-av-extensions');
+        const extensionList = extAttr ? angular.fromJson(extAttr) : [];
+
+        extensionList.forEach(element => {console.log('extension list -',element);
+
+        if (element.search('/extensions/ddr/ddr.js')) {
+      //         const ddrLocation = `content/samples/extensions/ddr/${language}.md`;
+            //   const ddrLocation = `content/samples/extensions/ddr/ddr'+'${language}.md`;
+
+               console.log('content/samples/extensions/ddr/ddr-en-CA.md');
+               console.log('ddr extension found');
+          //     let reader = new FileReader();
+        //       reader.readAsText('content/samples/extensions/ddr/ddr-en-CA.md', "UTF-8");
+          //     reader.readAsText('content/samples/extensions/ddr/ddr-en-CA.md', "Blob");
+            //   reader.onload =  console.log(this.result);
+
+            const ddrLocation = `samples/extensions/ddr/ddr'+'${language}.md`;
+
+// starts off in sampels directory
+            //      $http.get(ddrLocation).then(r => {console.log(r.data);} );
+
+            $http.get('sextensions/ddr/ddr-en-CA.md').then(r => {console.log(r.data);} );
+
+        //    $http.get('help/ddr-CA.md').then(r => {console.log(r.data);} );
+
+  // Handle progress, success, and errors
+                //reader.onprogress = updateProgress;
+                //reader.onload = loaded;
+                //reader.onerror = errorHandler;
+           }
+
+           });
+
         useMarkdown(language);
 
         /**
