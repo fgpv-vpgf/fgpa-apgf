@@ -1,4 +1,4 @@
-# General Information
+# General Information  
 
 The Federal Geospatial Platform Authoring (FGPA) tool is used to create, update, validate and preview configuration files
 used by the Federal Geospatial Platform Viewer (FGPV).
