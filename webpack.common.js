@@ -117,6 +117,9 @@ module.exports = function (env) {
                 from: '**/*.css',
                 to: 'samples'
             },{
+                from: 'src/content/samples/extensions',
+                to: 'samples/extensions'
+            },{
                 from: 'src/locales/help',
                 to: 'samples/help'
             },{
