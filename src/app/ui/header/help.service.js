@@ -63,7 +63,6 @@ function selectFilter() {
         if (!searchTerm) {
             return text;
         }
-
         let output = [];
 
         if (searchFilterNoSpecialCharsNull(searchTerm)) {
@@ -92,9 +91,11 @@ function selectFilter() {
  * @param {Object} translations translation service
  * @param {Object} events Angular events object
  * @param {Object} constants service with all constants for the application
+ * @param {Object} $rootElement Angular http onject
+ * @param {Object} $rootScope Angular scope onject
  * @return {Object} the help service
  */
-function helpService($mdDialog, $translate, $timeout, translations, events, constants) {
+function helpService($mdDialog, $translate, $timeout, translations, events, constants,$rootElement,$rootScope) {
     const service = {
         open
     };
@@ -127,7 +128,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
      * @private
      * @param {Object} $http Angular http onject
      * @param {Object} $scope Angular scope onject
-     */
+       */
     function HelpSummaryController($http, $scope) {
         const self = this;
 
@@ -148,9 +149,39 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             if (typeof oldVal !== 'undefined' && oldVal.length === 0) onSearchTermChange(self.searchTerm, newVal);
         });
 
+        const extAttr = $rootElement.attr('data-av-extensions');
+        const extensionList = extAttr ? angular.fromJson(extAttr) : [];
+
         // get help location
         const language = localStorage.getItem('fgpa-lang');
-        useMarkdown(language);
+
+        self.sections=[]; // used in template for rendering help sections
+
+        useMarkdown(language,self.sections,`help/images/`,`help/${language}.md`);
+
+        extensionList.forEach(index => {
+            let lastslash = index.lastIndexOf('/') ;
+            let extenStringdir = index.substring(0,lastslash);
+            let extenString = index.substring(0,index.lastIndexOf('.'));
+            let filePart = extenString + `-${language}.md`;
+
+            // can't use require("fs") due to a webpack problem with node.js
+            let file = new XMLHttpRequest();
+            // async open call
+            file.open('GET', filePart, true);
+            file.send();
+
+            file.onreadystatechange = (r=>{
+             if (file.readyState === 4 && file.status !== 404) {
+                 useMarkdown(language, self.sections, `${extenStringdir}/images/`, extenString + `-${language}.md`);
+                }
+               else {
+                 console.log('Markdown file does not exist, Fichier markdown n existe pas -', file.status, filePart);
+               }
+           }
+          );
+
+        });
 
         /**
          * Use markdown marked library to parse markdown and format it properly
@@ -158,27 +189,28 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
          * @function useMarkdown
          * @private
          * @param {String} language current language
+         * @param {Array} sections markdown sections
+         * @param {String} imageLocation location of md images
+         * @param {String} mdLocation location of md file
          */
-        function useMarkdown(language) {
-            // make it easier to use images in markdown by prepending path to href if href is not an external source
-            // this avoids the need for ![](help/images/myimg.png) to just ![](myimg.png). This overrides the default image renderer completely.
-            renderer.image = (href, title) => {
-                if (href.indexOf('http') === -1) {
-                    href = `help/images/` + href;
-                }
-                return `<img src="${href}" alt="${title}">`;
-            };
+        function useMarkdown(language, sections, imageLocation, mdLocation) {
+            let section; // used for storing individual section groupings
 
-            const mdLocation = `help/${language}.md`;
-            $http.get(mdLocation).then(r => {
+          // make it easier to use images in markdown by prepending path to href if href is not an external source
+          // this avoids the need for ![](help/images/myimg.png) to just ![](myimg.png). This overrides the default image renderer completely.
+            $http.get(mdLocation).then(r=> {
+               renderer.image = (href, title) => {
+                  if (href.indexOf('http') === -1) {
+                    href = imageLocation + href;
+                  }
+                  return `<img src="${href}" alt="${title}">`;
+              };
                 // matches help sections from markdown file where each section begins with one hashbang and a space
                 // followed by the section header, exactly 2 spaces, then up to but not including a double space
                 // note that the {2,} below is used as the double line separator since each double new line is actually 6
                 // but we'll also accept more than a double space
                 const reg = /^#\s(.*)\n{2}(?:.+|\n(?!\n{2,}))*/gm;
                 let mdStr = r.data; // markdown file contents
-                let section; // used for storing individual section groupings
-                self.sections = []; // used in template for rendering help sections
 
                 // remove new line character ASCII (13) so that above regex is compatible with all
                 // operating systems (markdown file varies by OS new line preference)
@@ -186,8 +218,8 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
 
                 // start breaking down markdown file into sections where h1 headers (#) denote a new section
                 // eslint-disable-next-line no-cond-assign
-                while (section = reg.exec(mdStr)) { // jshint ignore:line
-                    self.sections.push({
+                while (section = reg.exec(mdStr)) {
+                    sections.push({
                         header: section[1],
                         // parse markdown on info section only. Note that the split/splice/join removes the header
                         // and is a workaround for not being able to put info section into its own regex grouping like the header
@@ -197,6 +229,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             }).catch(error => {
                 self.hasNoHelp = true;
             });
+
         }
 
         self.searchTerm = '';
