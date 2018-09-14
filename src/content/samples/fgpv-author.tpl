@@ -47,7 +47,7 @@
 
             <div class="av-tools" layout="row">
                 <av-tab flex="70"></av-tab>
-                <div class="av-summary" flex="30">
+                <div class="av-summary" flex="30" flex-basis="0">
                     <av-summary></av-summary>
                 </div>
             </div>

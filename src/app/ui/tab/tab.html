@@ -1,5 +1,5 @@
 <div layout="row">
-    <div flex="10" class="av-left-tabs">
+    <div flex="12" flex-basis="2" class="av-left-tabs"> <!-- Fixed the menu button font cut-off during resizing -->
         <ul class="av-main-tab nav nav-pills nav-stacked">
             <li class="{ active: self.isSet($index + 1) }" ng-repeat="tab in self.tabs">
                 <a href ng-click="self.setTab($index + 1)" ng-keypress="self.setTab($index + 1, $event)">{{ tab.name }}</a>
