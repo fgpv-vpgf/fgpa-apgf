@@ -216,7 +216,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
      */
     function setForm() {
         return [
-            { 'type': 'tabs', 'tabs': [
+            { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
                 { 'title': $translate.instant('form.ui.general'), 'items': [
                     { 'key': 'fullscreen' },
                     // FIXME: not use inside the viewer... see if still needed { 'key': 'theme' },

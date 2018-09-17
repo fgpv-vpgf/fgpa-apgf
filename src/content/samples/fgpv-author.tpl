@@ -40,14 +40,14 @@
 
         <div class="fgpa av-large"
                 data-av-langs='["en-CA", "fr-CA"]'
-                data-av-extensions='["./extensions/ddr/ddr.js"]'
+                data-av-extensions='["./extensions/ddr/ddr.js", "./extensions/agol/agol.js"]'
                 data-av-schema="./schemaForm/"
                 data-av-config='["./config/canada-world-en.json", "./config/canada-world-fr.json", "./config/config-sample.json"]'>
             <av-header></av-header>
 
             <div class="av-tools" layout="row">
                 <av-tab flex="70"></av-tab>
-                <div class="av-summary" flex="30">
+                <div class="av-summary" flex="30" flex-basis="0">
                     <av-summary></av-summary>
                 </div>
             </div>

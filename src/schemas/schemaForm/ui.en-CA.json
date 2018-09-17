@@ -78,12 +78,14 @@
                       "description": "Shows the layers button in the main app toolbar.",
                       "title": "Layers Selector"
                     }
-                  },
-              "additionalProperties": false,
-              "title": "Application Bar"
+            },
+            "default": { "sideMenu": true, "geoSearch": true, "layers": true },
+            "additionalProperties": false,
+            "title": "Application Bar"
         },
         "navBar": {
             "type": "object",
+            "description": "Provides configuration to the nav bar. If not supplied the default nav bar buttons are shown.",
             "properties": {
                 "zoom": {
                     "type": "string",
@@ -170,12 +172,12 @@
         },
         "legend": {
             "type": "object",
-            "title": "Legend",
+            "title": "Layers Panel (Legend)",
             "properties": {
                 "reorderable": {
                   "type": "boolean",
                   "default": true,
-                  "description": "Specifies if the items in the legend can be reordered; structured legend ignores this property.",
+                  "description": "Specifies if the items in the layers panel (legend) can be reordered; structured legend ignores this property.",
                   "title": "Is Reorderable"
                 },
                 "allowImport": {
@@ -186,29 +188,29 @@
                 },
                 "isOpen": {
                     "type": "object",
-                    "description": "Specifies whether the legend is opened by default on initial loading of the map for small, medium, and large viewports",
+                    "description": "Specifies whether the layers panel (legend) is opened by default on initial loading of the map for small, medium, and large viewports",
                     "properties": {
                         "large": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the legend is opened by default on initial loading of the map for large viewports",
+                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for large viewports",
                               "title": "Open by default in large display"
                         },
                         "medium": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the legend is opened by default on initial loading of the map for medium viewports",
+                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for medium viewports",
                               "title": "Open by default in medium display"
                         },
                         "small": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the legend is opened by default on initial loading of the map for small viewports",
+                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for small viewports",
                               "title": "Open by default in small display"
                         }
                     },
                 "additionalProperties": false,
-                "title": "Legend Opening Options"
+                "title": "Layers Panel (Legend) Opening Options"
                 }
             }
         },

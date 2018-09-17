@@ -24,6 +24,32 @@ angular
     .service('helpService', helpService)
     .filter('select', selectFilter);
 
+
+    /**
+     * Search filter for special chars and null that cause problems with help display and search
+     *
+     * @function searchFilterNoSpecialCharsNull
+     * @private
+     * @param {String}  search term to verify for special characters
+     * @return {Boolean} true if valid
+     */
+    function searchFilterNoSpecialCharsNull(searchTerm) {
+
+            // no searchTerm provided, return all text
+            if (!searchTerm) {
+                return false;
+            }
+
+           if ((searchTerm !== '') && (searchTerm.indexOf('.') === -1) && (searchTerm.indexOf('|') === -1) && (searchTerm.indexOf('+') === -1) && (searchTerm.indexOf('[') === -1) && (searchTerm.indexOf('(') === -1)
+              && (searchTerm.indexOf(')') === -1) && (searchTerm.indexOf('^') === -1) && (searchTerm.indexOf('$') === -1) && (searchTerm.indexOf('?') === -1) && (searchTerm.indexOf('*') === -1)
+              && (searchTerm.lastIndexOf('\\') !== (searchTerm.length)-1)) {
+              return true;
+           }
+           else {
+              return false;
+           }
+    }
+
 /**
  * Select filter to select text inside section info. We do not use the filter from angular * because it has problem with ' in French
  *
@@ -39,8 +65,9 @@ function selectFilter() {
         }
 
         let output = [];
-        if (searchTerm !== '') {
-            // replace ' by &#39; and &amp;#39; to manage search with French '
+
+        if (searchFilterNoSpecialCharsNull(searchTerm)) {
+        // replace ' by &#39; and &amp;#39; to manage search with French '
             const regexA = new RegExp(`${searchTerm.replace(/'/g, '&#39;')}`, 'g');
             const regexB = new RegExp(`${searchTerm.replace(/'/g, '&amp;#39;')}`, 'g');
             for (let section of text) {
@@ -88,7 +115,8 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             parent: ('.fgpa'),
             clickOutsideToClose: true,
             fullscreen: false,
-            onComplete: () => events.$broadcast(events.avShowHelp)
+            onComplete: () => events.$broadcast(events.avShowHelp),
+            onRemoving: () => { document.getElementsByClassName('av-help-button')[0].focus(); }
         });
     }
 
@@ -200,7 +228,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
                 value = (typeof value !== 'undefined') ? value.replace(/'/gi, '&#39;') : '';
 
                 // remove previous highlight
-                if (self.previousSearch !== '') {
+                if (searchFilterNoSpecialCharsNull(self.previousSearch)) {
                     const regex = new RegExp(`<code>${self.previousSearch}<code>`, 'gi');
                     for (let section  of sections) {
                         section.info = section.info.replace(/<\/code>/gi, '<code>');
@@ -210,7 +238,7 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
                 }
 
                 // highlight search
-                if (value !== '') {
+                if (searchFilterNoSpecialCharsNull(value)) {
                     const regex = new RegExp(`${value}`, 'gi');
                     for (let section  of sections) {
                         section.info = marked(section.info.replace(regex, `\`${original}\``), { renderer });

@@ -14,6 +14,7 @@ angular
     .factory('appInfo', appInfo)
     .constant('constants', {
         debInput: 500, // time for debouncing when user enter value
+        delayWCAG: 250,
         delayAccordion: 2500,
         delayHandle: 3500,
         delayCollapseLink: 2800,
@@ -24,6 +25,8 @@ angular
         delaySetSubTab: 100,
         delaySetVersion: 2000,
         delayScroll: 100,
+        delayScrollToElement: 300,
+        supportWkid: [3978, 3857, 102100],
         schemas: [
             'map.[lang].json',
             'ui.[lang].json',
@@ -44,7 +47,9 @@ angular
                 index: 2,
                 keys: ['export', 'search', 'form.service.urls']
             }
-        }
+        },
+        devVersion: 2.4,
+        prodVersion: 2.3
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
 function events($rootScope) {
@@ -73,7 +78,8 @@ function events($rootScope) {
         avShowHelp: 'avShowHelp', // Fired when help dialog window opening is completed
         avLegendError: 'avLegendError', // Fired when there's an id in error in the structured legend
         avValidateLegend: 'avValidateLegend', // Fired legend validation
-        avNewSaveName: 'avNewSaveName' // Fired new save name
+        avNewSaveName: 'avNewSaveName', // Fired new save name,
+        avVersionSet: 'avVersionSet' // Fired when version has been set
     };
 }
 

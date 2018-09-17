@@ -27,22 +27,26 @@ angular
  * @param {Object} events Angular events object
  * @param {Object} $mdDialog Angular dialog window object
  * @param {Object} $translate Angular translation object
+ * @param  {Object} keyNames key names with corresponding key code
  * @param {Object} commonService service with common functions
  * @param {Object} constants service with all constants for the application
  * @param {Object} projectionService service to project geometries
  * @param {Object} $http Angular http object
+ * @param {Object} modelManager service to manage Angular Schema Form model
  * @return {Object} the form service
  */
-function formService($timeout, $rootScope, events, $mdDialog, $translate, commonService, constants, projectionService,
-    $http) {
+function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNames, commonService, constants, projectionService,
+    $http, modelManager) {
 
     const service = {
         showAdvance,
+        triggerValidation,
         advanceModel: false,
         toggleSection,
         toggleAll,
         addCustomAccordion,
         setExtent,
+        setAreaOfInterest,
         setLods,
         setErrorMessage,
         updateId,
@@ -54,22 +58,64 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     };
 
     // if show advance is true we need to toggle the hidden because the form has been reset
-    events.$on(events.avSchemaUpdate, () => { resestShowAdvance(); });
-    events.$on(events.avLoadModel, () => { resestShowAdvance(); });
+    events.$on(events.avSchemaUpdate, () => {
+        resestShowAdvance();
+        triggerValidation();
+    });
+    events.$on(events.avLoadModel, () => {
+        resestShowAdvance();
+        triggerValidation();
+    });
     events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
 
     // when we add basemap or layers, if show advance is click, remove hidden
     events.$on(events.avNewItems, () => { $timeout(() => showAdvance(), constants.debInput) });
+
+    // when version is set, show/hide dev version fields
+    events.$on(events.avVersionSet, () => {
+        const show = modelManager.checkVersion();
+
+        const items = document.getElementsByClassName('av-version-dev');
+        const func = (show) ? 'removeClass' : 'addClass';
+        $(items)[func]('av-version-dev-hide');
+    });
+
+    // set WCAG
+    events.$on(events.avSchemaUpdate, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
+    events.$on(events.avLoadModel, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
+    events.$on(events.avSwitchLanguage, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
 
     return service;
 
     /***/
 
     /**
+     * Add WCAG for tab inside a form
+     *
+     * @function WCAG
+     * @private
+     */
+    function WCAG() {
+        // remove tabindex on tab because href inside is tabbable and creates double tab
+        const navTabs = $(document.getElementsByClassName('nav-tabs')).children();
+        navTabs.attr('tabindex', '-1')
+
+        // on press ENTER, focus to first focusable element
+        navTabs.bind('keydown', event => {
+            $timeout(() => {
+                if (event.which === keyNames.ENTER || event.which === keyNames.SPACEBAR) {
+                    const tabList = event.target.closest('.av-inner-tab');
+                    const tabContent = tabList.querySelectorAll('.tab-pane:not(.ng-hide)')[0];
+                    tabContent.querySelectorAll(('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]):not(.hidden)'))[0].focus();
+                }
+            }, constants.delayWCAG);
+        });
+    }
+
+    /**
      * Reset show advance fields if needed when there is a new model or language switch
      *
      * @function resestShowAdvance
-     * @private
      * @private
      */
     function resestShowAdvance() {
@@ -90,6 +136,17 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
+     * Trigger forms validation
+     *
+     * @function triggerValidation
+     */
+    function triggerValidation() {
+        $timeout(() => {
+            angular.element('#validate').triggerHandler('click');
+        });
+    }
+
+    /**
      * Toggle one section of accordion panel
      *
      * @function toggleSection
@@ -102,6 +159,13 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         const icons = targetParent.getElementsByTagName('md-icon');
         icons[0].classList.toggle('hidden');
         icons[1].classList.toggle('hidden');
+
+        // WCAG
+        if (event.type === 'keydown') {
+            const itemClass = event.target.classList.contains('av-accordion-expand') ? 'collapse' : 'expand';
+            event.target.parentElement.getElementsByClassName(`av-accordion-${itemClass}`)[0].focus();
+            event.preventDefault();
+        }
     }
 
     /**
@@ -160,6 +224,18 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
      * @param  {Array} extentSets  array of extent set to set the extent for
      */
     function setExtent(type, extentSets) {
+        // get the extentset wkid and index
+        let wkid = document.activeElement.parentElement.getElementsByClassName('av-extentset-wkid')[0]
+            .getElementsByTagName('input')[0].value;
+        let id = document.activeElement.parentElement.getElementsByClassName('av-extentset-id')[0]
+            .getElementsByTagName('input')[0].value;
+        const index = extentSets.findIndex(item => item.id.toString() === id);
+
+        // set wkid to local storage to know wich one to use from frame-extent.html
+        // if wkid = 102100, replace with 3857 because is deprecated
+        wkid = (wkid === '102100') ? '3857' : wkid;
+        localStorage.setItem('configextent', `config-extent-${wkid}`);
+
         $mdDialog.show({
             controller: extentController,
             controllerAs: 'self',
@@ -169,37 +245,97 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             fullscreen: false,
             onRemoving: () => {
                 // get the extent from local storage
-                const extent = JSON.parse(localStorage.getItem('mapextent'));
+                let extent = JSON.parse(localStorage.getItem('mapextent'));
+
+                // set default bound if user close the viewer without changing the extent
+                if (extent === null) {
+                    const ext = {
+                        xmin: -124,
+                        ymin: 35,
+                        xmax: -12,
+                        ymax: 57,
+                        spatialReference: { wkid: 4326 }
+                    }
+                    extent = projectionService.projectExtent(ext, extentSets[index].spatialReference);
+                }
                 localStorage.removeItem('mapextent');
 
-                // for each extent set, project the extent in the proper projection then set values
-                extentSets.forEach(extentSet => {
-                    // project extent
-                    const ext = projectionService.projectExtent(extent, extentSet.spatialReference);
+                // itnitialze the value because it will not work if it doesn't exist then apply values
+                extentSets[index][type] = {};
+                extentSets[index][type].xmin = extent.xmin;
+                extentSets[index][type].ymin = extent.ymin;
+                extentSets[index][type].xmax = extent.xmax;
+                extentSets[index][type].ymax = extent.ymax;
 
-                    // itnitialze the value because it will not work if it doesn't exist then apply values
-                    extentSet[type] = {};
-                    extentSet[type].xmin = ext.x0;
-                    extentSet[type].ymin = ext.y0;
-                    extentSet[type].xmax = ext.x1;
-                    extentSet[type].ymax = ext.y1;
-                })
+                $timeout(() => {
+                    document.getElementsByClassName(`av-set${type}ext-button`)[parseInt(index)].focus();
+                }, constants.delayWCAG)
             }
         });
+    }
 
-        /**
-         * setExtent controller
-         *
-         * @function extentController
-         * @private
-         * @param  {Object} $mdDialog  Angular dialog window object
-         */
-        function extentController($mdDialog) {
-            'ngInject';
-            const self = this;
+    /**
+     * setExtent controller
+     *
+     * @function extentController
+     * @private
+     * @param  {Object} $mdDialog  Angular dialog window object
+     */
+    function extentController($mdDialog) {
+        'ngInject';
+        const self = this;
 
-            self.close = $mdDialog.hide;
-        }
+        self.close = $mdDialog.hide;
+    }
+
+    /**
+     * Set area of interest from the viewer itself open in an iFrame
+     *
+     * @function setAreaOfInterest
+     * @param  {Array} areaOfInterestSets  array of areas of interest
+     */
+    function setAreaOfInterest(areaOfInterestSets) {
+        // we set the area in lat/long (wkid:4326)
+        const wkid = '4326';
+        const index = parseInt(document.activeElement.parentElement.getAttribute('sf-index'));
+        localStorage.setItem('configextent', `config-extent-3857`);
+
+        $mdDialog.show({
+            controller: extentController,
+            controllerAs: 'self',
+            templateUrl: templateUrls.extent,
+            parent: $('.fgpa'),
+            clickOutsideToClose: true,
+            fullscreen: false,
+            onRemoving: () => {
+                // get the extent from local storage
+                let extentMercator = JSON.parse(localStorage.getItem('mapextent'));
+                let extent = projectionService.projectExtent(extentMercator, { wkid: 4326 });
+
+                // set default bound if user close the viewer without changing the extent
+                if (extent === null) {
+                    extent = {
+                        xmin: -124,
+                        ymin: 35,
+                        xmax: -12,
+                        ymax: 57,
+                        spatialReference: { wkid: 4326 }
+                    }
+                }
+
+                localStorage.removeItem('mapextent');
+
+                // itnitialze the value because it will not work if it doesn't exist then apply values
+                areaOfInterestSets[index].xmin = extent.xmin;
+                areaOfInterestSets[index].ymin = extent.ymin;
+                areaOfInterestSets[index].xmax = extent.xmax;
+                areaOfInterestSets[index].ymax = extent.ymax;
+
+                $timeout(() => {
+                    document.getElementsByClassName('av-setareaofinterest-button')[index].focus();
+                }, constants.delayWCAG)
+            }
+        });
     }
 
     /**
@@ -216,7 +352,10 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
             templateUrl: templateUrls.lods,
             parent: $('.fgpa'),
             clickOutsideToClose: true,
-            fullscreen: false
+            fullscreen: false,
+            onRemoving: () => { $timeout(() => {
+                document.getElementsByClassName('av-setloads-button')[parseInt(index)].focus();
+            }, constants.delayWCAG); }
         });
 
         /**
@@ -280,23 +419,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
         }
 
         return mess;
-    }
-
-    /**
-     * Update the id automatically from a model value
-     *
-     * @function updateId
-     * @param  {String} model  model value
-     * @param  {Object} scope model to update
-     * @param  {String} type class to find inex
-     */
-    function updateId(model, scope, type) {
-        const index = getActiveElemIndex(type);
-        const modelId = scope.model[type][index].id;
-        const id = (typeof modelId !== 'undefined' && modelId.split('--/').length === 2) ?
-            modelId.split('--/')[1] : commonService.getUUID();
-
-        scope.model[type][index].id = `${model.split('--/')[0]}--/${id}`;
     }
 
     /**
@@ -414,6 +536,27 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     }
 
     /**
+     * Update the id automatically from a model value
+     *
+     * @function updateId
+     * @param  {String} model  model value
+     * @param  {Object} scope model to update
+     * @param  {String} type class to find inex
+     * @param {Boolean} useModel optional and default to false, specify if we use model value to generate id
+     */
+    function updateId(model, scope, type, useModel = false) {
+        const index = getActiveElemIndex(type);
+        const modelId = scope.model[type][index].id;
+
+        let tempId = (typeof modelId === 'undefined' || modelId === '') ? commonService.getUUID() : modelId;
+        tempId = (tempId.split('***').length === 2) ? tempId.split('***')[1] : (tempId.split('**/').length === 2) ?
+            tempId.split('**/')[1] : tempId;
+
+        // if empty, generate id. If not keep original or split to only keep id if it is a combine value
+        scope.model[type][index].id = (!useModel) ? tempId : `${model}***${tempId}`;
+    }
+
+    /**
     * Update scope element use inside a dynamic-select drop dowm. The value is use to link field together
     * e.g. in TitleSchema, we have extentSetId who is the value of one extent set id. This function Will
     * populate the scope element with all extent set id so user don't have to type them in
@@ -425,7 +568,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     * 'model' must be the last key in the path for this element (it is use inside dynamicSelect.module for ngModel)
     *
     * Need items with an values to updateModel
-    * { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, ['extentSets', 'id'], 'extentId'), constants.debInput, false); } },
+    * { 'key': 'extentSets[].id', 'onChange': () => { debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false); } },
     * 'onChange' function to use the self.formService.updateLinkValues where
     * scope is the form scope
     * Array of keys made from key element
@@ -437,13 +580,24 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, common
     *
     * @function updateLinkValues
     * @param  {Object} scope  form scope
-    * @param  {Array} keys the path to the key to get value from
+    * @param  {Array} keys the path to the key to get value from. It is an array of key [name, id]. If only one is provided, id will be duplicate
     * @param  {String} link the value to update (need to be the same on optionData as the the field who receive the link)
     * @param  {String} broadcast optional - the event to broadcast. This will be use to update link in another scope model
+    * @param  {String} showId optional - show the id inside the dropdown menu
     */
-    function updateLinkValues(scope, keys, link, broadcast = false) {
+    function updateLinkValues(scope, keys, link, broadcast = false, showId = false) {
         // find values then remove undefined
-        scope[link] = findValues(scope.model, keys, 0, []).filter(val => (typeof val !== 'undefined'));
+        const id = findValues(scope.model, keys[0], 0, []).filter(val => (typeof val !== 'undefined'));
+        const name = (keys.length === 2) ?
+            findValues(scope.model, keys[1], 0, []).filter(val => (typeof val !== 'undefined')) : [];
+
+        // create a pair of key [name**/id] it will be decrypted inside processOptions of dynamicSelect to show name in dropdown but apply id value
+        const linkValues = [];
+        for (let [index, value] of id.entries()) {
+            let final = showId ? ` (${value})` : '';
+            linkValues.push((name.length > 0) ? `${name[index]}${final}**/${value}` : `${value}**/${value}`)
+        }
+        scope[link] = linkValues;
 
         // if array of options is empty, add a message. This way validation will apply
         // when options are empty, the last item removed doesn't trigger validation

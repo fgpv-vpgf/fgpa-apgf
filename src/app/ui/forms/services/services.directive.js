@@ -100,7 +100,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function setForm() {
         return [
-            { 'type': 'tabs', 'tabs': [
+            { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
                 { 'title': $translate.instant('form.service.export'), 'key': 'export', 'items': [
                     { 'key': 'export.title', 'items': [
                         { 'type': 'section', 'items': [{ 'key': 'export.title.titleValue' }] },

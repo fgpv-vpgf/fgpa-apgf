@@ -170,15 +170,21 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             // read the file but add a timeout for the animation to start
             const file = files[0];
             $timeout(() => {
-                _readFile(file.file).then(data => modelManager.setModels(JSON.parse(data))
-                ).catch(error => {
+                _readFile(file.file).then(data => {
+                    modelManager.setModels(JSON.parse(data));
+
+                    // Validate data here check conformity with actual used schema
+                    // TODO Upgrade to actual version. Strip non-conform object
+
+                }).catch(error => {
                     $mdDialog.show({
                         controller: ErrorController,
                         controllerAs: 'self',
                         templateUrl: templateUrls.error,
                         parent: $('.fgpa'),
                         clickOutsideToClose: true,
-                        fullscreen: false
+                        fullscreen: false,
+                        onRemoving: () => { document.getElementsByClassName('av-load-button')[0].focus(); }
                     });
 
                     function ErrorController($mdDialog) {
@@ -238,6 +244,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             locals: { name: self.saveName },
             onRemoving: element => {
                 self.saveName = document.getElementById('avInputFileSaveName').value;
+                document.getElementsByClassName('av-save-button')[0].focus();
             }
         });
     }
@@ -245,9 +252,10 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     /**
      * save controller
      *
-     * @function extentController
+     * @function SaveController
      * @private
      * @param  {Object} $mdDialog  Angular dialog window object
+     * @param  {Object} $translate  Angular translation object
      * @param {Object} constants service with all constants for the application
      * @param {String} name previous file save name
      */
@@ -282,6 +290,7 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
             } catch (e) {
                 self.error = $translate.instant('header.savedialog.error');
                 self.isError = true;
+                document.getElementsByClassName('av-savedialog-cancel')[0].focus();
             }
         }
 

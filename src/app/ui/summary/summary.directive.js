@@ -191,8 +191,8 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
             localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
 
-            // set version to use
-            localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
+            // set the viewer version to use by the preview window/iFrame
+            localStorage.setItem('viewerversion', modelManager.getVersion());
 
             $mdDialog.show({
                 controller: previewController,
@@ -200,7 +200,10 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
                 templateUrl: templateUrls.preview,
                 parent: $('.fgpa'),
                 clickOutsideToClose: true,
-                fullscreen: false
+                fullscreen: false,
+                onRemoving: () => { $timeout(() => {
+                    document.getElementsByClassName('av-preview-button')[0].focus();
+                }, constants.delayWCAG); }
             });
         }
     }
@@ -230,7 +233,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
         $timeout(() => {
             let to = $interval(() => {
-                if (document.readyState === "complete") {
+                if (document.readyState === 'complete') {
                     $interval.cancel(to);
                     setSubTabID(constants);
                 }

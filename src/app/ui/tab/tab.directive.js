@@ -37,16 +37,22 @@ function avTab() {
  *
  * @function Controller
  * @param {Object} $translate Angular translation object
+ * @param {Object} $timeout Angular timeout object
  * @param {Object} events Angular events object
+ * @param  {Object} keyNames key names with corresponding key code
  * @param {Object} constants service with all constants for the application
+ * @param {Object} externalService external service for extension functions
  */
-function Controller($translate, events, constants) {
+function Controller($translate, $timeout, events, keyNames, constants, externalService) {
     'ngInject';
     const self = this;
 
     self.tab = 1;
     self.setTab = setTab;
     self.isSet = isSet;
+    self.showExtension = showExentsion;
+    self.isShowExtension = false;
+    $timeout(() => { self.extensions = externalService.getExtensionsCount(); }, constants.delaySplash);
 
     // set tabs name and directive tag
     self.tabs = constants.schemas.map(item => mapTabs(item));
@@ -76,6 +82,26 @@ function Controller($translate, events, constants) {
         }
     }
 
-    function setTab(newTab) { self.tab = newTab; }
+    /**
+     * Select active tab
+     *
+     * @function setTab
+     * @private
+     * @param {Number} newTab the index of tab to select
+     * @param {Object} event the triggered event
+     */
+    function setTab(newTab, event = null) {
+        self.tab = newTab;
+        self.isShowExtension = false;
+
+        // WCAG
+        if (event === null || event.which === keyNames.SPACEBAR) {
+            $timeout(() => document.getElementsByClassName('av-show-advance')[newTab - 1].focus(), constants.delayWCAG);
+
+            if (event !== null) event.preventDefault();
+        }
+    }
+
+    function showExentsion() { self.isShowExtension = !self.isShowExtension }
     function isSet(tabNum) { return self.tab === tabNum; }
 }

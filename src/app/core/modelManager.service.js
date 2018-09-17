@@ -30,7 +30,9 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         setModels,
         getModel,
         updateModel,
-        setDefault
+        setDefault,
+        checkVersion,
+        getVersion
     };
 
     const _state = {};
@@ -221,5 +223,28 @@ function modelManager($timeout, $translate, events, constants, commonService) {
      */
     function setDefault(defaultValues) {
         _default = defaultValues;
+    }
+
+    /**
+     * Check if model is in dev or prod version
+     * @function checkVersion
+     * @param {String} type of version {'prod' | 'dev'}
+     * @return {Boolean} true
+     */
+    function checkVersion(type = 'dev') {
+        const model = _model['version'];
+        const version = type === 'dev' ? constants.devVersion : constants.prodVersion ;
+
+        return model !== undefined && parseFloat(model.version) === version ? true : false;
+    }
+
+    /**
+     * get viewer version
+     * @function getVersion
+     * @return {String} Version
+     */
+    function getVersion() {
+        const model = _model['version'];
+        return model !== undefined ? model.version : constants.proVersion;
     }
 }

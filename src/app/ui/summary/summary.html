@@ -2,7 +2,8 @@
     <h1>{{ 'app.summary' | translate }}</h1>
     <div class="av-summary-button">
         <md-button
-            class="av-button-square md-raised"
+            id = "validate"
+            class="av-button-square md-raised av-summary-validate"
             ng-click="self.validateForm()">
             {{ 'button.validate' | translate }}
             <md-tooltip>{{ 'button.validate' | translate }}</md-tooltip>
@@ -22,7 +23,7 @@
             <md-tooltip>{{ 'summary.collapse' | translate }}</md-tooltip>
         </md-button>
         <md-button
-            class="av-button-square md-raised"
+            class="av-button-square md-raised av-preview-button"
             ng-disabled="!self.previewReady()"
             ng-click="self.openPreview()">
             {{ 'summary.preview' | translate }}

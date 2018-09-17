@@ -23,3 +23,10 @@ const fontsLink = d.createElement('link');
 fontsLink.href = '//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic';
 fontsLink.rel = 'stylesheet';
 headNode.appendChild(fontsLink);
+
+// this function will add an alert window before doing previous on the page
+// to be active use must have made modifications to the form
+// we can't set a custom message, the default message from the browser will be displayed
+window.onbeforeunload = function () {
+    return 'Are you sure you want to leave?';
+}
