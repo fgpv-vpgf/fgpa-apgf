@@ -36,6 +36,9 @@
       "type": "string", 
       "description": "ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22" 
     },
+    "corsEverywhere": { 
+      "type": "boolean", 
+      "description": "A boolean indicating that all services are CORS enabled.  This is mutually exclusive with proxyUrl." },
     "search": {
       "type": "object",
       "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls",
