@@ -56,14 +56,15 @@
 
     // set viewer version
     var scriptTag = document.createElement('script');
-    var version = parseFloat(localStorage.getItem('viewerversion')) > 2.2 ? localStorage.getItem('viewerversion') : 2.2;
-    scriptTag.src = 'tpln.gc.ca/fgpv/fgpv-2.5.0/rv-main.js'
+    var version = parseFloat(localStorage.getItem('viewerversion')) > 2.3 ? localStorage.getItem('viewerversion') : 2.3;
+    scriptTag.src = 'https://geoappext.nrcan.gc.ca/fgpv/fgpv-x.x.0/rv-main.js'
         .replace('x.x', version);
     document.body.appendChild(scriptTag);
 
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');
     localStorage.removeItem('viewerversion');
+    localStorage.removeItem('viewerenv');
 </script>
 
 </body>
