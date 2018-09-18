@@ -21,11 +21,11 @@ In [/src/app/core/constant.service.js](https://github.com/fgpv-vpgf/fgpa-apgf/bl
 Set the new develop and production versions
 
 ```js
-devVersion: 2.4
+devVersion: 2.5
 ```
 
 ```js
-prodVersion: 2.3
+prodVersion: 2.4
 ```
 
 [Back to top](#guide-to-upgrade-author-version)
@@ -34,8 +34,8 @@ prodVersion: 2.3
 
 You'll have to both modify the `enum[]` list and the `default` value in both `version` files.
 
-In this example `2.3` becomes de production version and `2.4` the development one.
-The previous production version is removed (`2.2`).
+In this example `2.4` becomes de production version and `2.5` the development one.
+The previous production version is removed (`2.3`).
 
 >&emsp;"version": { <br/>
 >&emsp;&emsp;"title": "Version", <br/>
@@ -105,7 +105,7 @@ You can also modify/update the schema documentation [here](https://github.com/fg
 
 ### **9. Example**
 
-We have a new object called **altText** which is a new property of the `logo` object for the new viewer version `2.4`.
+We have a new object called **altText** which is a new property of the `logo` object for the new viewer version `2.5`.
 
 **In the viewer 2.4 schema**
 
@@ -133,7 +133,7 @@ You can see an implicit declaration of the `logo` since none of the logo's prope
 
 **In the Author schema**
 
-Add the new object in the proper Author schema and add a property named `version` with the version number (`2.4` in the example) which introduce the new property.
+Add the new object in the proper Author schema and add a property named `version` with the version number (`2.5` in the example) which introduce the new property.
 
 >&emsp;"logo": { <br/>
 >&emsp;&emsp;"type": "object", <br/>
