@@ -45,11 +45,11 @@ angular
             },
             services: {
                 index: 2,
-                keys: ['export', 'search', 'esriLibUrl' ,'form.service.urls']
+                keys: ['export', 'search' ,'form.service.urls']
             }
         },
         devVersion: 2.5,
-        prodVersion: 2.4
+        prodVersion: 2.3
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
 function events($rootScope) {

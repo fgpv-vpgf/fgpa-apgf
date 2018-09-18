@@ -1,4 +1,5 @@
 {
+  "version": "2.5",
   "description": "Un ensemble de points de service utilisés par le visualisateur",
   "type": "object",
   "schema": "services",
@@ -34,8 +35,8 @@
     },
     "esriLibUrl": { 
       "type": "string", 
-      "description": "Point de service pour l'API ESRI JavaSCript. Note, nous ne pouvont utiliser une version plus grande que v3.22" 
-    },    
+      "description": "Point de service pour l'API ESRI JavaSCript. Note, nous ne pouvons utiliser une version plus grande que v3.22" 
+    },
     "search": {
       "type": "object",
       "description": "Propriétés de la recherche incluant la possibilité d'activer certains types de recherche (Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude) et d'identifier les URLs des points de service",

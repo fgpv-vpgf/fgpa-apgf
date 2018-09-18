@@ -1,4 +1,5 @@
 {
+  "version": "2.5",
   "description": "A set of service endpoints used by the viewer",
   "type": "object",
   "schema": "services",
