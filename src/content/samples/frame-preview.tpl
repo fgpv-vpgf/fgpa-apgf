@@ -56,9 +56,17 @@
 
     // set viewer version
     var scriptTag = document.createElement('script');
-    var version = parseFloat(localStorage.getItem('viewerversion')) > 2.3 ? localStorage.getItem('viewerversion') : 2.3;
-    scriptTag.src = 'https://dev.gcgeo.gc.ca/fgpv/fgpv-x.x.0/rv-main.js'
-        .replace('x.x', version);
+    var version = localStorage.getItem('viewerversion');
+    var envar = '';
+    envar = localStorage.getItem('viewerenv');
+    if(envar ==='dev'){
+            envar+='.';
+            scriptTag.src = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}',envar);
+        }
+        else{
+            scriptTag.src = 'https://gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version);
+        }
+        
     document.body.appendChild(scriptTag);
 
     localStorage.removeItem('configlangs');
