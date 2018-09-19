@@ -143,7 +143,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
-                    { 'key': 'esriLibUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true }
+                    { 'key': 'esriLibUrl', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'readonly': true }
                     // FIXME: not defined in the schema... need to see of still needed { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     // FIXME: not defined in the schema... need to see of still needed { 'key': 'coordInfo' },
                     // FIXME: not defined in the schema... need to see of still needed { 'key': 'print' }

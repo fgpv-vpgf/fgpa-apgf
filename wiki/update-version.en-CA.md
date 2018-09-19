@@ -21,7 +21,7 @@ In [/src/app/core/constant.service.js](https://github.com/fgpv-vpgf/fgpa-apgf/bl
 Set the new develop and production versions
 
 ```js
-devVersion: 2.5
+devVersion: 2.4
 ```
 
 ```js

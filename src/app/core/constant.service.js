@@ -45,7 +45,7 @@ angular
             },
             services: {
                 index: 2,
-                keys: ['export', 'search' ,'form.service.urls']
+                keys: ['export', 'search', 'form.service.urls']
             }
         },
         devVersion: 2.5,
