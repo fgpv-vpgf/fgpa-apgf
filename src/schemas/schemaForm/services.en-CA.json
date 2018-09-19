@@ -1,5 +1,4 @@
 {
-  "version": "2.5",
   "description": "A set of service endpoints used by the viewer",
   "type": "object",
   "schema": "services",
@@ -35,7 +34,8 @@
     },
     "esriLibUrl": { 
       "type": "string", 
-      "description": "ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22" 
+      "description": "ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22", 
+      "version": "2.5"
     },
     "search": {
       "type": "object",
