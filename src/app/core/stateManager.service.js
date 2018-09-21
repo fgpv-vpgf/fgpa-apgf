@@ -1051,7 +1051,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 'form.ui.nav': ['restrictNavigation', 'navBar'],
                 'form.ui.sidemenu': ['sideMenu', 'logoUrl', 'title', 'help', 'about']
             },
-            'services': { 'form.service.urls': ['exportMapUrl', 'geometryUrl', 'googleAPIKey', 'proxyUrl'] },
+            'services': { 'form.service.urls': ['exportMapUrl', 'geometryUrl', 'googleAPIKey', 'proxyUrl', 'esriLibUrl'] },
             'language': {},
             'version': {}
         };
