@@ -58,7 +58,7 @@
     var scriptTag = document.createElement('script');
     var version = localStorage.getItem('viewerversion');
     var envar = localStorage.getItem('viewerenv');
-    envar = (envar ==='dev')? 'dev.':'';
+    envar = (envar === 'dev') ? 'dev.' : '';
     scriptTag.src = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
     document.body.appendChild(scriptTag);
     localStorage.removeItem('configlangs');
