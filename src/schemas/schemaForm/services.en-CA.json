@@ -35,7 +35,10 @@
     "esriLibUrl": { 
       "type": "string", 
       "description": "ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22", 
-      "version": "2.5.0-0726"
+      "title": "Esri Lib Path",
+      "help" : "Esi library path",
+      "version": "2.5.0-0726",
+      "default": ""
     },
     "search": {
       "type": "object",
