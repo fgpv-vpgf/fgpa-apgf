@@ -32,6 +32,14 @@
       "help": "Do we really need this?",
       "default": ""
     },
+    "esriLibUrl": { 
+      "type": "string", 
+      "description": "Point de service pour l'API ESRI JavaSCript. Note, nous ne pouvons utiliser une version plus grande que v3.22",
+      "title": "Chemin d'accès à la librarie Esri",
+      "help" : "Chemin d'accès à la librarie Esri",
+      "version": "2.5.0-0726",
+      "default": ""
+    },
     "search": {
       "type": "object",
       "description": "Propriétés de la recherche incluant la possibilité d'activer certains types de recherche (Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude) et d'identifier les URLs des points de service",

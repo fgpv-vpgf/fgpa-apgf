@@ -173,6 +173,18 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
     }
 
     /**
+     * Set local storage viewerversion parameter
+     *
+     * @function setLocalVersion
+     * @private
+     */
+    function setLocalVersion() {
+        localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
+        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '2.5.0-0726' ? 'dev' : '');
+    }
+
+
+    /**
      * Open a dialog window to show current configuration
      *
      * @function openPreview
@@ -192,7 +204,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
 
             // set the viewer version to use by the preview window/iFrame
-            localStorage.setItem('viewerversion', modelManager.getVersion());
+            setLocalVersion();
 
             $mdDialog.show({
                 controller: previewController,

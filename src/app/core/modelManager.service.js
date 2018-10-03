@@ -235,7 +235,7 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         const model = _model['version'];
         const version = type === 'dev' ? constants.devVersion : constants.prodVersion ;
 
-        return model !== undefined && parseFloat(model.version) === version ? true : false;
+        return model !== undefined && model.version === version ? true : false;
     }
 
     /**

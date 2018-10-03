@@ -97,6 +97,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function setLocalVersion() {
         localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
+        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '2.5.0-0726' ? 'dev' : '');
     }
 
     events.$on(events.avValidateForm, () => {
