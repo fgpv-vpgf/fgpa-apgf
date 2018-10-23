@@ -30,7 +30,7 @@ We use a fork and pull model for contributions, see our [contributing guidelines
 -------------------------------------------------------------------
 # Auteur pour le visualisateur de la Plateforme géospatiale fédérale (PGF)
 
-[Page Démonstration](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)
+[Page Démonstration](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)!
 
 ## Pour commencer
 
