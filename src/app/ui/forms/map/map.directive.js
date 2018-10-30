@@ -136,7 +136,7 @@ function Controller($scope, $translate, $timeout,
     });
 
     events.$on(events.avValidateLegend, () => {
-        validateLegend();
+        validateLegend('file');
     });
 
     /**
@@ -311,15 +311,22 @@ function Controller($scope, $translate, $timeout,
      *
      * @function validateLegend
      * @private
+     * @param  {String} legendSource  the source of the structured legend - file or form
      */
-    function validateLegend() {
+    function validateLegend(legendSource) {
         // remove focus event
         $('#activeForm-legend-root').off('focus');
 
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
             if  ($scope.model.legend.type === 'structured') {
-                $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+               if ( legendSource === 'file') {
+                 // removed json.parse due to syntax error on file,template load
+                 $scope.model.legend.root = JSON.stringify(($scope.model.legend.root), null, 4);
+               }
+               else {
+                  $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+               }
                 document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
                 // Validate layers ID
@@ -599,7 +606,7 @@ function Controller($scope, $translate, $timeout,
                                 self.formService.updateLinkValues($scope, [['tileSchemas', 'id'], ['tileSchemas', 'name']], 'tileId');
                             }
 
-                            // update tiles schema numbers 
+                            // update tiles schema numbers
                             self.tileSchemas = tiles.length;
                         }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'type': 'fieldset', 'htmlClass': 'av-tileschema', 'items': [
@@ -634,8 +641,8 @@ function Controller($scope, $translate, $timeout,
                                 if (self.extentSets !== -1 && extents.length < self.extentSets) {
                                     self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId')
                                 }
-    
-                                // update extents numbers 
+
+                                // update extents numbers
                                 self.extentSets = extents.length;
                             }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                                 { 'type': 'template', 'template': addButton('extentdefault', 'setExtent', 'av-setdefaultext-button'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
@@ -724,7 +731,7 @@ function Controller($scope, $translate, $timeout,
                             if (self.lodSets !== -1 && lods.length < self.lodSets) {
                                 self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId');
                             }
-                            // update lods numbers 
+                            // update lods numbers
                             self.lodSets = lods.length;
                         }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[]', 'htmlClass': `av-lods-array`, 'items': [
@@ -942,7 +949,7 @@ function Controller($scope, $translate, $timeout,
                             }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
+                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend('form') },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
                                     { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
