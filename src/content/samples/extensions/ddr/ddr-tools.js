@@ -894,7 +894,7 @@ function getDeleteList(json) {
 }
 
 /**
- * Creates the report Header.
+ *  Creates the report Header.
  *
  * @function  setHeader
  * @private
@@ -942,7 +942,7 @@ function getDeleteList(json) {
 }
 
 /**
- * Filter Message Type by making message type visible.
+ *  Filter Message Type by making message type visible.
  *
  * @function filterMessType
  * @private
@@ -966,7 +966,7 @@ function getDeleteList(json) {
 }
 
 /**
- * Filter Message Severity by making message visible.
+ *  Filter Message Severity by making message visible.
  *
  * @function filterMessSev
  * @private
