@@ -1,13 +1,13 @@
 {
     "schema": "ui",
     "title": "UI",
-    "description": "Un lot de points de service utilisés par le visualisateur",
+    "description": "Un lot de points de service utilisés par le visualisateur.",
     "type": "object",
     "properties": {
         "fullscreen": {
           "type": "boolean",
           "default": false,
-          "description": "Indique si le visualisateur utilise l'entièreté de la fenêtre d'affichage",
+          "description": "Indique si le visualisateur utilise l'entièreté de la fenêtre d'affichage.",
           "title": "Plein écran"
         },
         "theme": {
@@ -27,7 +27,7 @@
         },
         "failureFeedback": {
             "type": "object",
-            "title": "Lors de la défaillance du visualisateur",
+            "title": "Lors de la défaillance du visualisateur.",
             "properties": {
                 "failureMessage": {
                     "type": "string",
@@ -154,7 +154,7 @@
             "title": "Navigation restreinte"
         },
         "about": {
-          "description": "L'à propos de la carte provenant du fichier de configuration ou d'un répertoire contenant un fichier de type Markdown",
+          "description": "L'à propos de la carte provenant du fichier de configuration ou d'un répertoire contenant un fichier de type Markdown.",
           "title": "À propos de la carte",
           "type": "object",
           "subtype": "oneof",
@@ -222,19 +222,19 @@
                         "large": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue",
+                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue.",
                               "title": "Ouvrir par défaut dans l'affichage étendu"
                         },
                         "medium": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne",
+                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne.",
                               "title": "Ouvrir par défaut dans l'affichage moyen"
                         },
                         "small": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte",
+                              "description": "Indique si le panneau des couches (légende) est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte.",
                               "title": "Ouvrir par défaut dans l'affichage restreint"
                         }
                     },
@@ -249,39 +249,32 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "L'ID de la couche pour des fins de référencement à l'intérieur du visualisateur. Fonctionne seulement avec des couches de type \"feature layer\"",
+                    "description": "L'ID de la couche pour des fins de référencement à l'intérieur du visualisateur. Fonctionne seulement avec des couches de type \"feature layer\".",
                     "title": "ID de la couche",
                     "default": ""
                 },
                 "large": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue",
+                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage étendue.",
                     "title": "Ouvrir par défaut dans l'affichage étendu"
                 },
                 "medium": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne",
+                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage moyenne.",
                     "title": "Ouvrir par défaut dans l'affichage moyen"
                 },
                 "small": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte",
+                    "description": "Indique si la table est ouverte par défaut lors du chargement initial pour une fenêtre d'affichage restreinte.",
                     "title": "Ouvrir par défaut dans l'affichage restreint"
                 }
             },
             "additionalProperties": false,
             "required": ["id"],
             "title": "Options d'ouverture de la table"
-        },
-        "widgetsWidget": {
-            "type": "object",
-            "additionalProperties": true,
-            "description": "FIXME",
-            "title": "",
-            "default": ""
         }
     }
 }

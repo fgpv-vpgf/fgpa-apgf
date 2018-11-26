@@ -192,3 +192,7 @@ A visibility set is a group of entries and/or entry groups that are mutually exc
 > **Interface**
 
 ![Visibility set](./help/images/legendVisibilitySet.png)
+
+> **Link to project's page**
+
+<a href="https://fgpv-vpgf.github.io/fgpv-vpgf/v2.3.0-semi-weekly01/tutorial-legend.html" target="_blank">For more information...</a>

@@ -509,9 +509,9 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         if (found.length === 1) {
             stateModel.items[4].items[setID[0]]['items'] = [];
             const items = model[setID[1]][setID[2]];
-    
+
             for (let [j, item] of items.entries()) {
-    
+
                 let title = item.title;
                 let stype = 'element';
                 let valid = getValidityValue(setID[1], j, arrKeys);
@@ -521,7 +521,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                     valid = false;
                 }
                 const shlink = setItemId(hlink, j, setID[1], setID[2]);
-    
+
                 stateModel.items[4].items[setID[0]]['items']
                     .push({ 'key': title,
                         'title': title,
@@ -720,20 +720,25 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 let root = item.items[1];
 
                 // Structured or autopopulate
-                if (model.legend.type === 'autopopulate') {
-                    root.title = $translate.instant('form.map.legendauto');
-                    root.valid = true;
-
-                } else {
-                    root.title = $translate.instant('form.map.legendstruct');
-                    root.valid = legendState;
-
-                    // Set state back to is original value
-                    legendState = true;
-                }
-
                 let path = ['legend', 'root'];
-                setStateValueUp(mapStateModel, path, 'valid', root.valid);
+                if (typeof model.legend.root.title !== 'undefined') {
+                    if (model.legend.type === 'autopopulate') {
+                        root.title = $translate.instant('form.map.legendauto');
+                        root.valid = true;
+
+                    } else {
+                        root.title = $translate.instant('form.map.legendstruct');
+                        root.valid = legendState;
+
+                        // Set state back to is original value
+                        legendState = true;
+                    }
+
+
+                    setStateValueUp(mapStateModel, path, 'valid', root.valid);
+                } else {
+                    setStateValueUp(mapStateModel, path, 'valid', true);
+                }
             }
         }
     }

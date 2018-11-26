@@ -6,9 +6,11 @@ A set of service endpoints used by the viewer.
 
 &emsp; [**"services"**](#services): **{**<br/>
 &emsp;&emsp;&emsp; ["proxyUrl"](#servicesproxyurl): ...,<br/>
+&emsp;&emsp;&emsp; ["corsEverywhere"](#servicescorsEverywhere): ...,<br/>
 &emsp;&emsp;&emsp; ["exportMapUrl"](#servicesexportmapurl): ...,<br/>
 &emsp;&emsp;&emsp; ["geometryUrl"](#servicesgeometryurl): ...,<br/>
 &emsp;&emsp;&emsp; ["googleAPIKey"](#servicesgoogleapikey): ...,<br/>
+&emsp;&emsp;&emsp; ["esriLibUrl"](#servicesesriliburl): ...,<br/>
 &emsp;&emsp;&emsp; [**"search"**](#servicessearch): {<br/>
 &emsp;&emsp;&emsp;&emsp; ["disabledSearches"](#servicessearchdisabledsearches): [...],<br/>
 &emsp;&emsp;&emsp;&emsp; [**"serviceUrls"**](#servicessearchserviceurls): {<br/>
@@ -36,6 +38,9 @@ A set of service endpoints used by the viewer.
 &emsp;&emsp;&emsp;&emsp;     [**"legend"**](#servicesexportlegend): {<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;         ["isSelected"](#servicesexportlegend): ...,<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;         ["isSelectable"](#servicesexportlegend): ...<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;         ["showInfoSymbology"](#servicesexportlegend): ...<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;         ["showControlledSymbology"](#servicesexportlegend): ...<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;         ["columnWidth"](#servicesexportlegend): ...<br/>
 &emsp;&emsp;&emsp;&emsp;     },<br/>
 &emsp;&emsp;&emsp;&emsp;     [**"footnote"**](#servicesexportfootnote): {<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;         ["isSelected"](#servicesexportfootnote): ...,<br/>
@@ -46,6 +51,8 @@ A set of service endpoints used by the viewer.
 &emsp;&emsp;&emsp;&emsp;&emsp;         ["isSelected"](#servicesexporttimestamp): ...,<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;         ["isSelectable"](#servicesexporttimestamp): ...<br/>
 &emsp;&emsp;&emsp;&emsp;     }<br/>
+&emsp;&emsp;&emsp;&emsp;     [**"timeout"**](#servicesexporttimeout): ...<br/>
+&emsp;&emsp;&emsp;&emsp;     [**"cleanCanvas"**](#servicesexportcleancanvas): ...<br/>
 &emsp;&emsp;&emsp; }<br/>
 &emsp; *}*
 
@@ -66,6 +73,16 @@ A set of service endpoints used by the viewer.
 | Type | Default value | Example | Author section | Advance | Required |
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *string* | `""` | `"http://.../ProxyEndPoint"` | Services/Service End Points | Yes | - |
+
+[:arrow_up: back to Services](#services-json-tree)
+
+>### [services:_**`corsEverywhere`**_](#services--corsEverywhere)
+>>A boolean indicating that all services are CORS enabled. This is mutually exclusive with proxyUrl..
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `` | Services/Service End Points | Yes | - |
+
 
 [:arrow_up: back to Services](#services-json-tree)
 ***
@@ -93,6 +110,14 @@ A set of service endpoints used by the viewer.
 | Type | Default value | Example | Author section | Advance | Required |
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *string* | `""` | `"AIzaSyBT6w4TvRdWFhFk35tc"` | Services/Service End Points | Yes | - |
+
+[:arrow_up: back to Services](#services-json-tree)
+>### [services:_**`esriLibUrl`**_](#services--esriLibUrl)
+>>ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `""` | `"http://..."` | Services/Service End Points | Yes | - |
 
 [:arrow_up: back to Services](#services-json-tree)
 ***
@@ -210,6 +235,9 @@ A set of service endpoints used by the viewer.
 | ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
 | [**legend : isSelectable**](#services--export--legend) | *boolean* |  | `true` | `true` | Services/Export Map | - | - |
 | [**legend : isSelected**](#services--export--legend) | *boolean* |  | `true` | `true` | Services/Export Map | - | - |
+| [**legend : showInfoSymbology**](#services--export--legend) | *boolean* |  | `false` | `true` | Services/Export Map | - | - |
+| [**legend : showControlledSymbology**](#services--export--legend) | *boolean* |  | `false` | `true` | Services/Export Map | - | - |
+| [**legend : columnWidth**](#services--export--legend) | *integer* |  | `350` | `true` | Services/Export Map | - | - |
 
 >### [services:export:_**`footnote`**_](#services--export--footnote)
 >>Foot notice to add to exported map.
@@ -238,6 +266,24 @@ A set of service endpoints used by the viewer.
 
 [:arrow_up: back to Services](#services-json-tree)
 
+### [services:export:_**`timeout`**_](#services--export--timeout)
+>>A timeout delay in milliseconds after which the export image generation is considered to have failed. Defaults to 120sec.
+
+| Name | Type | Description | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| [**timeout**](#services--export--timeout)| *integer* |  | `120` | `true` | Services/Export Map | - | - |
+
+[:arrow_up: back to Services](#services-json-tree)
+
+### [services:export:_**`cleanCanvas`**_](#services--export--cleancanvas)
+>>If set to true the export will omit layers and images that would cause issues with saving. If set to false users may need to save by right-clicking and selecting save image.
+
+| Name | Type | Description | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+| [**cleanCanvas**](#services--export--cleancanvas)| *boolean* |  | `false` | `true` | Services/Export Map | - | - |
+
+[:arrow_up: back to Services](#services-json-tree)
+
 ## **Annex**
 
 
@@ -255,6 +301,18 @@ You can find more information about **proxy services** [here](https://developers
 ```
 
 [:arrow_up: back to proxyUrl](#servicesproxyurl)
+
+>## **services : corsEverywhere**
+
+```js
+    "services"{
+        ...,
+        "corsEverywhere": false,
+        ...
+    }
+```
+
+[:arrow_up: back to corsEverywhere](#servicescorsEverywhere)
 
 >## **services : exportMapUrl**
 
@@ -301,6 +359,21 @@ You can find more information about the **google API Key service** [here](https:
 ```
 
 [:arrow_up: back to googleAPIKey](#servicesgoogleapikey)
+
+
+>## **services : ESRI Library URL**
+
+SRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22.
+
+```js
+    "services"{
+        ...,
+        "esriLibUrl": "http://...",
+        ...
+    }
+```
+
+[:arrow_up: back to esriLibUrl](#servicesesriliburl)
 
 
 >## **services : search**
@@ -444,7 +517,10 @@ Accessing the export settings can be done through the settings button ![Settings
       ...,
       "legend": {
         "isSelectable": true,
-        "isSelected": true
+        "isSelected": true,
+        "showInfoSymbology": false,
+        "showControlledSymbology": false,
+        "columnWidth": 350
       },
       ...
     }
@@ -488,3 +564,27 @@ Accessing the export settings can be done through the settings button ![Settings
 ![timestamp](https://github.com/ChrisLatRNCan/fgpa-apgf/blob/8-schemaDoc/wiki/images/services-export-timestamp.png)
 
 [:arrow_up: back to timestamp](#servicesexporttimestamp)
+
+>## services : export : timeout
+
+```js
+    "export": {
+      ...,
+      "timeout": 120,
+      ...
+    }
+```
+
+[:arrow_up: back to timeout](#servicesexporttimeout)
+
+>## services : export : cleanCanvas
+
+```js
+    "export": {
+      ...,
+      "cleanCanvas": false,
+      ...
+    }
+```
+
+[:arrow_up: back to cleanCanvas](#servicesexportcleancanvas)

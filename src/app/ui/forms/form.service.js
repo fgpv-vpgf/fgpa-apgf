@@ -69,16 +69,13 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
     events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
 
     // when we add basemap or layers, if show advance is click, remove hidden
-    events.$on(events.avNewItems, () => { $timeout(() => showAdvance(), constants.debInput) });
+    events.$on(events.avNewItems, () => { $timeout(() => {
+        showAdvance();
+        showVersion();
+    }, constants.debInput) });
 
     // when version is set, show/hide dev version fields
-    events.$on(events.avVersionSet, () => {
-        const show = modelManager.checkVersion();
-
-        const items = document.getElementsByClassName('av-version-dev');
-        const func = (show) ? 'removeClass' : 'addClass';
-        $(items)[func]('av-version-dev-hide');
-    });
+    events.$on(events.avVersionSet, () => { $timeout(() => showVersion(), constants.debInput) });
 
     // set WCAG
     events.$on(events.avSchemaUpdate, () => { $timeout(() => { WCAG() }, constants.delaySplash) });
@@ -133,6 +130,19 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
         const func = (service.advanceModel) ? 'removeClass' : 'addClass';
         $(elems)[func]('hidden');
+    }
+
+    /**
+     * Show versions fields
+     *
+     * @function showVersion
+     */
+    function showVersion() {
+        const show = modelManager.checkVersion();
+
+        const items = document.getElementsByClassName('av-version-dev');
+        const func = (show) ? 'removeClass' : 'addClass';
+        $(items)[func]('av-version-dev-hide');
     }
 
     /**

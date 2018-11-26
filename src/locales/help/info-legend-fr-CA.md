@@ -192,3 +192,7 @@ Un groupe de visibilité est un groupe d'entrées et/ou d'autres groupes de visi
 > **Interface**
 
 ![Visibility set](./help/images/legendVisibilitySet.png)
+
+> **Lien vers la page du projet**
+
+<a href="https://fgpv-vpgf.github.io/fgpv-vpgf/v2.3.0-semi-weekly01/tutorial-legend.html" target="_blank">Pour de plus amples information...</a> (anglais seulement).

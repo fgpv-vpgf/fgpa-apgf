@@ -10,7 +10,7 @@
                 "en-CA",
                 "fr-CA"
             ],
-            "description": "Code ISO 639-1 pour indiquer la langue du fichier de configuration",
+            "description": "Code ISO 639-1 pour indiquer la langue du fichier de configuration.",
             "default": "fr-CA"
         }
     }

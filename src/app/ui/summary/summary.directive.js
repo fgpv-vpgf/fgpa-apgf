@@ -180,7 +180,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
      */
     function setLocalVersion() {
         localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
-        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '2.5.0-0726' ? 'dev' : '');
+        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '2.5.0' ? 'dev' : '');
     }
 
 
