@@ -64,6 +64,7 @@ form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
 form service,form.service.nts,NTS,0,SNRC,0
+form service,form.service.legendSettings,More Settings,0,Autre réglages,0
 form service,form.service.fsa,Postal Code/FSA,0,Code postal / RTA,0
 form service,form.service.latlong,Latitude/Longitude,0,Latitude / Longitude,0
 form map,form.map.extentlods,Extents and Levels of Detail,0,Étendues et niveaux de détail,0
@@ -79,6 +80,7 @@ form map,form.map.layers,Layers,0,Couches,0
 form map,form.map.layer,Layer,0,Couche,0
 form map expand/collapse help,form.map.expcoldesc,Alt-s/Alt-x can also be use to expand or collapse the collection instead of buttons.,0,Vous pouvez également utiliser Alt-s/Alt-x pour ouvrir ou fermer la collection au lieu des boutons.,0
 form map,form.map.layerentry,Layer Entry,0,Entrée de couche,0
+form map,form.map.layerdetail,Details panel,0,Panneau de détails,0
 form map,form.map.legend,Legend,0,Légende,0
 form map,form.map.legendtext,Legend in JSON Format,0,Légende en format JSON,0
 form map,form.map.legendtextvalidate,Validate JSON,0,Valider JSON,0

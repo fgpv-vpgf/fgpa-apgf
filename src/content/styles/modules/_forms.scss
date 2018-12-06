@@ -113,4 +113,9 @@
     .av-version-dev-hide {
         display: none;
     }
+
+    .av-version-dev {
+        border-left: 2px $accent-color solid;
+        padding-left: 10px;
+    }
 }

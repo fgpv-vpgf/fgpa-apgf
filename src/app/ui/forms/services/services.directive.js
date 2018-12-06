@@ -113,7 +113,10 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] },
                     { 'key': 'export.legend', 'items': [
                         { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelected' }] },
-                        { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelectable' }] }
+                        { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelectable' }] },
+                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'items': [{ 'key': 'export.legend.showInfoSymbology' }] },
+                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'items': [{ 'key': 'export.legend.showControlledSymbology' }] },
+                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'items': [{ 'key': 'export.legend.columnWidth' }] }
                     ] },
                     { 'key': 'export.mapElements', 'items': [
                         { 'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelected' }] },
@@ -127,6 +130,10 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'export.timestamp', 'items': [
                         { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelected' }] },
                         { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelectable' }] }
+                    ] },
+                    { 'title': $translate.instant('form.service.legendSettings'), 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'key': 'export', 'items': [
+                        { 'key': 'export.timeout' },
+                        { 'key': 'export.cleanCanvas' }
                     ] }
                 ] },
                 { 'title': $translate.instant('form.service.geosearch'), 'key': 'search', 'items': [
@@ -140,6 +147,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                 { 'title': $translate.instant('form.service.urls'), 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-servicesurl-${commonService.getLang()}.md`, true) },
                     { 'key': 'proxyUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    { 'key': 'corsEverywhere', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'readonly': false },
                     { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true },

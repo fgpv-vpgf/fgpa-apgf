@@ -158,6 +158,7 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;&emsp;["layerType"](#nodetileschemanodeoverviewurllayertype): ...,<br/>
 &emsp;&emsp;&emsp;&emsp;["url"](#nodetileschemanodeoverviewurlurl): ...<br/>
 &emsp;&emsp;&emsp;&emsp;}<br/>
+&emsp;&emsp;&emsp;["hasNorthPole"](#nodetileschemanodenorthpole): ...,<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -677,6 +678,13 @@ Core map properties (extent sets, levels of detail).
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *string* | - | `"https://services.arcgisonline.com/.../World_Street_Map/MapServer"` | Map/Extents and Levels of Details | Yes | Yes |
 
+>### [node:tileSchemaNode:hasNorthPole](#node--tileschemanode--northpole)
+>>Indicates if the map projection includes a north pole. Defaults to false to avoid errors.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | - | `true` | Map/Extents and Levels of Details | Yes | Yes |
+
 [:arrow_up: back to tileSchemaNode](#tileschemanode-json-tree)
 ***
 >### [node:_**`extentNode`**_](#node--extentnode)
@@ -721,7 +729,7 @@ Core map properties (extent sets, levels of detail).
 ***
 
 >### [node:_**`legendEntryControls`**_](#node--legendentrycontrols)
->>A list of all controls to be enabled on the specified layer. Possible values are: 
+>>A list of all controls to be enabled on the specified layer. Possible values are:
 `"opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"`
 
 | Type | Default value | Example | Author section | Advance | Required |

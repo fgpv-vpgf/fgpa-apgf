@@ -1,19 +1,27 @@
 {
-  "description": "A set of service endpoints used by the viewer",
+  "description": "A set of service endpoints used by the viewer.",
   "type": "object",
   "schema": "services",
   "title": "Services",
   "properties": {
     "proxyUrl": {
       "type": "string",
-      "description": "An optional proxy to be used for dealing with same-origin issues.  URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.",
+      "description": "An optional proxy to be used for dealing with same-origin issues. URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers.",
       "title": "Proxy URL",
       "help": "",
       "default": ""
     },
+    "corsEverywhere": {
+      "type": "boolean",
+      "description": "A boolean indicating that all services are CORS enabled. This is mutually exclusive with proxyUrl.",
+      "title": "CORS Enabled",
+      "help": "",
+      "default": false,
+      "version": "2.5"
+    },
     "exportMapUrl": {
       "type": "string",
-      "description": "An ESRI service endpoint for generating map images.  Should point directly to an endpoint that can be consumed by ESRI PrintTask.",
+      "description": "An ESRI service endpoint for generating map images. Should point directly to an endpoint that can be consumed by ESRI PrintTask.",
       "title": "Export Map URL",
       "help": "",
       "default": ""
@@ -32,17 +40,17 @@
       "help": "Do we really need this?",
       "default": ""
     },
-    "esriLibUrl": { 
-      "type": "string", 
-      "description": "ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22", 
+    "esriLibUrl": {
+      "type": "string",
+      "description": "ESRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22.",
       "title": "Esri Library Path",
       "help" : "Esri Library Path",
-      "version": "2.5.0-0726",
-      "default": ""
+      "default": "",
+      "version": "2.5"
     },
     "search": {
       "type": "object",
-      "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls",
+      "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls.",
       "properties": {
         "disabledSearches": {
           "type": "array",
@@ -55,45 +63,45 @@
             ]
           },
           "uniqueItems": true,
-          "description": "Enable specific types of searches including: National Topographic System, Postal Code/Foward Sorting Area or Latitude/Longitude (e.g. 58.12;-100.67)",
+          "description": "Enable specific types of searches including: National Topographic System, Postal Code/Foward Sorting Area or Latitude/Longitude (e.g. 58.12;-100.67).",
           "title": "Search type to enable",
           "help": "",
           "default": []
         },
         "serviceUrls": {
           "type": "object",
-          "description": "Service endpoint urls",
+          "description": "Service endpoint urls.",
           "properties": {
             "geoNames": {
               "type": "string",
-              "description": "Endpoint url for geoNames service",
+              "description": "Endpoint url for geoNames service.",
               "title": "Geo Names URL",
               "default": ""
             },
             "geoLocation": {
               "type": "string",
-              "description": "Endpoint url for geoLocation service",
+              "description": "Endpoint url for geoLocation service.",
               "title": "Geo Location URL",
               "help": "",
               "default": ""
             },
             "geoSuggest": {
               "type": "string",
-              "description": "Endpoint url for geoSuggest service",
+              "description": "Endpoint url for geoSuggest service.",
               "title": "Geo Suggest URL",
               "help": "",
               "default": ""
             },
             "provinces": {
               "type": "string",
-              "description": "Endpoint url for provinces service",
+              "description": "Endpoint url for provinces service.",
               "title": "Provinces URL",
               "help": "",
               "default": ""
             },
             "types": {
               "type": "string",
-              "description": "Endpoint url for types service",
+              "description": "Endpoint url for types service.",
               "title": "Type URL",
               "help": "",
               "default": ""
@@ -218,16 +226,26 @@
             "showInfoSymbology": {
               "type": "boolean",
               "default": false,
-              "description": "Indicates whether symbology from info sections should be included in export legend",
-              "title": "",
-              "help": ""
+              "description": "Indicates whether symbology from info sections should be included in export legend.",
+              "title": "Show Info Symbology",
+              "help": "",
+              "version": "2.5"
             },
             "showControlledSymbology": {
               "type": "boolean",
               "default": false,
-              "description": "Indicates whether symbology from controlled layers should be included in export legend",
-              "title": "",
-              "help": ""
+              "description": "Indicates whether symbology from controlled layers should be included in export legend.",
+              "title": "Show Controlled Symbology",
+              "help": "",
+              "version": "2.5"
+            },
+            "columnWidth": {
+              "type": "integer",
+              "default": 350,
+              "description": "Value in pixels to be used as the column width for the export legend.",
+              "title": "Legend Column Width",
+              "help": "",
+              "version": "2.5"
             }
           },
           "additionalProperties": false,
@@ -235,7 +253,7 @@
           "help": ""
         },
         "footnote": {
-          "description": "Foot notice to add to exported map",
+          "description": "Foot notice to add to exported map.",
           "type": "object",
           "properties": {
               "isSelected": {
@@ -286,6 +304,22 @@
           "additionalProperties": false,
           "title": "Timestamp",
           "help": ""
+        },
+        "timeout": {
+          "type": "number",
+          "default": 120000,
+          "description": "A timeout delay in milliseconds after which the export image generation is considered to have failed. Defaults to 120sec.",
+          "title": "Time Out",
+          "help": "",
+          "version": "2.5"
+        },
+        "cleanCanvas": {
+          "type": "boolean",
+          "default": false,
+          "description": "If set to true the export will omit layers and images that would cause issues with saving. If set to false users may need to save by right-clicking and selecting save image.",
+          "title": "Clean Canvas",
+          "help": "",
+          "version": "2.5"
         }
       },
       "additionalProperties": false,

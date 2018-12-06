@@ -2,17 +2,17 @@
     "schema": "version",
     "title": "Version",
     "type": "object",
-    "description": "La version du schema utilisé pour valider le fichier de configuration.  The schema should enumerate the list of versions accepted by this version of the viewer.",
+    "description": "La version du schema utilisé pour valider le fichier de configuration. Le schéma devrait énumérer la liste des versions acceptées par cette version du visualiseur.",
     "properties": {
         "version": {
             "title": "Version",
             "type": "string",
             "enum": [
                 "2.3.0",
-                "2.5.0-0726"
+                "2.5.0"
             ],
             "default": "2.3.0",
-            "description": "La version du visualisateur utilisé pour valider le fichier de configuration."
+            "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."
         }
     }
 }

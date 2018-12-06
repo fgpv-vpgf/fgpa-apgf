@@ -1,13 +1,13 @@
 {
     "schema": "ui",
     "title": "UI",
-    "description": "A set of service endpoints used by the viewer",
+    "description": "A set of service endpoints used by the viewer.",
     "type": "object",
     "properties": {
         "fullscreen": {
           "type": "boolean",
           "default": false,
-          "description": "Indicates viewer takes up entire viewport",
+          "description": "Indicates viewer takes up entire viewport.",
           "title": "Fullscreen"
         },
         "theme": {
@@ -16,12 +16,12 @@
             "default"
           ],
           "default": "default",
-          "description": "UI theme of the viewer",
+          "description": "UI theme of the viewer.",
           "title": "Theme"
         },
         "logoUrl": {
           "type": "string",
-          "description": "An optional image to be used in the place of the default viewer logo",
+          "description": "An optional image to be used in the place of the default viewer logo.",
           "title": "Logo URL",
           "default": ""
         },
@@ -32,20 +32,20 @@
                 "failureMessage": {
                     "type": "string",
                     "title": "Failure Message",
-                    "description": "An optional message to be used in place of the failure message",
+                    "description": "An optional message to be used in place of the failure message.",
                     "default": ""
                 },
                 "failureImageUrl": {
                     "type": "string",
                     "title": "Failure Image Url",
-                    "description": "An optional image to be used in place of the failure Image",
+                    "description": "An optional image to be used in place of the failure Image.",
                     "default": ""
                 }
             }
         },
         "title": {
             "type": "string",
-            "description": "An optional title to be used in the place of the default viewer title",
+            "description": "An optional title to be used in the place of the default viewer title.",
             "title": "Title",
             "maxLength": 20,
             "default": ""
@@ -188,24 +188,24 @@
                 },
                 "isOpen": {
                     "type": "object",
-                    "description": "Specifies whether the layers panel (legend) is opened by default on initial loading of the map for small, medium, and large viewports",
+                    "description": "Specifies whether the layers panel (legend) is opened by default on initial loading of the map for small, medium, and large viewports.",
                     "properties": {
                         "large": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for large viewports",
+                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for large viewports.",
                               "title": "Open by default in large display"
                         },
                         "medium": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for medium viewports",
+                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for medium viewports.",
                               "title": "Open by default in medium display"
                         },
                         "small": {
                               "type": "boolean",
                               "default": false,
-                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for small viewports",
+                              "description": "Whether the layers panel (legend) is opened by default on initial loading of the map for small viewports.",
                               "title": "Open by default in small display"
                         }
                     },
@@ -215,13 +215,13 @@
             }
         },
         "about": {
-            "description": "About properties from configuration file or Markdown folder",
+            "description": "About properties from configuration file or Markdown folder.",
             "title": "About Map",
             "type": "object",
             "subtype": "oneof",
             "properties": {
               "content": {
-                  "description": "About properties from string content",
+                  "description": "About properties from string content.",
                   "title": "Content",
                   "type": "string",
                   "required": true
@@ -245,7 +245,7 @@
           },
         "tableIsOpen": {
             "type": "object",
-            "description": "Specifies whether the table panel is opened by default on initial loading of the map for small, medium, and large viewports",
+            "description": "Specifies whether the table panel is opened by default on initial loading of the map for small, medium, and large viewports.",
             "properties": {
                 "id": {
                     "type": "string",
@@ -256,32 +256,25 @@
                 "large": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Whether the table panel is opened by default on initial loading of the map for large viewports",
+                    "description": "Whether the table panel is opened by default on initial loading of the map for large viewports.",
                     "title": "Open by default in large display"
                 },
                 "medium": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Whether the table panel is opened by default on initial loading of the map for medium viewports",
+                    "description": "Whether the table panel is opened by default on initial loading of the map for medium viewports.",
                     "title": "Open by default in medium display"
                 },
                 "small": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Whether the table panel is opened by default on initial loading of the map for small viewports",
+                    "description": "Whether the table panel is opened by default on initial loading of the map for small viewports.",
                     "title": "Open by default in small display"
                 }
             },
             "additionalProperties": false,
             "required": ["id"],
             "title": "Table Opening Options"
-        },
-        "widgetsWidget": {
-            "type": "object",
-            "additionalProperties": true,
-            "description": "FIXME",
-            "title": "",
-            "default": ""
         }
     }
 }

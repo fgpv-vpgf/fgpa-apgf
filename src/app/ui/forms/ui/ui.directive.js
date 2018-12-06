@@ -245,9 +245,9 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                             // this temp model will be save to config file as well use same name with _ to replace .
                             'onChange': (model, data) => { $timeout(() => { $scope.model.tableIsOpen_id = model; $scope.model.tableIsOpen.id = model; }, 1000); }
                         },
-                        { 'key': 'tableIsOpen.small' },
+                        { 'key': 'tableIsOpen.large' },
                         { 'key': 'tableIsOpen.medium' },
-                        { 'key': 'tableIsOpen.large' }
+                        { 'key': 'tableIsOpen.small' }
                     ] }
                 ] },
                 { 'title': $translate.instant('form.ui.appbar'), 'items': [
@@ -273,8 +273,8 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                 ] },
                 { 'title': $translate.instant('form.ui.sidemenu'), 'items': [
                     { 'key': 'title', 'validationMessage': form => self.formService.setErrorMessage(form, 'form.ui.titlevalidation', ['viewValue.length', 'schema.maxLength']) },
-                    { 'key': 'sideMenu.logo', 'htmlClass': 'av-form-advance hidden' },
-                    { 'key': 'logoUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.sideMenu.logo' },
+                    { 'key': 'sideMenu.logo', 'htmlClass': 'av-form-advance hidden', 'onChange': () => $timeout(() => { $('.av-ui-logourl').removeClass('hidden'); }, 500) },
+                    { 'key': 'logoUrl', 'htmlClass': 'av-form-advance hidden av-ui-logourl', 'condition': 'model.sideMenu.logo' },
                     { 'key': 'sideMenu.items', 'title': $translate.instant('form.ui.items'), 'add': $translate.instant('button.add'), 'onChange': checkMenu, 'titleMap': {
                         'layers': $translate.instant('form.ui.enumlayers'),
                         'basemap': $translate.instant('form.ui.enumbasemap'),
