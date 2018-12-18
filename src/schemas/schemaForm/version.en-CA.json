@@ -13,6 +13,12 @@
             ],
             "default": "2.3.0",
             "description": "The viewer version used to validate the configuration file. The fields with the highest version have a turquoise left border."
+        },
+        "Comment": {
+            "title": "Comment",
+            "type": "string",
+            "default": "The templates post fixed with \"dev\" in the dropdown menu are more suitable for the development version of de Author tool.",
+            "description": "Choose the right template (dev) for the development version of the Author." 
         }
     }
 }

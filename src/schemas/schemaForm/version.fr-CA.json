@@ -13,6 +13,12 @@
             ],
             "default": "2.3.0",
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."
+        },
+        "Comment": {
+            "title": "Commentaire",
+            "type": "string",
+            "default": "Les gabarits finissant par \"dev\" dans le menu tombant sont plus appropries pour la version développement de l'Auteur.",
+            "description": "Choisir le bon gabarit (dev) pour la version developpement de l'Auteur."
         }
     }
 }
