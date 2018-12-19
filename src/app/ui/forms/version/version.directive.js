@@ -117,7 +117,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         return [{ 'key': 'version', 'onChange': debounceService.registerDebounce(model => {
             setLocalVersion();
             events.$broadcast(events.avVersionSet);
-        }) }, {'key': 'Comment','type': 'hidden'}, 
+        }) }, {'key': 'Comment','type': 'hidden'},  
         {type: "help",
         helpvalue:  `<div class="av-version-dev  av-version-dev-hide">${$translate.instant('form.versioncomment')}</div>`
     }];

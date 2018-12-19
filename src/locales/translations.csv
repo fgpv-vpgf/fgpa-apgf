@@ -173,4 +173,4 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,ui.tableIsOpen.large.title,Large,1,Étendue,1
 ,ui.tableIsOpen.medium.title,Medium,1,Moyenne,1
 ,ui.tableIsOpen.small.title,Small,1,Restreinte,1
-,ui.widgetsWidget.title,Widget,1,Widget,1
+,ui.widgetsWidget.title,Widget,1,Widget,1 

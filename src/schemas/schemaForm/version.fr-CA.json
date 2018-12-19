@@ -15,7 +15,7 @@
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."
         },
         "Comment": {
-            "title": "Commentaire",
+            "title": "Commentaire", 
             "type": "string",
             "properties": {
                 "hidenfield": {
