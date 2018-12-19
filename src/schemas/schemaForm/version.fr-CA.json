@@ -11,8 +11,18 @@
                 "2.3.0",
                 "2.5.0"
             ],
-            "default": "2.3.0",
+            "default": "2.5.0",
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."
+        },
+        "Comment": {
+            "title": "Commentaire", 
+            "type": "string",
+            "properties": {
+                "hidenfield": {
+                  "title": "champ caché",
+                  "type": "string"
+                }},
+            "description": "Choisir le bon gabarit (dev) pour la version developpement de l'Auteur."
         }
     }
 }
