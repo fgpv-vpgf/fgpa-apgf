@@ -118,9 +118,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
             setLocalVersion();
             events.$broadcast(events.avVersionSet);
         }) }, {'key': 'Comment','type': 'hidden'},  
-        {type: "help",
-        helpvalue:  `<div class="av-version-dev  av-version-dev-hide">${$translate.instant('form.versioncomment')}</div>`
-    }];
+        {type: "help", helpvalue: `<div class="av-version-dev  av-version-dev-hide">${$translate.instant('form.versioncomment')}</div>`}];
     }
 }
 
