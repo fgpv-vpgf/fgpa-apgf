@@ -13,16 +13,6 @@
             ],
             "default": "2.5.0",
             "description": "The viewer version used to validate the configuration file. The fields with the highest version have a turquoise left border."
-        },
-        "Comment": {
-            "title": "Comment",
-            "type": "string",
-            "properties": {
-                "hidenfield": {
-                  "title": "hidenfield",
-                  "type": "string"
-                }},
-            "description": "Choose the right template (dev) for the development version of the Author." 
-    }
+        }
     }
 }
