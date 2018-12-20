@@ -11,7 +11,7 @@
                 "2.3.0",
                 "2.5.0"
             ],
-            "default": "2.5.0",
+            "default": "2.3.0",
             "description": "The viewer version used to validate the configuration file. The fields with the highest version have a turquoise left border."
         }
     }
