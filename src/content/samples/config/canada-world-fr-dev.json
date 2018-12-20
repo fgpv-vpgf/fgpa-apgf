@@ -459,7 +459,8 @@
                     "enabled": true
                 }
             }
-        }, {
+        },
+        {
             "id": "c53f8920",
             "name": "Topographique",
             "description": "Cette carte de base mondial fournit un contexte géographique en mettant l'accent sur la topographie. D'ESRI.",
