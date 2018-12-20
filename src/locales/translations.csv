@@ -131,7 +131,9 @@ form map areas of interest,form.map.areasofinterest,Areas of interest,0,"Région
 form map area of interest,form.map.areaofinterest,Area of interest,0,"Région d'intérêt",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
-form version comment,form.versioncomment,The templates post fixed with "dev" in the dropdown menu are more suitable for the development version of the Author tool.,0,Les gabarits finissant par "dev" dans le menu tombant sont plus appropries pour la version développement de l'Auteur.,0
+form version title comment,form.titlecomment,Comment,0,Commentaire,0
+form version comment,form.versioncomment,The templates post fixed with (dev) in the dropdown menu are more suitable for the development version of the Author tool.,0,Les gabarits finissant par (dev) dans le menu déroulant sont plus appropriés pour la version développement de l'Auteur.,0
+form version template comment,form.templatecomment,Choose the right template (dev) for the development version of the Author.,0,Choisir le bon gabarit (dev) pour la version développement de l'Auteur.,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Annuler,0
