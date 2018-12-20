@@ -117,8 +117,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         return [{ 'key': 'version', 'onChange': debounceService.registerDebounce(model => {
             setLocalVersion();
             events.$broadcast(events.avVersionSet);})}, 
-        {type: "help", helpvalue:  `<h3 class="av-version-dev  av-version-dev-hide">${$translate.instant('form.titlecomment')}</h3><div class="av-version-dev  av-version-dev-hide">${$translate.instant('form.versioncomment')}</div>`},
-        {type: "help", helpvalue:  `<div class="av-version-dev  av-version-dev-hide">${$translate.instant('form.templatecomment')}</div>`}];
+        {type: "help", helpvalue: `<h3 class="av-version-dev av-version-dev-hide">${$translate.instant('form.titlecomment')}</h3><div class="av-version-dev av-version-dev-hide">${$translate.instant('form.versioncomment')}</div>`},
+        {type: "help", helpvalue: `<div class="av-version-dev av-version-dev-hide">${$translate.instant('form.templatecomment')}</div>`}];
     }
 }
 
