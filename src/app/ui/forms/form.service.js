@@ -410,20 +410,42 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
      * @function setErrorMessage
      * @param  {Object} form  form object to get value from
      * @param  {String} message  message to get from translation.csv
-     * @param  {Array} variables  variables to replace
+     * @param  {Array}  variables  variables to replace
      * @return {String} mess the updated message
      */
-    function setErrorMessage(form, message, variables) {
+    function setErrorMessage(form, message, variables=undefined) {
+        const errCode = [
+            { error: 'number', mess: 'form.map.wkidnuminvalid' },
+            { error: 'max', mess: 'form.map.layeropacitymaxerr' },
+            { error: 'min', mess: 'form.map.extentdefxminerr' },
+            { error: '302', mess: 'form.map.requirederr' },
+            { error: '101', mess: 'form.map.extentdefxminerr' },
+            { error: '103', mess: 'form.map.layeropacitymaxerr' }]
+        
         let mess = $translate.instant(message);
-
-        for (let variable of variables) {
-            // get the replacing value from form object
-            let replace = form;
-            variable.split('.').map(item => { replace = replace[item] });
-
-            // replace value in the message
-            mess = mess.replace(`{${variable}}`, replace);
+        let errorcode = form.error;
+        if (message !== '') {
+            mess = $translate.instant(message);
+         }
+         else {
+            mess = $translate.instant(errCode.filter( ({error}) =>  error === errorcode ).map( item => item.mess ).toString() ) ;
         }
+     
+        if (typeof variables !== 'undefined') {
+            for (let variable of variables) {
+            // get the replacing value from form object
+                let replace = form;
+                variable.split('.').map(item => { replace = replace[item] });
+
+                // replace value in the message
+                mess = mess.replace(`{${variable}}`, replace);
+            }
+        }
+        else if (typeof variables === 'undefined') {
+        // replace values in message string if no parameters passed to replace them with
+           mess = mess.replace(/{.+?}/, ' ').replace(/{.+?}/, ' ');
+           mess = mess.replace("( )", ' ');
+        }   
 
         return mess;
     }

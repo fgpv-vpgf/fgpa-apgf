@@ -619,9 +619,9 @@ function Controller($scope, $translate, $timeout,
                                 // hidden read only field { 'key': 'tileSchemas[].id', 'readonly': true },
                                 { 'key': 'tileSchemas[].name', 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.updateId(model, $scope, 'tileSchemas');
-                                    self.formService.updateLinkValues($scope, [['tileSchemas', 'id'], ['tileSchemas', 'name']], 'tileId'); }, constants.debInput, false) },
+                                    self.formService.updateLinkValues($scope, [['tileSchemas', 'id'], ['tileSchemas', 'name']], 'tileId'); }, constants.debInput, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                 {
-                                    'key': 'tileSchemas[].extentSetId',
+                                    'key': 'tileSchemas[].extentSetId', 'validationMessage': form => self.formService.setErrorMessage(form, ''),
                                     'type': 'dynamic-select',
                                     'optionData': 'extentId',
                                     'model': 'extentSetId',
@@ -654,7 +654,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'type': 'template', 'template': commonService.addButton('form.map', 'extentdefault', 'setExtent', 'av-setdefaultext-button'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
                                 { 'type': 'template', 'template': commonService.addButton('form.map', 'extentfull', 'setExtent', 'av-setfullext-button'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
                                 { 'type': 'template', 'template': commonService.addButton('form.map', 'extentmax', 'setExtent', 'av-setmaxext-button'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
-                                { 'key': 'extentSets[].id', 'htmlClass': 'av-extentset-id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false) },
+                                { 'key': 'extentSets[].id', 'htmlClass': 'av-extentset-id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false), 'validationMessage': form => self.formService.setErrorMessage(form, 'form.map.requirederr') },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
                                         { 'key': 'extentSets[].spatialReference.wkid', 'htmlClass': 'av-extentset-wkid', 'onChange': debounceService.registerDebounce(model => {
@@ -665,7 +665,7 @@ function Controller($scope, $translate, $timeout,
                                             for (let btn of buttons) {
                                                 btn[apply]('disabled', '');
                                             }
-                                        }, constants.debInput, false) }
+                                        }, constants.debInput, false), 'validationMessage':  form => self.formService.setErrorMessage(form, '', ['viewValue', 'schema.minimum']) }
                                     ] }
                                     // Not use,
                                     // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
@@ -684,48 +684,48 @@ function Controller($scope, $translate, $timeout,
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'key': 'extentSets[].default', 'items': [
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].default.xmin' }
+                                            { 'key': 'extentSets[].default.xmin', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].default.ymin' }
+                                            { 'key': 'extentSets[].default.ymin', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].default.xmax' }
+                                            { 'key': 'extentSets[].default.xmax', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].default.ymax' }
+                                            { 'key': 'extentSets[].default.ymax', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] }
                                     ] }
                                 ] },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'key': 'extentSets[].full', 'items': [
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].full.xmin' }
+                                            { 'key': 'extentSets[].full.xmin', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].full.ymin' }
+                                            { 'key': 'extentSets[].full.ymin', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].full.xmax' }
+                                            { 'key': 'extentSets[].full.xmax', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].full.ymax' }
+                                            { 'key': 'extentSets[].full.ymax', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] }
                                     ] }
                                 ] },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'key': 'extentSets[].maximum', 'items': [
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].maximum.xmin' }
+                                            { 'key': 'extentSets[].maximum.xmin', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].maximum.ymin' }
+                                            { 'key': 'extentSets[].maximum.ymin', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].maximum.xmax' }
+                                            { 'key': 'extentSets[].maximum.xmax', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'extentSets[].maximum.ymax' }
+                                            { 'key': 'extentSets[].maximum.ymax', 'validationMessage': form => self.formService.setErrorMessage(form, '') }
                                         ] }
                                     ] }
                                 ] }
@@ -741,7 +741,7 @@ function Controller($scope, $translate, $timeout,
                             self.lodSets = lods.length;
                         }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[]', 'htmlClass': `av-lods-array`, 'items': [
-                                { 'key': 'lodSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId'), constants.debInput, false) },
+                                { 'key': 'lodSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId'), constants.debInput, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                 { 'type': 'template', 'template': commonService.addButton('form.map', 'setlods', 'setLods', 'av-setloads-button'), 'setLods': () => self.formService.setLods($scope.model.lodSets, self.formService.getActiveElemIndex('av-lods-array')) },
                                 { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
                                     { 'key': 'lodSets[].lods', 'add': null, 'items': [
@@ -787,10 +787,10 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'baseMaps[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.basemap'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'baseMaps');
-                                    self.formService.updateLinkValues($scope, [['baseMaps', 'id'], ['baseMaps', 'name']], 'initBaseId'); }, constants.debInput, false) },
-                                { 'key': 'baseMaps[].description' },
+                                    self.formService.updateLinkValues($scope, [['baseMaps', 'id'], ['baseMaps', 'name']], 'initBaseId'); }, constants.debInput, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
+                                { 'key': 'baseMaps[].description', 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                 { 'key': 'baseMaps[].typeSummary', 'htmlClass': 'av-form-advance hidden' },
-                                { 'key': 'baseMaps[].altText' },
+                                { 'key': 'baseMaps[].altText', 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                 { 'key': 'baseMaps[].thumbnailUrl', 'htmlClass': 'av-form-advance hidden' },
                                 {
                                     'key': 'baseMaps[].tileSchemaId',
@@ -805,10 +805,10 @@ function Controller($scope, $translate, $timeout,
                                     // removed with version 2.5
                                     // $timeout(() => { events.$broadcast(events.avVersionSet); }, 1000);
                                 }, 'items': [
-                                    { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden' },
-                                    { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden' },
-                                    { 'key': 'baseMaps[].layers[].url' },
-                                    { 'key': 'baseMaps[].layers[].opacity', 'htmlClass': 'av-opacity-input av-form-advance hidden' }
+                                    { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, '') },
+                                    { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, '') },
+                                    { 'key': 'baseMaps[].layers[].url', 'validationMessage': form => self.formService.setErrorMessage(form, '') },
+                                    { 'key': 'baseMaps[].layers[].opacity', 'htmlClass': 'av-opacity-input av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, '',['viewValue', 'schema.minimum', 'schema.maximum']) }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
                                     { 'key': 'baseMaps[].attribution', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
@@ -816,7 +816,7 @@ function Controller($scope, $translate, $timeout,
                                         // { 'key': 'baseMaps[].attribution.logo' }
                                         // To be brought back with version 2.5 since we want the new element altext (v2.4) to be hide with prod version (2.3)
                                         { 'key': 'baseMaps[].attribution.logo', 'items': [
-                                            { 'key': 'baseMaps[].attribution.logo.enabled' },
+                                            { 'key': 'baseMaps[].attribution.logo.enabled', 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                             { 'key': 'baseMaps[].attribution.logo.value' },
                                             { 'key': 'baseMaps[].attribution.logo.altText', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'baseMaps[].attribution.logo.link' }
@@ -844,7 +844,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].name', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layer'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'layers', true);
-                                    self.formService.updateLinkValues($scope, [['layers', 'id']], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false) },
+                                    self.formService.updateLinkValues($scope, [['layers', 'id']], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                 { 'key': 'layers[].url', 'onChange': debounceService.registerDebounce(model => {
                                     // check if it is a feature layer. If so, set fields. For dynamic we set when index change
                                     if (!isNaN(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
@@ -852,10 +852,10 @@ function Controller($scope, $translate, $timeout,
                                         const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
                                         $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
                                     }
-                                }, constants.delayUpdateColumns, false) },
+                                }, constants.delayUpdateColumns, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                 { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.urlfile') + '<div>', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
-                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\' && model.layers[arrayIndex].layerChoice !== \'ogcWfs\'' },
-                                { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\' && model.layers[arrayIndex].layerChoice !== \'ogcWfs\'' },
+                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, '', ['viewValue', 'schema.minimum', 'schema.maximum']), 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\' && model.layers[arrayIndex].layerChoice !== \'ogcWfs\'' },
+                                { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, ''), 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\' && model.layers[arrayIndex].layerChoice !== \'ogcWfs\'' },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
                                 { 'key': 'layers[].suppressGetCapabilities', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'' },
@@ -869,7 +869,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].tooltipField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
                                 { 'key': 'layers[].customRenderer', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
                                 { 'key': 'layers[].xyInAttribs', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
-                                { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
+                                { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, '', ['viewValue', 'schema.minimum', 'schema.maximum']), 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
                                 { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\'` },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerdetail'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
@@ -887,7 +887,7 @@ function Controller($scope, $translate, $timeout,
                                                 // simulate click event to set fields
                                                 const btn = $(document.activeElement).closest('.av-layerEntry').find('.av-form-setfields button')[0];
                                                 $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
-                                            }, constants.delayUpdateColumns, false) },
+                                            }, constants.delayUpdateColumns, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].nameField', 'htmlClass': 'av-form-advance hidden' },
@@ -909,7 +909,7 @@ function Controller($scope, $translate, $timeout,
                                     // fields with condition doesn't work inside nested array, it appears only in the first element. We will use condition on group and duplicate them
                                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layerEntry', 'title': $translate.instant('form.map.layerentry'), 'items': [
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
-                                            { 'key': 'layers[].layerEntries[].id', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false) },
+                                            { 'key': 'layers[].layerEntries[].id', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce(self.formService.copyValueToFormIndex, constants.debInput, false), 'validationMessage': form => self.formService.setErrorMessage(form, '') },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].allStyles' },
                                             { 'key': 'layers[].layerEntries[].currentStyle' },
@@ -1007,7 +1007,7 @@ function Controller($scope, $translate, $timeout,
                             { 'type': 'help', 'helpvalue': '<h5>' + $translate.instant('form.map.spatialref') + '<h5>' },
                             { 'key': 'components.mouseInfo.spatialReference', 'type': 'section', 'htmlClass': 'av-form-advance hidden row', 'items': [
                                 { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
-                                    { 'key': 'components.mouseInfo.spatialReference.wkid' }
+                                    { 'key': 'components.mouseInfo.spatialReference.wkid', 'validationMessage': form => self.formService.setErrorMessage(form, '', ['viewValue', 'schema.minimum']) }
                                 ] }
                                 // Not use,
                                 // { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
@@ -1032,9 +1032,9 @@ function Controller($scope, $translate, $timeout,
                         { 'key': 'components.scaleBar' },
                         { 'key': 'components.overviewMap', 'items': [
                             { 'key': 'components.overviewMap.enabled' },
-                            { 'key': 'components.overviewMap.expandFactor', 'htmlClass': 'av-form-advance hidden' },
+                            { 'key': 'components.overviewMap.expandFactor', 'htmlClass': 'av-form-advance hidden', 'validationMessage': form => self.formService.setErrorMessage(form, '', ['viewValue', 'schema.minimum']) },
                             { 'key': 'components.overviewMap.initiallyExpanded', 'htmlClass': 'av-form-advance hidden' }
-                        ] }
+                        ]}
                     ]}
                 ] }
             ]}
@@ -1068,7 +1068,7 @@ function Controller($scope, $translate, $timeout,
         } },
         // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
         { 'key': `${key}.state`, 'items': [
-            { 'key': `${key}.state.opacity`, 'htmlClass': 'av-opacity-input'  },
+            { 'key': `${key}.state.opacity`, 'htmlClass': 'av-opacity-input', 'validationMessage': form => self.formService.setErrorMessage(form, '', ['viewValue', 'schema.minimum', 'schema.maximum']) },
             { 'key': `${key}.state.visibility` },
             { 'key': `${key}.state.boundingBox` },
             { 'key': `${key}.state.query` },
