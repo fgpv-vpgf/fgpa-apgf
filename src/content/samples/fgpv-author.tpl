@@ -42,7 +42,7 @@
                 data-av-langs='["en-CA", "fr-CA"]'
                 data-av-extensions='["./extensions/ddr/ddr.js", "./extensions/agol/agol.js"]'
                 data-av-schema="./schemaForm/"
-                data-av-config='["./config/canada-world-en.json", "./config/canada-world-en-dev.json", "./config/canada-world-fr.json", "./config/canada-world-fr-dev.json", "./config/config-sample.json"]'>
+                data-av-config='[ "./config/canada-world-en.json", "./config/canada-world-fr.json", "./config/config-sample.json"]'>
             <av-header></av-header>
 
             <div class="av-tools" layout="row">
