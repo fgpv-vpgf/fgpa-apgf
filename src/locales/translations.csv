@@ -75,6 +75,10 @@ form map,form.map.mapcomp,Components,0,Composantes,0
 form.map,form.map.spatialref,Spatial Reference,0,Référence spatiale,0
 form map,form.map.basemaps,Basemaps,0,Cartes de base,0
 form map,form.map.extentset,Spatial Extents Sets,0,"Lots d'étendues spatiales",0
+form map,form.map.requirederr,Required,0,"requis",0
+form map,form.map.wkidnuminvalid,"Value is not a valid number",0,"la valeur n'est pas un numéro valide",0
+form map,form.map.layeropacitymaxerr,"Value ({viewValue}) is greater than maximum {schema.maximum}",0,"la valeur ({viewValue}) est plus grande que le maximum {schema.maximum}",0
+form map,form.map.extentdefxminerr,"Value ({viewValue}) is less than minimum {schema.minimum}",0,"la valeur ({viewValue}) est plus petite que le minimum {schema.minimum}",0
 form map,form.map.lodset,Levels of Detail Sets,0,Lots de niveaux de détail,0
 form map,form.map.tileschema,Tile Schemas,0,Schéma des tuiles,0
 form map,form.map.initialid,Initial Basemap ID,0,ID de la carte de base initiale,0
