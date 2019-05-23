@@ -59,7 +59,7 @@ function avHeader() {
  * @param {Object} constants service with all constants for the application
  * @param {Object} helpService service to create help
  */
-function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelManager, commonService, constants, helpService) {
+function Controller($q, $rootScope, $mdDialog, $timeout, $rootElement, $http, events, modelManager, commonService, constants, helpService) {
     'ngInject';
     const self = this;
 
@@ -119,6 +119,8 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     function setLanguage() {
         commonService.setLang(self.language);
         localStorage.setItem('fgpa-lang', self.language);
+        // validate form
+        events.$on(events.avSwitchLanguage, ()  => {  $timeout(()   => {  $rootScope.$broadcast(events.avValidateForm)}, 500 ); });           
     }
 
     /**
