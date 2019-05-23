@@ -14,12 +14,13 @@ angular
  * define common Javascript methods
  * @function commonService
  * @param {Object} $translate  translation service Angular object
+ * @param {object} $rootScope Angular Object
  * @param {Object} events  Angular object
  * @param {Object} $timeout promise with timeout Angular object
  * @param {Object} constants  modules that contain all the constants
  * @return {Object} service  common service
  */
-function commonService($translate, events, $timeout, constants) {
+function commonService($translate, $rootScope,events, $timeout, constants) {
 
     const service = {
         parseJSON,
@@ -36,7 +37,8 @@ function commonService($translate, events, $timeout, constants) {
         clickTab,
         clickSubTab,
         scrollToElement,
-        validServiceUrl
+        validServiceUrl,
+        validateForm
     };
 
     let languages;
@@ -104,6 +106,15 @@ function commonService($translate, events, $timeout, constants) {
      */
     function setUniq(arr) {
         return Array.from(new Set(arr));
+    }
+
+    /**
+     * Valdiate form after the current language is set to the supplied value.
+     * @function  validateForm
+     */
+    function validateForm() {
+        // validate form
+        $rootScope.$broadcast('schemaFormValidate');
     }
 
     /**
