@@ -196,6 +196,8 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp; **OR**<br/>
 &emsp;&emsp;&emsp;&emsp; [**`featureLayerNode`**](#featurelayernode-json-tree)<br/>
 &emsp;&emsp;&emsp; **OR**<br/>
+&emsp;&emsp;&emsp;&emsp; [**`fileLayerNode`**](#fileLayerNode-json-tree)<br/>
+&emsp;&emsp;&emsp; **OR**<br/>
 &emsp;&emsp;&emsp;&emsp; [**`wmsLayerNode`**](#wmslayernode-json-tree)<br/>
 &emsp;&emsp;&emsp; **OR**<br/>
 &emsp;&emsp;&emsp;&emsp; [**`dynamicLayerNode`**](#dynamiclayernode-json-tree)<br/>
@@ -244,6 +246,22 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;&emsp;{<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;[**`tableNode`**](#tablenode-json-tree)<br/>
 &emsp;&emsp;&emsp;&emsp;}<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
+>#### [**`fileLayerNode JSON tree`**](#nodefileLayerNode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["id"](#nodefileLayerNodeid): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodefileLayerNodename): ...,<br/>
+&emsp;&emsp;&emsp;["url"](#nodefileLayerNodeurl): ...,<br/>
+&emsp;&emsp;&emsp;["refreshInterval"](#nodefileLayerNoderefreshinterval): ...,<br/>
+&emsp;&emsp;&emsp;["metadataUrl"](#nodefileLayerNodemetadataurl): ...,<br/>
+&emsp;&emsp;&emsp;["catalogueUrl"](#nodefileLayerNodecatalogueurl): ...,<br/>
+&emsp;&emsp;&emsp;["layerType"](#nodefileLayerNodelayertype): ...,<br/>
+&emsp;&emsp;&emsp;["toggleSymbology"](#nodefileLayerNodetogglesymbology): {...},<br/>
+&emsp;&emsp;&emsp;["tolerance"](#nodefileLayerNodetolerance): {...},<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -350,6 +368,8 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;&emsp;&emsp;{...},<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;{...}<br/>
 &emsp;&emsp;&emsp;&emsp;]<br/>
+&emsp;&emsp;&emsp;["searchStrictMatch"](#nodetablenodesearchstrictmatch): ...,<br/>
+&emsp;&emsp;&emsp;["printEnabled"](#nodetablenodeprintenabled): ...,<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -937,6 +957,79 @@ Each item contains these three properties
 [:arrow_up: back to featureLayerNode](#featurelayernode-json-tree)
 ***
 
+>### [node:_**`fileLayerNode`**_](#node--fileLayerNode)
+>>Layers coming from file.
+
+| Type | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- |
+| *object* | Map/Layers | - | - |
+
+>### [node:fileLayerNode:_**`id`**_](#node--fileLayerNode--id)
+>>The id of the layer for referencing within the viewer (does not relate directly to any external service).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"featureLayer_1"` | Map/Layers | - | Yes |
+
+>### [node:fileLayerNode:_**`name`**_](#node--fileLayerNode--name)
+>>The display name of the layer.  If it is not present the viewer will make an attempt to scrape this information.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"Power plants"` | Map/Layers | - | Yes |
+
+>### [node:fileLayerNode:_**`url`**_](#node--fileLayerNode--url)
+>>The service endpoint of the layer. It should match the type provided in [layerType](#nodefileLayerNodelayertype).
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | - | `"https://.../MapServer/20"` | Map/Layers | - | Yes |
+
+>### [node:fileLayerNode:_**`refreshInterval`**_](#node--fileLayerNode--refreshinterval)
+>>The automatic refresh interval of the layer in minutes. Maximum interval is 100 minutes.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *number* | `0` | `5` | Map/Layers | Yes | - |
+
+>### [node:fileLayerNode:_**`metadataUrl`**_](#node--fileLayerNode--metadataurl)
+>>The metadata url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../metaDat"` | Map/Layers | Yes | - |
+
+>### [node:fileLayerNode:_**`catalogueUrl`**_](#node--fileLayerNode--catalogueurl)
+>>The catalogue url of the layer service.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `null` | `"https://.../catalogue"` | Map/Layers | Yes | - |
+
+>### [node:fileLayerNode:_**`layerType`**_](#node--fileLayerNode--layertype)
+>>Type of layer which can only be `esriFeature`.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *string* | `-` | `"esriFeature"` | Map/Layers | - | Yes |
+
+>### [node:fileLayerNode:_**`toggleSymbology`**_](#node--fileLayerNode--togglesymbology)
+>>Allows individual symbols to have visibility toggled on/off.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | Yes | - |
+
+>### [node:fileLayerNode:_**`tolerance`**_](#node--fileLayerNode--tolerance)
+>>Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `5` | `8` | Map/Layers | Yes | - |
+
+[:arrow_up: back to fileLayerNode](#fileLayerNode-json-tree)
+***
+
 >### [node:_**`wmsLayerNode`**_](#node--wmslayernode)
 >>Layers coming from an esri feature service.
 
@@ -1211,7 +1304,24 @@ Each item contains these three properties
 
 [:arrow_up: back to tableNode](#tablenode-json-tree)
 ***
+>### [node:tableNode:_**`searchStrictMatch`**_](#node--tablenode--searchStrictMatch)
+>>Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.
 
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `true` | Map/Layers | Yes | - |
+
+[:arrow_up: back to tableNode](#tablenode-json-tree)
+***
+>### [node:tableNode:_**`printEnabled`**_](#node--tablenode--printEnabled)
+>>Specifies if print button is available on the datatable. Defaults to false.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `true` | Map/Layers | Yes | - |
+
+[:arrow_up: back to tableNode](#tablenode-json-tree)
+***
 >### [node:_**`columnNode`**_](#node--columnnode)
 >>Specifies option for each column. OID field must be present, if not data will not appear. The order they appears inside the table is the same as the order of this array.
 

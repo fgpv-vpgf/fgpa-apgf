@@ -966,7 +966,21 @@
                                     }
                                 },
                                 "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
-                            }
+                            },
+                            "searchStrictMatch": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.",
+                              "title": "Strict match search enabled",
+                              "version": "3.0"
+                          },
+                          "printEnabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "description": "Specifies if print button is available on the datatable. Defaults to false.",
+                            "title": "Print enabled",
+                            "version": "3.0"
+                          }
                         },
                         "description": "Specifies how layers fields and global search are set",
                         "additionalProperties": false
@@ -1150,7 +1164,21 @@
                                                 }
                                             },
                                             "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
-                                        }
+                                        },
+                                        "searchStrictMatch": {
+                                          "type": "boolean",
+                                          "default": false,
+                                          "description": "Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.",
+                                          "title": "Strict match search enabled",
+                                          "version": "3.0"
+                                      },
+                                      "printEnabled": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Specifies if print button is available on the datatable. Defaults to false.",
+                                        "title": "Print enabled",
+                                        "version": "3.0"
+                                      }
                                     },
                                     "description": "Specifies how layers fields and global search are set",
                                     "additionalProperties": false
