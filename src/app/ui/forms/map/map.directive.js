@@ -638,7 +638,7 @@ function Controller($scope, $translate, $timeout,
                                     'key': 'tileSchemas[].overviewUrl'
                                 }, {
                                     'key': 'tileSchemas[].hasNorthPole',
-                                    'htmlClass': 'av-form-advance hidden  av-version-dev  av-version-dev-hide'
+                                    'htmlClass': 'av-form-advance hidden'
                                 }
                             ] }
                         ] }
@@ -810,7 +810,7 @@ function Controller($scope, $translate, $timeout,
                                     { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].url' },
-                                    { 'key': 'baseMaps[].layers[].opacity', 'htmlClass': 'av-opacity-input av-form-advance hidden av-version-dev av-version-dev-hide' }
+                                    { 'key': 'baseMaps[].layers[].opacity', 'htmlClass': 'av-opacity-input av-form-advance hidden' }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.basemapattrib'), 'items': [
                                     { 'key': 'baseMaps[].attribution', 'htmlClass': 'av-accordion-content', 'notitle': true, 'items': [
@@ -820,12 +820,12 @@ function Controller($scope, $translate, $timeout,
                                         { 'key': 'baseMaps[].attribution.logo', 'items': [
                                             { 'key': 'baseMaps[].attribution.logo.enabled' },
                                             { 'key': 'baseMaps[].attribution.logo.value' },
-                                            { 'key': 'baseMaps[].attribution.logo.altText', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide' },
+                                            { 'key': 'baseMaps[].attribution.logo.altText', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'baseMaps[].attribution.logo.link' }
                                         ]}
                                     ] }
                                 ] },
-                                { 'key': 'baseMaps[].zoomLevels', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide' }
+                                { 'key': 'baseMaps[].zoomLevels', 'htmlClass': 'av-form-advance hidden' }
                             ] }
                         ] }
                     ] }
@@ -855,19 +855,19 @@ function Controller($scope, $translate, $timeout,
                                     }
                                 }, constants.delayUpdateColumns, false) },
                                 { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden' },
-                                { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide' },
+                                { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
                                 // hidden read only field { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].nameField', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
-                                { 'key': 'layers[].tooltipField', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
-                                { 'key': 'layers[].customRenderer', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
+                                { 'key': 'layers[].nameField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
+                                { 'key': 'layers[].tooltipField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
+                                { 'key': 'layers[].customRenderer', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
                                 { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\'` },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerdetail'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
-                                        { 'key': 'layers[].details', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide' }
+                                        { 'key': 'layers[].details', 'htmlClass': 'av-form-advance hidden' }
                                     ]}
                                 ] },
                                 { 'key': 'layers[].layerEntries', 'htmlClass': 'av-accordion-all av-layerEntries', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriDynamic\'', 'startEmpty': true, 'add': $translate.instant('button.add'), 'onChange': debounceService.registerDebounce(model => { initLayerEntry(model) }, constants.debInput, false), 'items': [
@@ -884,7 +884,7 @@ function Controller($scope, $translate, $timeout,
                                             }, constants.delayUpdateColumns, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
-                                            { 'key': 'layers[].layerEntries[].nameField', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide' },
+                                            { 'key': 'layers[].layerEntries[].nameField', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[].layerEntries[]', 'av-controls-bug') }
@@ -902,7 +902,7 @@ function Controller($scope, $translate, $timeout,
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].allStyles' },
                                             { 'key': 'layers[].layerEntries[].currentStyle' },
-                                            { 'key': 'layers[].layerEntries[].suppressGetCapabilities', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide' },
+                                            { 'key': 'layers[].layerEntries[].suppressGetCapabilities', 'htmlClass': 'av-form-advance hidden' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[].layerEntries[]', 'av-controls-bug') }
                                             ] }
@@ -1020,8 +1020,8 @@ function Controller($scope, $translate, $timeout,
                             { 'key': 'components.overviewMap.expandFactor', 'htmlClass': 'av-form-advance hidden' },
                             { 'key': 'components.overviewMap.initiallyExpanded', 'htmlClass': 'av-form-advance hidden' }
                         ] },
-                        { 'type': 'help', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                        { 'key': 'components.areaOfInterest', 'title': $translate.instant('form.map.areasofinterest'), 'htmlClass': 'av-accordion-all av-form-advance hidden av-version-dev av-version-dev-hide', 'startEmpty': true,'onChange': () => {
+                        { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
+                        { 'key': 'components.areaOfInterest', 'title': $translate.instant('form.map.areasofinterest'), 'htmlClass': 'av-accordion-all av-form-advance hidden', 'startEmpty': true,'onChange': () => {
                             // new item, create accordion
                             events.$broadcast(events.avNewItems);
                         }, 'add': $translate.instant('button.add'), 'items': [
@@ -1108,8 +1108,10 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.description` },
             { 'key': `${model}.maximize` },
             { 'key': `${model}.search` },
-            { 'key': `${model}.lazyFilter`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
+            { 'key': `${model}.lazyFilter` },
             { 'key': `${model}.applyMap` },
+            { 'key': `${model}.searchStrictMatch`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
+            { 'key': `${model}.printEnabled`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'htmlClass': 'av-form-setfields', 'layerType': layerType, 'onClick': setColumns },
                 { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-columns hidden', 'add': null, 'items': [

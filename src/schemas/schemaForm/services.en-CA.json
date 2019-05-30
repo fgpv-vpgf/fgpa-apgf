@@ -50,7 +50,7 @@
     },
     "search": {
       "type": "object",
-      "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, and/or LAT/LNG) and to set service endpoint urls.",
+      "description": "Search properties including ability to enable certain types of searches (National Topographic System, Postal Code/FSA, Scale/Echelle, and/or LAT/LNG) and to set service endpoint urls.",
       "properties": {
         "disabledSearches": {
           "type": "array",
@@ -59,6 +59,7 @@
             "enum": [
               "NTS",
               "FSA",
+              "SCALE",
               "LAT/LNG"
             ]
           },

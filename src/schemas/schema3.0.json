@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "FGPV Config Schema",
     "type": "object",
-    "version": 2.3,
+    "version": 3.0,
     "comments": "FIXME: when draft 05 is release redo schema inheritance with patching / merging if they are accepted",
     "additionalProperties": false,
 
@@ -446,7 +446,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "Specifies the additional information to display in the setting panel to give more information about a table."
+                    "description": "Deprecated as settings panel no longer exists. Specifies the additional information to display in the setting panel to give more information about a table."
                 },
                 "maximize": {
                     "type": "boolean",
@@ -475,6 +475,16 @@
                     "type": "array",
                     "items": { "$ref": "#/definitions/columnNode" },
                     "description": "Specifies the array of columns for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                },
+                "searchStrictMatch": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect."
+                },
+                "printEnabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Specifies if print button is available on the datatable. Defaults to false."
                 }
             },
             "description": "Specifies how layers columns and global search are set",
@@ -493,7 +503,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing."
+                    "description": "Deprecated as settings panel no longer exists. Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing."
                 },
                 "visible": {
                     "type": "boolean",
@@ -530,7 +540,7 @@
                 "type": {
                     "type": "string",
                     "enum": [ "string", "number", "date", "selector" ],
-                    "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails."
+                    "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails. Mainly used to change default text filters to selector filters if the user wishes."
                 },
                 "value": {
                     "type": "string",
@@ -619,6 +629,39 @@
                 }
             },
             "required": [ "id", "layerType", "url" ],
+            "additionalProperties": false
+        },
+        "fileLayerNode": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string", "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service)" },
+                "name": { "type": "string", "description": "The display name of the layer." },
+                "nameField": { "type": "string", "description": "The display field of the layer.  If it is not present the viewer will make an attempt to find the first valid field." },
+                "tooltipField": { "type": "string", "description": "The field to be used for tooltips.  If it is not present the viewer will use nameField (if provided)." },
+                "url": { "type": "string", "description": "The url path to the file.  It should match the type provided in layerType." },
+                "colour": { "type": "string", "description": "The hex code representing the layer symbology colour." },
+                "layerType": { "type": "string", "enum": [ "esriFeature" ] },
+                "fileType": { "type": "string", "enum": [ "csv", "geojson", "shapefile" ] },
+                "latField": { "type": "string", "description": "The latitude field of the layer (only for CSVs)." },
+                "longField": { "type": "string", "description": "The longitude field of the layer (only for CSVs)." },
+                "tolerance": { "type": "number", "default": 5, "description": "Specifies the tolerance in pixels when determining if a feature was clicked. Should be non-negative integer" },
+                "extent": { "$ref": "#/definitions/extentWithReferenceNode" },
+                "controls": { "$ref": "#/definitions/legendEntryControls" },
+                "disabledControls": { "$ref": "#/definitions/legendEntryControls", "description": "A list of controls which are visible, but disabled for user modification" },
+                "state": { "$ref": "#/definitions/initialLayerSettings" },
+                "table": { "$ref": "#/definitions/tableNode", "description": "Settings for the table" },
+                "customRenderer": { "type": "object", "additionalProperties": true, "description": "Optional renderer object to apply to the layer. Follows ESRI ArcGIS Server json convention"},
+                "details" : {
+                    "type": "object",
+                    "properties": {
+                        "parser": {"type": "string", "description": "A path to a javascript file with a function for parsing the layers identify output. Only needed if a custom template is being used."},
+                        "template": { "type": "string", "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."}
+                    },
+                    "required":["template"],
+                    "additionalProperties": false
+                }
+            },
+            "required": [ "id", "layerType", "fileType", "url" ],
             "additionalProperties": false
         },
         "wfsLayerNode": {
@@ -730,6 +773,7 @@
             "oneOf": [
                 { "$ref": "#/definitions/basicLayerNode" },
                 { "$ref": "#/definitions/featureLayerNode" },
+                { "$ref": "#/definitions/fileLayerNode" },
                 { "$ref": "#/definitions/wfsLayerNode" },
                 { "$ref": "#/definitions/wmsLayerNode" },
                 { "$ref": "#/definitions/dynamicLayerNode" }
@@ -852,23 +896,7 @@
                     }
                 },
                 "scaleBar": { "type": "object" },
-                "basemap": { "type": "object" },
-                "areaOfInterest": {
-                     "type": "object",
-                     "items": {
-                         "type": "object",
-                         "properties": {
-                            "title": { "type": "string" },
-                            "xmin": { "type": "number", "description": "The xmin coord value (lower left corner) in lat/long" },
-                            "ymin": { "type": "number", "description": "The ymin coord value (lower left corner) in lat/long" },
-                            "xmax": { "type": "number", "description": "The xmax coord value (upper right corner) in lat/long" },
-                            "ymax": { "type": "number", "description": "The ymax coord value (upper right corner) in lat/long" },
-                            "thumbnailUrl": { "type": "string", "description": "Path to image file to display in the area of interest selector." }
-                        },
-                        "required": [ "title", "xmin", "ymin", "xmax", "ymax", "thumbnailUrl" ]
-                      },
-                    "default": []
-                }
+                "basemap": { "type": "object" }
             },
             "additionalProperties": false
         },
@@ -1070,19 +1098,6 @@
                 }
             },
             "required": [ "tileSchemas", "baseMaps" ]
-        },
-
-        "intentions": {
-            "type": "object",
-            "description": "Enable/Disable intentions or replace with your own implementation",
-            "properties": {
-                "epsg": {
-                    "description": "intention for EPSG Lookup",
-                    "type": "string",
-                    "default": "none"
-                }
-            },
-            "additionalProperties": false
         }
     },
 
