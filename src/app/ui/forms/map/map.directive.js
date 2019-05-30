@@ -1108,8 +1108,10 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.description` },
             { 'key': `${model}.maximize` },
             { 'key': `${model}.search` },
-            { 'key': `${model}.lazyFilter`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
+            { 'key': `${model}.lazyFilter` },
             { 'key': `${model}.applyMap` },
+            { 'key': `${model}.searchStrictMatch`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
+            { 'key': `${model}.printEnabled`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'htmlClass': 'av-form-setfields', 'layerType': layerType, 'onClick': setColumns },
                 { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-columns hidden', 'add': null, 'items': [

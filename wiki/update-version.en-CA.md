@@ -253,3 +253,68 @@ To
   { 'key': 'baseMaps[].attribution.logo' }
 ```
 [Back to top](#guide-to-upgrade-author-version)
+
+### **9.3 Set the element has a standard element of the production version**
+
+The final process get an end with a new viewer version; in our case `3.0`.
+
+
+**In the Author schema**
+
+Removed elements attributes.
+
+"mapComponentsNode" :{
+  "areaOfInterest":{ ... } <= removed
+}
+
+"properties":{
+  "intentions":{ ... }     <= removed
+}
+
+Added New element atributes
+
+"tableNode":{
+  "searchStrictMatch":{ ... }, <= added
+   "printEnabled": { ... }     <= added
+}
+
+Added new layer mode:
+
+"fileLayerNode":{ ... }        <= added
+"layerNode": {
+  "oneOf": [
+         ... ,
+         { "$ref": "#/definitions/fileLayerNode" }, <= added
+	   ] 
+}
+
+Added new items element in searchService "SCALE"
+
+FROM:
+
+"searchService": {
+	"type": "object",
+	"description": "Search properties including ability to disable certain types of searches (NTS, FSA, and/or LAT/LNG) and to set service endpoint urls",
+	"properties": {
+		"disabledSearches": {
+			"type": "array",
+			"items": { "type": "string", "enum": [ "NTS", "FSA", "LAT/LNG" ] },
+			"description": "Disable specific types of searches including NTS, FSA, or LAT/LNG"
+		}
+}
+
+TO:
+
+"searchService": {
+	"type": "object",
+	"description": "Search properties including ability to disable certain types of searches (NTS, FSA, SCALE, and/or LAT/LNG) and to set service endpoint urls",
+	"properties": {
+		"disabledSearches": {
+			"type": "array",
+			"items": { "type": "string", "enum": [ "NTS", "FSA", "SCALE", "LAT/LNG" ] },
+			"description": "Disable specific types of searches including NTS, FSA, SCALE, or LAT/LNG"
+		}
+}
+
+```
+[Back to top](#guide-to-upgrade-author-version)
