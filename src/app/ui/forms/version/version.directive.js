@@ -97,7 +97,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function setLocalVersion() {
         localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
-        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '2.5.0' ? 'dev' : '');
+        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '3.0.0' ? 'dev' : '');
     }
 
     events.$on(events.avValidateForm, () => {
@@ -117,8 +117,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         return [{ 'key': 'version', 'onChange': debounceService.registerDebounce(model => {
             setLocalVersion();
             events.$broadcast(events.avVersionSet); }) },
-        { type: 'help', helpvalue: `<h3 class="av-version-dev av-version-dev-hide">${ $translate.instant('form.titlecomment') }</h3><div class="av-version-dev av-version-dev-hide"> ${ $translate.instant('form.versioncomment') } </div>` },
-        { type: 'help', helpvalue: `<div class="av-version-dev av-version-dev-hide">${ $translate.instant('form.templatecomment') }</div>` }];
+        { type: 'help', helpvalue: `<h3 class="">${ $translate.instant('form.titlecomment') }</h3><div class=""> ${ $translate.instant('form.versioncomment') } </div>` },
+        { type: 'help', helpvalue: `<div class="">${ $translate.instant('form.templatecomment') }</div>` }];
     }
 }
 

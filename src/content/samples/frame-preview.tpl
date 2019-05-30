@@ -10,7 +10,7 @@
         var version = localStorage.getItem('viewerversion');
         var envar = localStorage.getItem('viewerenv');
         envar = (envar === 'dev') ? 'dev.' : '';
-
+        debugger
         var styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
@@ -48,7 +48,7 @@
 
     // set viewer array of languages
     document.getElementById('fgpmap').setAttribute('data-rv-langs', localStorage.getItem('configlangs'));
-
+    debugger
     // set viewer version
     var scriptTag = document.createElement('script');
     var version = localStorage.getItem('viewerversion');

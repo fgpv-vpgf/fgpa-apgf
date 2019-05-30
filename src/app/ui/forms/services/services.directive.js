@@ -114,9 +114,9 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'export.legend', 'items': [
                         { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelected' }] },
                         { 'type': 'section', 'items': [{ 'key': 'export.legend.isSelectable' }] },
-                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'items': [{ 'key': 'export.legend.showInfoSymbology' }] },
-                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'items': [{ 'key': 'export.legend.showControlledSymbology' }] },
-                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'items': [{ 'key': 'export.legend.columnWidth' }] }
+                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden', 'items': [{ 'key': 'export.legend.showInfoSymbology' }] },
+                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden', 'items': [{ 'key': 'export.legend.showControlledSymbology' }] },
+                        { 'type': 'section', 'htmlClass': 'av-form-advance hidden', 'items': [{ 'key': 'export.legend.columnWidth' }] }
                     ] },
                     { 'key': 'export.mapElements', 'items': [
                         { 'type': 'section', 'items': [{ 'key': 'export.mapElements.isSelected' }] },
@@ -131,7 +131,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelected' }] },
                         { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelectable' }] }
                     ] },
-                    { 'title': $translate.instant('form.service.legendSettings'), 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'key': 'export', 'items': [
+                    { 'title': $translate.instant('form.service.legendSettings'), 'htmlClass': 'av-form-advance hidden', 'key': 'export', 'items': [
                         { 'key': 'export.timeout' },
                         { 'key': 'export.cleanCanvas' }
                     ] }
@@ -147,11 +147,11 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                 { 'title': $translate.instant('form.service.urls'), 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-servicesurl-${commonService.getLang()}.md`, true) },
                     { 'key': 'proxyUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
-                    { 'key': 'corsEverywhere', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'readonly': false },
+                    { 'key': 'corsEverywhere', 'htmlClass': 'av-form-advance hidden', 'readonly': false },
                     { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
-                    { 'key': 'esriLibUrl', 'htmlClass': 'av-form-advance hidden av-version-dev av-version-dev-hide', 'readonly': false }
+                    { 'key': 'esriLibUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': false }
                     // FIXME: not defined in the schema... need to see of still needed { 'key': 'geolocation', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     // FIXME: not defined in the schema... need to see of still needed { 'key': 'coordInfo' },
                     // FIXME: not defined in the schema... need to see of still needed { 'key': 'print' }
