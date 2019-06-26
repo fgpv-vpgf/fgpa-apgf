@@ -566,8 +566,8 @@
             },
             "footnote": {
                 "isSelected": true,
-                "isSelectable": true,
-                "value": ""
+                "isSelectable": false,
+                "value": "© Her Majesty the Queen in Right of Canada, represented by the Minister of Natural Resources"
             },
             "map": {
                 "isSelected": true,

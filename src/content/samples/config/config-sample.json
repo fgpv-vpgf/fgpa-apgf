@@ -669,8 +669,8 @@
             },
             "footnote": {
                 "isSelected": true,
-                "isSelectable": true,
-                "value": ""
+                "isSelectable": false,
+                "value": "© Sa Majesté la Reine du Chef du Canada, représentée par le ministre des Ressources naturelles"
             },
             "map": {
                 "isSelected": true,
