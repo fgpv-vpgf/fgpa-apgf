@@ -14,6 +14,7 @@ It is recommanded to follow the steps in the proposed order.
 - [**9. Example**](#9-example)
 - [**9.1 Introduce the new element in the development version**](#91-introduce-the-new-element-in-the-development-version)
 - [**9.2 Set the element has a standard element of the production version**](#92-set-the-element-has-a-standard-element-of-the-production-version)
+- [**10. History of version modification**](#10-History-of-version-modification)
 
 ### **1. Update constants**
 In [/src/app/core/constant.service.js](https://github.com/fgpv-vpgf/fgpa-apgf/blob/develop/src/app/core/constant.service.js#L51) change constants value:
@@ -252,4 +253,55 @@ To
 ```js
   { 'key': 'baseMaps[].attribution.logo' }
 ```
+[Back to top](#guide-to-upgrade-author-version)
+
+### **10 History of version modification**
+
+From viewer version `2.5` to version `3.0`.
+
+
+**In the Author schema**
+
+***Removed elements attributes.***
+```js
+"mapComponentsNode" :{
+  "areaOfInterest":{ ... }
+}
+
+"properties":{
+  "intentions":{ ... }
+}
+```
+***Added New element atributes: **searchStrictMatch** and **printEnabled**.***
+```js
+"tableNode":{
+  "searchStrictMatch":{ ... }, 
+   "printEnabled": { ... }
+}
+```
+***Added new layer mode: fileLayerNode: **fileLayerNode**.***
+```js
+"fileLayerNode":{ ... } 
+"layerNode": {
+  "oneOf": [
+         ... ,
+         { "$ref": "#/definitions/fileLayerNode" },
+	   ] 
+}
+```
+***Added new items element in searchService **"SCALE"**.***
+
+
+```js
+"searchService": {
+  ...
+	"description": "Search properties including ability to disable certain types of searches (..., ..., SCALE,...) and to set service endpoint urls",
+	"properties": {
+    ...
+		"items": { ..., "enum": [ "NTS", "FSA", "SCALE", "LAT/LNG" ] },
+    ...
+		}
+}
+```
+
 [Back to top](#guide-to-upgrade-author-version)
