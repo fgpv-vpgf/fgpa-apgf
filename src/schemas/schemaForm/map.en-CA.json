@@ -609,7 +609,7 @@
                     "layerChoice": {
                         "description": "",
                         "type": "string",
-                        "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms"],
+                        "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms", "file"],
                         "title": "Layer type selector",
                         "default": "esriDynamic",
                         "required": true
@@ -633,6 +633,29 @@
                         "type": "string",
                         "default": "esriDynamic",
                         "title": "Layer type"
+                    },
+                    "fileType":{
+                      "type": "string",
+                      "enum": [ "csv", "geojson", "shapefile" ],
+                      "title": "File type",
+                      "default": "csv",
+                      "required": true
+                    },
+                    "colour": {
+                      "type": "string",
+                      "description": "The hexadecimal code representing the layer symbology colour (e.g. #ff0000 = red).",
+                      "title": "Colour",
+                      "default": "#ff0000"
+                    },
+                    "latField": {
+                      "type": "string",
+                      "description": "The latitude field of the layer (only for CSVs).",
+                      "title": "Latitude Field"
+                    },
+                    "longField": {
+                      "type": "string",
+                      "description": "The longitude field of the layer (only for CSVs).",
+                      "title": "Longitude Field"
                     },
                     "toggleSymbology": {
                         "type": "boolean",
