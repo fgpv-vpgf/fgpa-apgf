@@ -838,6 +838,7 @@ function Controller($scope, $translate, $timeout,
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-layer', 'title': $translate.instant('form.map.layer'), 'items': [
                             { 'key': 'layers[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
                                 { 'key': 'layers[].layerChoice', 'type': 'select', 'targetElement': ['layers', 'layerType'], 'targetParent': 'av-accordion-content', 'onChange': (model, item) => {
+                                    if (model === 'file') { model = 'esriFeature'; }
                                     self.formService.copyValueToModelIndex(model, item, $scope.model);
                                     events.$broadcast(events.avNewItems); }
                                 },
@@ -854,16 +855,21 @@ function Controller($scope, $translate, $timeout,
                                         $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
                                     }
                                 }, constants.delayUpdateColumns, false) },
-                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden' },
-                                { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden' },
-                                { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden' },
-                                { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden' },
+                                { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.urlfile') + '<div>', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
+                                { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
+                                { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
+                                { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
+                                { 'key': 'layers[].fileType', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].colour', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].latField', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].longField', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
                                 // hidden read only field { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
-                                { 'key': 'layers[].nameField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
-                                { 'key': 'layers[].tooltipField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
+                                { 'key': 'layers[].nameField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].tooltipField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\'' },
                                 { 'key': 'layers[].customRenderer', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
-                                { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
+                                { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\'` },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerdetail'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
