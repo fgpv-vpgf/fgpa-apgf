@@ -37,7 +37,8 @@
     localStorage.removeItem('configextent');
 </script>
 
-<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-3.0.0/rv-main.js"></script>
+<!-- IMPORTANT, keep the viewer to version 2.5. Modification of viewer version may impact functionnality -->
+<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.5.0/rv-main.js"></script>
 
 </body>
 </html>
