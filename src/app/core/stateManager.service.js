@@ -154,6 +154,8 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         // ADVANCE PARAMETERS SECTION
         processAdvance(_state, modelName, arrForm);
+
+        console.log('testt to see if tree nupadte');
     }
 
     /**
@@ -721,7 +723,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
                 // Structured or autopopulate
                 let path = ['legend', 'root'];
-                if (typeof model.legend.root.title !== 'undefined') {
+                if (typeof model.legend.root !== 'undefined') {
                     if (model.legend.type === 'autopopulate') {
                         root.title = $translate.instant('form.map.legendauto');
                         root.valid = true;
@@ -736,8 +738,10 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
 
                     setStateValueUp(mapStateModel, path, 'valid', root.valid);
+                    break;
                 } else {
                     setStateValueUp(mapStateModel, path, 'valid', true);
+                    break;
                 }
             }
         }

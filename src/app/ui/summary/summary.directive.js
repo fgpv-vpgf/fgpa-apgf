@@ -50,7 +50,7 @@ function avSummary() {
  * @param {Object} commonService service with common functions
  * @param {Object} version service provides current version numbers and the timestap
  */
-function Controller($mdDialog, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
+function Controller($mdDialog, $scope, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
     version) {
     'ngInject';
     const self = this;
@@ -96,7 +96,23 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
     // on validation enable expand and collapse
     events.$on(events.avValidateForm, () => {
+        initState();
         self.disableCollapseExpand = false;
+
+    //  console.log('about to call setsub tabs  to update tree');
+     
+     // set tree directive tag
+
+      // pwoct 2 just a test
+      $timeout(() => { 
+       // self.tabs = constants.schemas.map(item => ({
+     //   model: `<av-tree tree="self.${item.split('.')[0]}"></av-tree>`  }));
+       // setSubTab(constants);
+        //console.log('about to call setsub tabs  to update tree');
+       // constants.schemas.forEach(schema => {
+      //      self[schema.split('.')[0]] = stateManager.getState(schema.split('.')[0]);
+      //  });
+        console.log(' called setsub tabs  to update tree');   $scope.$apply(); }, 5000);
     });
 
     function expand() { expandSummary(self, true); }
