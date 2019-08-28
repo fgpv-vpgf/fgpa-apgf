@@ -639,7 +639,7 @@
                       "type": "string",
                       "enum": [ "csv", "geojson", "shapefile" ],
                       "title": "Sélecteur de type de fichier",
-                      "default": "csv",
+                      "default": "",
                       "required": true
                     },
                     "colour": {
