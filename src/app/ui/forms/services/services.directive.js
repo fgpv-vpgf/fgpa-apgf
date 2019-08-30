@@ -131,7 +131,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelected' }] },
                         { 'type': 'section', 'items': [{ 'key': 'export.timestamp.isSelectable' }] }
                     ] },
-                    { 'title': $translate.instant('form.service.legendSettings'), 'htmlClass': 'av-form-advance hidden', 'key': 'export', 'items': [
+                    { 'title': $translate.instant('form.service.export'), 'htmlClass': 'av-form-advance hidden', 'key': 'export', 'items': [
                         { 'key': 'export.timeout' },
                         { 'key': 'export.cleanCanvas' }
                     ] }

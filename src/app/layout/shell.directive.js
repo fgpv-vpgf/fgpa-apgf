@@ -39,7 +39,7 @@ function avShell() {
      * @param {Object} el html element
      */
     function link(scope, el) {
-        // TODO
+        // TODO:
         // set a resize listener on the root element to update it's layout styling based on the changed size
         // _updateShallLayoutClass();
         // layoutService.onResize($rootElement,

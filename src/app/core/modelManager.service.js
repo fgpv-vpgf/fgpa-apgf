@@ -32,7 +32,8 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         updateModel,
         setDefault,
         checkVersion,
-        getVersion
+        getVersion,
+        getEnabledPlugins
     };
 
     const _state = {};
@@ -246,5 +247,22 @@ function modelManager($timeout, $translate, events, constants, commonService) {
     function getVersion() {
         const model = _model['version'];
         return model !== undefined ? model.version : constants.proVersion;
+    }
+
+    /**
+     * get list of plugins to enable inside preview
+     * @function getVersion
+     * @return {String} Version
+     */
+    function getEnabledPlugins() {
+        const pluginsModel = getModel('plugins', false);
+        const pluginsList = [];
+
+        const keys = Object.keys(pluginsModel);
+        for (const key of keys) {
+            if (pluginsModel[key].enable) { pluginsList.push(`"${key}"`); }
+        }
+
+        return `[${pluginsList.join(',')}]`;
     }
 }

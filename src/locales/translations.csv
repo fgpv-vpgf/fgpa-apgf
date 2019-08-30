@@ -10,6 +10,7 @@ app section ui,app.section.ui,UI,0,UI,0
 app section service,app.section.services,Services,0,Services,0
 app section version,app.section.version,Version,0,Version,0
 app section language,app.section.language,Language,0,Langue,0
+app section plugins,app.section.plugins,Plugins,0,Modules,0
 app summary,app.summary,Summary,0,Sommaire,0
 Content panel tooltip,contentPanel.tooltip.close,Close,0,Fermer,0
 header language selection,header.language,Language,0,Langue,0
@@ -65,7 +66,6 @@ form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
 form service,form.service.geosearchSettings,Settings,0,Paramètres,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
 form service,form.service.nts,NTS,0,SNRC,0
-form service,form.service.legendSettings,More Settings,0,Autre réglages,0
 form service,form.service.fsa,Postal Code/FSA,0,Code postal / RTA,0
 form service,form.service.scale,Scale/Échelle,0,Échelle/Scale,0
 form service,form.service.latlong,Latitude/Longitude,0,Latitude / Longitude,0
@@ -136,6 +136,13 @@ form map area of interest,form.map.areaofinterest,Area of interest,0,"Région d'
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 form version template comment,form.templatecomment,Choose the right template (dev) for the development version of the Author.,0,Choisir le bon gabarit (dev) pour la version développement de l'Auteur.,0
+form plugins rangeSlider,form.plugins.rangeslider,Range Slider,0,Curseur de plage,0
+form plugins rangeSlider,form.plugins.rangesliderctrllock,Lock/unlock minimal range,0,Barrer / débarrer la plage minimale,0
+form plugins rangeSlider,form.plugins.rangesliderctrlloop,Loop animation,0,Boucler l'animation,0
+form plugins rangeSlider,form.plugins.rangesliderctrldelay,Delay between animation,0,Délais entre les animations,0
+form plugins rangeSlider,form.plugins.rangesliderctrlrefresh,Refresh,0,Rafraîchir,0
+form plugins rangeSlider,form.plugins.rangesliderctrlexport,Export animation as Gif,0,Exporter l'animation en format Gif,0
+form validation,form.validation.required,Required,0,Requis,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Annuler,0
@@ -145,6 +152,8 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,button.ok,Ok,0,Ok,0
 ,button.import,Import,0,Importer,0
 ,button.extension,Extensions,0,Extensions,0
+,format.date,Date,0,Date,0
+,format.number,Number,0,Nombre,0
 ,ui.fullscreen.title,Fullscreen,1,Plein écran,1
 ,ui.theme.title,Theme,1,Thème,1
 ,ui.logoUrl.title,Logo URL,1,URL du logo,1

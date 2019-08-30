@@ -1,0 +1,118 @@
+{
+    "schema": "plugins",
+    "title": "Plugins",
+    "description": "Les plugins du schéma à utiliser. Chaque plugin sera dans son propre onglet.",
+    "type": "object",
+    "properties": {
+        "rangeSlider": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                },
+                "controls": {
+                    "type": "array",
+                    "default": ["lock", "delay"],
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                             "lock",
+                            "loop",
+                            "delay",
+                            "export",
+                            "refresh"
+                        ]
+                    },
+                    "title": "Contrôles de la barre de défilement"
+                },
+                "params": {
+                    "type": "object",
+                    "title": "Paramètres",
+                    "properties": {
+                        "type": {
+                            "title": "Type de curseur",
+                            "type": "string",
+                            "enum": [
+                                "date",
+                                "number"
+                            ],
+                            "description": "Si la valeur 'Date' est sélectionné, la valeur de la plage et de la limite est en millisecondes",
+                            "default": "number"
+                        },
+                        "delay": {
+                            "title": "Délais de l'animation",
+                            "type": "string",
+                            "enum": [
+                                "3000",
+                                "4000",
+                                "5000",
+                                "6000",
+                                "7000"
+                            ],
+                            "description": "Délais entre les animations.",
+                            "default": "3000"
+                        },
+                        "range": {
+                            "type": "object",
+                            "title": "Valeurs par défault de la plage",
+                            "properties": {
+                                "min": {
+                                    "type": "number",
+                                    "title": "Plage min",
+                                    "description": "La valeur minimale pour la plage. Si non défini, la limite minimale sera utilisée. Doit être définie pour les couches WMS."
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "title": "Plage max",
+                                    "description": "La valeur maximale pour la plage. Si non défini, la limite maximale sera utilisée. Doit être définie pour les couches WMS."
+                                }
+                            }
+                        },
+                        "limit": {
+                            "type": "object",
+                            "title": "Valeurs par défault de la limite",
+                            "properties": {
+                                "min": {
+                                    "type": "number",
+                                    "title": "Limite min",
+                                    "description": "La valeur minimale pour la limite. Doit être définie pour les couches WMS."
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "title": "Limite max",
+                                    "description": "La valeur maximale pour la limite. Doit être définie pour les couches WMS."
+                                }
+                            }
+                        }
+                    },
+                    "required": ["type"]
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Couches",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe)",
+                                "title": "ID"
+                            },
+                            "field": {
+                                "type": "string",
+                                "description": "Le nom du champ à utiliser.",
+                                "title": "Nom du champ",
+                                "default": ""
+                            }
+                        },
+                        "required": ["id", "field"]
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": ["params", "layers"]
+        }
+    }
+}
+
