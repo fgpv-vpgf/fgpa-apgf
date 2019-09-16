@@ -638,7 +638,7 @@
                       "type": "string",
                       "enum": [ "csv", "geojson", "shapefile" ],
                       "title": "File type",
-                      "default": "csv",
+                      "default": "",
                       "required": true
                     },
                     "colour": {
