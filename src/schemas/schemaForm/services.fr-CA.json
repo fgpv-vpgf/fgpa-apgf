@@ -50,8 +50,48 @@
     },
     "search": {
       "type": "object",
-      "description": "Propriétés de la recherche incluant la possibilité d'activer certains types de recherche (Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude) et d'identifier les URLs des points de service.",
+      "description": "Propriétés de la recherche incluant la possibilité d'activer certains types de recherche (Système national de référence cartographique, code postal / Région de tri d'acheminement ou Latitude / Longitude), de modifier les paramètres de recherche par défaut (filtrage, tri, etc.) et d'identifier les URLs des points de service.",
       "properties": {
+        "settings": {
+          "version": "3.1",
+          "type": "object",
+          "description": "Paramètres de configuration de la recherche",
+          "properties": {
+            "categories": {
+              "title": "Catégories",
+              "type": "array",
+              "items": {
+                "title": "Catégorie",
+                "type": "string"
+              },
+              "default": [],
+              "description": "Filtrer les résultats de la recherche en fonction du type de noms géographiques. Les valeurs autorisées peuvent être trouvées ici (si vous utilisez l'API du service de recherche de GeoNames au Canada): http://geogratis.gc.ca/services/geoname/fr/codes/concise."
+            },
+            "sortOrder": {
+              "title": "Trier par catégories",
+              "type": "array",
+              "items": {
+                "title": "Catégories",
+                "type": "string"
+              },
+              "default": [],
+              "description": "L'ordre de tri des 'catégories'. Toutes les catégories manquantes sont ajoutées au bas de la liste triée. Les résultats peuvent toujours être triés avec cette option même si aucune catégorie n'est filtrée."
+            },
+            "maxResults": {
+              "title": "Résultat maximum",
+              "type": "number",
+              "default": 100,
+              "description": "Nombre maximal de résultats à renvoyer par demande. L'API du service de recherche 'GeoNames' a une limite de recherche de 1 000 entités par requête, sauf si un autre service est utilisé avec une limite supérieure. La valeur par défaut est 100 résultats."
+            },
+            "officialOnly": {
+              "title": "Noms officiels seulement",
+              "type": "boolean",
+              "default": false,
+              "description": "Indique s'il faut renvoyer uniquement les noms officiels. La valeur par défaut est 'false', ce qui renverra les noms officiels et les anciens noms officiels."
+            }
+          },
+          "additionalProperties": false
+        },
         "disabledSearches": {
           "type": "array",
           "items": {
@@ -59,8 +99,8 @@
             "enum": [
               "NTS",
               "FSA",
-              "SCALE",
-              "LAT/LNG"
+              "LAT/LNG",
+              "SCALE"
             ]
           },
           "uniqueItems": true,

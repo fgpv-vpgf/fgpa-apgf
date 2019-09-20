@@ -121,6 +121,9 @@ La section d'information peut être de type texte (_text_), titre (_title_), ima
     }
 ```
 
+symbologyStack - image: un URI de données ou une URL vers une source prenant en charge les en-têtes CORS
+symbologyStack - sqlFilter: Une clause SQL par laquelle les attributs map et datatable peuvent être filtrés. Tous les résultats de la requête pour symbologyStack doivent couvrir tous les attributs de cette couche.
+
 > **Interface**
 
 ![Info section](./help/images/legendInfoSection.gif)

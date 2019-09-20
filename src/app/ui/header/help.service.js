@@ -25,30 +25,23 @@ angular
     .filter('select', selectFilter);
 
 
-    /**
-     * Search filter for special chars and null that cause problems with help display and search
-     *
-     * @function searchFilterNoSpecialCharsNull
-     * @private
-     * @param {String}  search term to verify for special characters
-     * @return {Boolean} true if valid
-     */
-    function searchFilterNoSpecialCharsNull(searchTerm) {
+/**
+ * Search filter for special chars and null that cause problems with help display and search
+ *
+ * @function searchFilterNoSpecialCharsNull
+ * @private
+ * @param {String} searchTerm term to verify for special characters
+ * @return {Boolean} true if valid
+ */
+function searchFilterNoSpecialCharsNull(searchTerm) {
 
-            // no searchTerm provided, return all text
-            if (!searchTerm) {
-                return false;
-            }
+    // no searchTerm provided, return all text. Initialize to false
+    if (searchTerm === '') return false;
 
-           if ((searchTerm !== '') && (searchTerm.indexOf('.') === -1) && (searchTerm.indexOf('|') === -1) && (searchTerm.indexOf('+') === -1) && (searchTerm.indexOf('[') === -1) && (searchTerm.indexOf('(') === -1)
-              && (searchTerm.indexOf(')') === -1) && (searchTerm.indexOf('^') === -1) && (searchTerm.indexOf('$') === -1) && (searchTerm.indexOf('?') === -1) && (searchTerm.indexOf('*') === -1)
-              && (searchTerm.lastIndexOf('\\') !== (searchTerm.length)-1)) {
-              return true;
-           }
-           else {
-              return false;
-           }
-    }
+    // check if a special character is present, if not and there is a search terms, show result
+    const arrChars = ['.', '|', '+', '[', '(', ')', '^', '$', '?', '*', '\\'];
+    return !arrChars.some(substring => searchTerm.includes(substring)) && (searchTerm !== '');
+}
 
 /**
  * Select filter to select text inside section info. We do not use the filter from angular * because it has problem with ' in French
@@ -76,7 +69,6 @@ function selectFilter() {
                 }
             }
         }
-
         return output;
     };
 }
@@ -155,15 +147,16 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
         // get help location
         const language = localStorage.getItem('fgpa-lang');
 
-        self.sections=[]; // used in template for rendering help sections
+        // used in template for rendering help sections
+        self.sections = [];
 
-        useMarkdown(language,self.sections,`help/images/`,`help/${language}.md`);
+        useMarkdown(language,self.sections, `help/images/`, `help/${language}.md`);
 
         extensionList.forEach(index => {
             let lastslash = index.lastIndexOf('/') ;
-            let extenStringdir = index.substring(0,lastslash);
-            let extenString = index.substring(0,index.lastIndexOf('.'));
-            let filePart = extenString + `-${language}.md`;
+            let extenStringdir = index.substring(0, lastslash);
+            let extenString = index.substring(0, index.lastIndexOf('.'));
+            let filePart = `${extenString}-${language}.md`;
 
             // can't use require("fs") due to a webpack problem with node.js
             let file = new XMLHttpRequest();
@@ -172,15 +165,12 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             file.send();
 
             file.onreadystatechange = (r => {
-             if (file.readyState === 4 && file.status !== 404) {
-                 useMarkdown(language, self.sections, `${extenStringdir}/images/`, extenString + `-${language}.md`);
+                if (file.readyState === 4 && file.status !== 404) {
+                    useMarkdown(language, self.sections, `${extenStringdir}/images/`, `${extenString}-${language}.md`);
+                } else {
+                    console.log('Markdown file does not exist', file.status, filePart);
                 }
-               else {
-                 console.log('Markdown file does not exist', file.status, filePart);
-               }
-           }
-          );
-
+            } );
         });
 
         /**
@@ -196,15 +186,16 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
         function useMarkdown(language, sections, imageLocation, mdLocation) {
             let section; // used for storing individual section groupings
 
-          // make it easier to use images in markdown by prepending path to href if href is not an external source
-          // this avoids the need for ![](help/images/myimg.png) to just ![](myimg.png). This overrides the default image renderer completely.
+            // make it easier to use images in markdown by prepending path to href if href is not an external source
+            // this avoids the need for ![](help/images/myimg.png) to just ![](myimg.png). This overrides the default image renderer completely.
             $http.get(mdLocation).then(r => {
-               renderer.image = (href, title) => {
-                  if (href.indexOf('http') === -1) {
-                    href = imageLocation + href;
-                  }
-                  return `<img src="${href}" alt="${title}">`;
-              };
+                renderer.image = (href, title) => {
+                    if (href.indexOf('http') === -1) {
+                        href = `${imageLocation}${href}`;
+                    }
+                    return `<img src="${href}" alt="${title}">`;
+                };
+
                 // matches help sections from markdown file where each section begins with one hashbang and a space
                 // followed by the section header, exactly 2 spaces, then up to but not including a double space
                 // note that the {2,} below is used as the double line separator since each double new line is actually 6
@@ -229,7 +220,6 @@ function helpService($mdDialog, $translate, $timeout, translations, events, cons
             }).catch(error => {
                 self.hasNoHelp = true;
             });
-
         }
 
         self.searchTerm = '';

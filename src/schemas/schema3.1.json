@@ -554,6 +554,13 @@
           "table": {
             "$ref": "#/definitions/tableNode",
             "description": "Settings for table panel"
+          },
+          "fieldMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/fieldMetadataEntry"
+            },
+            "description": "Specifies options for the fields of a layer."
           }
         },
         "required": [
@@ -644,10 +651,15 @@
           "type": "object",
           "properties": {
             "image": {
-              "type": "string"
+              "type": "string",
+              "description": "Either a data URI or a URL to a source that supports CORS headers."
             },
             "text": {
               "type": "string"
+            },
+            "sqlQuery": {
+              "type": "string",
+              "description": "An SQL where clause by which the map and datatable attributes can be filtered. All the query results for the symbologyStack should cover all attributes for that layer."
             }
           },
           "required": [
@@ -911,12 +923,22 @@
           "lazyFilter": {
             "type": "boolean",
             "default": false,
-            "description": "Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text feilds"
+            "description": "Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text fields"
           },
           "applyMap": {
             "type": "boolean",
             "default": false,
             "description": "Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied."
+          },
+          "showFilter": {
+            "type": "boolean",
+            "default": true,
+            "description": "Specifies if the column filters should be displayed on the table."
+          },
+          "filterByExtent": {
+            "type": "boolean",
+            "default": false,
+            "description": "Specifies if the table should filter rows by extent by default. If true, the table will filter by extent when it is opened."
           },
           "columns": {
             "type": "array",
@@ -961,7 +983,7 @@
           },
           "width": {
             "type": "number",
-            "description": "Specifies the column width. If missing, calculated column width will be use."
+            "description": "Specifies the column width. The minimum column width is set to 100px. If missing, calculated column width will be use."
           },
           "sort": {
             "type": "string",
@@ -998,7 +1020,7 @@
               "date",
               "selector"
             ],
-            "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails. Mainly used to change default text filters to selector filters if the user wishes."
+            "description": "Specifies the filter type to use. Mainly used to change default text filters to selector filters if the user wishes."
           },
           "value": {
             "type": "string",
@@ -1233,6 +1255,13 @@
               "template"
             ],
             "additionalProperties": false
+          },
+          "fieldMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/fieldMetadataEntry"
+            },
+            "description": "Specifies options for the fields of a layer."
           }
         },
         "required": [
@@ -1334,6 +1363,13 @@
               "template"
             ],
             "additionalProperties": false
+          },
+          "fieldMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/fieldMetadataEntry"
+            },
+            "description": "Specifies options for the fields of a layer."
           }
         },
         "required": [
@@ -1425,6 +1461,13 @@
               "template"
             ],
             "additionalProperties": false
+          },
+          "fieldMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/fieldMetadataEntry"
+            },
+            "description": "Specifies options for the fields of a layer."
           }
         },
         "required": [
@@ -2045,8 +2088,41 @@
       },
       "searchService": {
         "type": "object",
-        "description": "Search properties including ability to disable certain types of searches (NTS, FSA, SCALE, and/or LAT/LNG) and to set service endpoint urls",
+        "description": "Search properties including ability to disable certain types of searches (NTS, FSA, SCALE, and/or LAT/LNG), modify default GeoSearch settings (filtering, sorting, etc.), and to set service endpoint urls",
         "properties": {
+          "settings": {
+            "type": "object",
+            "description": "Configuration settings related to GeoSearch",
+            "properties": {
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": [],
+                "description": "Filter the search results based on the type of the geographical names. Allowed values can be found here (if using the Canadian GeoNames Search Service API): http://geogratis.gc.ca/services/geoname/en/codes/concise."
+              },
+              "sortOrder": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": [],
+                "description": "The sort order of the defined 'categories'. Any missing categories are appended to the bottom of the sorted list. The results can still be sorted through this option even if there are no categories being filtered."
+              },
+              "maxResults": {
+                "type": "number",
+                "default": 100,
+                "description": "The maximum number of results to return per request. The Canadian GeoNames Search Service API has a 1000 search limit which will be used as an upper limit of results returned unless another service is being used with a higher limit. The default is 100 results."
+              },
+              "officialOnly": {
+                "type": "boolean",
+                "default": false,
+                "description": "Whether to return only official names for the geographic names. Default is false which will return both official names and formerly official names."
+              }
+            },
+            "additionalProperties": false
+          },
           "disabledSearches": {
             "type": "array",
             "items": {
@@ -2054,8 +2130,8 @@
               "enum": [
                 "NTS",
                 "FSA",
-                "SCALE",
-                "LAT/LNG"
+                "LAT/LNG",
+                "SCALE"
               ]
             },
             "minItems": 1,
@@ -2115,6 +2191,23 @@
           "folderName"
         ],
         "additionalProperties": false
+      },
+      "fieldMetadataEntry": {
+        "type": "object",
+        "description": "Specifies options for a field in a layer.",
+        "properties": {
+          "data": {
+            "type": "string",
+            "description": "Specifies the field name (data) to use to link to the identifier. Must exist in the layer."
+          },
+          "alias": {
+            "type": "string",
+            "description": "Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name."
+          }
+        },
+        "required": [
+          "data"
+        ]
       }
     },
     "properties": {
@@ -2231,6 +2324,10 @@
             ]
           }
         }
+      },
+      "plugins": {
+        "description": "A set of config snippets correponding to the plugins loaded onto the viewer",
+        "type": "object"
       },
       "services": {
         "description": "A set of service endpoints used by the viewer",

@@ -137,6 +137,9 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] }
                 ] },
                 { 'title': $translate.instant('form.service.geosearch'), 'key': 'search', 'items': [
+                    { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-version-dev av-version-dev-hide', 'title': $translate.instant('form.service.geosearchSettings'), 'items': [
+                        { 'key': 'search.settings', 'htmlClass': `av-accordion-content`, 'notitle': true }
+                    ] },
                     { 'key': 'search.disabledSearches', 'titleMap': {
                         'NTS': $translate.instant('form.service.nts'),
                         'FSA': $translate.instant('form.service.fsa'),

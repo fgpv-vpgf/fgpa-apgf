@@ -12,6 +12,12 @@ A set of service endpoints used by the viewer.
 &emsp;&emsp;&emsp; ["googleAPIKey"](#servicesgoogleapikey): ...,<br/>
 &emsp;&emsp;&emsp; ["esriLibUrl"](#servicesesriliburl): ...,<br/>
 &emsp;&emsp;&emsp; [**"search"**](#servicessearch): {<br/>
+&emsp;&emsp;&emsp;&emsp; [**"settings"**](#servicessearchsettings): {<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;     ["categories"](#servicessearchsettingscategories): ...,<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;     ["sortOrder"](#sservicessearchsettingssortorder): ...,<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;     ["maxResults"](#servicessearchsettingsmaxresults): ...,<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;     ["officialOnly"](#servicessearchsettingsofficialonly): ...,<br/>
+&emsp;&emsp;&emsp;&emsp; }<br/>
 &emsp;&emsp;&emsp;&emsp; ["disabledSearches"](#servicessearchdisabledsearches): [...],<br/>
 &emsp;&emsp;&emsp;&emsp; [**"serviceUrls"**](#servicessearchserviceurls): {<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;     ["geoNames"](#servicessearchserviceurlsgeonames): ...,<br/>
@@ -128,6 +134,40 @@ A set of service endpoints used by the viewer.
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *object* ||| Services/Geo Search | - | - |
 
+>### [services:search:_**`settings`**_](#services--search--settings)
+>>Configuration settings related to GeoSearch.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *object* ||| Services/Geo Search | Yes | - |
+
+>### [services:search:settings:_**`categories`**_](#services--search--categories)
+>>Filter the search results based on the type of the geographical names. Allowed values can be found here (if using the Canadian GeoNames Search Service API): http://geogratis.gc.ca/services/geoname/en/codes/concise.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *array* | `[]` | `['cities']` | Services/Geo Search | Yes | - |
+
+>### [services:search:settings:_**`sortOrder`**_](#services--search--sortorder)
+>>The sort order of the defined 'categories'. Any missing categories are appended to the bottom of the sorted list. The results can still be sorted through this option even if there are no categories being filtered.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *array* | `[]` | `['cities']` | Services/Geo Search | Yes | - |
+
+>### [services:search:settings:_**`maxResults`**_](#services--search--maxresults)
+>>The maximum number of results to return per request. The Canadian GeoNames Search Service API has a 1000 search limit which will be used as an upper limit of results returned unless another service is being used with a higher limit. The default is 100 results.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *integer* | `100` | `100` | Services/Geo Search | Yes | - |
+
+>### [services:search:settings:_**`officialOnly`**_](#services--search--officialonly)
+>>Whether to return only official names for the geographic names. Default is false which will return both official names and formerly official names.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `false` | Services/Geo Search | Yes | - |
 
 >### [services:search:_**`disabledSearches`**_](#services--search--disabledSearches)
 >>Enable specific types of searches including: National Topographic System, Postal Code/Foward Sorting Area or Latitude/Longitude (e.g. 58.12;-100.67).
@@ -382,6 +422,7 @@ SRI JavaSCript API endpoint. Note, we can't use a version greater than v3.22.
     "services"{
         ...,
         "search": {
+            "settings": [...],
             "disabledSearches": [...],
             "serviceUrls": {...}
         }
@@ -394,6 +435,24 @@ Searches can be done through the search bar.
 ![search](https://github.com/ChrisLatRNCan/fgpa-apgf/blob/8-schemaDoc/wiki/images/services-search.png)
 
 [:arrow_up: back to search](#servicessearch)
+
+>## services : search : settings
+
+Configuration settings related to GeoSearch.
+
+```js
+    "search": {
+        "settings":{
+            "categories":"['cities']",
+            "sortOrder":"['province', 'cities']",
+            "maxResult":"100",
+            "officialOnly":"true"
+        },
+        ...
+    }
+```
+
+[:arrow_up: back to settings](#servicessearchsettings)
 
 >## services : search : disabledSearches
 

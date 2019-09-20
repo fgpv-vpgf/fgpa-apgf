@@ -609,7 +609,7 @@
                     "layerChoice": {
                         "description": "",
                         "type": "string",
-                        "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms", "file"],
+                        "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms", "ogcWfs", "file"],
                         "title": "Layer type selector",
                         "default": "esriDynamic",
                         "required": true
@@ -636,7 +636,7 @@
                     },
                     "fileType":{
                       "type": "string",
-                      "enum": [ "csv", "geojson", "shapefile" ],
+                      "enum": ["", "csv", "geojson", "shapefile"],
                       "title": "File type",
                       "default": "",
                       "required": true
@@ -687,6 +687,22 @@
                         "type": "string",
                         "description": "The catalogue url of the layer service",
                         "title": "Catalogue URL"
+                    },
+                    "suppressGetCapabilities": {
+                        "for": "ogcwms",
+                        "title": "Suppress Get Capabilities",
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Prevents a getCapabilities request, instead relying on info provided in layerEntries",
+                        "version": "2.5"
+                    },
+                    "xyInAttribs": {
+                      "for": "ogcWfs",
+                      "title": "X & Y",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Indicates if the point co-ords should be copied to the feature attributes. Ignored for lines and polygons.",
+                      "version": "2.5"
                     },
                     "tolerance": {
                         "for": "esriDynamic, esriFeature",
@@ -746,14 +762,6 @@
                         "enum": [ "image/png", "image/gif", "image/jpeg", "image/svg", "image/svg+xml" ],
                         "description": "If specified indicates that GetLegendGraphic should be enabled for this WMS and indicates the format that should be requested.  FIXME check legendUrl for additional requirements",
                         "title": "Legend MIME type"
-                    },
-                    "suppressGetCapabilities": {
-                        "for": "ogcwms",
-                        "title": "Suppress Get Capabilities",
-                        "type": "boolean",
-                        "default": false,
-                        "description": "Prevents a getCapabilities request, instead relying on info provided in layerEntries",
-                        "version": "2.5"
                     },
                     "controls": {
                       "title": "Controls",
@@ -903,7 +911,7 @@
                                 "type": "boolean",
                                 "title": "Lazy Filter",
                                 "default": false,
-                                "description": "Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text feilds.",
+                                "description": "Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text fields.",
                                 "version": "2.5"
                             },
                             "applyMap": {
@@ -911,6 +919,34 @@
                                 "default": false,
                                 "description": "Specifies if the default filters (from fields filter) are apply to the map (definition query). True: it is applied; False: it is not applied.",
                                 "title": "Apply map"
+                            },
+                            "showFilter": {
+                              "type": "boolean",
+                              "default": true,
+                              "description": "Specifies if the column filters should be displayed on the table.",
+                              "title": "Show Filter",
+                              "version": "3.1"
+                            },
+                            "filterByExtent": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Specifies if the table should filter rows by extent by default. If true, the table will filter by extent when it is opened.",
+                              "title": "Filter by Extent",
+                              "version": "3.1"
+                            },
+                            "searchStrictMatch": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.",
+                              "title": "Strict match search enabled",
+                              "version": "3.0"
+                            },
+                            "printEnabled": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Specifies if print button is available on the datatable. Defaults to false.",
+                              "title": "Print enabled",
+                              "version": "3.0"
                             },
                             "columns": {
                                 "type": "array",
@@ -944,7 +980,7 @@
                                         "width": {
                                             "type": "number",
                                             "minimum": "0",
-                                            "description": "Specifies the column width. If missing, calculated column width will be use.",
+                                            "description": "Specifies the column width. The minimum column width is set to 100px. If missing, calculated column width will be use.",
                                             "title": "Width"
                                         },
                                         "sort": {
@@ -989,21 +1025,7 @@
                                     }
                                 },
                                 "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
-                            },
-                            "searchStrictMatch": {
-                              "type": "boolean",
-                              "default": false,
-                              "description": "Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.",
-                              "title": "Strict match search enabled",
-                              "version": "3.0"
-                          },
-                          "printEnabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "description": "Specifies if print button is available on the datatable. Defaults to false.",
-                            "title": "Print enabled",
-                            "version": "3.0"
-                          }
+                            }
                         },
                         "description": "Specifies how layers fields and global search are set",
                         "additionalProperties": false
@@ -1047,6 +1069,31 @@
                                     "title": "State only",
                                     "default": false,
                                     "description": "A flag indicating this entry is only for state tracking (i.e. it should not be displayed on the UI and all of the controls will be ignored, but the layer itself will be displayed on the map with the given state settings)."
+                                },
+                                "fieldMetadata": {
+                                  "for": "esriDynamic",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "title": "Field",
+                                    "description": "Specifies options for a field in a layer.",
+                                    "properties": {
+                                      "data": {
+                                        "type": "string",
+                                        "title": "Data",
+                                        "description": "Specifies the field name (data) to use to link to the identifier. Must exist in the layer."
+                                      },
+                                      "alias": {
+                                        "type": "string",
+                                        "title": "Alias",
+                                        "description": "Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name."
+                                      }
+                                    },
+                                    "required": [
+                                      "data"
+                                    ]
+                                  },
+                                  "description": "Specifies options for the fields of a layer."
                                 },
                                 "id": {
                                     "for": "ogcwms",
@@ -1102,7 +1149,7 @@
                                             "type": "boolean",
                                             "title": "Lazy Filter",
                                             "default": false,
-                                            "description": "Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text feilds.",
+                                            "description": "Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text fields.",
                                             "version": "2.5"
                                         },
                                         "applyMap": {
@@ -1111,82 +1158,19 @@
                                             "default": false,
                                             "description": "Specifies if the default filters (from fields filter) are apply to the map (definition query). True: it is applied; False: it is not applied."
                                         },
-                                        "columns": {
-                                            "type": "array",
-                                            "title": "Fields",
-                                            "default": [],
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "data": {
-                                                        "type": "string",
-                                                        "title": "Data",
-                                                        "description": "Specifies the field name (data) to use to link to the layer column. Must exist in the layer."
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "title": "Title",
-                                                        "description": "Specifies the column title, uses the layer column name or alias if missing."
-                                                    },
-                                                    "description": {
-                                                        "type": "string",
-                                                        "title": "Description",
-                                                        "description": "Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing."
-                                                    },
-                                                    "visible": {
-                                                        "type": "boolean",
-                                                        "title": "Visible",
-                                                        "default": true,
-                                                        "description": "Specifies if column is visible by default. True: column is visible; False: column is hidden."
-                                                    },
-                                                    "width": {
-                                                        "type": "number",
-                                                        "title": "Width",
-                                                        "minimum": "0",
-                                                        "description": "Specifies the column width. If missing, calculated column width will be use."
-                                                    },
-                                                    "sort": {
-                                                        "type": "string",
-                                                        "title": "Sort",
-                                                        "enum": ["asc", "desc"],
-                                                        "description": "Specifies if column is sort. If missing, no sort is applied."
-                                                    },
-                                                    "searchable": {
-                                                        "type": "boolean",
-                                                        "title": "Searchable",
-                                                        "default": true,
-                                                        "description": "Specifies if column can be filter. True: column can be filter; False: no filter can be applied from global search or filter. If this is false, do not set a filter because it will not be use."
-                                                    },
-                                                    "filter": {
-                                                        "type": "object",
-                                                        "title": "Filter",
-                                                        "description": "Specifies the filter information for a column.",
-                                                        "properties": {
-                                                            "type": {
-                                                                "type": "string",
-                                                                "title": "Type",
-                                                                "enum": ["string", "number", "date", "selector"],
-                                                                "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails."
-                                                            },
-                                                            "value": {
-                                                                "type": "string",
-                                                                "title": "Value",
-                                                                "default": "",
-                                                                "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100 or for date 2005-02-22,2005-04-30). The date format is YYYY-MM-DD. For selector it needs an array like [\"Fire\", \"Fatality\"]"
-                                                            },
-                                                            "static": {
-                                                                "type": "boolean",
-                                                                "title": "Static",
-                                                                "default": false,
-                                                                "description": "Specifies if filter is modifiable. True: filter value can't be modified; False: filter value can be modified."
-                                                            }
-                                                        },
-                                                        "required": ["type"],
-                                                        "additionalProperties": false
-                                                    }
-                                                }
-                                            },
-                                            "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                                        "showFilter": {
+                                          "type": "boolean",
+                                          "default": true,
+                                          "description": "Specifies if the column filters should be displayed on the table.",
+                                          "title": "Show Filter",
+                                          "version": "3.1"
+                                        },
+                                        "filterByExtent": {
+                                          "type": "boolean",
+                                          "default": false,
+                                          "description": "Specifies if the table should filter rows by extent by default. If true, the table will filter by extent when it is opened.",
+                                          "title": "Filter by Extent",
+                                          "version": "3.1"
                                         },
                                         "searchStrictMatch": {
                                           "type": "boolean",
@@ -1194,21 +1178,97 @@
                                           "description": "Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.",
                                           "title": "Strict match search enabled",
                                           "version": "3.0"
-                                      },
-                                      "printEnabled": {
-                                        "type": "boolean",
-                                        "default": false,
-                                        "description": "Specifies if print button is available on the datatable. Defaults to false.",
-                                        "title": "Print enabled",
-                                        "version": "3.0"
-                                      }
+                                        },
+                                        "printEnabled": {
+                                          "type": "boolean",
+                                          "default": false,
+                                          "description": "Specifies if print button is available on the datatable. Defaults to false.",
+                                          "title": "Print enabled",
+                                          "version": "3.0"
+                                        },
+                                        "columns": {
+                                              "type": "array",
+                                              "title": "Fields",
+                                              "default": [],
+                                              "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                      "data": {
+                                                          "type": "string",
+                                                          "title": "Data",
+                                                          "description": "Specifies the field name (data) to use to link to the layer column. Must exist in the layer."
+                                                      },
+                                                      "title": {
+                                                          "type": "string",
+                                                          "title": "Title",
+                                                          "description": "Specifies the column title, uses the layer column name or alias if missing."
+                                                      },
+                                                      "description": {
+                                                          "type": "string",
+                                                          "title": "Description",
+                                                          "description": "Specifies the additional information to display in the setting panel to give more information about a column. Do not add description if missing."
+                                                      },
+                                                      "visible": {
+                                                          "type": "boolean",
+                                                          "title": "Visible",
+                                                          "default": true,
+                                                          "description": "Specifies if column is visible by default. True: column is visible; False: column is hidden."
+                                                      },
+                                                      "width": {
+                                                          "type": "number",
+                                                          "title": "Width",
+                                                          "minimum": "0",
+                                                          "description": "Specifies the column width. If missing, calculated column width will be use."
+                                                      },
+                                                      "sort": {
+                                                          "type": "string",
+                                                          "title": "Sort",
+                                                          "enum": ["asc", "desc"],
+                                                          "description": "Specifies if column is sort. If missing, no sort is applied."
+                                                      },
+                                                      "searchable": {
+                                                          "type": "boolean",
+                                                          "title": "Searchable",
+                                                          "default": true,
+                                                          "description": "Specifies if column can be filter. True: column can be filter; False: no filter can be applied from global search or filter. If this is false, do not set a filter because it will not be use."
+                                                      },
+                                                      "filter": {
+                                                          "type": "object",
+                                                          "title": "Filter",
+                                                          "description": "Specifies the filter information for a column.",
+                                                          "properties": {
+                                                              "type": {
+                                                                  "type": "string",
+                                                                  "title": "Type",
+                                                                  "enum": ["string", "number", "date", "selector"],
+                                                                  "description": "Specifies the filter type to use. If type is not specified, data field type will be use. String filter can be string or selector. Other filter must be the same type. If not, apply on map will fails."
+                                                              },
+                                                              "value": {
+                                                                  "type": "string",
+                                                                  "title": "Value",
+                                                                  "default": "",
+                                                                  "description": "Specifies the filter value. For date and number values are split by ',' (e.g. 0,100 or for date 2005-02-22,2005-04-30). The date format is YYYY-MM-DD. For selector it needs an array like [\"Fire\", \"Fatality\"]"
+                                                              },
+                                                              "static": {
+                                                                  "type": "boolean",
+                                                                  "title": "Static",
+                                                                  "default": false,
+                                                                  "description": "Specifies if filter is modifiable. True: filter value can't be modified; False: filter value can be modified."
+                                                              }
+                                                          },
+                                                          "required": ["type"],
+                                                          "additionalProperties": false
+                                                      }
+                                                  }
+                                              },
+                                              "description": "Specifies the array of fields for the table. When there is an item in this array, it will be use to define wich and how column will be set for the table. If a column is not in the array it will be assume as disabled."
+                                        }
                                     },
                                     "description": "Specifies how layers fields and global search are set",
                                     "additionalProperties": false
                                 },
                                 "controls": {
                                   "title": "Controls",
-                                  "default": [],
                                   "type": "array",
                                   "items": {
                                     "type": "string",
@@ -1309,6 +1369,30 @@
                                  "id"
                              ]
                         }
+                    },
+                    "fieldMetadata": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "title": "Field",
+                        "description": "Specifies options for a field in a layer.",
+                        "properties": {
+                          "data": {
+                            "type": "string",
+                            "title": "Data",
+                            "description": "Specifies the field name (data) to use to link to the identifier. Must exist in the layer."
+                          },
+                          "alias": {
+                            "type": "string",
+                            "title": "Alias",
+                            "description": "Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name."
+                          }
+                        },
+                        "required": [
+                          "data"
+                        ]
+                      },
+                      "description": "Specifies options for the fields of a layer."
                     }
                 },
                 "required": [
