@@ -609,7 +609,7 @@
                     "layerChoice": {
                         "description": "",
                         "type": "string",
-                        "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms", "file"],
+                        "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms", "ogcWfs", "file"],
                         "title": "Sélecteur de type de couche",
                         "default": "esriDynamic",
                         "required": true
@@ -637,7 +637,7 @@
                     },
                     "fileType":{
                       "type": "string",
-                      "enum": [ "csv", "geojson", "shapefile" ],
+                      "enum": ["", "csv", "geojson", "shapefile"],
                       "title": "Sélecteur de type de fichier",
                       "default": "",
                       "required": true
@@ -688,6 +688,22 @@
                         "type": "string",
                         "description": "L'URL du service de carte pour le catalogue.",
                         "title": "URL du catalogue"
+                    },
+                    "suppressGetCapabilities": {
+                      "for": "ogcwms",
+                      "title": "Supprimer le Get Capabilities",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Empêche les requêtes getCapabilities, plutôt que d'utiliser les informations fournies dans l'entrée de la couche",
+                      "version": "2.5"
+                    },
+                    "xyInAttribs": {
+                      "for": "ogcWfs",
+                      "title": "X & Y",
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Indique si les coordonnées des points doivent être copiés dans les attributs. Ignoré pour les lignes et les polygones.",
+                      "version": "2.5"
                     },
                     "tolerance": {
                         "for": "esriDynamic, esriFeature",
@@ -747,14 +763,6 @@
                         "enum": [ "image/png", "image/gif", "image/jpeg", "image/svg", "image/svg+xml" ],
                         "description": "Indique qu'elles sont les protocoles activés par un service WMS lors d'une requête de type -- récupérer le graphique de la légende -- ( GetLegendGraphic ).",
                         "title": "Type du protocole utilisé pour la légende"
-                    },
-                    "suppressGetCapabilities": {
-                        "for": "ogcwms",
-                        "title": "Supprimer le Get Capabilities",
-                        "type": "boolean",
-                        "default": false,
-                        "description": "Empêche les requêtes getCapabilities, plutôt que d'utiliser les informations fournies dans l'entrée de la couche",
-                        "version": "2.5"
                     },
                     "controls": {
                       "title": "Contrôles",
@@ -912,6 +920,34 @@
                                 "description": "Détermine si les filtres par défaut (filtres de champs) sont appliquer à la carte. Vrai: appliqué; Faux: non appliqué.",
                                 "title": "Appliquer à la carte"
                             },
+                            "showFilter": {
+                              "type": "boolean",
+                              "default": true,
+                              "description": "Spécifie si les filtres de colonne doivent être affichés dans la table.",
+                              "title": "Afficher les filtres",
+                              "version": "3.1"
+                            },
+                            "filterByExtent": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Spécifie si la table doit filtrer par étendue par défaut. Si 'true', la table filtrera par étendue lorsqu’elle sera ouverte.",
+                              "title": "Filtrer selon l'étendue",
+                              "version": "3.1"
+                            },
+                            "searchStrictMatch": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Spécifie si le texte doit être identique (avec les accents) lors du filtrage et de la recherche. La valeur par défaut est 'false', ce qui permet d'ignorer les accents. Utilisé dans les plugins de table (le cas échéant). Sinon n'a aucun effet.",
+                              "title": "Recherche par correspondance stricte activée",
+                              "version": "3.0"
+                            },
+                            "printEnabled": {
+                              "type": "boolean",
+                              "default": false,
+                              "description": "Spécifie si le bouton d'impression est disponible. La valeur par défaut est 'false'.",
+                              "title": "Impression activée",
+                              "version": "3.0"
+                            },
                             "columns": {
                                 "type": "array",
                                 "title": "Champs",
@@ -944,7 +980,7 @@
                                         "width": {
                                             "type": "number",
                                             "minimum": "0",
-                                            "description": "Largeur de la colonne. Si elle n'est pas fournie, la valeur sera calculée.",
+                                            "description": "Spécifie la largeur de la colonne. La largeur de colonne minimale est 100 px. Si manquant, la largeur de colonne sera calculée.",
                                             "title": "Largeur"
                                         },
                                         "sort": {
@@ -1034,6 +1070,31 @@
                                     "description": "un indicateur afin d'informer que l'entrée est utilisée seulement pour le suivi de l'état. Par conséquent, tous les contrôles seront absents de l'interface.",
                                     "title": "État seulement"
                                 },
+                                "fieldMetadata": {
+                                  "for": "esriDynamic",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "title": "Champ",
+                                    "description": "Spécifie les options pour un champ de la couche.",
+                                    "properties": {
+                                      "data": {
+                                        "type": "string",
+                                        "title": "Nom",
+                                        "description": "Spécifie le nom du champ (données) à utiliser pour créer un lien vers l'identifiant. Doit exister dans la couche."
+                                      },
+                                      "alias": {
+                                        "type": "string",
+                                        "title": "Alias",
+                                        "description": "Spécifie le titre du champ. S'il est manquant, l'alias ou le nom par défaut du champ sera utilisé."
+                                      }
+                                    },
+                                    "required": [
+                                      "data"
+                                    ]
+                                  },
+                                  "description": "Spécifie les options pour les champs d'une couche."
+                                },
                                 "id": {
                                     "for": "ogcwms",
                                     "type": "string",
@@ -1095,6 +1156,34 @@
                                           "default": false,
                                           "description": "Détermine si les filtres par défaut (filtres de champs) sont appliquer à la carte. Vrai: appliqué; Faux: non appliqué.",
                                           "title": "Appliquer à la carte"
+                                      },
+                                      "showFilter": {
+                                        "type": "boolean",
+                                        "default": true,
+                                        "description": "Spécifie si les filtres de colonne doivent être affichés dans la table.",
+                                        "title": "Afficher les filtres",
+                                        "version": "3.1"
+                                      },
+                                      "filterByExtent": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Spécifie si la table doit filtrer par étendue par défaut. Si 'true', la table filtrera par étendue lorsqu’elle sera ouverte.",
+                                        "title": "Filtrer selon l'étendue",
+                                        "version": "3.1"
+                                      },
+                                      "searchStrictMatch": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Spécifie si le texte doit être identique (avec les accents) lors du filtrage et de la recherche. La valeur par défaut est 'false', ce qui permet d'ignorer les accents. Utilisé dans les plugins de table (le cas échéant). Sinon n'a aucun effet.",
+                                        "title": "Recherche par correspondance stricte activée",
+                                        "version": "3.0"
+                                      },
+                                      "printEnabled": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "description": "Spécifie si le bouton d'impression est disponible. La valeur par défaut est 'false'.",
+                                        "title": "Impression activée",
+                                        "version": "3.0"
                                       },
                                       "columns": {
                                           "type": "array",
@@ -1279,6 +1368,30 @@
                                 "id"
                             ]
                         }
+                    },
+                    "fieldMetadata": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "title": "Champ",
+                        "description": "Spécifie les options pour un champ de la couche.",
+                        "properties": {
+                          "data": {
+                            "type": "string",
+                            "title": "Nom",
+                            "description": "Spécifie le nom du champ (données) à utiliser pour créer un lien vers l'identifiant. Doit exister dans la couche."
+                          },
+                          "alias": {
+                            "type": "string",
+                            "title": "Alias",
+                            "description": "Spécifie le titre du champ. S'il est manquant, l'alias ou le nom par défaut du champ sera utilisé."
+                          }
+                        },
+                        "required": [
+                          "data"
+                        ]
+                      },
+                      "description": "Spécifie les options pour les champs d'une couche."
                     }
                 },
                 "required": [

@@ -48,7 +48,7 @@ angular
                 keys: ['export', 'search', 'form.service.urls']
             }
         },
-        devVersion: '3.0.0',
+        devVersion: '3.1.0',
         prodVersion: '2.5.0'
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 

@@ -62,6 +62,7 @@ form ui,form.ui.enumlanguage,Languages selector,0,Sélecteur de langues,0
 form ui,form.ui.enumplugins,Plugins section,0,Section Liens,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
+form service,form.service.geosearchSettings,Settings,0,Paramètres,0
 form service,form.service.export,Export Map,0,Exporter la carte,0
 form service,form.service.nts,NTS,0,SNRC,0
 form service,form.service.legendSettings,More Settings,0,Autre réglages,0
@@ -126,6 +127,7 @@ form map,form.map.enumreload,Reload,0,Recharger,0
 form map,form.map.enumremove,Remove,0,Enlever,0
 form map,form.map.enumsettings,Settings,0,Paramètres,0
 form map,form.map.enumdata,Table,0,Table,0
+form map,form.map.fieldsmetadata,Fields Metadata,0,Métadonnées des champs,0
 form map,form.map.enumstyles,Styles,0,Styles,0
 form map,form.map.selectorerror,Wrong format - each item needs to be inside double quotes and all items inside brackets,0,Mauvais format - chaque élément doit être entre guillemets et les éléments entre crochets,0
 form map set area of interest,form.map.setareaofinterest,Set area of interest,0,"Définir la région d'intérêt",0

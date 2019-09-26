@@ -47,8 +47,9 @@ function avVersion() {
  * @param {Object} stateManager service to manage model state for validation
  * @param {Object} formService service with common functions for form
  * @param {Object} debounceService service to debounce user input
+ * @param {Object} constants service with all application constant
  */
-function Controller($scope, $translate, events, modelManager, stateManager, formService, debounceService) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService, debounceService, constants) {
     'ngInject';
     const self = this;
     self.modelName = 'version';
@@ -97,7 +98,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function setLocalVersion() {
         localStorage.setItem('viewerversion', modelManager.getModel('version', false).version);
-        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === '3.0.0' ? 'dev' : '');
+        localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === constants.devVersion ? 'dev' : '');
     }
 
     events.$on(events.avValidateForm, () => {

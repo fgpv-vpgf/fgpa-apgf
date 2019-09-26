@@ -200,6 +200,8 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp; **OR**<br/>
 &emsp;&emsp;&emsp;&emsp; [**`wmsLayerNode`**](#wmslayernode-json-tree)<br/>
 &emsp;&emsp;&emsp; **OR**<br/>
+&emsp;&emsp;&emsp;&emsp; [**`wfsLayerNode`**](#wfslayernode-json-tree)<br/>
+&emsp;&emsp;&emsp; **OR**<br/>
 &emsp;&emsp;&emsp;&emsp; [**`dynamicLayerNode`**](#dynamiclayernode-json-tree)<br/>
 &emsp;&emsp;&emsp;**`}`**,<br/>
 &emsp;&emsp;&emsp;**`{...}`**,<br/>
@@ -306,6 +308,22 @@ Core map properties (extent sets, levels of detail).
 
 [:arrow_up: back to Map](#map-json-tree)
 
+>#### [**`wfsLayerNode JSON tree`**](#nodewfsLayerNode)
+
+&emsp;&emsp;{<br/>
+&emsp;&emsp;&emsp;["id"](#nodewfsLayerNodeid): ...,<br/>
+&emsp;&emsp;&emsp;["name"](#nodewfsLayerNodename): ...,<br/>
+&emsp;&emsp;&emsp;["url"](#nodewfsLayerNodeurl): ...,<br/>
+&emsp;&emsp;&emsp;["refreshInterval"](#nodewfsLayerNoderefreshinterval): ...,<br/>
+&emsp;&emsp;&emsp;["metadataUrl"](#nodewfsLayerNodemetadataurl): ...,<br/>
+&emsp;&emsp;&emsp;["catalogueUrl"](#nodewfsLayerNodecatalogueurl): ...,<br/>
+&emsp;&emsp;&emsp;["layerType"](#nodewfsLayerNodelayertype): ...,<br/>
+&emsp;&emsp;&emsp;["toggleSymbology"](#nodewfsLayerNodetogglesymbology): {...},<br/>
+&emsp;&emsp;&emsp;["tolerance"](#nodewfsLayerNodetolerance): {...},<br/>
+&emsp;&emsp;}<br/>
+
+[:arrow_up: back to Map](#map-json-tree)
+
 >#### [**`dynamicLayerNode JSON tree`**](#nodedynamiclayerNode)
 
 &emsp;&emsp;{<br/>
@@ -360,7 +378,12 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;["description"](#nodetablenodedescription): ...,<br/>
 &emsp;&emsp;&emsp;["maximize"](#nodetablenodemaximize): ...,<br/>
 &emsp;&emsp;&emsp;["search"](#nodetablenodesearch): ...,<br/>
+&emsp;&emsp;&emsp;["lazyFilter"](#nodetablenodelazyfilter): ...,<br/>
 &emsp;&emsp;&emsp;["applyMap"](#nodetablenodeapplymap): ...,<br/>
+&emsp;&emsp;&emsp;["showFilter"](#nodetablenodeshowfilter): ...,<br/>
+&emsp;&emsp;&emsp;["filterByExtent"](#nodetablenodefilterbyextent): ...,<br/>
+&emsp;&emsp;&emsp;["searchStrictMatch"](#nodetablenodesearchstrictmatch): ...,<br/>
+&emsp;&emsp;&emsp;["printEnabled"](#nodetablenodeprintenabled): ...,<br/>
 &emsp;&emsp;&emsp;["**columns**"](#nodecolumnsnode): [<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;{<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[**`columnNode`**](#columnnode-json-tree)<br/>
@@ -368,8 +391,6 @@ Core map properties (extent sets, levels of detail).
 &emsp;&emsp;&emsp;&emsp;&emsp;{...},<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;{...}<br/>
 &emsp;&emsp;&emsp;&emsp;]<br/>
-&emsp;&emsp;&emsp;["searchStrictMatch"](#nodetablenodesearchstrictmatch): ...,<br/>
-&emsp;&emsp;&emsp;["printEnabled"](#nodetablenodeprintenabled): ...,<br/>
 &emsp;&emsp;}<br/>
 
 [:arrow_up: back to Map](#map-json-tree)
@@ -1292,8 +1313,15 @@ Each item contains these three properties
 
 | Name | Type | Default value | Example | Author section | Advance | Required |
 | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
-| enabled | *boolean* | `true` | `true` | Map/Layers | Yes | ------- |
-| value | *string* | `null` | `"LAST_UPDATED:2005-02-22"` | Map/Layers | Yes | ------- |
+| enabled | *boolean* | `true` | `true` | Map/Layers | Yes | - |
+| value | *string* | `null` | `"LAST_UPDATED:2005-02-22"` | Map/Layers | Yes | - |
+
+>### [node:tableNode:_**`lazyFilter`**_](#node--tablenode--lazyfilter)
+>>Specifies if simple filtering is on. If true, we match any substring of text entered. If false, search field accepts regex expressions. Note: Only effects text fields.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `false` | Map/Layers | Yes | - |
 
 >### [node:tableNode:_**`applyMap`**_](#node--tablenode--applymap)
 >>Specifies if the default filters (from columns filter) are apply to the map (definition query). True: it is applied; False: it is not applied.
@@ -1302,18 +1330,29 @@ Each item contains these three properties
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *boolean* | `false` | `true` | Map/Layers | Yes | - |
 
-[:arrow_up: back to tableNode](#tablenode-json-tree)
 ***
->### [node:tableNode:_**`searchStrictMatch`**_](#node--tablenode--searchStrictMatch)
+>### [node:tableNode:_**`showFilter`**_](#node--tablenode--showfilter)
+>>Specifies if the column filters should be displayed on the table.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `true` | `true` | Map/Layers | Yes | - |
+
+### [node:tableNode:_**`filterByExtent`**_](#node--tablenode--filterbyextent)
+>>Specifies if the table should filter rows by extent by default. If true, the table will filter by extent when it is opened.
+
+| Type | Default value | Example | Author section | Advance | Required |
+| ------- | ------- | ------- | ------- | ------- | ------- |
+| *boolean* | `false` | `false` | Map/Layers | Yes | - |
+
+>### [node:tableNode:_**`searchStrictMatch`**_](#node--tablenode--searchstrictmatch)
 >>Specifies if text must match identical (including accents) when filtering and searching. Defaults to false allowing for accents and such to be ignored. Used in table plugins (if applicable). Else has no effect.
 
 | Type | Default value | Example | Author section | Advance | Required |
 | ------- | ------- | ------- | ------- | ------- | ------- |
 | *boolean* | `false` | `true` | Map/Layers | Yes | - |
 
-[:arrow_up: back to tableNode](#tablenode-json-tree)
-***
->### [node:tableNode:_**`printEnabled`**_](#node--tablenode--printEnabled)
+>### [node:tableNode:_**`printEnabled`**_](#node--tablenode--printenabled)
 >>Specifies if print button is available on the datatable. Defaults to false.
 
 | Type | Default value | Example | Author section | Advance | Required |

@@ -120,6 +120,8 @@ Info section can be of type _text_, _title_, _image_ or _unbound layer_.
         "symbologyRenderStyle": "images"
     }
 ```
+symbologyStack - image: Either a data URI or a URL to a source that supports CORS headers
+symbologyStack - sqlFilter: An SQL where clause by which the map and datatable attributes can be filtered. All the query results for the symbologyStack should cover all attributes for that layer.
 
 > **Interface**
 
