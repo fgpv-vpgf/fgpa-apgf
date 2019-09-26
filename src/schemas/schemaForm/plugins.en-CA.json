@@ -1,0 +1,119 @@
+{
+    "schema": "plugins",
+    "title": "Plugins",
+    "description": "The schema plugins to use. Each plugin will be inside his own tab.",
+    "type": "object",
+    "properties": {
+        "rangeSlider": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Enable"
+                },
+                "controls": {
+                    "type": "array",
+                    "default": ["lock", "delay"],
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                             "lock",
+                            "loop",
+                            "delay",
+                            "export",
+                            "refresh"
+                        ]
+                    },
+                    "title": "Slider bar controls"
+                },
+                "params": {
+                    "type": "object",
+                    "title": "Parameters",
+                    "properties": {
+                        "type": {
+                            "title": "Slider Type",
+                            "type": "string",
+                            "enum": [
+                                "number",
+                                "date"
+                            ],
+                            "description": "If date is selected, range and limit must be in milliseconds",
+                            "default": "number"
+                        },
+                        "delay": {
+                            "title": "Animation Delay",
+                            "type": "string",
+                            "enum": [
+                                "3000",
+                                "4000",
+                                "5000",
+                                "6000",
+                                "7000"
+                            ],
+                            "description": "Delay between animations.",
+                            "default": "3000"
+                        },
+                        "range": {
+                            "type": "object",
+                            "title": "Default Range Values",
+                            "properties": {
+                                "min": {
+                                    "type": "number",
+                                    "title": "Min Range",
+                                    "description": "The minimal value for the range. If not set, minimum limit will be use. Must be set for WMS layers."
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "title": "Max Range",
+                                    "description": "The maximal value for the range. If not set, maximal limit will be use. Must be set for WMS layers."
+                                }
+                            }
+                        },
+                        "limit": {
+                            "type": "object",
+                            "title": "Default Limit Values",
+                            "properties": {
+                                "min": {
+                                    "type": "number",
+                                    "title": "Min Limit",
+                                    "description": "The minimal value for the limit. Must be set for WMS layers."
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "title": "Max Limit",
+                                    "description": "The maximal value for the limit. Must be set for WMS layers."
+                                }
+                            }
+                        }
+                    },
+                    "required": ["type"]
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Layers",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service)",
+                                "title": "ID",
+                                "default": ""
+                            },
+                            "field": {
+                                "type": "string",
+                                "description": "The field name to use.",
+                                "title": "Field Name",
+                                "default": ""
+                            }
+                        },
+                        "required": ["id, field"]
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": ["params", "layers"]
+        }
+    }
+}
+

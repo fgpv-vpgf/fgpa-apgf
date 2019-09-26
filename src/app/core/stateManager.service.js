@@ -687,8 +687,9 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             'ui': ['form.ui.general', 'form.ui.nav', 'form.ui.sidemenu'],
             'services': ['form.service.urls'],
             'language': [],
-            'version': []
-        };
+            'version': [],
+            'plugins': []
+        }; // TODO: add new schema/tab as they come, list as they should appear in the tab menu
 
         customTitles[modelName].forEach(title => {
             if (stateModel.hasOwnProperty('key') && stateModel.key === title) {
@@ -855,7 +856,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
      * @param {Object} state the state object in JSON
      * @param {String} element the current element name
      * @param {Array} arrKeys array of arrays [[keys], valid: true | false, hlink: 'id']
-     * @param {Number} mainSection ['map':1 | 'ui':2 | 'services':3 | 'version':4 | 'language':5]
+     * @param {Number} mainSection ['map':1 | 'ui':2 | 'services':3 | 'version':4 | 'language':5 | 'plugins': 6]
      */
     function buildStateTree(state, element, arrKeys, mainSection) {
 
@@ -1056,10 +1057,11 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                 'form.ui.nav': ['restrictNavigation', 'navBar'],
                 'form.ui.sidemenu': ['sideMenu', 'logoUrl', 'title', 'help', 'about']
             },
-            'services': { 'form.service.urls': ['exportMapUrl', 'geometryUrl', 'googleAPIKey', 'proxyUrl', 'esriLibUrl'] },
+            'services': { 'form.service.urls': ['proxyUrl', 'corsEverywhere', 'exportMapUrl', 'geometryUrl', 'googleAPIKey', 'esriLibUrl'] },
             'language': {},
-            'version': {}
-        };
+            'version': {},
+            'plugins': {}
+        }; // TODO: add new schema/tab as they come, list as they should appear in the tab menu
 
         arrKeys.forEach(key => {
             Object.keys(keys[modelName]).forEach(skey => {

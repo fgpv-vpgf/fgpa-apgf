@@ -10,6 +10,7 @@ import './forms/map/map.directive.js';
 import './forms/services/services.directive.js';
 import './forms/ui/ui.directive.js';
 import './forms/version/version.directive.js';
+import './forms/plugins/plugins.directive.js';
 
 // use to test form
 import './forms/bindValues.directive.js' // use to test schema form add on

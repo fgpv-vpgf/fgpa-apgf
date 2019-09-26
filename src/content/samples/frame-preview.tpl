@@ -30,7 +30,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs=''>
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs='' data-rv-plugins=''>
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -47,6 +47,10 @@
 
     // set viewer array of languages
     document.getElementById('fgpmap').setAttribute('data-rv-langs', localStorage.getItem('configlangs'));
+
+    // set viewer array of plugin
+    document.getElementById('fgpmap').setAttribute('data-rv-plugins', localStorage.getItem('configplugins'));
+    
     // set viewer version
     var scriptTag = document.createElement('script');
     var version = localStorage.getItem('viewerversion');
@@ -56,6 +60,7 @@
     document.body.appendChild(scriptTag);
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');
+    localStorage.removeItem('configplugins');
     localStorage.removeItem('viewerversion');
     localStorage.removeItem('viewerenv');
 </script>

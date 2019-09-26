@@ -111,7 +111,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
      * @param {Boolean} value Value to set
      */
     function expandSummary(summary, value) {
-        const arrSum = ['map', 'ui', 'services', 'version', 'language'];
+        const arrSum = ['map', 'ui', 'services', 'version', 'language', 'plugins'];
 
         for (let el of arrSum) {
             walkTree(summary[el], 'expand', value);
@@ -202,6 +202,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             // set the array of languages to use by the preview window/iFrame
             const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
             localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
+
+            // get list of plugin to set
+            localStorage.setItem('configplugins', modelManager.getEnabledPlugins());
 
             // set the viewer version to use by the preview window/iFrame
             setLocalVersion();

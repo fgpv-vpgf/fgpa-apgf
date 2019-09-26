@@ -32,8 +32,9 @@ angular
             'ui.[lang].json',
             'services.[lang].json',
             'version.[lang].json',
-            'language.[lang].json'
-        ], // TODO: add new schema as they come, list as they should appear in the tab menu
+            'language.[lang].json',
+            'plugins.[lang].json'
+        ], // TODO: add new schema as they come, list as they should appear in the tab menu. !!search for TODO to find what to set!!
         subTabs: {
             map: {
                 index: 0,
@@ -46,6 +47,10 @@ angular
             services: {
                 index: 2,
                 keys: ['export', 'search', 'form.service.urls']
+            },
+            plugins: {
+                index: 3,
+                keys: ['form.plugins.rangeSlider']
             }
         },
         devVersion: '3.1.0',
