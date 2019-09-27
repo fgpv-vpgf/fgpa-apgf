@@ -113,7 +113,65 @@
             },
             "additionalProperties": false,
             "required": ["params", "layers"]
+        },
+        "coordInfo": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Enable"
+                }
+            }
+        },
+        "areasOfInterest": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Enable"
+                },
+                "areas": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title-en-CA": {
+                                "type": "string",
+                                "title": "English Title"
+                            },
+                            "title-fr-CA": {
+                                "type": "string",
+                                "title": "French Title"
+                            },
+                            "xmin": {
+                                "type": "number",
+                                "title": "Minimum value of x"
+                            },
+                            "ymin": {
+                                "type": "number",
+                                "title": "Minimum value of y"
+                            },
+                            "xmax": {
+                                "type": "number",
+                                "title": "Maximum value of x"
+                            },
+                            "ymax": {
+                                "type": "number",
+                                "title": "Maximum value of y"
+                            },
+                            "wkid": {
+                                "type": "number",
+                                "title": "Spatial Reference",
+                                "default": 3978
+                            },
+                            "thumbnailUrl": {
+                                "type": "string",
+                                "title": "Thumbnail URL"
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
-

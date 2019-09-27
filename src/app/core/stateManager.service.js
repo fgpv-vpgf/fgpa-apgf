@@ -107,6 +107,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             setSpatialtemsState(_state[modelName], model, arrKeys);
 
             // Generate state records for area of interest
+            // TODO: move eto plugins...
             setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
         } else {
             updateSummaryForm(_state[modelName], modelName, cleanForm);

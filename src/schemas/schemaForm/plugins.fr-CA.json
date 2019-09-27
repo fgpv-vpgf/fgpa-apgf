@@ -112,6 +112,65 @@
             },
             "additionalProperties": false,
             "required": ["params", "layers"]
+        },
+        "coordInfo": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                }
+            }
+        },
+        "areasOfInterest": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                },
+                "areas": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title-en-CA": {
+                                "type": "string",
+                                "title": "Titre anglais"
+                            },
+                            "title-fr-CA": {
+                                "type": "string",
+                                "title": "Titre français"
+                            },
+                            "xmin": {
+                                "type": "number",
+                                "title": "Valeur minimum x"
+                            },
+                            "ymin": {
+                                "type": "number",
+                                "title": "Valeur minimum x y"
+                            },
+                            "xmax": {
+                                "type": "number",
+                                "title": "Valeur maximal x x"
+                            },
+                            "ymax": {
+                                "type": "number",
+                                "title": "Valeur maximal x y"
+                            },
+                            "wkid": {
+                                "type": "number",
+                                "title": "Spatial Reference",
+                                "default": 3978
+                            },
+                            "thumbnailUrl": {
+                                "type": "string",
+                                "title": "URL de la vignette"
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

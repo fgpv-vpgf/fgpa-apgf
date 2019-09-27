@@ -260,9 +260,9 @@ function modelManager($timeout, $translate, events, constants, commonService) {
 
         const keys = Object.keys(pluginsModel);
         for (const key of keys) {
-            if (pluginsModel[key].enable) { pluginsList.push(`"${key}"`); }
+            if (pluginsModel[key].enable) { pluginsList.push(`${key}`); }
         }
 
-        return `[${pluginsList.join(',')}]`;
+        return pluginsList.join(',');
     }
 }
