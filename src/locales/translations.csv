@@ -130,9 +130,6 @@ form map,form.map.enumdata,Table,0,Table,0
 form map,form.map.fieldsmetadata,Fields Metadata,0,Métadonnées des champs,0
 form map,form.map.enumstyles,Styles,0,Styles,0
 form map,form.map.selectorerror,Wrong format - each item needs to be inside double quotes and all items inside brackets,0,Mauvais format - chaque élément doit être entre guillemets et les éléments entre crochets,0
-form map set area of interest,form.map.setareaofinterest,Set area of interest,0,"Définir la région d'intérêt",0
-form map areas of interest,form.map.areasofinterest,Areas of interest,0,"Régions d'intérêt",0
-form map area of interest,form.map.areaofinterest,Area of interest,0,"Région d'intérêt",0
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 form version template comment,form.templatecomment,Choose the right template (dev) for the development version of the Author.,0,Choisir le bon gabarit (dev) pour la version développement de l'Auteur.,0
@@ -142,6 +139,10 @@ form plugins rangeSlider,form.plugins.rangesliderctrlloop,Loop animation,0,Boucl
 form plugins rangeSlider,form.plugins.rangesliderctrldelay,Delay between animation,0,Délais entre les animations,0
 form plugins rangeSlider,form.plugins.rangesliderctrlrefresh,Refresh,0,Rafraîchir,0
 form plugins rangeSlider,form.plugins.rangesliderctrlexport,Export animation as Gif,0,Exporter l'animation en format Gif,0
+form plugins coordInfo,form.plugins.coordinfo,Coordinates Info,0,Info coordonnées,0
+form plugins areasOfInterest,form.plugins.aois,Areas of interest,0,Régions d'intérêt,0
+form plugins areasOfInterest,form.plugins.aoi,Area of Interest,0,Région d'intérêt,0
+form plugins areasOfInterest,form.plugins.setaoi,Set Area,0,Définir la région,0
 form validation,form.validation.required,Required,0,Requis,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0

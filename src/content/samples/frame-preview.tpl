@@ -6,15 +6,30 @@
     <meta content="width=device-width,initial-scale=1" name="viewport">
 
     <script>
-        // get css path
         var version = localStorage.getItem('viewerversion');
         var envar = localStorage.getItem('viewerenv');
         envar = (envar === 'dev') ? 'dev.' : '';
+
+        // set css path
         var styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
-        styles.href = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar);
+        styles.href = 'https://s-bsc-geoappint.nrn.nrcan.gc.ca/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar); // TODO: re enable when access 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar);
         document.getElementsByTagName('head')[0].appendChild(styles);
+
+        // set plugins js and css
+        var plugins = localStorage.getItem('configplugins').replace(/"/g, '').replace('[', '').replace(']', '').split(',');
+        for (var i = 0; i < plugins.length; i++) {
+            var path = 'https://s-bsc-geoappint.nrn.nrcan.gc.ca/fgpv/fgpv-x.x.x/plugins/'.replace('x.x.x', version) + plugins[i] + '/' + plugins[i]; //TODO: re enable when access
+            var script = document.createElement('script')
+            script.src = path + '.js';
+            document.getElementsByTagName('head')[0].appendChild(script);
+            var style = document.createElement('link');
+            style.rel = 'stylesheet';
+            style.type = 'text/css';
+            style.href = path + '.css';
+            document.getElementsByTagName('head')[0].appendChild(style);
+        }
     </script>
 
     <style>
@@ -30,7 +45,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs='' data-rv-plugins=''>
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs='' rv-plugins=''>
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -49,14 +64,14 @@
     document.getElementById('fgpmap').setAttribute('data-rv-langs', localStorage.getItem('configlangs'));
 
     // set viewer array of plugin
-    document.getElementById('fgpmap').setAttribute('data-rv-plugins', localStorage.getItem('configplugins'));
-    
+    document.getElementById('fgpmap').setAttribute('rv-plugins', localStorage.getItem('configplugins'));
+
     // set viewer version
     var scriptTag = document.createElement('script');
     var version = localStorage.getItem('viewerversion');
     var envar = localStorage.getItem('viewerenv');
     envar = (envar === 'dev') ? 'dev.' : '';
-    scriptTag.src = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
+    scriptTag.src = 'https://s-bsc-geoappint.nrn.nrcan.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar); // TODO: re enable when access 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
     document.body.appendChild(scriptTag);
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');

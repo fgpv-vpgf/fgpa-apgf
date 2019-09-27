@@ -655,9 +655,9 @@ function Controller($scope, $translate, $timeout,
                                 // update extents numbers
                                 self.extentSets = extents.length;
                             }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
-                                { 'type': 'template', 'template': addButton('extentdefault', 'setExtent', 'av-setdefaultext-button'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
-                                { 'type': 'template', 'template': addButton('extentfull', 'setExtent', 'av-setfullext-button'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
-                                { 'type': 'template', 'template': addButton('extentmax', 'setExtent', 'av-setmaxext-button'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': commonService.addButton('form.map', 'extentdefault', 'setExtent', 'av-setdefaultext-button'), 'setExtent': () => self.formService.setExtent('default', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': commonService.addButton('form.map', 'extentfull', 'setExtent', 'av-setfullext-button'), 'setExtent': () => self.formService.setExtent('full', $scope.model.extentSets) },
+                                { 'type': 'template', 'template': commonService.addButton('form.map', 'extentmax', 'setExtent', 'av-setmaxext-button'), 'setExtent': () => self.formService.setExtent('maximum', $scope.model.extentSets) },
                                 { 'key': 'extentSets[].id', 'htmlClass': 'av-extentset-id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues(scope, [['extentSets', 'id']], 'extentId'), constants.debInput, false) },
                                 { 'type': 'section', 'htmlClass': 'row', 'items': [
                                     { 'type': 'section', 'htmlClass': 'col-xs-2', 'items': [
@@ -746,7 +746,7 @@ function Controller($scope, $translate, $timeout,
                         }, 'notitle': true, 'add': $translate.instant('button.add'), 'items': [
                             { 'key': 'lodSets[]', 'htmlClass': `av-lods-array`, 'items': [
                                 { 'key': 'lodSets[].id', 'onChange': () => debounceService.registerDebounce(self.formService.updateLinkValues($scope, [['lodSets', 'id']], 'lodId'), constants.debInput, false) },
-                                { 'type': 'template', 'template': addButton('setlods', 'setLods', 'av-setloads-button'), 'setLods': () => self.formService.setLods($scope.model.lodSets, self.formService.getActiveElemIndex('av-lods-array')) },
+                                { 'type': 'template', 'template': commonService.addButton('form.map', 'setlods', 'setLods', 'av-setloads-button'), 'setLods': () => self.formService.setLods($scope.model.lodSets, self.formService.getActiveElemIndex('av-lods-array')) },
                                 { 'type': 'fieldset', 'htmlClass': 'row', 'items': [
                                     { 'key': 'lodSets[].lods', 'add': null, 'items': [
                                         { 'type': 'section', 'htmlClass': 'row', 'readonly': true, 'items': [
@@ -991,14 +991,14 @@ function Controller($scope, $translate, $timeout,
                             }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
+                            { 'type': 'template', 'template': commonService.addButton('form.map', 'legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
-                                    { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addButton('legendentrygroup', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addButton('legendinfo', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addButton('legendunbound', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
-                                    { 'type': 'template', 'template': addButton('legendvis', 'addLegend'), 'addLegend': type => addLegendSnippet(type) }
+                                    { 'type': 'template', 'template': commonService.addButton('form.map', 'legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': commonService.addButton('form.map', 'legendentrygroup', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': commonService.addButton('form.map', 'legendinfo', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': commonService.addButton('form.map', 'legendunbound', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
+                                    { 'type': 'template', 'template': commonService.addButton('form.map', 'legendvis', 'addLegend'), 'addLegend': type => addLegendSnippet(type) }
                                 ]}
                             ]}
                         ]}
@@ -1038,38 +1038,7 @@ function Controller($scope, $translate, $timeout,
                             { 'key': 'components.overviewMap.enabled' },
                             { 'key': 'components.overviewMap.expandFactor', 'htmlClass': 'av-form-advance hidden' },
                             { 'key': 'components.overviewMap.initiallyExpanded', 'htmlClass': 'av-form-advance hidden' }
-                        ] },
-                        { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                        { 'key': 'components.areaOfInterest', 'title': $translate.instant('form.map.areasofinterest'), 'htmlClass': 'av-accordion-all av-form-advance hidden', 'startEmpty': true,'onChange': () => {
-                            // new item, create accordion
-                            events.$broadcast(events.avNewItems);
-                        }, 'add': $translate.instant('button.add'), 'items': [
-                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.map.areaofinterest'), 'items': [
-                                { 'key': 'components.areaOfInterest[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                    { 'key': 'components.areaOfInterest[].title', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.areaofinterest'), 'onChange': debounceService.registerDebounce((model, item) => {
-                                        self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
-                                    },
-                                    { 'type': 'template', 'template': addButton('setareaofinterest', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.components.areaOfInterest) },
-                                    { 'type': 'section', 'htmlClass': 'row ', 'items': [
-                                        { 'key': 'components.areaOfInterest[]', 'notitle': true, 'items': [
-                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                                { 'key': 'components.areaOfInterest[].xmin' }
-                                            ] },
-                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                                { 'key': 'components.areaOfInterest[].ymin' }
-                                            ] },
-                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                                { 'key': 'components.areaOfInterest[].xmax' }
-                                            ] },
-                                            { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                                { 'key': 'components.areaOfInterest[].ymax' }
-                                            ] }
-                                        ]}
-                                    ] },
-                                    { 'key': 'components.areaOfInterest[].thumbnailUrl' }
-                                ]}
-                            ] }
-                        ]}
+                        ] }
                     ]}
                 ] }
             ]}
@@ -1186,23 +1155,5 @@ function Controller($scope, $translate, $timeout,
                 ] }
             ]}
         ] }]
-    }
-
-    /**
-     * Add a button for legend section
-     *
-     * @function addLegendSection
-     * @private
-     * @param {String} type type of button to add
-     * @param {String} func function to associate to ng-click
-     * @param {String} addClass class to add
-     * @returns {String} the template for the button
-     */
-    function addButton(type, func, addClass = '') {
-        return `<md-button class="av-button-square md-raised ${addClass}"
-                        ng-click="form.${func}('${type}')">
-                    {{ 'form.map.${type}' | translate }}
-                    <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>
-                </md-button>`;
     }
 }

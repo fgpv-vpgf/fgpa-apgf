@@ -36,7 +36,8 @@ function commonService($translate, events, $timeout, constants) {
         clickTab,
         clickSubTab,
         scrollToElement,
-        validServiceUrl
+        validServiceUrl,
+        addButton
     };
 
     let languages;
@@ -220,5 +221,24 @@ function commonService($translate, events, $timeout, constants) {
         const regexp = '(^(http|https):\\/\\/)*(/rest/services/)*\/(MapServer)';
         const regObj = new RegExp(regexp);
         return regObj.test(url) ? true : false;
+    }
+
+    /**
+     * Add a button like in legend section or set extent of area of interest or extent section
+     *
+     * @function addButton
+     * @private
+     * @param {String} form tform to apply to
+     * @param {String} type type of button to add
+     * @param {String} func function to associate to ng-click
+     * @param {String} addClass class to add
+     * @returns {String} the template for the button
+     */
+    function addButton(form, type, func, addClass = '') {
+        return `<md-button class="av-button-square md-raised ${addClass}"
+                        ng-click="form.${func}('${type}')">
+                    {{ '${form}.${type}' | translate }}
+                    <md-tooltip>{{ '${form}.${type}' | translate }}</md-tooltip>
+                </md-button>`;
     }
 }

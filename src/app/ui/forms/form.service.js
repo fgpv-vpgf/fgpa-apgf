@@ -305,10 +305,8 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
      * @param  {Array} areaOfInterestSets  array of areas of interest
      */
     function setAreaOfInterest(areaOfInterestSets) {
-        // we set the area in lat/long (wkid:4326)
-        const wkid = '4326';
         const index = parseInt(document.activeElement.parentElement.getAttribute('sf-index'));
-        localStorage.setItem('configextent', `config-extent-3857`);
+        localStorage.setItem('configextent', `config-extent-3978`);
 
         $mdDialog.show({
             controller: extentController,
@@ -319,17 +317,16 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
             fullscreen: false,
             onRemoving: () => {
                 // get the extent from local storage
-                let extentMercator = JSON.parse(localStorage.getItem('mapextent'));
-                let extent = projectionService.projectExtent(extentMercator, { wkid: 4326 });
+                let extent = JSON.parse(localStorage.getItem('mapextent'));
 
                 // set default bound if user close the viewer without changing the extent
                 if (extent === null) {
                     extent = {
-                        xmin: -124,
-                        ymin: 35,
-                        xmax: -12,
-                        ymax: 57,
-                        spatialReference: { wkid: 4326 }
+                        xmin: -4844430.556896179,
+                        ymin: -1052774.037634491,
+                        xmax: 5666163.380958509,
+                        ymax: 4170111.408136484,
+                        spatialReference: { wkid: 3918 }
                     }
                 }
 
