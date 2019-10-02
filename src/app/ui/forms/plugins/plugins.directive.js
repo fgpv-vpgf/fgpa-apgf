@@ -46,9 +46,12 @@ function avPlugins() {
  * @param {Object} modelManager service to manage Angular Schema Form model
  * @param {Object} stateManager service to manage model state for validation
  * @param {Object} formService service with common functions for form
- *  @param {Object} $timeout Angular timeout object
+ * @param {Object} debounceService service to debounce user input
+ * @param {Object} constants service with all application constant
+ * @param {Object} commonService service with common functions
  */
-function Controller($scope, $translate, events, modelManager, stateManager, formService, $timeout) {
+function Controller($scope, $translate, events, modelManager, stateManager, formService, debounceService, constants,
+    commonService) {
     'ngInject';
     const self = this;
     self.modelName = 'plugins';
@@ -107,6 +110,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         return [
             { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
                 { 'title': $translate.instant('form.plugins.rangeslider'), 'key': 'rangeSlider', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'rangeSlider.enable' },
                     { 'key': 'rangeSlider.controls', 'condition': 'model.rangeSlider.enable === true', 'titleMap': [
                         { value: 'lock', name: $translate.instant('form.plugins.rangesliderctrllock') },
@@ -145,6 +149,48 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             '$validators': { empty: function(value) {
                                 return (angular.isString(value) && value === '') ? false : true;
                             } } }
+                        ] }
+                    ] }
+                ] },
+                { 'title': $translate.instant('form.plugins.coordinfo'), 'key': 'coordInfo', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'coordInfo.enable' }
+                ] },
+                { 'title': $translate.instant('form.plugins.aois'), 'key': 'areasOfInterest', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'areasOfInterest.enable' },
+                    { 'key': 'areasOfInterest.areas', 'condition': 'model.areasOfInterest.enable === true', 'title': $translate.instant('form.plugins.aois'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
+                        // new item, create accordion
+                        events.$broadcast(events.avNewItems);
+                    }, 'add': $translate.instant('button.add'), 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.aoi'), 'items': [
+                            { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
+                            { 'key': 'areasOfInterest.areas[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                { 'key': 'areasOfInterest.areas[].title-en-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                },
+                                { 'key': 'areasOfInterest.areas[].title-fr-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                },
+                                { 'type': 'template', 'template': commonService.addButton('form.plugins', 'setaoi', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.areasOfInterest.areas) },
+                                { 'type': 'section', 'htmlClass': 'row ', 'items': [
+                                    { 'key': 'areasOfInterest.areas[]', 'notitle': true, 'items': [
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'areasOfInterest.areas[].xmin', 'readonly': true }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'areasOfInterest.areas[].ymin', 'readonly': true }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'areasOfInterest.areas[].xmax', 'readonly': true }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'areasOfInterest.areas[].ymax', 'readonly': true}
+                                        ] }
+                                    ] }
+                                ] },
+                                { 'key': 'areasOfInterest.areas[].thumbnailUrl' }
+                            ] }
                         ] }
                     ] }
                 ] }

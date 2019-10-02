@@ -112,6 +112,70 @@
             },
             "additionalProperties": false,
             "required": ["params", "layers"]
+        },
+        "coordInfo": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                }
+            }
+        },
+        "areasOfInterest": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                },
+                "areas": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title-en-CA": {
+                                "type": "string",
+                                "title": "Titre anglais"
+                            },
+                            "title-fr-CA": {
+                                "type": "string",
+                                "title": "Titre français"
+                            },
+                            "xmin": {
+                                "type": "number",
+                                "title": "Valeur minimum x",
+                                "default": -4844430
+                            },
+                            "ymin": {
+                                "type": "number",
+                                "title": "Valeur minimum x y",
+                                "default": -1052774
+                            },
+                            "xmax": {
+                                "type": "number",
+                                "title": "Valeur maximal x x",
+                                "default": 5666163
+                            },
+                            "ymax": {
+                                "type": "number",
+                                "title": "Valeur maximal x y",
+                                "default": 4170111
+                            },
+                            "wkid": {
+                                "type": "number",
+                                "title": "Spatial Reference",
+                                "default": 3978
+                            },
+                            "thumbnailUrl": {
+                                "type": "string",
+                                "title": "URL de la vignette"
+                            }
+                        },
+                        "required": ["title-en-CA", "title-fr-CA"]
+                    }
+                }
+            }
         }
     }
 }

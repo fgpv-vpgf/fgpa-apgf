@@ -183,7 +183,6 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         localStorage.setItem('viewerenv', modelManager.getModel('version', false).version === constants.devVersion ? 'dev' : '');
     }
 
-
     /**
      * Open a dialog window to show current configuration
      *

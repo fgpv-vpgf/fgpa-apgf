@@ -105,11 +105,13 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
             // Generate state records for tileSchemas, extentSets and lodSets
             setSpatialtemsState(_state[modelName], model, arrKeys);
-
-            // Generate state records for area of interest
-            setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
         } else {
-            updateSummaryForm(_state[modelName], modelName, cleanForm);
+            const arrKeys = updateSummaryForm(_state[modelName], modelName, cleanForm);
+
+            if (modelName === 'plugins') {
+                // Generate state records for area of interest
+                setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
+            }
         }
 
         // TITLE SECTION
@@ -497,34 +499,33 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
     function setAreaOfInterestItemsState(stateModel, model, arrKeys) {
 
         const masterLink = constants.schemas
-            .indexOf(`map.[lang].json`) + 1;
+            .indexOf(`plugins.[lang].json`) + 1;
 
-        const setID = [4, 'components', 'areaOfInterest'];
+        const setID = [1, 'areasOfInterest', 'areas'];
 
-        const hlink = constants.subTabs.map.keys[4].replace(/\./g, '-');
+        const hlink = constants.subTabs.plugins.keys[2].replace(/\./g, '-');
 
         // is there a defined area of interest
-        const found = stateModel.items[4].items.filter(element => { return element.key === 'areaOfInterest'; } );
-
-        if (found.length === 1) {
-            stateModel.items[4].items[setID[0]]['items'] = [];
+        if (typeof stateModel.items[2].items !== 'undefined') {
+            stateModel.items[2].items[setID[0]]['items'] = [];
             const items = model[setID[1]][setID[2]];
 
             for (let [j, item] of items.entries()) {
 
-                let title = item.title;
+                let titleEn = item['title-en-CA'];
+                let titleFr = item['title-fr-CA'];
                 let stype = 'element';
                 let valid = getValidityValue(setID[1], j, arrKeys);
-                if (item.title === undefined || item.title === '') {
-                    title = $translate.instant('summary.missing.name');
+                if (titleEn === undefined || titleEn === '' || titleFr === undefined || titleFr === '') {
+                    titleEn = $translate.instant('summary.missing.name');
                     stype = 'bad-element';
                     valid = false;
                 }
                 const shlink = setItemId(hlink, j, setID[1], setID[2]);
 
-                stateModel.items[4].items[setID[0]]['items']
-                    .push({ 'key': title,
-                        'title': title,
+                stateModel.items[2].items[setID[0]]['items']
+                    .push({ 'key': titleEn,
+                        'title': titleEn,
                         items: [],
                         'valid': valid,
                         'expand': false,
@@ -821,6 +822,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
      * @param {String} modelName the current model name
      * @param {Object} form the form object in JSON
      * @param {Object} list hidden advance parameters list
+     * @return {Array} arrKeys array of object {key: [], valid: true | false}
      */
     function updateSummaryForm(state, modelName, form) {
 
@@ -847,6 +849,8 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         addLink(keysArr);
 
         buildStateTree(state, modelName, keysArr, link);
+
+        return keysArr;
     }
 
     /**

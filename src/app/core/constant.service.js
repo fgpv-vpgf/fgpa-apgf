@@ -50,7 +50,7 @@ angular
             },
             plugins: {
                 index: 3,
-                keys: ['form.plugins.rangeSlider']
+                keys: ['form.plugins.rangeSlider', 'form.plugins.coordInfo', 'form.plugins.areasOfInterest']
             }
         },
         devVersion: '3.1.0',
