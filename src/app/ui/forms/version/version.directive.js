@@ -87,7 +87,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         $scope.form = angular.copy($scope.form);
         $scope.form = setForm();
 
-        events.$broadcast(events.avVersionSet);
+        events.$broadcast(events.avVersionSet, modelManager.getModel('version', false).version);
     }
 
     /**
@@ -117,7 +117,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     function setForm() {
         return [{ 'key': 'version', 'onChange': debounceService.registerDebounce(model => {
             setLocalVersion();
-            events.$broadcast(events.avVersionSet); }) }];
+            events.$broadcast(events.avVersionSet, modelManager.getModel('version', false).version); }) }];
     }
 }
 

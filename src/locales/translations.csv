@@ -30,7 +30,8 @@ header save dialog hint,header.savedialog.error,Error in Legend Structured secti
 header error dialog title,header.errordialog.title,Configuration File Upload Error,0,Erreur de téléchargement du fichier de configuration,0
 header error dialog desc,header.errordialog.desc,"There was a problem when uploading the file. Please, correct the error then retry.",0,"Un problème est survenu lors du téléchargement du fichier. Veuillez corriger l'erreur, puis réessayez.",0
 header tempalte,header.template,Templates,0,Gabarits,0
-header file name,header.filename,File Name: ,0,Nom du fichier: ,0
+header file name,header.filename,File Name: ,0,Nom du fichier : ,0
+header file vesrion,header.version,Version: ,0,Version : ,0
 summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
 summary preview,summary.preview,Preview,0,Aperçu,0

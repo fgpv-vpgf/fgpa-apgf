@@ -108,7 +108,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      */
     function setForm() {
         return [
-            { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
+            { 'type': 'tabs', 'htmlClass': 'av-inner-tab av-version-dev av-version-dev-hide', 'tabs': [
                 { 'title': $translate.instant('form.plugins.rangeslider'), 'key': 'rangeSlider', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'rangeSlider.enable' },
