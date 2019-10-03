@@ -199,7 +199,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             localStorage.setItem('configpreview', modelManager.save(true));
 
             // set the array of languages to use by the preview window/iFrame
-            const langs = commonService.setUniq([commonService.getLang()].concat(commonService.getLangs()));
+            const langs = commonService.setUniq([modelManager.getModel('language', false).language].concat(commonService.getLangs()));
             localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
 
             // get list of plugin to set

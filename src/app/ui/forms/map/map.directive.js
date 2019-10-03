@@ -127,8 +127,7 @@ function Controller($scope, $translate, $timeout,
 
             // validate legend for error then validate model (solve the bad validation legend error at the same time)
             events.$broadcast(events.avValidateLegend);
-            $scope.$broadcast('schemaFormValidate');
-            stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
+            events.$broadcast(events.avValidateForm);
 
         }, constants.delaySplash);
 
@@ -806,8 +805,8 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'baseMaps[].layers', 'add': $translate.instant('button.add'), 'onChange': (model, form) => {
                                     if (model[model.length - 1].id === '') { model[model.length - 1].id = commonService.getUUID();}
 
-                                    // remove with version 2.5
-                                    $timeout(() => { events.$broadcast(events.avVersionSet); }, 1000);
+                                    // removed with version 2.5
+                                    // $timeout(() => { events.$broadcast(events.avVersionSet); }, 1000);
                                 }, 'items': [
                                     { 'key': 'baseMaps[].layers[].id', 'htmlClass': 'av-form-advance hidden' },
                                     { 'key': 'baseMaps[].layers[].layerType', 'htmlClass': 'av-form-advance hidden' },

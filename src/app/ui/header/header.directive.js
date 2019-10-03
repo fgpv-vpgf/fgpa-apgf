@@ -83,6 +83,9 @@ function Controller($q, $mdDialog, $timeout, $rootElement, $http, events, modelM
     // set active file name
     events.$on(events.avNewSaveName, (obj, name)  => { self.saveName = name });
 
+    // set active version
+    events.$on(events.avVersionSet, (obj, version)  => { self.version = version });
+
     /**
      * When create is clicked, broadcast a newModel event
      *

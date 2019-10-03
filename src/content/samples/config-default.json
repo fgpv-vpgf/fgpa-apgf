@@ -89,9 +89,9 @@
         "widgetsWidget": ""
     },
     "services": {
-        "proxyUrl": "http://167.40.64.74/wmsproxy/ws/wmsproxy/executeFromProxy",
-        "geometryUrl": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-        "exportMapUrl": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+        "proxyUrl": "https://maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy",
+        "geometryUrl": "https://webservices.maps.canada.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+        "exportMapUrl": "https://webservices.maps.canada.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
         "search": {
             "serviceUrls": {
                 "geoNames": "https://geogratis.gc.ca/services/geoname/en/geonames.json",
@@ -100,7 +100,7 @@
                 "provinces": "https://geogratis.gc.ca/services/geoname/en/codes/province.json",
                 "types": "https://geogratis.gc.ca/services/geoname/en/codes/concise.json"
             },
-            "disabledSearches": ["NTS", "FSA", "LAT/LNG"]
+            "disabledSearches": ["NTS", "FSA", "SCALE", "LAT/LNG"]
         },
         "export": {
             "title": {
@@ -141,6 +141,6 @@
         "coordInfo": "",
         "print": ""
     },
-    "version": "2.0",
+    "version": "2.5",
     "language": "en-CA"
 }
