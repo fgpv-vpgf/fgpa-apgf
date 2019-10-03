@@ -127,8 +127,7 @@ function Controller($scope, $translate, $timeout,
 
             // validate legend for error then validate model (solve the bad validation legend error at the same time)
             events.$broadcast(events.avValidateLegend);
-            $scope.$broadcast('schemaFormValidate');
-            stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
+            events.$broadcast(events.avValidateForm);
 
         }, constants.delaySplash);
 
