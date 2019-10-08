@@ -154,6 +154,8 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         // ADVANCE PARAMETERS SECTION
         processAdvance(_state, modelName, arrForm);
+
+        console.log('testt to see if tree nupadte');
     }
 
     /**

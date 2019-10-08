@@ -53,8 +53,10 @@ function avMap() {
  * @param {Object} layerService service use to get info from ESRI layers
  * @param {Object} commonService service with common functions
  */
+
+ // added $interval pw oct 2 for setsubtab
 function Controller($scope, $rootScope, $translate, $timeout,
-    events, modelManager, stateManager, formService, debounceService, constants, layerService, commonService) {
+    events, modelManager, stateManager, formService, debounceService, constants, layerService, commonService,$interval) {
     'ngInject';
     const self = this;
     self.modelName = 'map';
@@ -109,10 +111,13 @@ function Controller($scope, $rootScope, $translate, $timeout,
         self.formService.updateLinkValues($scope, [['tileSchemas', 'id'], ['tileSchemas', 'name']], 'tileId');
         self.formService.updateLinkValues($scope, [['layers', 'id']], 'initLayerId', 'avLayersIdUpdate');
 
-        $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
-
+       // pw oct 3 test to be removed
+         $timeout(() => setCollapsibleHeader(), constants.delayCollapseLink);
+ console.log('after set collapable header entry error and still running');
         // enable/disable setExtent buttons
         $timeout(() => {
+            console.log('inside timeout  call of init mao directive and still running');
+
             const buttons = [...document.getElementsByClassName('av-extentsets')[0].getElementsByClassName('av-button-square')];
 
             for (let [index, extentset] of $scope.model.extentSets.entries()) {
@@ -132,9 +137,12 @@ function Controller($scope, $rootScope, $translate, $timeout,
        //    stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
 
         }, constants.delaySplash);
+        console.log('before structured legend call init mao directive and still running');
 
         // set default structure legend values
         setDefaultStructureLegend(constants.delayCollapseLink);
+        console.log('after structured legend call init mao directive and still running');
+
     }
 
     events.$on(events.avValidateForm, () => {
@@ -166,7 +174,8 @@ function Controller($scope, $rootScope, $translate, $timeout,
             // loop trought layers to set children (layer entry and columns for table)
             if (typeof $scope.model.layers !== 'undefined') {
                 for (let [layerIndex, layer] of $scope.model.layers.entries()) {
-
+  // errornoccurrs here becasue  entries is undefined
+  // should it be model.layers.layerentries
                     // set layer entries
                     if (typeof layer.layerEntries !== 'undefined') {
                         setCollapsibleHeaderEntry(layer.layerType, layerIndex, layer.layerEntries);
@@ -326,19 +335,20 @@ function Controller($scope, $rootScope, $translate, $timeout,
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
             if  ($scope.model.legend.type === 'structured') {
-               $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+           //    $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
          //   let temp = JSON.parse($scope.model.legend.root);
          //   $scope.model.legend.root = JSON.stringify(temp, null, 4);
 
                //$scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);
-            
+
          // pw sept 29 11.59 to ovecome json SyntaxError: Unexpected token o in JSON at position 1
              //   $scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);
 
-            //  if (typeof  $scope.model.legend.root  === 'object' &&  $scope.model.legend.root  !== null)
-             //   { $scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);
-              //  
-              //  }
+              if (typeof  $scope.model.legend.root  === 'object' &&  $scope.model.legend.root  !== null)
+               { $scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);}
+              else
+               {  $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+               }
 
                 document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
@@ -992,10 +1002,20 @@ function Controller($scope, $rootScope, $translate, $timeout,
                             }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            // following is same as performing an initstate to reinitialize state tree
-                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () => {   constants.schemas.forEach(schema => {
-                                self[schema.split('.')[0]] = stateManager.getState(schema.split('.')[0]);
-                            }); $rootScope.$broadcast(events.avValidateForm); $rootScope.$digest();} },
+                         //-----------------------------------------------------------------------------------------------
+                            // do an initstate to clear the state table before vaidate form setSubTab(constants); $scope.$apply() to update tree
+                            // try edmit to send up instead of broadcast
+                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () => {
+ //    constants.schemas.forEach(schema => {
+            //                    self[schema.split('.')[0]] = stateManager.getState(schema.split('.')[0]);
+       // });
+                                   //   }); $rootScope.$emit(events.avValidateForm); setSubTab(constants); $scope.$apply(); }},
+
+                           $rootScope.$emit(events.avValidateForm);   $scope.$apply(); }},
+
+                         //   }); $rootScope.$emit(events.avValidateForm); setSubTab(constants); $scope.$apply(); }},
+                      //  }); $rootScope.$emit('schemaFormValidate');  $scope.$apply(); }},
+
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
                                     { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
@@ -1207,4 +1227,55 @@ function Controller($scope, $rootScope, $translate, $timeout,
                     <md-tooltip>{{ 'form.map.${type}' | translate }}</md-tooltip>
                 </md-button>`;
     }
+     /**
+    * Set subTab ids once the document has loaded
+    *
+    * @function setSubTab
+    * @private
+    * @param {Object} constants Constants service
+    */
+    function setSubTab(constants) {
+
+                $timeout(() => {
+                    let to = $interval(() => {
+                        if (document.readyState === 'complete') {
+                            $interval.cancel(to);
+                            setSubTabID(constants);
+                        }
+                    }, constants.delaySetSubTab);
+                });
+            }
+
+            /**
+             * Set subtab element id in document
+             *
+             * @function setSubTabID
+             * @private
+             * @param {Object} constants Constants service
+             */
+            function setSubTabID(constants) {
+
+                const sections = Object.getOwnPropertyNames(constants.subTabs);
+
+                for (let section of sections) {
+                    for (let i of constants.subTabs[section].keys) {
+                        const elTab = angular.element('[class="nav nav-tabs"]');
+                        const childrenTab = Array.from(elTab[constants.subTabs[section].index].children);
+                        const elPane = angular.element('[class="tab-content "]');
+                        const childrenPane = Array.from(elPane[constants.subTabs[section].index].children);
+
+                        const subTabLength = constants.subTabs[section].keys.length;
+                        if (childrenTab.length === subTabLength && childrenPane.length === subTabLength) {
+                            for (let [j, child] of childrenTab.entries()) {
+                                const id = constants.subTabs[section].keys[j].replace(/\./g, '-');
+                                child.setAttribute('id', id);
+                            }
+                            for (let [j, child] of childrenPane.entries()) {
+                                const id = `${constants.subTabs[section].keys[j].replace(/\./g, '-')}-pane`;
+                                child.setAttribute('id', id);
+                            }
+                        }
+                    }
+                }
+            }
 }
