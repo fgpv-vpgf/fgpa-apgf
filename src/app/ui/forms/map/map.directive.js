@@ -127,9 +127,9 @@ function Controller($scope, $rootScope, $translate, $timeout,
             }
 
             // validate legend for error then validate model (solve the bad validation legend error at the same time)
-            events.$broadcast(events.avValidateLegend);
-            $scope.$broadcast('schemaFormValidate');
-            stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
+        //    events.$broadcast(events.avValidateLegend);
+          //  $scope.$broadcast('schemaFormValidate');
+       //    stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
 
         }, constants.delaySplash);
 
@@ -326,7 +326,20 @@ function Controller($scope, $rootScope, $translate, $timeout,
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
             if  ($scope.model.legend.type === 'structured') {
-                $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+               $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+         //   let temp = JSON.parse($scope.model.legend.root);
+         //   $scope.model.legend.root = JSON.stringify(temp, null, 4);
+
+               //$scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);
+            
+         // pw sept 29 11.59 to ovecome json SyntaxError: Unexpected token o in JSON at position 1
+             //   $scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);
+
+            //  if (typeof  $scope.model.legend.root  === 'object' &&  $scope.model.legend.root  !== null)
+             //   { $scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);
+              //  
+              //  }
+
                 document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
                 // Validate layers ID
@@ -979,7 +992,10 @@ function Controller($scope, $rootScope, $translate, $timeout,
                             }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () => { validateLegend(); $rootScope.$broadcast(events.avValidateForm); } },
+                            // following is same as performing an initstate to reinitialize state tree
+                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () => {   constants.schemas.forEach(schema => {
+                                self[schema.split('.')[0]] = stateManager.getState(schema.split('.')[0]);
+                            }); $rootScope.$broadcast(events.avValidateForm); $rootScope.$digest();} },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
                                     { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
