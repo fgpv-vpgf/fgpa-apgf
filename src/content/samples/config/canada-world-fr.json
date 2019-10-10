@@ -555,7 +555,13 @@
                 "provinces": "https://geogratis.gc.ca/services/geoname/en/codes/province.json",
                 "types": "https://geogratis.gc.ca/services/geoname/en/codes/concise.json"
             },
-            "disabledSearches": ["NTS", "FSA", "SCALE", "LAT/LNG"]
+            "disabledSearches": ["NTS", "FSA", "SCALE", "LAT/LNG"],
+            "settings": {
+                "categories": [""],
+                "sortOrder": [""],
+                "maxResults": 100,
+                "officialOnly": false
+            }
         },
         "export": {
             "title": {
@@ -580,13 +586,19 @@
                 "isSelected": true,
                 "isSelectable": true,
                 "showInfoSymbology": false,
-                "showControlledSymbology": false
+                "showControlledSymbology": false,
+                "columnWidth": 350
             },
             "timestamp": {
                 "isSelected": true,
                 "isSelectable": true
-            }
-        }
+            },
+            "timeout": 120000,
+            "cleanCanvas": false
+        },
+        "corsEverywhere": false,
+        "googleAPIKey": "",
+        "esriLibUrl": ""
     },
     "version": "2.5.0",
     "language": "fr-CA"
