@@ -382,25 +382,6 @@
                         "default": true
                     },
                     "title": "Échelle"
-                },
-                "areaOfInterest": {
-                     "type": "array",
-                     "title": "Région d'intérêt",
-                     "version": "2.4",
-                     "items": {
-                         "type": "object",
-                         "title": "Région d'intérêt",
-                         "properties": {
-                            "title": { "type": "string" },
-                            "xmin": { "type": "number", "title": "X min", "description": "La coordonnée xmin (coin inférieur gauche) en lat/long" },
-                            "ymin": { "type": "number", "title": "Y min", "description": "La coordonnée ymin (coin inférieur gauche) en lat/long" },
-                            "xmax": { "type": "number", "title": "X max", "description": "La coordonnée xmax (coin supérieur droit) en lat/long" },
-                            "ymax": { "type": "number", "title": "Y max", "description": "La coordonnée ymax (coin supérieur droit) en lat/long" },
-                            "thumbnailUrl": { "type": "string", "title": "URL imagette", "description": "Chemin vers le fichier contenant l'image à afficher dans le sélecteur de régions d'intérêt." }
-                        },
-                        "required": [ "title", "xmin", "ymin", "xmax", "ymax" ]
-                      },
-                    "default": []
                 }
             },
             "additionalProperties": false

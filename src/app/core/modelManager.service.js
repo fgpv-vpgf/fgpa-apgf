@@ -59,6 +59,9 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         constants.schemas.forEach(schema => {
             const name = schema.split('.')[0];
             models[name] = getModel(name, false);
+
+            // remove unacessary items from layers object. These items (e.g. partial empty array of field) can cause viewer not to display
+            if (name === 'map') { models[name].layers = commonService.cleanLayerModel(models[name].layers); }
         });
 
         // version and language are one item model so we have to recreate the string

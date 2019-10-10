@@ -258,8 +258,7 @@
             "description": "This Canadian basemap provides geographic context with bilingual labels and an emphasis on transportation networks.  From Natural Resources Canada.",
             "altText": "Transport with labels",
             "thumbnailUrl": "",
-            "layers": [
-            {
+            "layers": [{
                 "id": "CBME_CBCE_HS_RO_3978",
                 "layerType": "esriFeature",
                 "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
@@ -481,7 +480,627 @@
                 }
             }
         }],
-        "layers": [],
+        "layers": [{
+            "layerChoice": "esriDynamic",
+            "layerType": "esriDynamic",
+            "fileType": "",
+            "colour": "#ff0000",
+            "toggleSymbology": true,
+            "refreshInterval": 0,
+            "expectedResponseTime": 4000,
+            "suppressGetCapabilities": false,
+            "xyInAttribs": false,
+            "tolerance": 5,
+            "imageFormat": "png32",
+            "singleEntryCollapse": true,
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+            "disabledControls": [],
+            "state": {
+                "opacity": 1,
+                "visibility": true,
+                "boundingBox": false,
+                "query": true,
+                "snapshot": false,
+                "hovertips": true
+            },
+            "table": {
+                "title": "",
+                "maximize": false,
+                "lazyFilter": false,
+                "applyMap": false,
+                "showFilter": true,
+                "filterByExtent": false,
+                "searchStrictMatch": false,
+                "printEnabled": false,
+                "columns": [{
+                    "title": "",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "value": "",
+                        "static": false
+                    }
+                }]
+            },
+            "layerEntries": [{
+                "outfields": "*",
+                "stateOnly": false,
+                "table": {
+                    "title": "",
+                    "maximize": false,
+                    "lazyFilter": false,
+                    "applyMap": false,
+                    "showFilter": true,
+                    "filterByExtent": false,
+                    "searchStrictMatch": false,
+                    "printEnabled": false,
+                    "columns": [{
+                        "data": "OBJECTID",
+                        "title": "OBJECTID",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Country",
+                        "title": "Country",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Facility",
+                        "title": "Terminal Name",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Owner",
+                        "title": "Owner Name (Company)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Operator",
+                        "title": "Operator Name",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Latitude",
+                        "title": "Latitude",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Longitude",
+                        "title": "Longitude",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "City",
+                        "title": "City (Site Name)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "County",
+                        "title": "County",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "StateProv",
+                        "title": "State / Province / Territory",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "ZipCode",
+                        "title": "Zip Code / Postal Code",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Address",
+                        "title": "Address",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "ImpExp",
+                        "title": "Import / Export",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Regas_Bcfd",
+                        "title": "Regasification Capacity (Bcf/d)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Liq_Bcfd",
+                        "title": "Liquefaction Capacity (Bcf/d)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Stora_MMcf",
+                        "title": "Storage Capacity (MMcf)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Source",
+                        "title": "Source Agency",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Period",
+                        "title": "Reference Period",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "string"
+                        }
+                    }, {
+                        "data": "Regas_MTPA",
+                        "title": "Regasification Capacity (MTPA)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Liq_MTPA",
+                        "title": "Liquefaction Capacity (MTPA)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }, {
+                        "data": "Stora_Mm3",
+                        "title": "Storage Capacity (Mm³)",
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "type": "number"
+                        }
+                    }]
+                },
+                "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+                "disabledControls": [],
+                "state": {
+                    "opacity": 1,
+                    "visibility": true,
+                    "boundingBox": false,
+                    "query": true,
+                    "snapshot": false,
+                    "hovertips": true
+                },
+                "init": true,
+                "index": 5,
+                "name": "Dynamic"
+            }],
+            "name": "Dynamic",
+            "id": "Dynamic***7a24332b",
+            "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer"
+        }, {
+            "layerChoice": "esriFeature",
+            "layerType": "esriFeature",
+            "fileType": "",
+            "colour": "#ff0000",
+            "toggleSymbology": true,
+            "refreshInterval": 0,
+            "expectedResponseTime": 4000,
+            "suppressGetCapabilities": false,
+            "xyInAttribs": false,
+            "tolerance": 5,
+            "imageFormat": "png32",
+            "singleEntryCollapse": false,
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+            "disabledControls": [],
+            "state": {
+                "opacity": 1,
+                "visibility": true,
+                "boundingBox": false,
+                "query": true,
+                "snapshot": false,
+                "hovertips": true
+            },
+            "table": {
+                "title": "",
+                "maximize": false,
+                "lazyFilter": false,
+                "applyMap": false,
+                "showFilter": true,
+                "filterByExtent": false,
+                "searchStrictMatch": false,
+                "printEnabled": false,
+                "columns": [{
+                    "data": "OBJECTID",
+                    "title": "OBJECTID",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Country",
+                    "title": "Country",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Facility",
+                    "title": "Terminal Name",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Owner",
+                    "title": "Owner Name (Company)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Operator",
+                    "title": "Operator Name",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Latitude",
+                    "title": "Latitude",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Longitude",
+                    "title": "Longitude",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "City",
+                    "title": "City (Site Name)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "County",
+                    "title": "County",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "StateProv",
+                    "title": "State / Province / Territory",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "ZipCode",
+                    "title": "Zip Code / Postal Code",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Address",
+                    "title": "Address",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "ImpExp",
+                    "title": "Import / Export",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Regas_Bcfd",
+                    "title": "Regasification Capacity (Bcf/d)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Liq_Bcfd",
+                    "title": "Liquefaction Capacity (Bcf/d)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Stora_MMcf",
+                    "title": "Storage Capacity (MMcf)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Source",
+                    "title": "Source Agency",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Period",
+                    "title": "Reference Period",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "string"
+                    }
+                }, {
+                    "data": "Regas_MTPA",
+                    "title": "Regasification Capacity (MTPA)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Liq_MTPA",
+                    "title": "Liquefaction Capacity (MTPA)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }, {
+                    "data": "Stora_Mm3",
+                    "title": "Storage Capacity (Mm³)",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "type": "number"
+                    }
+                }]
+            },
+            "layerEntries": [],
+            "name": "Feature",
+            "id": "Feature***b23976a2",
+            "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer/5"
+        }, {
+            "layerChoice": "ogcWms",
+            "layerType": "ogcWms",
+            "fileType": "",
+            "colour": "#ff0000",
+            "toggleSymbology": true,
+            "refreshInterval": 0,
+            "expectedResponseTime": 4000,
+            "suppressGetCapabilities": false,
+            "xyInAttribs": false,
+            "tolerance": 5,
+            "imageFormat": "png32",
+            "singleEntryCollapse": false,
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+            "disabledControls": [],
+            "state": {
+                "opacity": 1,
+                "visibility": true,
+                "boundingBox": false,
+                "query": true,
+                "snapshot": false,
+                "hovertips": true
+            },
+            "table": {
+                "title": "",
+                "maximize": false,
+                "lazyFilter": false,
+                "applyMap": false,
+                "showFilter": true,
+                "filterByExtent": false,
+                "searchStrictMatch": false,
+                "printEnabled": false,
+                "columns": [{
+                    "title": "",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "value": "",
+                        "static": false
+                    }
+                }]
+            },
+            "layerEntries": [{
+                "outfields": "*",
+                "stateOnly": false,
+                "table": {
+                    "title": "",
+                    "maximize": false,
+                    "lazyFilter": false,
+                    "applyMap": false,
+                    "showFilter": true,
+                    "filterByExtent": false,
+                    "searchStrictMatch": false,
+                    "printEnabled": false,
+                    "columns": [{
+                        "visible": true,
+                        "searchable": true,
+                        "filter": {
+                            "value": "",
+                            "static": false
+                        }
+                    }]
+                },
+                "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+                "disabledControls": [],
+                "state": {
+                    "opacity": 1,
+                    "visibility": true,
+                    "boundingBox": false,
+                    "query": true,
+                    "snapshot": false,
+                    "hovertips": true
+                },
+                "allStyles": [""],
+                "init": true,
+                "id": "0",
+                "name": "wms"
+            }],
+            "name": "WMS",
+            "id": "WMS***38c6bde5",
+            "url": "https://webservices.maps.canada.ca/arcgis/services/ELECTIONS/federal_electoral_districts_boundaries_2013_fr/MapServer/WMSServer"
+        }, {
+            "layerChoice": "file",
+            "layerType": "esriFeature",
+            "fileType": "geojson",
+            "colour": "#ff0000",
+            "toggleSymbology": true,
+            "refreshInterval": 0,
+            "expectedResponseTime": 4000,
+            "suppressGetCapabilities": false,
+            "xyInAttribs": false,
+            "tolerance": 5,
+            "imageFormat": "png32",
+            "singleEntryCollapse": false,
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+            "disabledControls": [],
+            "state": {
+                "opacity": 1,
+                "visibility": true,
+                "boundingBox": false,
+                "query": true,
+                "snapshot": false,
+                "hovertips": true
+            },
+            "table": {
+                "title": "",
+                "maximize": false,
+                "lazyFilter": false,
+                "applyMap": false,
+                "showFilter": true,
+                "filterByExtent": false,
+                "searchStrictMatch": false,
+                "printEnabled": false,
+                "columns": [{
+                    "title": "",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "value": "",
+                        "static": false
+                    }
+                }]
+            },
+            "layerEntries": [],
+            "name": "File",
+            "id": "File***18fe17e2",
+            "url": "http://fgpv.cloudapp.net/demo/__assets__/Sample%20Data/happy.json"
+        }, {
+            "layerChoice": "ogcWfs",
+            "layerType": "ogcWfs",
+            "fileType": "",
+            "colour": "#ff0000",
+            "toggleSymbology": true,
+            "refreshInterval": 0,
+            "expectedResponseTime": 4000,
+            "suppressGetCapabilities": false,
+            "xyInAttribs": false,
+            "tolerance": 5,
+            "imageFormat": "png32",
+            "singleEntryCollapse": false,
+            "controls": ["opacity", "visibility", "boundingBox", "query", "snapshot", "metadata", "boundaryZoom", "refresh", "reload", "remove", "settings", "data", "styles"],
+            "disabledControls": [],
+            "state": {
+                "opacity": 1,
+                "visibility": true,
+                "boundingBox": false,
+                "query": true,
+                "snapshot": false,
+                "hovertips": true
+            },
+            "table": {
+                "title": "",
+                "maximize": false,
+                "lazyFilter": false,
+                "applyMap": false,
+                "showFilter": true,
+                "filterByExtent": false,
+                "searchStrictMatch": false,
+                "printEnabled": false,
+                "columns": [{
+                    "title": "",
+                    "visible": true,
+                    "searchable": true,
+                    "filter": {
+                        "value": "",
+                        "static": false
+                    }
+                }]
+            },
+            "layerEntries": [],
+            "name": "WFS",
+            "id": "WFS***8e5a2b98",
+            "url": "http://geo.weather.gc.ca/geomet-beta/features/collections/ahccd-trends/items?measurement_type__type_mesure=temp_max&period__periode=Jan&startindex=0&limit=1000"
+        }],
         "legend": {
             "legendChoice": "autopopulate",
             "type": "autopopulate",
@@ -601,6 +1220,22 @@
         "googleAPIKey": "",
         "esriLibUrl": ""
     },
-    "version": "2.5.0",
-    "language": "en-CA"
+    "version": "3.1.0",
+    "language": "en-CA",
+    "plugins": {
+        "rangeSlider": {
+            "enable": false,
+            "controls": ["lock", "delay"],
+            "params": {
+                "type": "number",
+                "delay": "3000"
+            }
+        },
+        "coordInfo": {
+            "enable": false
+        },
+        "areasOfInterest": {
+            "enable": false
+        }
+    }
 }

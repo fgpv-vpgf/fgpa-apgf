@@ -37,7 +37,8 @@ function commonService($translate, events, $timeout, constants) {
         clickSubTab,
         scrollToElement,
         validServiceUrl,
-        addButton
+        addButton,
+        cleanLayerModel
     };
 
     let languages;
@@ -228,7 +229,7 @@ function commonService($translate, events, $timeout, constants) {
      *
      * @function addButton
      * @private
-     * @param {String} form tform to apply to
+     * @param {String} form form to apply to
      * @param {String} type type of button to add
      * @param {String} func function to associate to ng-click
      * @param {String} addClass class to add
@@ -240,5 +241,48 @@ function commonService($translate, events, $timeout, constants) {
                     {{ '${form}.${type}' | translate }}
                     <md-tooltip>{{ '${form}.${type}' | translate }}</md-tooltip>
                 </md-button>`;
+    }
+
+    /**
+     * Remove unnessacery kyes from layers object
+     *
+     * @function addButton
+     * @private
+     * @param {Array} layers layer object array
+     * @returns {Array} the cleaned layers array
+     */
+    function cleanLayerModel(layers) {
+        // keys to remove for ech layer type
+        const keysRemove = {
+            'esriDynamic': ['fileType', 'colour', 'xyInAttribs', 'suppressGetCapabilities', 'table'],
+            'esriFeature': ['fileType', 'colour', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
+            'ogcWms': ['fileType', 'colour', 'xyInAttribs', 'imageFormat', 'singleEntryCollapse', 'table'],
+            'file': ['xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
+            'ogcWfs': ['fileType', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries']
+        }
+
+        // loop layers
+        for (let layer of layers) {
+            // delete unwanted keys
+            for (let key of keysRemove[layer.layerType]) {
+                delete layer[key];
+            }
+
+            // delete nested unwanted key
+            if (layer.layerType === 'ogcWms') {
+                delete layer.layerEntries['table'];
+                delete layer.layerEntries['outfields'];
+                delete layer.layerEntries['stateOnly'];
+            }
+
+            // test table.columns array. If there is the default not initialize column, delete
+            if (['table']['columns'] in layer) {
+                if (layer.table.columns.length === 1 && layer.table.columns[0].data === '') {
+                    layer.table.columns = [];
+                }
+            }
+        }
+
+        return layers;
     }
 }
