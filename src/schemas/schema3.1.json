@@ -1,10 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "FGPV Config Schema",
+    "title": "Fgpv Config Schema",
     "type": "object",
     "version": 2.3,
     "comments": "FIXME: when draft 05 is release redo schema inheritance with patching / merging if they are accepted",
     "additionalProperties": false,
+
     "definitions": {
       "spatialReference": {
         "type": "object",
@@ -25,31 +26,20 @@
             "type": "string"
           }
         },
-        "anyOf": [
-          {
-            "required": [
-              "wkid"
-            ]
+        "anyOf": [{
+            "required": ["wkid"]
           },
           {
-            "required": [
-              "vcsWkid"
-            ]
+            "required": ["vcsWkid"]
           },
           {
-            "required": [
-              "latestWkid"
-            ]
+            "required": ["latestWkid"]
           },
           {
-            "required": [
-              "latestVcsWkid"
-            ]
+            "required": ["latestVcsWkid"]
           },
           {
-            "required": [
-              "wkt"
-            ]
+            "required": ["wkt"]
           }
         ]
       },
@@ -72,31 +62,20 @@
             "type": "string"
           }
         },
-        "anyOf": [
-          {
-            "required": [
-              "wkid"
-            ]
+        "anyOf": [{
+            "required": ["wkid"]
           },
           {
-            "required": [
-              "vcsWkid"
-            ]
+            "required": ["vcsWkid"]
           },
           {
-            "required": [
-              "latestWkid"
-            ]
+            "required": ["latestWkid"]
           },
           {
-            "required": [
-              "latestVcsWkid"
-            ]
+            "required": ["latestVcsWkid"]
           },
           {
-            "required": [
-              "wkt"
-            ]
+            "required": ["wkt"]
           }
         ],
         "additionalProperties": false
@@ -117,12 +96,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "xmin",
-          "ymin",
-          "xmax",
-          "ymax"
-        ]
+        "required": ["xmin", "ymin", "xmax", "ymax"]
       },
       "extentNode": {
         "type": "object",
@@ -140,12 +114,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "xmin",
-          "ymin",
-          "xmax",
-          "ymax"
-        ],
+        "required": ["xmin", "ymin", "xmax", "ymax"],
         "additionalProperties": false
       },
       "extentWithReferenceNode": {
@@ -167,12 +136,7 @@
             "$ref": "#/definitions/spatialReferenceNode"
           }
         },
-        "required": [
-          "xmin",
-          "ymin",
-          "xmax",
-          "ymax"
-        ],
+        "required": ["xmin", "ymin", "xmax", "ymax"],
         "additionalProperties": false
       },
       "extentSetNode": {
@@ -198,11 +162,7 @@
             "description": "The maximum extent; full or default extents will be used if not supplied."
           }
         },
-        "required": [
-          "id",
-          "default",
-          "spatialReference"
-        ],
+        "required": ["id", "default", "spatialReference"],
         "additionalProperties": false
       },
       "symbolNode": {
@@ -217,10 +177,7 @@
             "description": "Graphical symbol as a URL (data URLs are encouraged for smaller symbols)"
           }
         },
-        "required": [
-          "label",
-          "icon"
-        ],
+        "required": ["label", "icon"],
         "additionalProperties": false
       },
       "lodSetNode": {
@@ -244,20 +201,13 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "level",
-                "resolution",
-                "scale"
-              ],
+              "required": ["level", "resolution", "scale"],
               "additionalProperties": false
             },
             "description": "Level of details for a specific tile schema"
           }
         },
-        "required": [
-          "id",
-          "lods"
-        ],
+        "required": ["id", "lods"],
         "additionalProperties": false
       },
       "tileSchemaNode": {
@@ -289,12 +239,7 @@
             "description": "Indicates if the map projection includes a north pole.  Defaults to false to avoid errors."
           }
         },
-        "required": [
-          "extentSetId",
-          "lodSetId",
-          "id",
-          "name"
-        ],
+        "required": ["extentSetId", "lodSetId", "id", "name"],
         "additionalProperties": false
       },
       "exportComponent": {
@@ -369,9 +314,7 @@
                 "description": "Optional. Contains the attribution value. If empty, it will use copyright text from the server."
               }
             },
-            "required": [
-              "enabled"
-            ],
+            "required": ["enabled"],
             "additionalProperties": false
           },
           "logo": {
@@ -394,16 +337,11 @@
                 "description": "URL to go to when clicked."
               }
             },
-            "required": [
-              "enabled"
-            ],
+            "required": ["enabled"],
             "additionalProperties": false
           }
         },
-        "required": [
-          "text",
-          "logo"
-        ],
+        "required": ["text", "logo"],
         "additionalProperties": false
       },
       "legendGroupControls": {
@@ -511,9 +449,7 @@
             "$ref": "#/definitions/initialLayerSettings"
           }
         },
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "additionalProperties": false
       },
       "dynamicLayerEntryNode": {
@@ -563,9 +499,7 @@
             "description": "Specifies options for the fields of a layer."
           }
         },
-        "required": [
-          "index"
-        ],
+        "required": ["index"],
         "additionalProperties": false
       },
       "entryGroup": {
@@ -587,20 +521,15 @@
           "children": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
+              "oneOf": [{
                   "$ref": "#/definitions/entryGroup"
-                },
-                {
+                }, {
                   "$ref": "#/definitions/visibilitySet"
-                },
-                {
+                }, {
                   "$ref": "#/definitions/entry"
-                },
-                {
+                }, {
                   "$ref": "#/definitions/infoSection"
-                }
-              ]
+                }]
             },
             "minItems": 1
           },
@@ -611,10 +540,7 @@
             "$ref": "#/definitions/legendGroupControls"
           }
         },
-        "required": [
-          "name",
-          "children"
-        ],
+        "required": ["name", "children"],
         "additionalProperties": false
       },
       "visibilitySet": {
@@ -628,21 +554,16 @@
           "exclusiveVisibility": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
+              "oneOf": [{
                   "$ref": "#/definitions/entryGroup"
-                },
-                {
+                }, {
                   "$ref": "#/definitions/entry"
-                }
-              ]
+                }]
             },
             "minItems": 1
           }
         },
-        "required": [
-          "exclusiveVisibility"
-        ],
+        "required": ["exclusiveVisibility"],
         "additionalProperties": false
       },
       "symbologyStack": {
@@ -662,10 +583,7 @@
               "description": "An SQL where clause by which the map and datatable attributes can be filtered. All the query results for the symbologyStack should cover all attributes for that layer."
             }
           },
-          "required": [
-            "image",
-            "text"
-          ],
+          "required": ["image", "text"],
           "additionalProperties": false
         },
         "minItems": 1
@@ -713,10 +631,7 @@
           },
           "symbologyRenderStyle": {
             "type": "string",
-            "enum": [
-              "icons",
-              "images"
-            ],
+            "enum": ["icons", "images"],
             "description": "An optional style, describes how the symbology stack should be rendered"
           },
           "symbologyExpanded": {
@@ -725,21 +640,16 @@
             "description": "Indicates if symbology stack is expand by default"
           }
         },
-        "required": [
-          "layerId"
-        ],
+        "required": ["layerId"],
         "additionalProperties": false
       },
       "infoSection": {
-        "oneOf": [
-          {
+        "oneOf": [{
             "type": "object",
             "properties": {
               "infoType": {
                 "type": "string",
-                "enum": [
-                  "title"
-                ]
+                "enum": ["title"]
               },
               "content": {
                 "type": "string"
@@ -751,15 +661,12 @@
               }
             },
             "additionalProperties": false
-          },
-          {
+          }, {
             "type": "object",
             "properties": {
               "infoType": {
                 "type": "string",
-                "enum": [
-                  "image"
-                ]
+                "enum": ["image"]
               },
               "content": {
                 "type": "string"
@@ -771,15 +678,12 @@
               }
             },
             "additionalProperties": false
-          },
-          {
+          }, {
             "type": "object",
             "properties": {
               "infoType": {
                 "type": "string",
-                "enum": [
-                  "unboundLayer"
-                ]
+                "enum": ["unboundLayer"]
               },
               "content": {
                 "type": "string",
@@ -803,10 +707,7 @@
               },
               "symbologyRenderStyle": {
                 "type": "string",
-                "enum": [
-                  "icons",
-                  "images"
-                ],
+                "enum": ["icons", "images"],
                 "description": "An optional style, describes how the symbology stack should be rendered"
               },
               "symbologyExpanded": {
@@ -821,15 +722,12 @@
               }
             },
             "additionalProperties": false
-          },
-          {
+          }, {
             "type": "object",
             "properties": {
               "infoType": {
                 "type": "string",
-                "enum": [
-                  "text"
-                ]
+                "enum": ["text"]
               },
               "content": {
                 "type": "string"
@@ -841,36 +739,25 @@
               }
             },
             "additionalProperties": false
-          }
-        ],
-        "required": [
-          "infoType",
-          "content"
-        ]
+          }],
+        "required": ["infoType", "content"]
       },
       "mapLegend": {
-        "oneOf": [
-          {
+        "oneOf": [{
             "$ref": "#/definitions/legendAuto"
-          },
-          {
+          }, {
             "$ref": "#/definitions/legendStructured"
-          }
-        ]
+          }]
       },
       "legendAuto": {
         "type": "object",
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "autopopulate"
-            ]
+            "enum": ["autopopulate"]
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "additionalProperties": false
       },
       "legendStructured": {
@@ -878,18 +765,13 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "structured"
-            ]
+            "enum": ["structured"]
           },
           "root": {
             "$ref": "#/definitions/entryGroup"
           }
         },
-        "required": [
-          "type",
-          "root"
-        ],
+        "required": ["type", "root"],
         "additionalProperties": false
       },
       "tableNode": {
@@ -987,10 +869,7 @@
           },
           "sort": {
             "type": "string",
-            "enum": [
-              "asc",
-              "desc"
-            ],
+            "enum": ["asc", "desc"],
             "description": "Specifies if column is sort. If missing, no sort is applied."
           },
           "searchable": {
@@ -1002,9 +881,7 @@
             "$ref": "#/definitions/filterNode"
           }
         },
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "additionalProperties": false,
         "description": "Specifies option for each column. OID field must be present, if not data will not appear. The order they appears inside the table is the same as the order of this array."
       },
@@ -1014,12 +891,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "string",
-              "number",
-              "date",
-              "selector"
-            ],
+            "enum": ["string", "number", "date", "selector"],
             "description": "Specifies the filter type to use. Mainly used to change default text filters to selector filters if the user wishes."
           },
           "value": {
@@ -1033,9 +905,7 @@
             "description": "Specifies if filter is modifiable. True: filter value can't be modified; False: filter value can be modified."
           }
         },
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "additionalProperties": false
       },
       "basicLayer": {
@@ -1055,13 +925,7 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "esriDynamic",
-              "esriFeature",
-              "esriImage",
-              "esriTile",
-              "ogcWms"
-            ]
+            "enum": ["esriDynamic", "esriFeature", "esriImage", "esriTile", "ogcWms"]
           },
           "toggleSymbology": {
             "type": "boolean",
@@ -1072,11 +936,7 @@
             "$ref": "#/definitions/extentWithReferenceNode"
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "url"
-        ]
+        "required": ["id", "layerType", "url"]
       },
       "basicLayerNode": {
         "type": "object",
@@ -1115,10 +975,7 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "esriImage",
-              "esriTile"
-            ]
+            "enum": ["esriImage", "esriTile"]
           },
           "extent": {
             "$ref": "#/definitions/extentWithReferenceNode"
@@ -1145,17 +1002,11 @@
                 "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."
               }
             },
-            "required": [
-              "template"
-            ],
+            "required": ["template"],
             "additionalProperties": false
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "url"
-        ],
+        "required": ["id", "layerType", "url"],
         "additionalProperties": false
       },
       "featureLayerNode": {
@@ -1203,9 +1054,7 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "esriFeature"
-            ]
+            "enum": ["esriFeature"]
           },
           "toggleSymbology": {
             "type": "boolean",
@@ -1251,9 +1100,7 @@
                 "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."
               }
             },
-            "required": [
-              "template"
-            ],
+            "required": ["template"],
             "additionalProperties": false
           },
           "fieldMetadata": {
@@ -1264,11 +1111,7 @@
             "description": "Specifies options for the fields of a layer."
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "url"
-        ],
+        "required": ["id", "layerType", "url"],
         "additionalProperties": false
       },
       "fileLayerNode": {
@@ -1300,17 +1143,11 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "esriFeature"
-            ]
+            "enum": ["esriFeature"]
           },
           "fileType": {
             "type": "string",
-            "enum": [
-              "csv",
-              "geojson",
-              "shapefile"
-            ]
+            "enum": ["csv", "geojson", "shapefile"]
           },
           "latField": {
             "type": "string",
@@ -1359,9 +1196,7 @@
                 "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."
               }
             },
-            "required": [
-              "template"
-            ],
+            "required": ["template"],
             "additionalProperties": false
           },
           "fieldMetadata": {
@@ -1372,12 +1207,7 @@
             "description": "Specifies options for the fields of a layer."
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "fileType",
-          "url"
-        ],
+        "required": ["id", "layerType", "fileType", "url"],
         "additionalProperties": false
       },
       "wfsLayerNode": {
@@ -1409,9 +1239,7 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "ogcWfs"
-            ]
+            "enum": ["ogcWfs"]
           },
           "tolerance": {
             "type": "number",
@@ -1457,9 +1285,7 @@
                 "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."
               }
             },
-            "required": [
-              "template"
-            ],
+            "required": ["template"],
             "additionalProperties": false
           },
           "fieldMetadata": {
@@ -1470,11 +1296,7 @@
             "description": "Specifies options for the fields of a layer."
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "url"
-        ],
+        "required": ["id", "layerType", "url"],
         "additionalProperties": false
       },
       "wmsLayerNode": {
@@ -1526,29 +1348,16 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "ogcWms"
-            ]
+            "enum": ["ogcWms"]
           },
           "featureInfoMimeType": {
             "type": "string",
-            "enum": [
-              "text/html;fgpv=summary",
-              "text/html",
-              "text/plain",
-              "application/json"
-            ],
+            "enum": ["text/html;fgpv=summary", "text/html", "text/plain", "application/json"],
             "description": "If specified indicates that GetFeatureInfo should be enabled for this WMS and indicates the format that should be requested."
           },
           "legendMimeType": {
             "type": "string",
-            "enum": [
-              "image/png",
-              "image/gif",
-              "image/jpeg",
-              "image/svg",
-              "image/svg+xml"
-            ],
+            "enum": ["image/png", "image/gif", "image/jpeg", "image/svg", "image/svg+xml"],
             "description": "If specified indicates that GetLegendGraphic should be enabled for this WMS and indicates the format that should be requested.  FIXME check legendUrl for additional requirements"
           },
           "extent": {
@@ -1576,18 +1385,11 @@
                 "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."
               }
             },
-            "required": [
-              "template"
-            ],
+            "required": ["template"],
             "additionalProperties": false
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "layerEntries",
-          "url"
-        ],
+        "required": ["id", "layerType", "layerEntries", "url"],
         "additionalProperties": false
       },
       "dynamicLayerNode": {
@@ -1627,9 +1429,7 @@
           },
           "layerType": {
             "type": "string",
-            "enum": [
-              "esriDynamic"
-            ]
+            "enum": ["esriDynamic"]
           },
           "toggleSymbology": {
             "type": "boolean",
@@ -1668,17 +1468,7 @@
           },
           "imageFormat": {
             "type": "string",
-            "enum": [
-              "png",
-              "png8",
-              "png24",
-              "png32",
-              "jpg",
-              "pdf",
-              "bmp",
-              "gif",
-              "svg"
-            ],
+            "enum": ["png", "png8", "png24", "png32", "jpg", "pdf", "bmp", "gif", "svg"],
             "default": "png32",
             "description": "The format of the layer image output. It should only be in one of png, png8, png28, png32, jpg, pdf, bmp, gif, svg.  Defaults to png32 if not provided"
           },
@@ -1694,41 +1484,27 @@
                 "description": "A path to an html template that will override default identify output. The template can contain angular bindings, directives, etc."
               }
             },
-            "required": [
-              "template"
-            ],
+            "required": ["template"],
             "additionalProperties": false
           }
         },
-        "required": [
-          "id",
-          "layerType",
-          "layerEntries",
-          "url"
-        ],
+        "required": ["id", "layerType", "layerEntries", "url"],
         "additionalProperties": false
       },
       "layerNode": {
-        "oneOf": [
-          {
+        "oneOf": [{
             "$ref": "#/definitions/basicLayerNode"
-          },
-          {
+          }, {
             "$ref": "#/definitions/featureLayerNode"
-          },
-          {
+          }, {
             "$ref": "#/definitions/fileLayerNode"
-          },
-          {
+          }, {
             "$ref": "#/definitions/wfsLayerNode"
-          },
-          {
+          }, {
             "$ref": "#/definitions/wmsLayerNode"
-          },
-          {
+          }, {
             "$ref": "#/definitions/dynamicLayerNode"
-          }
-        ]
+          }]
       },
       "layerList": {
         "type": "array",
@@ -1758,7 +1534,7 @@
           },
           "altText": {
             "type": "string",
-            "description": "Alt text for the basemap thumbnail image.Alt text for the basemap thumbnail image."
+            "description": "Alt text for the basemap thumbnail image."
           },
           "thumbnailUrl": {
             "type": "string",
@@ -1792,11 +1568,7 @@
                 }
               },
               "additionalProperties": false,
-              "required": [
-                "id",
-                "layerType",
-                "url"
-              ]
+              "required": ["id", "layerType", "url"]
             },
             "minItems": 1,
             "description": "A set of URLs which should be composited to form a basemap entry"
@@ -1818,14 +1590,7 @@
             "additionalProperties": false
           }
         },
-        "required": [
-          "id",
-          "name",
-          "description",
-          "layers",
-          "altText",
-          "tileSchemaId"
-        ],
+        "required": ["id", "name", "description", "layers", "altText", "tileSchemaId"],
         "additionalProperties": false
       },
       "sideMenuNode": {
@@ -1842,24 +1607,10 @@
               "$ref": "#/definitions/sideMenuButtons"
             },
             "default": [
-              [
-                "layers",
-                "basemap"
-              ],
-              [
-                "fullscreen",
-                "export",
-                "share",
-                "touch",
-                "help",
-                "about"
-              ],
-              [
-                "language"
-              ],
-              [
-                "plugins"
-              ]
+              ["layers", "basemap"],
+              ["fullscreen", "export", "share", "touch", "help", "about"],
+              ["language"],
+              ["plugins"]
             ]
           }
         },
@@ -1871,19 +1622,7 @@
         "uniqueItems": true,
         "items": {
           "type": "string",
-          "enum": [
-            "layers",
-            "basemap",
-            "geoSearch",
-            "about",
-            "fullscreen",
-            "export",
-            "share",
-            "touch",
-            "help",
-            "language",
-            "plugins"
-          ]
+          "enum": ["layers", "basemap", "geoSearch", "about", "fullscreen", "export", "share", "touch", "help", "language", "plugins"]
         }
       },
       "appBarNode": {
@@ -1918,26 +1657,15 @@
         "properties": {
           "zoom": {
             "type": "string",
-            "enum": [
-              "all",
-              "buttons",
-              "slider"
-            ],
+            "enum": ["all", "buttons", "slider"],
             "default": "buttons"
           },
           "extra": {
             "$ref": "#/definitions/navBarButtons",
-            "default": [
-              "fullscreen",
-              "geoLocator",
-              "home",
-              "help"
-            ]
+            "default": ["fullscreen", "geoLocator", "home", "help"]
           }
         },
-        "required": [
-          "zoom"
-        ],
+        "required": ["zoom"],
         "additionalProperties": false
       },
       "navBarButtons": {
@@ -1945,18 +1673,7 @@
         "uniqueItems": true,
         "items": {
           "type": "string",
-          "enum": [
-            "geoLocator",
-            "marquee",
-            "home",
-            "history",
-            "basemap",
-            "help",
-            "fullscreen",
-            "geoSearch",
-            "sideMenu",
-            "layers"
-          ]
+          "enum": ["geoLocator", "marquee", "home", "history", "basemap", "help", "fullscreen", "geoSearch", "sideMenu", "layers"]
         }
       },
       "mapComponentsNode": {
@@ -2032,18 +1749,11 @@
             "description": "The folder which contains the content for the about section"
           }
         },
-        "oneOf": [
-          {
-            "required": [
-              "content"
-            ]
-          },
-          {
-            "required": [
-              "folderName"
-            ]
-          }
-        ],
+        "oneOf": [{
+            "required": ["content"]
+          },{
+            "required": ["folderName"]
+          }],
         "description": "Specifies the location/content of the about section",
         "additionalProperties": false
       },
@@ -2127,12 +1837,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": [
-                "NTS",
-                "FSA",
-                "LAT/LNG",
-                "SCALE"
-              ]
+              "enum": ["NTS", "FSA", "LAT/LNG", "SCALE"]
             },
             "minItems": 1,
             "uniqueItems": true,
@@ -2164,19 +1869,11 @@
               }
             },
             "additionalProperties": false,
-            "required": [
-              "geoNames",
-              "geoLocation",
-              "geoSuggest",
-              "provinces",
-              "types"
-            ]
+            "required": ["geoNames", "geoLocation", "geoSuggest", "provinces", "types"]
           }
         },
         "additionalProperties": false,
-        "required": [
-          "serviceUrls"
-        ]
+        "required": ["serviceUrls"]
       },
       "help": {
         "type": "object",
@@ -2187,9 +1884,7 @@
             "description": "Help folder name which contains the help description and images"
           }
         },
-        "required": [
-          "folderName"
-        ],
+        "required": ["folderName"],
         "additionalProperties": false
       },
       "fieldMetadataEntry": {
@@ -2205,29 +1900,18 @@
             "description": "Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name."
           }
         },
-        "required": [
-          "data"
-        ]
+        "required": ["data"]
       }
     },
     "properties": {
       "version": {
         "type": "string",
-        "enum": [
-          "2.0",
-          "2.1",
-          "2.2",
-          "2.3"
-        ],
+        "enum": ["2.0", "2.1", "2.2", "2.3"],
         "description": "The schema version used to validate the configuration file.  The schema should enumerate the list of versions accepted by this version of the viewer."
       },
       "language": {
         "type": "string",
-        "enum": [
-          "en",
-          "fr",
-          "es"
-        ],
+        "enum": ["en", "fr", "es"],
         "description": "ISO 639-1 code indicating the language of strings in the schema file"
       },
       "ui": {
@@ -2241,9 +1925,7 @@
           },
           "theme": {
             "type": "string",
-            "enum": [
-              "default"
-            ],
+            "enum": ["default"],
             "default": "default",
             "description": "UI theme of the viewer"
           },
@@ -2319,9 +2001,7 @@
               }
             },
             "additionalProperties": false,
-            "required": [
-              "id"
-            ]
+            "required": ["id"]
           }
         }
       },
@@ -2470,13 +2150,8 @@
             "description": "A structured or automatically generated legend"
           }
         },
-        "required": [
-          "tileSchemas",
-          "baseMaps"
-        ]
+        "required": ["tileSchemas", "baseMaps"]
       }
     },
-    "required": [
-      "version"
-    ]
+    "required": ["version"]
   }

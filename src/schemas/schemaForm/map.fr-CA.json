@@ -22,30 +22,32 @@
                   "wkid": {
                       "type": "number",
                       "title": "WKID",
-                      "description": "Well-Known ID",
+                      "description": "ESRI well known id désignant une projection (WKID)",
                       "default": 3978,
                       "minimum": "0"
                   },
                   "vcsWkid": {
                       "type": "number",
                       "title": "VcsWKID",
-                      "description": "Vertical coordinate system WKID",
+                      "description": "ESRI well known id désignant un système de coordonnées verticales. RAMP ne prend actuellement pas en charge cette propriété.",
                       "default": ""
                   },
                   "latestWkid": {
                       "type": "number",
                       "title": "WKID le plus récent",
+                      "description": "ESRI well known id désignant une projection (WKID)",
                       "default": ""
                   },
                   "latestVcsWkid": {
                       "type": "number",
                       "title": "VcsWKID le plus récent",
+                      "description": "ESRI well known id désignant un système de coordonnées verticales. RAMP ne prend actuellement pas en charge cette propriété.",
                       "default": ""
                   },
                   "wkt": {
                       "type": "string",
                       "title": "WKT",
-                      "description": "Well-Known Text",
+                      "description": "Définition well known type d'une projection",
                       "default": ""
                   }
               },
@@ -303,38 +305,40 @@
                             "title": "Référence spatiale",
                             "type": "object",
                             "properties": {
-                                "wkid": {
-                                    "type": "number",
-                                    "title": "WKID",
-                                    "description": "Well-Known ID",
-                                    "default": 4326,
-                                    "minimum": "0"
+                              "wkid": {
+                                "type": "number",
+                                "title": "WKID",
+                                "description": "ESRI well known id désignant une projection (WKID)",
+                                "default": 3978,
+                                "minimum": "0"
                                 },
                                 "vcsWkid": {
                                     "type": "number",
                                     "title": "VcsWKID",
-                                    "description": "Vertical coordinate system WKID",
+                                    "description": "ESRI well known id désignant un système de coordonnées verticales. RAMP ne prend actuellement pas en charge cette propriété.",
                                     "default": ""
                                 },
                                 "latestWkid": {
                                     "type": "number",
                                     "title": "WKID le plus récent",
+                                    "description": "ESRI well known id désignant une projection (WKID)",
                                     "default": ""
                                 },
                                 "latestVcsWkid": {
                                     "type": "number",
                                     "title": "VcsWKID le plus récent",
+                                    "description": "ESRI well known id désignant un système de coordonnées verticales. RAMP ne prend actuellement pas en charge cette propriété.",
                                     "default": ""
                                 },
                                 "wkt": {
                                     "type": "string",
                                     "title": "WKT",
-                                    "description": "Well-Known Text",
+                                    "description": "Définition well known type d'une projection",
                                     "default": ""
                                 }
-                            },
-                            "required": ["wkid"],
-                            "additionalProperties": false
+                              },
+                              "required": ["wkid"],
+                              "additionalProperties": false
                         }
                     },
                     "title": "Coordonnées de la souris"

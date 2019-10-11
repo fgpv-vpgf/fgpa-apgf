@@ -22,30 +22,32 @@
                   "wkid": {
                       "type": "number",
                       "title": "WKID",
-                      "description": "Well-Known ID ( WKID )",
+                      "description": "ESRI well known id denoting a projection (WKID)",
                       "default": 3978,
                       "minimum": "0"
                   },
                   "vcsWkid": {
                       "type": "number",
                       "title": "VcsWKID",
-                      "description": "Vertical coordinate system WKID",
+                      "description": "ESRI well known id denoting a vertical co-ordinate system. RAMP currently does not support this property",
                       "default": ""
                   },
                   "latestWkid": {
                       "type": "number",
                       "title": "Latest WKID",
+                      "description": "ESRI well known id denoting a projection (WKID)",
                       "default": ""
                   },
                   "latestVcsWkid": {
                       "type": "number",
                       "title": "Latest VcsWKID",
+                      "description": "ESRI well known id denoting a vertical co-ordinate system. RAMP currently does not support this property",
                       "default": ""
                   },
                   "wkt": {
                       "type": "string",
                       "title": "WKT",
-                      "description": "Well-Known Text",
+                      "description": "Well known type projection definition",
                       "default": ""
                   }
               },
@@ -304,32 +306,34 @@
                             "type": "object",
                             "properties": {
                                 "wkid": {
-                                    "type": "number",
-                                    "title": "WKID",
-                                    "description": "Well-Known ID ( WKID )",
-                                    "default": 4326,
-                                    "minimum": "0"
+                                  "type": "number",
+                                  "title": "WKID",
+                                  "description": "ESRI well known id denoting a projection (WKID)",
+                                  "default": 3978,
+                                  "minimum": "0"
                                 },
                                 "vcsWkid": {
                                     "type": "number",
                                     "title": "VcsWKID",
-                                    "description": "Vertical coordinate system WKID",
+                                    "description": "ESRI well known id denoting a vertical co-ordinate system. RAMP currently does not support this property",
                                     "default": ""
                                 },
                                 "latestWkid": {
                                     "type": "number",
                                     "title": "Latest WKID",
+                                    "description": "ESRI well known id denoting a projection (WKID)",
                                     "default": ""
                                 },
                                 "latestVcsWkid": {
                                     "type": "number",
                                     "title": "Latest VcsWKID",
+                                    "description": "ESRI well known id denoting a vertical co-ordinate system. RAMP currently does not support this property",
                                     "default": ""
                                 },
                                 "wkt": {
                                     "type": "string",
                                     "title": "WKT",
-                                    "description": "Well-Known Text",
+                                    "description": "Well known type projection definition",
                                     "default": ""
                                 }
                             },

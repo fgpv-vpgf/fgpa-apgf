@@ -53,7 +53,7 @@ angular
                 keys: ['form.plugins.rangeSlider', 'form.plugins.coordInfo', 'form.plugins.areasOfInterest']
             }
         },
-        devVersion: '3.1.0',
+        devVersion: '3.2.0',
         prodVersion: '2.5.0'
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
