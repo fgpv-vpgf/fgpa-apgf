@@ -40,6 +40,7 @@ function avSummary() {
  *
  * @function Controller
  * @param {Object} $mdDialog Angular dialog window object
+ * @param {Object} $scope module scope
  * @param {Object} $rootScope Angular rootscope object
  * @param {Object} $timeout Angular timeout object
  * @param {Object} $interval Angular interval object
@@ -50,7 +51,7 @@ function avSummary() {
  * @param {Object} commonService service with common functions
  * @param {Object} version service provides current version numbers and the timestap
  */
-function Controller($mdDialog, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
+function Controller($mdDialog ,$scope, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
     version) {
     'ngInject';
     const self = this;
@@ -94,9 +95,11 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         setSubTab(constants);
     });
 
-    // on validation enable expand and collapse
+    // on validation enable expand and collapse, initialize state tree before validating form
     events.$on(events.avValidateForm, () => {
+        initState();
         self.disableCollapseExpand = false;
+        $timeout(() => { $scope.$apply(); }, 5000);
     });
 
     function expand() { expandSummary(self, true); }

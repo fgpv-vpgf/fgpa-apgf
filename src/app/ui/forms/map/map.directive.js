@@ -41,6 +41,7 @@ function avMap() {
  *
  * @function Controller
  * @param {Object} $scope module scope
+ * @param {Object} $rootScope top of the hierarchy of all scopes in an Angular app
  * @param {Object} $translate Angular translation object
  * @param {Object} $timeout Angular timeout object
  * @param {Object} events Angular events object
@@ -52,7 +53,7 @@ function avMap() {
  * @param {Object} layerService service use to get info from ESRI layers
  * @param {Object} commonService service with common functions
  */
-function Controller($scope, $translate, $timeout,
+function Controller($scope, $rootScope, $translate, $timeout,
     events, modelManager, stateManager, formService, debounceService, constants, layerService, commonService) {
     'ngInject';
     const self = this;
@@ -125,11 +126,7 @@ function Controller($scope, $translate, $timeout,
                 }
             }
 
-            // validate legend for error then validate model (solve the bad validation legend error at the same time)
-            events.$broadcast(events.avValidateLegend);
-            $scope.$broadcast('schemaFormValidate');
-            stateManager.validateModel(self.modelName, $scope.activeForm, $scope.form[0].tabs, $scope.model);
-
+   
         }, constants.delaySplash);
 
         // set default structure legend values
@@ -325,7 +322,11 @@ function Controller($scope, $translate, $timeout,
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
             if  ($scope.model.legend.type === 'structured') {
-                $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+                if (typeof $scope.model.legend.root === 'object' && $scope.model.legend.root !== null)
+                { $scope.model.legend.root = JSON.stringify($scope.model.legend.root, null, 4);}
+                else
+                { $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+                }
                 document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
                 // Validate layers ID
@@ -978,7 +979,7 @@ function Controller($scope, $translate, $timeout,
                             }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
+                            { 'type': 'template', 'template': addButton('legendtextvalidate', 'validateLegend'), 'validateLegend': () => $rootScope.$emit(events.avValidateForm) },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
                                     { 'type': 'template', 'template': addButton('legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },
