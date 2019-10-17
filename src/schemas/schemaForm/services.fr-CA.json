@@ -64,7 +64,6 @@
                 "title": "Catégorie",
                 "type": "string"
               },
-              "default": [],
               "description": "Filtrer les résultats de la recherche en fonction du type de noms géographiques. Les valeurs autorisées peuvent être trouvées ici (si vous utilisez l'API du service de recherche de GeoNames au Canada): http://geogratis.gc.ca/services/geoname/fr/codes/concise."
             },
             "sortOrder": {
@@ -74,7 +73,6 @@
                 "title": "Catégories",
                 "type": "string"
               },
-              "default": [],
               "description": "L'ordre de tri des 'catégories'. Toutes les catégories manquantes sont ajoutées au bas de la liste triée. Les résultats peuvent toujours être triés avec cette option même si aucune catégorie n'est filtrée."
             },
             "maxResults": {

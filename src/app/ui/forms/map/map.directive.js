@@ -124,11 +124,6 @@ function Controller($scope, $translate, $timeout,
                     btn[apply]('disabled', '');
                 }
             }
-
-            // validate legend for error then validate model (solve the bad validation legend error at the same time)
-            events.$broadcast(events.avValidateLegend);
-            events.$broadcast(events.avValidateForm);
-
         }, constants.delaySplash);
 
         // set default structure legend values
@@ -324,10 +319,12 @@ function Controller($scope, $translate, $timeout,
         const help = document.getElementsByClassName('av-legend-json')[0];
         try {
             if  ($scope.model.legend.type === 'structured') {
-                $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+                $scope.model.legend.root = (typeof $scope.model.legend.root === 'object' && $scope.model.legend.root !== null) ?
+                    JSON.stringify($scope.model.legend.root, null, 4) : $scope.model.legend.root = JSON.stringify(JSON.parse($scope.model.legend.root), null, 4);
+
                 document.getElementById('activeForm-legend-root').innerHTML = $scope.model.legend.root
 
-                // Validate layers ID
+                // validate layers ID
                 const idsErrors = validateLayerID($scope.model.legend.root);
 
                 if (idsErrors !== '') {
@@ -347,7 +344,7 @@ function Controller($scope, $translate, $timeout,
             // set message
             help.innerHTML = e;
 
-            // Broadcast error if needed
+            // broadcast error if needed
             events.$broadcast(events.avLegendError);
         }
     }
