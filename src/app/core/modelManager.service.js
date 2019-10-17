@@ -36,8 +36,6 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         getEnabledPlugins
     };
 
-    const _state = {};
-    const _form = {};
     const _schema = {};
     const _model = {};
 
@@ -168,12 +166,8 @@ function modelManager($timeout, $translate, events, constants, commonService) {
      */
     function updateModel(scope, modelName) {
         scope.model = getModel(modelName, false);
-
         modifyPropNames(scope.model, 'LOAD');
-
         scope.$broadcast('schemaFormValidate');
-        // TODO: when summary panel will work again, re-enable validation
-        // $timeout(() => { validateModel(modelName, scope.activeForm); }, 1000);
     }
 
     /**

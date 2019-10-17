@@ -22,7 +22,7 @@ angular
         delaySplash: 3500,
         delayEventSplash: 750,
         delayUpdateColumns: 1000,
-        delaySetSubTab: 100,
+        delaySetSubTab: 500,
         delaySetVersion: 2000,
         delayScroll: 100,
         delayScrollToElement: 300,
@@ -50,7 +50,7 @@ angular
             },
             plugins: {
                 index: 3,
-                keys: ['form.plugins.rangeSlider', 'form.plugins.coordInfo', 'form.plugins.areasOfInterest']
+                keys: ['rangeSlider', 'coordInfo', 'areasOfInterest']
             }
         },
         devVersion: '3.2.0',

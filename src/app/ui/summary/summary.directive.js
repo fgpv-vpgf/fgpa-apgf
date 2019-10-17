@@ -273,20 +273,24 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         for (let section of sections) {
             for (let i of constants.subTabs[section].keys) {
                 const elTab = angular.element('[class="nav nav-tabs"]');
-                const childrenTab = Array.from(elTab[constants.subTabs[section].index].children);
-                const elPane = angular.element('[class="tab-content "]');
-                const childrenPane = Array.from(elPane[constants.subTabs[section].index].children);
+                try {
+                    const childrenTab = Array.from(elTab[constants.subTabs[section].index].children);
+                    const elPane = angular.element('[class="tab-content "]');
+                    const childrenPane = Array.from(elPane[constants.subTabs[section].index].children);
 
-                const subTabLength = constants.subTabs[section].keys.length;
-                if (childrenTab.length === subTabLength && childrenPane.length === subTabLength) {
-                    for (let [j, child] of childrenTab.entries()) {
-                        const id = constants.subTabs[section].keys[j].replace(/\./g, '-');
-                        child.setAttribute('id', id);
+                    const subTabLength = constants.subTabs[section].keys.length;
+                    if (childrenTab.length === subTabLength && childrenPane.length === subTabLength) {
+                        for (let [j, child] of childrenTab.entries()) {
+                            const id = constants.subTabs[section].keys[j].replace(/\./g, '-');
+                            child.setAttribute('id', id);
+                        }
+                        for (let [j, child] of childrenPane.entries()) {
+                            const id = `${constants.subTabs[section].keys[j].replace(/\./g, '-')}-pane`;
+                            child.setAttribute('id', id);
+                        }
                     }
-                    for (let [j, child] of childrenPane.entries()) {
-                        const id = `${constants.subTabs[section].keys[j].replace(/\./g, '-')}-pane`;
-                        child.setAttribute('id', id);
-                    }
+                } catch (ex) {
+                    console.log(`WARNING: ${elTab[constants.subTabs[section].index]} and ${constants.subTabs[section]}`)
                 }
             }
         }

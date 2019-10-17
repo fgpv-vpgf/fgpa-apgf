@@ -111,6 +111,8 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             if (modelName === 'plugins') {
                 // Generate state records for area of interest
                 setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
+            } else if (modelName === 'services') {
+                setGeoSearchItemState(_state[modelName], model);
             }
         }
 
@@ -236,8 +238,6 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         for (let item of finalAdvH) {
             setAdvance(_state[modelName], item, 'trueHide');
         }
-
-
     }
 
     /**
@@ -537,7 +537,47 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'type': 'object' });
             }
         }
+    }
 
+    /**
+     * Set record settings array object
+     * @function setGeoSearchItemState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     */
+    function setGeoSearchItemState(stateModel, model) {
+        const masterLink = constants.schemas
+            .indexOf(`services.[lang].json`) + 1;
+
+        // tilesSchemas, extents, lods
+        const setID = [[0, 'settings', 'categories'], [1, 'settings', 'sortOrder']];
+
+        for (let i of setID) {
+            const hlink = constants.subTabs.services.keys[1].replace(/\./g, '-');
+
+            // remove empty string from model because startEmpty set it as ""
+            model.search.settings[i[2]] = model.search.settings[i[2]].filter(item => item !== '');
+
+            // remove unwanted item added by the array of string inside settings
+            stateModel.items = stateModel.items.filter(item => item.key !== '0');
+
+            // add categories and sortOrder
+            let title = i[2];
+            stateModel.items[1].items[0].items
+                .unshift({ 'key': i[2],
+                    'title': title,
+                    items: [],
+                    'valid': true,
+                    'expand': false,
+                    'masterlink': masterLink,
+                    'hlink': hlink,
+                    'advance': 'falseHide',
+                    'stype': '',
+                    'shlink': hlink,
+                    'type': 'object'
+                });
+        }
     }
 
     /**
@@ -554,7 +594,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
             .indexOf(`map.[lang].json`) + 1;
 
         // tilesSchemas, extents, lods
-        const setID = [[0,'tileSchemas', 'name'], [1, 'extentSets', 'id'], [2, 'lodSets', 'id']];
+        const setID = [[0, 'tileSchemas', 'name'], [1, 'extentSets', 'id'], [2, 'lodSets', 'id']];
 
         for (let i of setID) {
             const items = model[i[1]];
@@ -587,7 +627,6 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         'type': 'object' });
             }
         }
-
     }
 
     /**
@@ -723,7 +762,7 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
                 // Structured or autopopulate
                 let path = ['legend', 'root'];
-                if (typeof model.legend.root.title !== 'undefined') {
+                if (typeof model.legend.root !== 'undefined') {
                     if (model.legend.type === 'autopopulate') {
                         root.title = $translate.instant('form.map.legendauto');
                         root.valid = true;
@@ -735,7 +774,6 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
                         // Set state back to is original value
                         legendState = true;
                     }
-
 
                     setStateValueUp(mapStateModel, path, 'valid', root.valid);
                 } else {
@@ -846,9 +884,9 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
         const link = constants.schemas
             .indexOf(`${modelName}.[lang].json`) + 1;
 
-        addLink(keysArr);
+        addLink(keysArrUpdate);
 
-        buildStateTree(state, modelName, keysArr, link);
+        buildStateTree(state, modelName, keysArrUpdate, link);
 
         return keysArr;
     }
@@ -1069,6 +1107,9 @@ function stateManager($timeout, $translate, events, constants, commonService, mo
 
         arrKeys.forEach(key => {
             Object.keys(keys[modelName]).forEach(skey => {
+                if (key[0][0] === '0' && key[0][1].includes(skey.split('.').pop())) {
+                    key[0][0] = skey.split('.')[skey.split('.').length -2];
+                }
                 if (keys[modelName][skey].includes(key[0][0])) {
                     key[0].unshift(skey);
                 }
