@@ -208,10 +208,6 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
             // set the viewer version to use by the preview window/iFrame
             setLocalVersion();
 
-            // remove unacessary items from layers object. These items (e.g. partial empty array of field) can cause viewer not to display
-            const model = modelManager.getModel('map', false);
-            model.layers = commonService.cleanLayerModel(model.layers);
-
             $mdDialog.show({
                 controller: previewController,
                 controllerAs: 'self',

@@ -276,8 +276,9 @@ function commonService($translate, events, $timeout, constants) {
             }
 
             // test table.columns array. If there is the default not initialize column, delete
-            if (['table']['columns'] in layer) {
-                if (layer.table.columns.length === 1 && layer.table.columns[0].data === '') {
+            if (['table'] in layer && ['columns'] in layer.table) {
+                if (layer.table.columns.length === 1 &&
+                        (layer.table.columns[0].data === '' || typeof layer.table.columns[0].data === 'undefined')) {
                     layer.table.columns = [];
                 }
             }
