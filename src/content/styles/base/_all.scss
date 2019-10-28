@@ -11,7 +11,7 @@ h4, h5, h6 {
 }
 
 textarea {
-         resize:vertical;
+    resize: vertical;
 }
 
 %headings {
@@ -22,6 +22,7 @@ textarea {
 & {
     color: $primary-text-color;
     font-family: $font-family;
+    font-size: $font-size;
     background-color: #FFFFFF;
 }
 
