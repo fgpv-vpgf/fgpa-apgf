@@ -198,14 +198,14 @@ function Controller($scope, $translate, $timeout,
             self.formService.initValueToFormIndex(entries, entryClass, 'index', 'legend.0');
 
             // set columns if need be
-            for (let [entryIndex, entries] of entries.entries()) {
-                if (typeof entries.table !== 'undefined' && typeof entries.table.columns !== 'undefined') {
+            for (let [entryIndex, entry] of entries.entries()) {
+                if (typeof entry.table !== 'undefined' && typeof entry.table.columns !== 'undefined') {
                     let columnClass = [
                         { 'cls': 'av-layers', 'ind': layerIndex },
                         { 'cls': 'av-layerEntries', 'ind': entryIndex },
                         { 'cls': 'av-columns', 'ind': -1 }
                     ];
-                    self.formService.initValueToFormIndex(entries.table.columns, columnClass, 'title', 'legend.0');
+                    self.formService.initValueToFormIndex(entry.table.columns, columnClass, 'title', 'legend.0');
                 }
             }
         } else if (layerType === 'ogcWms') {

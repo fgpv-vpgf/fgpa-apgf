@@ -2,23 +2,22 @@ const webpack   = require('webpack');
 const path      = require('path');
 const fs        = require('fs');
 const glob      = require('glob');
-const ExtractTextPlugin  = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TranslationPlugin     = require('./scripts/webpack/translations_plugin.js');
 const CopyWebpackPlugin     = require('copy-webpack-plugin');
 const VersionPlugin         = require('./scripts/webpack/version_plugin.js');
 const WrapperPlugin         = require('wrapper-webpack-plugin');
-const CleanWebpackPlugin    = require('clean-webpack-plugin');
 const HtmlWebpackPlugin     = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
-
-// NOTE: We are with Webpack 3 because of HtmlWebpackIncludeAssetsPlugin. If we switch to Webpack 4 this plugin
-// doesn't work anymore... we will have to find a solution.
+const htmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
+const BundleAnalyzerPlugin  = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WebpackShellPlugin    = require('webpack-shell-plugin');
 
 const babelPresets = {
     presets: ['env', 'stage-2'],
     cacheDirectory: true
 }
 
+// eslint-disable-next-line complexity
 module.exports = function (env) {
 
     const geoPath = env.geoLocal ?
@@ -41,8 +40,21 @@ module.exports = function (env) {
         module: {
             rules: [
                 {
+                    test: /\.(woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
+                    include: [path.resolve(__dirname, 'src/content/fonts')],
+                    use: [{
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            mimetype: 'application/font-woff',
+                            publicPath: 'fonts/',
+                            outputPath: 'fonts/'
+                        }
+                    }]
+                },
+                {
                     test: /\.js$/,
-                    include: [path.resolve(__dirname, 'src/app'), path.resolve(__dirname, 'src/plugins'), geoPath],
+                    include: [path.resolve(__dirname, 'src/app'), geoPath],
                     use: [{
                         loader: 'ng-annotate-loader'
                     }, {
@@ -53,39 +65,30 @@ module.exports = function (env) {
                     }]
                 },
                 {
-                    test: /\.css$/,
-                    use: ExtractTextPlugin.extract({
-                        use: ['style-loader', 'css-loader']
-                    })
-                },
-                {
-                // for .css files in bootsrap node_modules
-                    test: /\.css$/,
-                    include: [path.resolve(__dirname, 'node_modules/bootstrap')],
-                    use: ['style-loader', 'css-loader']
-                },
-                {
-                    test: /\.(woff|woff2|ttf|eot)$/,
-                    loader: "url-loader?limit=10000&mimetype=application/font-woff"
-                },
-                {
-                    test: /\.scss$/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: ['css-loader', 'resolve-url-loader', 'sass-loader?sourceMap']
-                    })
+                    test: /\.s?[ac]ss$/,
+                    include: [path.resolve(__dirname, 'src/content/styles'), path.resolve(__dirname, 'node_modules/@fgpv')],
+                    use: [
+                        env.hmr ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        {loader: 'css-loader'},
+                        {
+                            loader: 'resolve-url-loader'
+                        },
+                        'sass-loader'
+                    ]
                 },
                 {
                     test: /\.html$/,
+                    include: [path.resolve(__dirname, 'src/content/samples'), path.resolve(__dirname, 'src/app')],
                     use: ['ngtemplate-loader?relativeTo=' + (path.resolve(__dirname, './src/app')), 'html-loader?minimize=false']
                 },
                 {
-                    test: /\.(png|svg)$/,
+                    test: /\.(png|svg|woff|woff2)$/,
+                    include: [path.resolve(__dirname, 'src/content'), path.resolve(__dirname, 'node_modules/ag-grid-community'),
+                        path.resolve(__dirname, 'node_modules/@claviska'), path.resolve(__dirname, 'node_modules/bootstrap/dist/fonts')],
                     use: 'url-loader'
                 },
-                {
-                    test: /\.xsl$/,
-                    use: 'raw-loader'
+                {   test: /\.(ttf|eot)$/,
+                    loader: 'file-loader'
                 },
                 {
                     test: /ui-sortable/,
@@ -95,30 +98,19 @@ module.exports = function (env) {
         },
 
         plugins: [
-            new webpack.PrefetchPlugin(geoPath),
-            new webpack.PrefetchPlugin(path.resolve(__dirname, 'src/app/app-loader.js')),
+            new MiniCssExtractPlugin({
+                filename: "av-styles.css"
+            }),
 
-            new webpack.optimize.ModuleConcatenationPlugin(),
+            new WebpackShellPlugin({
+                onBuildStart: ['bash scripts/preBuild.sh'],
+                onBuildEnd: ['bash scripts/postBuild.sh']
+            }),
 
             new CopyWebpackPlugin([{
                 context: 'src/content/samples',
-                from: '**/*.json',
+                from: '**/*.+(json|js|css|html)',
                 to: 'samples'
-            },{
-                context: 'src/content/samples',
-                from: '**/*.html',
-                to: 'samples'
-            },{
-                context: 'src/content/samples',
-                from: '**/*.js',
-                to: 'samples'
-            },{
-                context: 'src/content/samples',
-                from: '**/*.css',
-                to: 'samples'
-            },{
-                from: 'src/content/samples/extensions',
-                to: 'samples/extensions'
             },{
                 from: 'src/locales/help',
                 to: 'samples/help'
@@ -131,16 +123,6 @@ module.exports = function (env) {
                 { from: 'node_modules/tv4/tv4.js', to: 'form'},
                 { from: 'node_modules/angular-schema-form-bootstrap/dist/angular-schema-form-bootstrap-bundled.min.js', to: 'form'}
             ]),
-            new HtmlWebpackIncludeAssetsPlugin({
-                assets: ['form/tv4.js'],
-                append: false
-            }),
-            new HtmlWebpackIncludeAssetsPlugin({
-                assets: ['form/angular-schema-form-bootstrap-bundled.min.js'],
-                append: true
-            }),
-
-            new ExtractTextPlugin('av-styles.css'),
 
             new webpack.ProvidePlugin({
                 $: 'jquery',
@@ -155,27 +137,28 @@ module.exports = function (env) {
                 footer: fileName => /^av-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/footer.js', 'utf8') : ''
             }),
 
-            new VersionPlugin(),
-
-            new CleanWebpackPlugin(['build'])
+            new VersionPlugin()
         ],
 
         resolve: {
             modules: [path.resolve(__dirname, 'node_modules'), path.resolve(geoPath, 'node_modules')],
             alias: {
-                XSLT: path.resolve(__dirname, 'src/content/metadata/'),
                 jquery: 'jquery/src/jquery', // so webpack builds from src and not dist - optional but good to have
                 src: path.resolve(__dirname, 'src/'),
                 app: path.resolve(__dirname, 'src/app/')
-            }
+            },
+            extensions: ['.js', 'css', 'scss']
         },
+
         watchOptions: {
             aggregateTimeout: 300,
             poll: 1000,
             ignored: /node_modules/
         },
+
         devServer: {
             host: '0.0.0.0',
+            https: !!env.https,
             publicPath: '/',
             historyApiFallback: {
                 index: '/samples/webpack-note.html',
@@ -189,7 +172,7 @@ module.exports = function (env) {
         }
     };
 
-    const files = glob.sync("samples/**/*", { cwd: './src/content/', nodir: true });
+    const files = glob.sync('samples/**/*', {cwd: './src/content/', nodir: true});
     config.plugins.push(...files.map(file => {
         if (/\.tpl$/.test(file)) {
             const filePath = file.split('/');
@@ -203,6 +186,24 @@ module.exports = function (env) {
         }
     }).filter(x => x)
     );
+
+    config.plugins.push(new htmlWebpackTagsPlugin({
+        tags: ['form/tv4.js'],
+        append: false
+    }));
+    config.plugins.push(new htmlWebpackTagsPlugin({
+        tags: ['form/angular-schema-form-bootstrap-bundled.min.js'],
+        append: true
+    }));
+
+    // not supported while doing hmr - causes memory leaks and slows build time by ~40%
+    if (!env.hmr && !env.inspect) {
+        config.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+    }
+
+    if (env.inspect) {
+        config.plugins.push(new BundleAnalyzerPlugin({openAnalyzer: false, generateStatsFile: true}));
+    }
 
     if (env.geoLocal) {
         config.resolve.alias['geoApi$'] = geoPath;
