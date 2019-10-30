@@ -10,7 +10,7 @@ angular
     .module('app.core')
     .factory('stateManager', stateManager);
 
-function stateManager($timeout, $translate, events, constants, commonService, modelManager) {
+function stateManager($translate, events, constants, commonService) {
 
     const service = {
         getState,
