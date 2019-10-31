@@ -258,7 +258,9 @@ function commonService($translate, events, $timeout, constants) {
             'esriFeature': ['fileType', 'colour', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
             'ogcWms': ['fileType', 'colour', 'xyInAttribs', 'imageFormat', 'singleEntryCollapse', 'table'],
             'file': ['xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
-            'ogcWfs': ['fileType', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries']
+            'ogcWfs': ['fileType', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
+            'esriImage': ['fileType', 'colour', 'xyInAttribs', 'suppressGetCapabilities', 'table'],
+            'esriTile': ['fileType', 'colour', 'xyInAttribs', 'suppressGetCapabilities', 'table']
         }
 
         // loop layers
