@@ -41,6 +41,7 @@ function avMap() {
  *
  * @function Controller
  * @param {Object} $scope module scope
+ * @param {Object} $rootScope module scope
  * @param {Object} $translate Angular translation object
  * @param {Object} $timeout Angular timeout object
  * @param {Object} events Angular events object
@@ -52,7 +53,7 @@ function avMap() {
  * @param {Object} layerService service use to get info from ESRI layers
  * @param {Object} commonService service with common functions
  */
-function Controller($scope, $translate, $timeout,
+function Controller($scope, $rootScope, $translate, $timeout,
     events, modelManager, stateManager, formService, debounceService, constants, layerService, commonService) {
     'ngInject';
     const self = this;
@@ -987,7 +988,7 @@ function Controller($scope, $translate, $timeout,
                             }},
                             { 'type': 'template', 'template': '<span class="av-legend-cursorpos"></span>' },
                             { 'type': 'help', 'helpvalue': '<div class="av-legend-json"></div>' },
-                            { 'type': 'template', 'template': commonService.addButton('form.map', 'legendtextvalidate', 'validateLegend'), 'validateLegend': () =>  validateLegend() },
+                            { 'type': 'template', 'template': commonService.addButton('form.map', 'legendtextvalidate', 'validateLegend'), 'validateLegend': () => $rootScope.$emit(events.avValidateForm) },
                             { 'type': 'fieldset', 'title': $translate.instant('form.map.legendadd'), 'items': [
                                 { 'type': 'section', 'htmlClass': 'av-legend-snippet', 'items': [
                                     { 'type': 'template', 'template': commonService.addButton('form.map', 'legendentry', 'addLegend'), 'addLegend': type => addLegendSnippet(type) },

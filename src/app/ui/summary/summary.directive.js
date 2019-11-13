@@ -96,7 +96,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
     // on validation enable expand and collapse
     events.$on(events.avValidateForm, () => {
+        initState();
         self.disableCollapseExpand = false;
+        $timeout(() => { $rootScope.$apply(); }, 5000);
     });
 
     function expand() { expandSummary(self, true); }
