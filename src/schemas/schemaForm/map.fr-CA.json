@@ -1083,7 +1083,7 @@
                                 "id": {
                                     "for": "ogcwms",
                                     "type": "string",
-                                    "description": "L'ID de l'entrée de la couche dans le WMS. La valeur entre les étiquettes <\bName>...<\b/Name> de la couche (e.g. <\bName>routes<\b/Name> où routes est le ID).",
+                                    "description": "L'ID de l'entrée de la couche dans le WMS. La valeur entre les étiquettes &lt;Name>...&lt;/Name> de la couche (e.g. &lt;Name>routes&lt;/Name> où routes est le ID).",
                                     "title": "ID"
                                 },
                                 "allStyles": {

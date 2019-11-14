@@ -1084,7 +1084,7 @@
                                     "for": "ogcwms",
                                     "type": "string",
                                     "title": "ID",
-                                    "description": "The id of the layer entry in the WMS. The value between the <\bName>...<\b/Name> tag of the layer (e.g. <\bName>roads<\b/Name> where roads is the ID)."
+                                    "description": "The id of the layer entry in the WMS. The value between the &lt;Name>...&lt;Name> tag of the layer (e.g. &lt;Name>roads&lt;/Name> where roads is the ID)."
                                 },
                                 "allStyles": {
                                     "for": "ogcwms",
