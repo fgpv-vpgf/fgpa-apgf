@@ -254,19 +254,19 @@ function commonService($translate, events, $timeout, constants) {
     function cleanLayerModel(layers) {
         // keys to remove for ech layer type
         const keysRemove = {
-            'esriDynamic': ['fileType', 'colour', 'xyInAttribs', 'suppressGetCapabilities', 'table'],
-            'esriFeature': ['fileType', 'colour', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
-            'ogcWms': ['fileType', 'colour', 'xyInAttribs', 'imageFormat', 'singleEntryCollapse', 'table'],
-            'file': ['xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
-            'ogcWfs': ['fileType', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries'],
-            'esriImage': ['fileType', 'colour', 'xyInAttribs', 'suppressGetCapabilities', 'table'],
-            'esriTile': ['fileType', 'colour', 'xyInAttribs', 'suppressGetCapabilities', 'table']
+            'esriDynamic': ['fileType', 'colour', 'latField', 'longField', 'nameField', 'tooltipField', 'customRenderer', 'xyInAttribs', 'suppressGetCapabilities', 'featureInfoMimeType', 'legendMimeType', 'table'],
+            'esriFeature': ['fileType', 'colour', 'latField', 'longField', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries', 'featureInfoMimeType', 'legendMimeType'],
+            'ogcWms': ['fileType', 'colour', 'latField', 'longField', 'toggleSymbology', 'nameField', 'tooltipField', 'customRenderer', 'xyInAttribs', 'imageFormat', 'singleEntryCollapse', 'table'],
+            'file': ['refreshInterval', 'expectedResponseTime', 'metadataUrl', 'catalogueUrl', 'toggleSymbology', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries', 'featureInfoMimeType', 'legendMimeType'],
+            'ogcWfs': ['refreshInterval', 'expectedResponseTime', 'fileType', 'latField', 'longField', 'toggleSymbology', 'imageFormat', 'suppressGetCapabilities', 'singleEntryCollapse', 'layerEntries', 'featureInfoMimeType', 'legendMimeType'],
+            'esriImage': ['fileType', 'colour', 'latField', 'longField', 'toggleSymbology', 'nameField', 'tooltipField', 'customRenderer', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'layerEntries', 'singleEntryCollapse', 'featureInfoMimeType', 'legendMimeType', 'table'],
+            'esriTile': ['fileType', 'colour', 'latField', 'longField', 'toggleSymbology', 'nameField', 'tooltipField', 'customRenderer', 'xyInAttribs', 'imageFormat', 'suppressGetCapabilities', 'layerEntries', 'singleEntryCollapse', 'featureInfoMimeType', 'legendMimeType', 'table']
         }
 
         // loop layers
         for (let layer of layers) {
             // delete unwanted keys
-            for (let key of keysRemove[layer.layerType]) {
+            for (let key of keysRemove[layer.layerChoice]) {
                 delete layer[key];
             }
 

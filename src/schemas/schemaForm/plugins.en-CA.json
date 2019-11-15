@@ -177,6 +177,250 @@
                     }
                 }
             }
+        },
+        "chart": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Enable"
+                },
+                "type": {
+                    "title": "Chart Type",
+                    "type": "string",
+                    "enum": [
+                        "pie",
+                        "bar",
+                        "line"
+                    ],
+                    "description": "",
+                    "default": "pie"
+                },
+                "title": {
+                    "title": "Title",
+                    "type": "string",
+                    "default": ""
+                },
+                "labelsPie": {
+                        "type": "object",
+                        "title": "Labels",
+                        "properties": {
+                            "type": {
+                                "title": "Type",
+                                "type": "string",
+                                "enum": [
+                                    "field",
+                                    "config"
+                                ],
+                                "description": "Retreive the labels from a field or from the configuration.",
+                                "default": "config"
+                            },
+                            "values": {
+                                "title": "Values",
+                                "type": "string",
+                                "description": "Values separated by semi colon or field name.",
+                                "default": ""
+                            },
+                            "split": {
+                                "title": "Split Character",
+                                "type": "string",
+                                "description": "Character to use to split list of values",
+                                "default": ";"
+                            }
+                        },
+                        "required": ["type", "values", "split"]
+                },
+                "options": {
+                    "title": "Options",
+                    "type": "object",
+                    "properties": {
+                        "colors": {
+                            "title": "Datasets Colors",
+                            "type": "string",
+                            "description": "Hexadecimal color code separated by semicolon. If not provided, default colors will be use.",
+                            "default": ""
+                        },
+                        "cutOut": {
+                            "title": "Cut Out Percentage",
+                            "type": "number",
+                            "description": "Cut out percentage to use to give doughnut effect.",
+                            "default": 0
+                        }
+                    },
+                    "required": ["cutOut"]
+                },
+                "labelsLine": {
+                    "type": "object",
+                    "title": "Labels",
+                    "properties": {
+                        "xAxis": {
+                            "title": "X Axis",
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "title": "Title",
+                                    "type": "string",
+                                    "default": ""
+                                },
+                                "type": {
+                                    "title": "Type",
+                                    "type": "string",
+                                    "enum": [
+                                        "field",
+                                        "config",
+                                        "linear",
+                                        "time"
+                                    ],
+                                    "description": "Retreive the labels from a field, configuration or from values (linear and time).",
+                                    "default": "config"
+                                },
+                                "values": {
+                                    "title": "Values",
+                                    "type": "string",
+                                    "description": "Values separated by semicolon or field name.",
+                                    "default": ""
+                                },
+                                "split": {
+                                    "title": "Split Character",
+                                    "type": "string",
+                                    "description": "Character to use to split list of values.",
+                                    "default": ";"
+                                }
+                            },
+                            "required": ["type", "values", "split"]
+                        },
+                        "yAxis": {
+                            "title": "Y Axis",
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "title": "Title",
+                                    "type": "string",
+                                    "default": ""
+                                },
+                                "type": {
+                                    "title": "LType",
+                                    "type": "string",
+                                    "enum": [
+                                        "field",
+                                        "config",
+                                        "linear",
+                                        "time"
+                                    ],
+                                    "description": "Retreive the labels from a field, configuration or from values (linear and time).",
+                                    "default": "config"
+                                },
+                                "values": {
+                                    "title": "Values",
+                                    "type": "string",
+                                    "description": "Values separated by semicolon or field name.",
+                                    "default": ""
+                                },
+                                "split": {
+                                    "title": "Split Character",
+                                    "type": "string",
+                                    "description": "Character to use to split list of values.",
+                                    "default": ";"
+                                }
+                            },
+                            "required": ["type", "values", "split"]
+                        },
+                        "required": ["xAxis", "yAxis"]
+                    }
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Layers",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "title": "Layer ID",
+                                "type": "string",
+                                "description": "GeoApi doesn't support layers id inside identify. The plugin, for the moment, will only work when there is one layer on the map.",
+                                "default": "0"
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "title": "Type of data inside the field",
+                                            "type": "string",
+                                            "enum": [
+                                                "single",
+                                                "combine"
+                                            ],
+                                            "description": "Single if there is only one value inside the field. Combine if we use time axis and time and value are part of the field.",
+                                            "default": "single"
+                                        },
+                                        "measure": {
+                                            "title": "Measure Field",
+                                            "type": "string"
+                                        },
+                                        "label": {
+                                            "type": "object",
+                                            "title": "Dataset Labels",
+                                            "properties": {
+                                                "type": {
+                                                    "title": "Type",
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "field",
+                                                        "config"
+                                                    ],
+                                                    "description": "Retreive the labels from a field or from the configuration.",
+                                                    "default": "config"
+                                                },
+                                                "values": {
+                                                    "title": "Values",
+                                                    "type": "string",
+                                                    "description": "Values separated by semicolon or field name.",
+                                                    "default": ""
+                                                },
+                                                "split": {
+                                                    "title": "Split Character",
+                                                    "type": "string",
+                                                    "description": "Character to use to split list of values.",
+                                                    "default": ";"
+                                                }
+                                            },
+                                            "required": ["type", "values", "split"]
+                                        },
+                                        "regex": {
+                                            "title": "Dataset splitter",
+                                            "type": "string",
+                                            "description": "<p>Regex value to split datasets inside the field.<br /><br /> This field is to manage when you have multiple datasets or combine values in the same field. To be able to separate datasets from values, we will use a regex expression. We encourage you to use your data and test your regex expression on a online site like https://regex101.com.<br /><br /> Below we list some samples of datasets and regex:</p><ul><li>Sample 1<ul><li>Data: [255;255;255];[120;232;23];[32;44;134]</li><li>Regex: \\\\[|\\\\];\\\\[|\\\\]</li><li>Ouput: 3 datasets (e.g. 255;255;255). Values inside dataset will be split by the field 'Values Splitter'.</li></ul></li><li>Sample 2</li><ul><li>Data: (2011-03-28,0.511),(2011-04-04,0.421)</li><li>Regex: \\\\(|\\\\),\\\\(|\\\\)</li><li>Ouput: 1 datasets, 2 pairs of values (e.g. 2011-03-28,0.511). Values inside are combined (y and x axis) and will be split by the field 'Values Splitter'.</li></ul></ul><p><em>Note: we need to double the '\\' character</em></p>"
+                                        },
+                                        "split": {
+                                            "title": "Values splitter",
+                                            "type": "string",
+                                            "default": ";",
+                                            "description": "Character to use to split values inside a field. E.g. a field contains '10;20;30' means there is 3 values split by ';' or [1,2,3];[4,5,6] means there is 2 datasets with 3 values each split by ','."
+                                        },
+                                        "prefix": {
+                                            "title": "Prefix",
+                                            "type": "string",
+                                            "default": "",
+                                            "description": "Prefix to add to data hover."
+                                        },
+                                        "suffix": {
+                                            "title": "Suffix",
+                                            "type": "string",
+                                            "default": "",
+                                            "description": "Suffix to add to data hover."
+                                        }
+                                    },
+                                    "required": ["type", "measure", "split"]
+                                }
+                            }
+                        },
+                        "required": ["id"]
+                    }
+                },
+                "required": ["type", "layers"]
+            }
         }
     }
 }

@@ -6,5 +6,5 @@
         {{ 'form.showadvance' | translate }}
     </md-checkbox>
     <form class="av-main-form av-form-{{ self.modelName }}" name="activeForm" sf-schema="schema" sf-form="form"
-        sf-model="model" av-accordion av-drag-handle></form>
+        sf-model="model" sf-options="{ destroyStrategy: 'retain' }" av-accordion av-drag-handle></form>
 </div>

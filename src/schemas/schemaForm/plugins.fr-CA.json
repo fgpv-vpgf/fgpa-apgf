@@ -176,6 +176,246 @@
                     }
                 }
             }
+        },
+        "chart": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                },
+                "type": {
+                    "title": "Type de graphique",
+                    "type": "string",
+                    "enum": [
+                        "pie",
+                        "bar",
+                        "line"
+                    ],
+                    "description": "",
+                    "default": "pie"
+                },
+                "title": {
+                    "title": "Titre",
+                    "type": "string",
+                    "default": ""
+                },
+                "labelsPie": {
+                        "type": "object",
+                        "title": "Étiquettes",
+                        "properties": {
+                            "type": {
+                                "title": "Type",
+                                "type": "string",
+                                "enum": [
+                                    "field",
+                                    "config"
+                                ],
+                                "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
+                                "default": "config"
+                            },
+                            "values": {
+                                "title": "Valeurs",
+                                "type": "string",
+                                "description": "Valeurs séparées par un point-virgule ou un nom de champ.",
+                                "default": ""
+                            },
+                            "split": {
+                                "title": "Caractère de division",
+                                "type": "string",
+                                "description": "Caractère à utiliser pour scinder une liste de valeurs.",
+                                "default": ";"
+                            }
+                        },
+                        "required": ["type", "values", "split"]
+                },
+                "options": {
+                    "title": "Options",
+                    "type": "object",
+                    "properties": {
+                        "colors": {
+                            "title": "Couleurs des jeux de données",
+                            "type": "string",
+                            "description": "Code de couleur hexadécimal séparé par un point-virgule. Si non fourni, les couleurs par défaut seront utilisées.",
+                            "default": ""
+                        },
+                        "cutOut": {
+                            "title": "Pourcentage de découpe",
+                            "type": "number",
+                            "description": "Pourcentage de découpe",
+                            "default": 0
+                        }
+                    },
+                    "required": ["cutOut"]
+                },
+                "labelsLine": {
+                    "type": "object",
+                    "title": "Labels",
+                    "properties": {
+                        "xAxis": {
+                            "title": "Axe des X",
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "title": "Titre",
+                                    "type": "string",
+                                    "default": ""
+                                },
+                                "type": {
+                                    "title": "Type",
+                                    "type": "string",
+                                    "enum": [
+                                        "field",
+                                        "config"
+                                    ],
+                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
+                                    "default": "config"
+                                },
+                                "values": {
+                                    "title": "Valeurs",
+                                    "type": "string",
+                                    "description": "Valeurs séparées par un point-virgule ou un nom de champ.",
+                                    "default": ""
+                                },
+                                "split": {
+                                    "title": "Caractère de division",
+                                    "type": "string",
+                                    "description": "Caractère à utiliser pour scinder une liste de valeurs.",
+                                    "default": ";"
+                                }
+                            },
+                            "required": ["type", "values", "split"]
+                        },
+                        "yAxis": {
+                            "title": "Y Axis",
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "title": "Titre",
+                                    "type": "string",
+                                    "default": ""
+                                },
+                                "type": {
+                                    "title": "Type",
+                                    "type": "string",
+                                    "enum": [
+                                        "field",
+                                        "config"
+                                    ],
+                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
+                                    "default": "config"
+                                },
+                                "values": {
+                                    "title": "Valeurs",
+                                    "type": "string",
+                                    "description": "Valeurs séparées par un point-virgule ou un nom de champ.",
+                                    "default": ""
+                                },
+                                "split": {
+                                    "title": "Caractère de division",
+                                    "type": "string",
+                                    "description": "Caractère à utiliser pour scinder une liste de valeurs.",
+                                    "default": ";"
+                                }
+                            },
+                            "required": ["type", "values", "split"]
+                        },
+                        "required": ["xAxis", "yAxis"]
+                    }
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Couches",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "title": "identifiant de la Couche",
+                                "type": "string",
+                                "description": "GeoApi ne prend pas en charge les identifiants des couches. Le module, pour le moment, ne fonctionnera que s'il y a une seule couche sur la carte.",
+                                "default": "0"
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "title": "Type de données à l'intérieur du champ",
+                                            "type": "string",
+                                            "enum": [
+                                                "single",
+                                                "combine"
+                                            ],
+                                            "description": "Unique s'il n'y a qu'une seule valeur dans le champ. Combinez si vous utilisez l’axe temps et que le temps et la valeur font partie du champ.",
+                                            "default": "single"
+                                        },
+                                        "measure": {
+                                            "title": "Champ de mesure",
+                                            "type": "string"
+                                        },
+                                        "label": {
+                                            "type": "object",
+                                            "title": "Étiquettes des jeux de données",
+                                            "properties": {
+                                                "type": {
+                                                    "title": "Type",
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "field",
+                                                        "config"
+                                                    ],
+                                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
+                                                    "default": "config"
+                                                },
+                                                "values": {
+                                                    "title": "Valeurs",
+                                                    "type": "string",
+                                                    "description": "Valeurs séparées par un point-virgule ou un nom de champ.",
+                                                    "default": ""
+                                                },
+                                                "split": {
+                                                    "title": "Caractère de division",
+                                                    "type": "string",
+                                                    "description": "Caractère à utiliser pour scinder une liste de valeurs.",
+                                                    "default": ";"
+                                                }
+                                            },
+                                            "required": ["type", "values", "split"]
+                                        },
+                                        "regex": {
+                                            "title": "Séparateur de données",
+                                            "type": "string",
+                                            "description": "<p>Valeur regex pour fractionner les jeux de donn&eacute;es &agrave; l'int&eacute;rieur du champ <br /><br /> Ce champ sert &agrave; g&eacute;rer lorsque vous avez plusieurs jeux de donn&eacute;es ou que vous combinez des valeurs dans un m&ecirc;me champ. Pour pouvoir s&eacute;parer les jeux de donn&eacute;es des valeurs, nous devons utiliser une expression r&eacute;guli&egrave;re. Nous vous encourageons &agrave; utiliser vos donn&eacute;es et &agrave; tester votre expression sur un site en ligne tel que https://regex101.com. <br /> <br /> Vous trouverez ci-dessous une liste d&rsquo;&eacute;chantillons de jeux de donn&eacute;es et de regex:</p><ul><li>Exemple 1<ul><li>Donn&eacute;es: [255; 255; 255];[120; 232; 23];[32; 44; 134]</li><li>Regex: \\\\[|\\\\];\\\\[|\\\\]</li><li>Sortie: 3 jeux de donn&eacute;es (par exemple 255;255;255). Les valeurs &agrave; l'int&eacute;rieur du jeu de donn&eacute;es seront divis&eacute;es par le champ 'S&eacute;parateur de valeurs'.</li></ul></li><li>Exemple 2</li><ul><li>Donn&eacute;es: (2011-03-28, 0.511),(2011-04-04,0.421)</li><li>Regex: \\\\(|\\\\),\\\\(|\\\\)</li><li>Sortie: 1 jeu de donn&eacute;es, 2 paires de valeurs (par exemple 2011-03-28,0.511). Les valeurs sont combin&eacute;es (axes y et x) et seront divis&eacute;es par le champ 'S&eacute;parateur de valeurs'.</li></ul></ul><p><em>Remarque: nous devons doubler le caract&egrave;re '\\'</em></p>"
+                                        },
+                                        "split": {
+                                            "title": "Séparateur de valeurs",
+                                            "type": "string",
+                                            "default": ";",
+                                            "description": "Caractère à utiliser pour scinder des valeurs dans un champ. Par exemple, un champ contient '10;20;30' signifie qu'il y a 3 valeurs divisées par ';' ou [1,2,3];[4,5,6] signifie qu'il y a 2 jeux de données avec 3 valeurs, chacunes divisée par ','."
+                                        },
+                                        "prefix": {
+                                            "title": "Préfixe",
+                                            "type": "string",
+                                            "default": "",
+                                            "description": "Préfixe à ajouter au survol de données."
+                                        },
+                                        "suffix": {
+                                            "title": "Suffixe",
+                                            "type": "string",
+                                            "default": "",
+                                            "description": "Suffixe à ajouter au survol de données."
+                                        }
+                                    },
+                                    "required": ["type", "measure", "split"]
+                                }
+                            }
+                        },
+                        "required": ["id"]
+                    }
+                },
+                "required": ["type", "layers"]
+            }
         }
     }
 }

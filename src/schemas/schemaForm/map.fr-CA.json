@@ -622,9 +622,9 @@
                     },
                     "fileType":{
                       "type": "string",
-                      "enum": ["", "csv", "geojson", "shapefile"],
+                      "enum": ["csv", "geojson", "shapefile"],
                       "title": "Sélecteur de type de fichier",
-                      "default": "",
+                      "default": "csv",
                       "required": true
                     },
                     "colour": {
