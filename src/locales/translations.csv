@@ -144,6 +144,13 @@ form plugins coordInfo,form.plugins.coordinfo,Coordinates Info,0,Info coordonné
 form plugins areasOfInterest,form.plugins.aois,Areas of interest,0,Régions d'intérêt,0
 form plugins areasOfInterest,form.plugins.aoi,Area of Interest,0,Région d'intérêt,0
 form plugins areasOfInterest,form.plugins.setaoi,Set Area,0,Définir la région,0
+form plugins chart,form.plugins.chart,Charts,0,Graphiques,0
+form plugins chart,form.plugins.chartpie,Pie,0,Tarte,0
+form plugins chart,form.plugins.chartbar,Bar,0,Barre,0
+form plugins chart,form.plugins.chartline,Line,0,Ligne,0
+form plugins chart,form.plugins.chartfield,Field,0,Champs,0
+form plugins chart,form.plugins.chartconfig,Configuration,0,Configuration,0
+form plugins chart,form.plugins.chartdata,Data,0,Donnée,0
 form validation,form.validation.required,Required,0,Requis,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0

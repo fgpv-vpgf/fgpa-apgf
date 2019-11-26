@@ -257,7 +257,14 @@ function modelManager($timeout, $translate, events, constants, commonService) {
 
         const keys = Object.keys(pluginsModel);
         for (const key of keys) {
-            if (pluginsModel[key].enable) { pluginsList.push(`${key}`); }
+            if (pluginsModel[key].enable) {
+                // if the key is chart, we need to rename the plugin to chartLayer
+                if (key === 'chart') {
+                    pluginsList.push('chartLayer');
+                } else {
+                    pluginsList.push(`${key}`);
+                }
+            }
         }
 
         return pluginsList.join(',');

@@ -193,6 +193,88 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             ] }
                         ] }
                     ] }
+                ] },
+                { 'title': $translate.instant('form.plugins.chart'), 'key': 'chart', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'chart.enable' },
+                    { 'key': 'chart.type', 'condition': 'model.chart.enable === true', 'titleMap': [
+                        { value: 'pie', name: $translate.instant('form.plugins.chartpie') },
+                        { value: 'bar', name: $translate.instant('form.plugins.chartbar') },
+                        { value: 'line', name: $translate.instant('form.plugins.chartline') }
+                    ] },
+                    { 'key': 'chart.title', 'condition': 'model.chart.enable === true' },
+                    { 'key': 'chart.options', 'condition': 'model.chart.enable === true', 'items': [
+                        { 'key': 'chart.options.colors' },
+                        { 'key': 'chart.options.cutOut', 'condition': 'model.chart.type === "pie"' }
+                    ] },
+                    { 'key': 'chart.labelsPie', 'condition': 'model.chart.enable === true && model.chart.type === "pie"', 'items': [
+                        { 'key': 'chart.labelsPie.type', 'titleMap': [
+                            { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
+                            { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                        ] },
+                        { 'key': 'chart.labelsPie.values' },
+                        { 'key': 'chart.labelsPie.split' }
+                    ] },
+                    { 'key': 'chart.labelsLine', 'condition': 'model.chart.enable === true && model.chart.type !== "pie"', 'items': [
+                        { 'key': 'chart.labelsLine.xAxis', 'items': [
+                            { 'key': 'chart.labelsLine.xAxis.type', 'titleMap': [
+                                { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
+                                { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                            ] },
+                            { 'key': 'chart.labelsLine.xAxis.title' },
+                            { 'key': 'chart.labelsLine.xAxis.values' },
+                            { 'key': 'chart.labelsLine.xAxis.split' }
+                        ] },
+                        { 'key': 'chart.labelsLine.yAxis', 'items': [
+                            { 'key': 'chart.labelsLine.yAxis.type', 'titleMap': [
+                                { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
+                                { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                            ] },
+                            { 'key': 'chart.labelsLine.yAxis.title' },
+                            { 'key': 'chart.labelsLine.yAxis.values' },
+                            { 'key': 'chart.labelsLine.yAxis.split' }
+                        ] }
+                    ] },
+                    // TODO: re enable add when geoapi will support layer id. At the same time re enable layer id selection
+                    // TODO: remove default value = 0 inside the schema
+                    // TODO: remove layer id explanation
+                    { 'key': 'chart.layers', 'condition': 'model.chart.enable === true', 'add': null, 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-tileschema', 'readonly': true, 'items': [
+                            {
+                                'key': 'chart.layers[].id',
+                                'type': 'dynamic-select',
+                                'optionData': 'initLayerId',
+                                'model': 'id',
+                                'array': true
+                            }
+                        ] },
+                        { 'key': 'chart.layers[].data', 'title': $translate.instant('form.plugins.chartdata'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
+                            // new item, create accordion
+                            events.$broadcast(events.avNewItems);
+                        }, 'add': $translate.instant('button.add'), 'items': [
+                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.chartdata'), 'items': [
+                                { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
+                                { 'key': 'chart.layers[].data[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                    { 'key': 'chart.layers[].data[].type' },
+                                    { 'key': 'chart.layers[].data[].measure', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.chartdata'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                        self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                    },
+                                    { 'key': 'chart.layers[].data[].regex' },
+                                    { 'key': 'chart.layers[].data[].split' },
+                                    { 'key': 'chart.layers[].data[].label', 'condition': 'model.chart.enable === true && model.chart.type === "pie"', 'items': [
+                                        { 'key': 'chart.layers[].data[].label.type', 'titleMap': [
+                                            { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
+                                            { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                                        ] },
+                                        { 'key': 'chart.layers[].data[].label.values' },
+                                        { 'key': 'chart.layers[].data[].label.split' }
+                                    ] },
+                                    { 'key': 'chart.layers[].data[].prefix' },
+                                    { 'key': 'chart.layers[].data[].suffix' }
+                                ] }
+                            ] }
+                        ] }
+                    ] }
                 ] }
             ] }
         ];

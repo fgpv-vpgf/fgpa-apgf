@@ -111,6 +111,9 @@ function stateManager($translate, events, constants, commonService) {
             if (modelName === 'plugins') {
                 // Generate state records for area of interest
                 setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
+
+                // Generate state records for charts
+                setChartItemsState(_state[modelName], model, arrKeys);
             } else if (modelName === 'services') {
                 setGeoSearchItemState(_state[modelName], model);
             }
@@ -305,31 +308,6 @@ function stateManager($translate, events, constants, commonService) {
             if (stateModel.hasOwnProperty('items')) {
                 for (let item of stateModel.items) {
                     setAdvance(item, keys, value);
-                }
-            }
-        }
-    }
-
-    /**
-     * Remove advance hidden parameters in state model
-     * @function removeHiddenAdvance
-     * @private
-     * @param {Object}  stateModel the stateModel
-     * @param {Object}  parent parent reference object in the tree
-     * @param {Array}   keys keys
-     * @param {String}  itemKeyIndex index in the items array
-     */
-    function removeHiddenAdvance(stateModel, parent, keys, itemKeyIndex = -1) {
-        if (stateModel.key === keys[0] && keys.length === 1) {
-            // Delete record in array
-            parent.items.splice(itemKeyIndex, 1);
-        } else {
-            if (stateModel.key === keys[0] && keys.length > 1) {
-                keys.shift();
-            }
-            if (stateModel.hasOwnProperty('items')) {
-                for (let [j, item] of stateModel.items.entries()) {
-                    removeHiddenAdvance(item, stateModel, keys, j);
                 }
             }
         }
@@ -540,6 +518,45 @@ function stateManager($translate, events, constants, commonService) {
     }
 
     /**
+     * Set new record for chart items in state model
+     * @function setChartItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setChartItemsState(stateModel, model, arrKeys) {
+
+        const masterLink = constants.schemas
+            .indexOf(`plugins.[lang].json`) + 1;
+
+        const setID = [[0, 'chart', 'layers']];
+
+        const hlink = constants.subTabs.plugins.keys[3].replace(/\./g, '-');
+
+        // is there a defined chart layer
+        if (typeof stateModel.items[3].items !== 'undefined') {
+            const layers = model[setID[0][1]][setID[0][2]];
+
+            for (let [j, item] of layers.entries()) {
+                if (typeof stateModel.items[3].items[5] !== 'undefined') {
+                    // the link will not work because layers is present inside map tab. To make this work, we should add tab to the id so there is no
+                    // duplicate. This would involve a major refactor and we are not sure it is worth it so we let it like this for now
+                    // TODO: investigate...
+                    const shlink = setItemId(hlink, j, 'chart', 'layers');
+
+                    stateModel.items[3].items[5].items[j].title = item.id;
+                    stateModel.items[3].items[5].items[j].stype = 'element';
+                    stateModel.items[3].items[5].items[j].items = [];
+                    stateModel.items[3].items[5].items[j].hlink = hlink;
+                    stateModel.items[3].items[5].items[j].shlink = shlink;
+                    stateModel.items[3].items[5].items[j].masterlink = masterLink;
+                }
+            }
+        }
+    }
+
+    /**
      * Set record settings array object
      * @function setGeoSearchItemState
      * @private
@@ -701,15 +718,17 @@ function stateManager($translate, events, constants, commonService) {
      * @private
      * @param {Object}  stateModel the stateModel
      * @param {Array}   arrForm   the form as an array of objects
+     * @param {String}  keys        list of keys separated by a .
      */
-    function setTitle(stateModel, arrForm) {
-
+    function setTitle(stateModel, arrForm, keys = `${stateModel.hlink}.${stateModel.key}`) {
         if (stateModel.hasOwnProperty('key') && stateModel.title === '') {
-            findTitle(stateModel.key, stateModel, arrForm);
+            // remove the first 3 key because they are the form general keys
+            findTitle(stateModel.key, stateModel, arrForm, keys.split('.').slice(2, keys.length - 1));
         }
         if (stateModel.hasOwnProperty('items')) {
             stateModel.items.forEach(item => {
-                setTitle(item, arrForm);
+                // build the keys by adding the item key
+                setTitle(item, arrForm, `${keys}.${item.key}`);
             });
         }
     }
@@ -791,13 +810,17 @@ function stateManager($translate, events, constants, commonService) {
      * @param {key}     key the key to look for (could be an array)
      * @param {Object}  itemForm a form item
      * @param {Array}   arrForm the form as an array of objects
+     * @param {Array}   keys array of keys to look for on the item to get exact match
      */
-    function findTitle(key, itemForm, arrForm) {
-
+    function findTitle(key, itemForm, arrForm, keys) {
         arrForm.forEach(item => {
             if (item.hasOwnProperty('key')) {
                 if (Array.isArray(item.key)) {
-                    if (key === item.key[item.key.length - 1]) {
+                    // first, try to see if a key has the same key to avoid changing title because the last keys
+                    // are the same. Then if no key are the same or title is empty use title from last key item.
+                    if (JSON.stringify(item.key) === JSON.stringify(keys)) {
+                        itemForm.title = item.title;
+                    } else if (key === item.key[item.key.length - 1] && itemForm.title === '') {
                         itemForm.title = item.title;
                     }
                 } else if (key === item.key) {
@@ -805,7 +828,7 @@ function stateManager($translate, events, constants, commonService) {
                 }
             }
             if (item.hasOwnProperty('items')) {
-                findTitle(key, itemForm, item.items);
+                findTitle(key, itemForm, item.items, keys);
             }
         });
     }
@@ -869,7 +892,10 @@ function stateManager($translate, events, constants, commonService) {
         $.each(form, key => {
             if (key.startsWith('activeForm-')) {
                 // get all the keys to find the object
-                let keys = key.split('-').filter(n => n !== '' && n!== 'activeForm');
+                let keys = key.replace('--', '-').split('-').filter(n => n !== '' && n!== 'activeForm');
+
+                // remove first element of keys set if it is '0'... need for chart plugin
+                if (keys [0] === '0') keys.shift();
 
                 // remove duplicate keys. They are introduce by array in schema form
                 const unique = commonService.setUniq(keys);
