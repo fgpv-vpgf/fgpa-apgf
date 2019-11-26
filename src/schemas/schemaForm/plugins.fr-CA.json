@@ -37,7 +37,7 @@
                                 "date",
                                 "number"
                             ],
-                            "description": "Si la valeur 'Date' est sélectionné, la valeur de la plage et de la limite est en millisecondes",
+                            "description": "Si la valeur 'Date' est sélectionné, la valeur de la plage et de la limite est en millisecondes.",
                             "default": "number"
                         },
                         "delay": {
@@ -96,7 +96,7 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe)",
+                                "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).",
                                 "title": "ID"
                             },
                             "field": {
@@ -242,8 +242,10 @@
                         "cutOut": {
                             "title": "Pourcentage de découpe",
                             "type": "number",
-                            "description": "Pourcentage de découpe",
-                            "default": 0
+                            "description": "Pourcentage de découpe pour donner un effet de beigne.",
+                            "default": 0,
+                            "minimum": 10,
+                            "maximum": 80
                         }
                     },
                     "required": ["cutOut"]
@@ -415,6 +417,47 @@
                     }
                 },
                 "required": ["type", "layers"]
+            }
+        },
+        "swiper": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                },
+                "type": {
+                    "type": "string",
+                    "title": "Type",
+                    "enum": [
+                        "vertical"
+                    ],
+                    "default": "vertical"
+                },
+                "keyboardOffset": {
+                    "type": "number",
+                    "title": "Déplacement clavier",
+                    "description": "Valeur en pixel du déplacement du glisseur.",
+                    "default": 10,
+                    "minimum": 1,
+                    "maximum": 100
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Couches",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).",
+                                "title": "ID"
+                            }
+                        },
+                        "required": ["id"]
+                    }
+                },
+                "required": ["type", "keyboardOffset", "layers"]
             }
         }
     }

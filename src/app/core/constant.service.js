@@ -50,7 +50,7 @@ angular
             },
             plugins: {
                 index: 3,
-                keys: ['rangeSlider', 'coordInfo', 'areasOfInterest', 'chart']
+                keys: ['rangeSlider', 'coordInfo', 'areasOfInterest', 'chart', 'swiper']
             }
         },
         devVersion: '3.2.0',
