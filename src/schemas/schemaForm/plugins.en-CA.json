@@ -37,7 +37,7 @@
                                 "number",
                                 "date"
                             ],
-                            "description": "If date is selected, range and limit must be in milliseconds",
+                            "description": "If date is selected, range and limit must be in milliseconds.",
                             "default": "number"
                         },
                         "delay": {
@@ -96,7 +96,7 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service)",
+                                "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
                                 "title": "ID",
                                 "default": ""
                             },
@@ -224,7 +224,7 @@
                             "split": {
                                 "title": "Split Character",
                                 "type": "string",
-                                "description": "Character to use to split list of values",
+                                "description": "Character to use to split list of values.",
                                 "default": ";"
                             }
                         },
@@ -244,7 +244,9 @@
                             "title": "Cut Out Percentage",
                             "type": "number",
                             "description": "Cut out percentage to use to give doughnut effect.",
-                            "default": 0
+                            "default": 0,
+                            "minimum": 10,
+                            "maximum": 80
                         }
                     },
                     "required": ["cutOut"]
@@ -421,6 +423,47 @@
                 },
                 "required": ["type", "layers"]
             }
+        },
+        "swiper": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Enable"
+                },
+                "type": {
+                    "type": "string",
+                    "title": "Type",
+                    "enum": [
+                        "vertical"
+                    ],
+                    "default": "vertical"
+                },
+                "keyboardOffset": {
+                    "type": "number",
+                    "title": "Keyboard Movement",
+                    "description": "Pixel value of swiper displacement.",
+                    "default": 10,
+                    "minimum": 1,
+                    "maximum": 100
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Layers",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
+                                "title": "ID"
+                            }
+                        },
+                        "required": ["id"]
+                    }
+                }
+            },
+            "required": ["type", "keyboardOffset", "layers"]
         }
     }
 }
