@@ -42,6 +42,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         showAdvance,
         triggerValidation,
         advanceModel: false,
+        frenchLanguage: (commonService.getLang() === 'fr-CA') ? true : false,  
         toggleSection,
         toggleAll,
         addCustomAccordion,
@@ -66,7 +67,7 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         resestShowAdvance();
         triggerValidation();
     });
-    events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
+    events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); service.frenchLanguage = (commonService.getLang() === 'fr-CA') ? true : false;});
 
     // when we add basemap or layers, if show advance is click, remove hidden
     events.$on(events.avNewItems, () => { $timeout(() => {

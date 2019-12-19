@@ -5,6 +5,38 @@
         ng-change="self.formService.showAdvance();self.formService.triggerValidation();">
         {{ 'form.showadvance' | translate }}
     </md-checkbox>
+
     <form class="av-main-form av-form-{{ self.modelName }}" name="activeForm" sf-schema="schema" sf-form="form"
-        sf-model="model" sf-options="{ destroyStrategy: 'retain' }" av-accordion av-drag-handle></form>
+     sf-model="model" 
+     ng-show="self.formService.frenchLanguage" sf-options="{  validateOnRender: true , pristine: {errors: false, success: false}, validationMessage: {0 : 'Aucune valeur correspondante (enum) pour: {{value}}',
+                                                                1: 'La donnée ne correspond à aucun schema de ',
+                                                                10: 'La donnée ne correspond à aucun schema de  ',
+                                                                11: 'La donnée est valide pour plus d\'un schema de : indices {{schema.index1}} et {{schema.index2}}',
+                                                                12: 'La donnée correspond au schema de  ',
+                                                                100: 'La valeur {{value}} n\'est pas un multiple de {{schema.multipleOf}}',
+                                                                101: 'La valeur {{value}} est inférieure au minimum {{schema.minimum}}',
+                                                                102: 'La valeur {{value}} est égale au minimum exclusif {{schema.minimum}}',
+                                                                103: 'La valeur {{value}} est supérieure au maximum {{schema.maximum}}',
+                                                                104: 'La valeur {{value}} est égale au maximum exclusif {{schema.maximum}}',
+                                                                105: 'La valeur {{value}} n\'est pas un nombre valide',
+                                                                200: 'Le texte est trop court ({{length}} carac.), minimum {{schema.minimum}}',
+                                                                201: 'Le texte est trop long ({{length}} carac.), maximum {{schema.maximum}}',
+                                                                202: 'Le texte ne correspond pas au motif: {{schema.pattern}}',
+                                                                300: 'Pas assez de propriétés définies ({{propertyCount}}), minimum {{schema.minimum}}',
+                                                                301: 'Trop de propriétés définies ({{propertyCount}}), maximum {{schema.maximum}}',
+                                                                302: 'Propriété requise manquante: {{schema.key}}',
+                                                                303: 'Propriétés additionnelles non autorisées',
+                                                                304: 'Echec de dépendance - la clé doit exister: {missing} (du à la clé: {{schema.key}})',
+                                                                400: 'Le tableau est trop court ({{length}}), minimum {{schema.minimum}}',
+                                                                401: 'Le tableau est trop long ({{length}}), maximum {{schema.maximum}}',
+                                                                402: 'Des éléments du tableau ne sont pas uniques (indices {{schema.match1}} et {{schema.match2}})',
+                                                                403: 'Éléments additionnels non autorisés',
+                                                                500: 'Échec de validation du format ({{schema.message}})',
+                                                                501: 'Échec de mot-clé: {{key}} ({schema.message})',
+                                                                600: 'Références ($refs) circulaires: {{schema.urls}}',
+                                                                1000:'Propriété inconnue (n\'existe pas dans le schema)'} }" av-accordion av-drag-handle></form> 
+
+    <form class="av-main-form av-form-{{ self.modelName }}" name="activeForm" sf-schema="schema" sf-form="form"
+    sf-model="model"  ng-show="!self.formService.frenchLanguage" sf-options="{ destroyStrategy: 'retain' }" av-accordion av-drag-handle></form>                            
+
 </div>
