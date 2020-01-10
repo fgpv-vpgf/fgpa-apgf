@@ -294,6 +294,10 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             }
                         ] }
                     ] }
+                ] },
+                { 'title': $translate.instant('form.plugins.draw'), 'key': 'draw', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'draw.enable' }
                 ] }
             ] }
         ];
