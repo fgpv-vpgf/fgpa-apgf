@@ -153,6 +153,7 @@ form plugins chart,form.plugins.chartfield,Field,0,Champs,0
 form plugins chart,form.plugins.chartconfig,Configuration,0,Configuration,0
 form plugins chart,form.plugins.chartdata,Data,0,Donnée,0
 form plugins swiper,form.plugins.swiper,Swiper,0,Glisseur,0
+form plugins draw,form.plugins.draw,Draw Toolbar,0,Barre de dessin,0
 form validation,form.validation.required,Required,0,Requis,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0

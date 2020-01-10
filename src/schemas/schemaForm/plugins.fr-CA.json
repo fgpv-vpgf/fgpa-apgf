@@ -459,6 +459,15 @@
                 },
                 "required": ["type", "keyboardOffset", "layers"]
             }
+        },
+        "draw": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                }
+            }
         }
     }
 }
