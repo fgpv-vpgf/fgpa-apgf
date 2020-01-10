@@ -14,12 +14,13 @@ angular
  * define common Javascript methods
  * @function commonService
  * @param {Object} $translate  translation service Angular object
+ * @param {object} $rootScope Angular Object
  * @param {Object} events  Angular object
  * @param {Object} $timeout promise with timeout Angular object
  * @param {Object} constants  modules that contain all the constants
  * @return {Object} service  common service
  */
-function commonService($translate, events, $timeout, constants) {
+function commonService($translate, $rootScope, events, $timeout, constants) {
 
     const service = {
         parseJSON,
@@ -116,6 +117,9 @@ function commonService($translate, events, $timeout, constants) {
     function setLang(value) {
         // show splash with language switch event as parameter
         $translate.use(value).then(() => events.$broadcast(events.avShowSplash, events.avSwitchLanguage));
+        
+        // trigger validation
+        $timeout(() => $rootScope.$broadcast(events.avValidateForm), constants.delaySetVersion);
     }
 
     /**
