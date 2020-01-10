@@ -85,7 +85,7 @@
         },
         "navBar": {
             "type": "object",
-            "description": "Provides configuration to the nav bar. If not supplied the default nav bar buttons are shown.",
+            "description": "Provides configuration to the nav bar. If not supplied the default nav bar buttons are shown. The order is defined by the sequence in which the elements are inserted in the toolbar.",
             "properties": {
                 "zoom": {
                     "type": "string",

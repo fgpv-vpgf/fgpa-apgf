@@ -62,6 +62,7 @@ form ui,form.ui.enumshare,Share the map,0,Partager la carte,0
 form ui,form.ui.enumtouch,Touch mode,0,Mode tactile,0
 form ui,form.ui.enumlanguage,Languages selector,0,Sélecteur de langues,0
 form ui,form.ui.enumplugins,Plugins section,0,Section Liens,0
+form ui,form.ui.navbarorder,Order of buttons inside the toolbar:,0,Ordre des buttons dans la barre d'outils :,0
 form service,form.service.urls,Service End Points,0,Liens pour les services,0
 form service,form.service.geosearch,Geo Search,0,Rechercher par lieux,0
 form service,form.service.geosearchSettings,Settings,0,Paramètres,0

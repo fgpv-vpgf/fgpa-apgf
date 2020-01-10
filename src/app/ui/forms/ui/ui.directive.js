@@ -208,6 +208,20 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
     }
 
     /**
+     * Reorder the nav button array with first in order
+     *
+     * @function orderNavButtons
+     * @private
+     * @param {String} model model value
+     */
+    function orderNavButtons(model) {
+        if (typeof model !== 'boolean') {
+            const order = model.map(item => $translate.instant(`form.ui.enum${item}`)).join(', ');
+            $('.av-navbar-extra .help-block')[0].innerText = `${$translate.instant('form.ui.navbarorder')} ${order}`;
+        }
+    }
+
+    /**
      * Set UI form
      *
      * @function setForm
@@ -257,7 +271,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'restrictNavigation' },
                     { 'key': 'navBar', 'items': [
                         // FIXME: not working in the viewer, see if still needed { 'key': 'navBar.zoom' },
-                        { 'key': 'navBar.extra', 'titleMap': {
+                        { 'key': 'navBar.extra', 'htmlClass': 'av-navbar-extra', 'onChange':  orderNavButtons, 'titleMap': {
                             'geoLocator': $translate.instant('form.ui.enumgeoLocator'),
                             'home': $translate.instant('form.ui.enumhome'),
                             'basemap': $translate.instant('form.ui.enumbasemap'),
@@ -299,7 +313,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                                 { 'value': "folder", 'name': $translate.instant('form.ui.aboutfile') }
                             ]
                         },
-                        { 'key': 'about.content', 'type':"textarea",'condition': isAboutString },
+                        { 'key': 'about.content', 'type':"textarea", 'condition': isAboutString },
                         { 'key': 'about.folderName', 'condition': isAboutFolder }
                     ]}
                 ] }
