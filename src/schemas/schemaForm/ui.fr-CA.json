@@ -85,7 +85,7 @@
         },
         "navBar": {
             "type": "object",
-            "description": "Permet de configurer la barre de navigation. Si rien n'est indiqué, la barre de navigation par défaut s'appliquera.",
+            "description": "Permet de configurer la barre de navigation. Si rien n'est indiqué, la barre de navigation par défaut s'appliquera. L'ordre est défini par la séquence dans laquelle les éléments sont insérés dans la barre d'outils.",
             "properties": {
                 "zoom": {
                     "type": "string",
