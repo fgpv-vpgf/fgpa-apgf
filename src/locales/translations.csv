@@ -100,9 +100,11 @@ form map,form.map.legendcursor,Cursor position: ,0,Position du curseur : ,0
 form map layer controls,form.map.layerconstrols,Layer Controls and State,0,Contrôles et état de la couche,0
 form map layer table,form.map.layertable,Table,0,Table,0
 form map layer table columns,form.map.layertablecols,Fields Customization,0,Personnalisation des champs,0
+form map layer table columns,form.map.layertablecolsnote,"Note: If there is no customization, it will take default fields from the service. When there is an item in this array, it will be use to define wich column will be set for the table. If a column is not in the array it will be assume as disabled.",0,"Remarque: S'il n'y a pas de personnalisation, les champs par défaut du service seront utilisés. Lorsqu'il y a un élément dans ce tableau, il sera utilisé pour définir les colones la table. Si une colonne n'est pas dans le tableau, elle sera considéré comme désactivée.",0
 form map layer table columns,form.map.layertablecol,Field,0,Champ,0
 form map layer table filter,form.map.layertablefilter,Filter,0,Filtre,0
 form map layer table columns set,form.map.layertablesetcol,Set Fields,0,Définir les champs,0
+form map layer table columns set,form.map.layertableerasecol,Erase Fields,0,Supprimer les champs,0
 form map basemap attribution,form.map.basemapattrib,Attribution,0,Crédit,0
 form map,form.map.legendauto,Autopopulate,0,Automatique,0
 form map,form.map.legendstruct,Structured,0,Structurée,0

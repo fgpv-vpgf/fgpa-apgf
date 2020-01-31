@@ -116,4 +116,11 @@
         border-left: 2px $accent-color solid;
         padding-left: 10px;
     }
+
+    .av-fields-buttons {
+        display: flex;
+        & div {
+            margin-right: 15px;
+        }
+    }
 }
