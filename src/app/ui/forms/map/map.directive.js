@@ -214,6 +214,33 @@ function Controller($scope, $translate, $timeout,
     }
 
     /**
+     * Remove all layer columns from the layer url and layer entry index
+     *
+     * @function eraseColumns
+     * @private
+     * @param  {Object} event  the event
+     * @param  {Integer} item  Angular schema form item
+     */
+    function eraseColumns(event, item) {
+        // get the element for dynamic and feature layer
+        const currTarget  = $(event.currentTarget);
+
+        const elementFeat = currTarget.closest('.av-layer')[0];
+        const elementDyn = currTarget.closest('.av-layerEntry')[0];
+
+        // get the index of current layer to get the model and the layerEntry index to get the feature class
+        const indexLayer = elementFeat.getAttribute('sf-index');
+
+        // remove all columns
+        // if it is a dynamic layer, use the index of the layer entry
+        if (item.layerType === 'esriFeature') {
+            $scope.model.layers[indexLayer].table.columns = [];
+        } else {
+            $scope.model.layers[indexLayer].layerEntries[elementDyn.getAttribute('sf-index')].table.columns = [];
+        }
+    }
+
+    /**
      * Initialize layer columns for datatable from the layer url and layer entry index
      *
      * @function setColumns
@@ -224,22 +251,23 @@ function Controller($scope, $translate, $timeout,
     function setColumns(event, item) {
         // get the element for dynamic and feature layer
         const currTarget  = $(event.currentTarget);
-        const elementDyn = currTarget.closest('.av-layer')[0];
-        const elementFeat = currTarget.closest('.av-layerEntry')[0];
+
+        const elementFeat = currTarget.closest('.av-layer')[0];
+        const elementDyn = currTarget.closest('.av-layerEntry')[0];
 
         // get the index of current layer to get the model and the layerEntry index to get the feature class
-        const indexLayer = elementDyn.getAttribute('sf-index');
-        const featClass = (item.layerType === 'esriFeature') ?
-            -1 : elementFeat.getElementsByClassName('av-feature-index')[0].getElementsByTagName('input')[0].value;
+        const indexLayer = elementFeat.getAttribute('sf-index');
+        const featClass = (item.layerType === 'esriFeature') ? -1 :
+            elementDyn.getElementsByClassName('av-feature-index')[0].getElementsByTagName('input')[0].value;
 
         // get model for specific layer
         let model = $scope.model.layers[indexLayer];
+        const url = (item.layerType === 'esriFeature') ? model.url : `${model.url}/${featClass}`;
 
         // send the model to generate the config to query the layer
-        layerService.getLayer(model, parseInt(featClass)).then(data => {
-
+        layerService.getLayerFields(url).then(data => {
             // if it is a dynamic layer, use the index of the layer entry
-            model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementFeat.getAttribute('sf-index')];
+            model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementDyn.getAttribute('sf-index')];
 
             // make sure table exist on layer object
             if (typeof model.table === 'undefined') { model.table = { }; }
@@ -279,7 +307,7 @@ function Controller($scope, $translate, $timeout,
 
                 // if dynamic, set layer entry info
                 if (item.layerType === 'esriDynamic') {
-                    columnClass.push({ 'cls': 'av-layerEntries', 'ind': elementFeat.getAttribute('sf-index') });
+                    columnClass.push({ 'cls': 'av-layerEntries', 'ind': elementDyn.getAttribute('sf-index') });
                 }
 
                 // update columns
@@ -289,7 +317,7 @@ function Controller($scope, $translate, $timeout,
                 // FIXME: remove hidden class. This css is there because we can't use strartempty: true on columns array
                 // ASF throws an error. So we start with one undefined element with hidden class then update the array
                 // and remove the class
-                const element = (featClass === -1) ? elementDyn : elementFeat;
+                const element = (item.layerType === 'esriDynamic') ? elementDyn : elementFeat;
                 element.getElementsByClassName('av-columns')[0].classList.remove('hidden');
 
             }, constants.delayUpdateColumns);
@@ -298,7 +326,7 @@ function Controller($scope, $translate, $timeout,
             console.log(err);
 
             // if it is a dynamic layer, use the index of the layer entry
-            model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementFeat.getAttribute('sf-index')];
+            model = (item.layerType === 'esriFeature') ? model : model.layerEntries[elementDyn.getAttribute('sf-index')];
 
             // make sure table exist on layer object then empty fields
             if (typeof model.table === 'undefined') { model.table = { }; }
@@ -845,14 +873,7 @@ function Controller($scope, $translate, $timeout,
                                     self.formService.copyValueToFormIndex(model, item);
                                     self.formService.updateId(model, $scope, 'layers', true);
                                     self.formService.updateLinkValues($scope, [['layers', 'id']], 'initLayerId', 'avLayersIdUpdate'); }, constants.debInput, false) },
-                                { 'key': 'layers[].url', 'onChange': debounceService.registerDebounce(model => {
-                                    // check if it is a feature layer. If so, set fields. For dynamic we set when index change
-                                    if (!isNaN(parseInt(model.substring(model.lastIndexOf('/') + 1, model.length)))) {
-                                        // simulate click event to set fields
-                                        const btn = $(document.activeElement).closest('.av-layer').find('.av-form-setfields button')[0];
-                                        $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
-                                    }
-                                }, constants.delayUpdateColumns, false) },
+                                { 'key': 'layers[].url', 'htmlClass': 'av-layer-url' },
                                 { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.urlfile') + '<div>', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
                                 { 'key': 'layers[].refreshInterval', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\' && model.layers[arrayIndex].layerChoice !== \'ogcWfs\'' },
                                 { 'key': 'layers[].expectedResponseTime', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\' && model.layers[arrayIndex].layerChoice !== \'ogcWfs\'' },
@@ -883,10 +904,6 @@ function Controller($scope, $translate, $timeout,
                                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
                                             { 'key': 'layers[].layerEntries[].index', 'htmlClass': 'av-feature-index', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.map.layerentry'), 'onChange': debounceService.registerDebounce((model, item) => {
                                                 self.formService.copyValueToFormIndex(model, item);
-
-                                                // simulate click event to set fields
-                                                const btn = $(document.activeElement).closest('.av-layerEntry').find('.av-form-setfields button')[0];
-                                                $timeout(() => { angular.element(btn).triggerHandler('click'); }, 0);
                                             }, constants.delayUpdateColumns, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
                                             { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
@@ -1099,7 +1116,11 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.searchStrictMatch`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
             { 'key': `${model}.printEnabled`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
-                { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'htmlClass': 'av-form-setfields', 'layerType': layerType, 'onClick': setColumns },
+                { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.layertablecolsnote') + '<div>' },
+                { 'type': 'section', 'htmlClass': 'av-fields-buttons', 'items': [
+                    { 'type': 'button', 'title': $translate.instant('form.map.layertablesetcol'), 'htmlClass': 'av-form-setfields', 'layerType': layerType, 'onClick': setColumns },
+                    { 'type': 'button', 'title': $translate.instant('form.map.layertableerasecol'), 'htmlClass': 'av-form-erasefields', 'layerType': layerType, 'onClick': eraseColumns }
+                ]},
                 { 'key': `${model}.columns`, 'htmlClass': 'av-accordion-all av-columns hidden', 'add': null, 'items': [
                     { 'type': 'help', 'helpvalue': '<div class="av-drag-handle"></div>' },
                     { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertablecol'), 'items': [
