@@ -53,7 +53,7 @@ angular
                 keys: ['rangeSlider', 'coordInfo', 'areasOfInterest', 'chart', 'swiper', 'draw']
             }
         },
-        devVersion: '3.2.0',
+        devVersion: '3.3.0',
         prodVersion: '2.5.0'
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 

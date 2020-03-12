@@ -711,6 +711,12 @@
                         "description": "The field to be used for tooltips.  If it is not present the viewer will use nameField (if provided).",
                         "version": "2.5"
                     },
+                    "outfields": {
+                      "type": "string",
+                      "default": "*",
+                      "description": "A comma separated list of attribute names that should be requested on query.",
+                      "version": "3.3"
+                    },
                     "customRenderer": {
                         "for": "esriFeature",
                         "title": "Custom Renderer",
@@ -797,6 +803,12 @@
                         ]
                       },
                       "uniqueItems": true
+                    },
+                    "enableStructuredDelete": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Allows Remove menu control on any layer in a structured legend. Caution: may allow users to delete layers and break legend",
+                      "version": "3.3"
                     },
                     "state": {
                       "title": "State",
