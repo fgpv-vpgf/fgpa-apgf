@@ -9,7 +9,7 @@
             "type": "string",
             "enum": [
                 "2.5.0",
-                "3.2.0"
+                "3.3.0"
             ],
             "default": "2.5.0",
             "description": "The viewer version used to validate the configuration file. The fields with the highest version have a turquoise left border."

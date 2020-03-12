@@ -9,7 +9,7 @@
             "type": "string",
             "enum": [
                 "2.5.0",
-                "3.2.0"
+                "3.3.0"
             ],
             "default": "2.5.0",
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."

@@ -712,6 +712,12 @@
                         "description": "Le champ à utiliser pour les info-bulles. S'il n'est pas présent, le visualisateur utilisera nameField (si fourni).",
                         "version": "2.5"
                     },
+                    "outfields": {
+                      "type": "string",
+                      "default": "*",
+                      "description": "A comma separated list of attribute names that should be requested on query.",
+                      "version": "3.3"
+                    },
                     "customRenderer": {
                         "for": "esriFeature",
                         "title": "Rendu personnalisé",
@@ -798,6 +804,12 @@
                       },
                       "uniqueItems": true,
                       "default": []
+                    },
+                    "enableStructuredDelete": {
+                      "type": "boolean",
+                      "default": false,
+                      "description": "Permet de supprimer le contrôle sur n'importe quel couche dans une légende structurée. Attention: peut permettre aux utilisateurs de supprimer des couches et de casser la légende.",
+                      "version": "3.3"
                     },
                     "state": {
                       "title": "État de la couche",
