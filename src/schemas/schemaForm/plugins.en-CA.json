@@ -471,6 +471,23 @@
                 "enable": {
                     "type": "boolean",
                     "title": "Enable"
+                },
+                "active": {
+                    "type": "boolean",
+                    "title": "Open by default",
+                    "default": true
+                },
+                "tools": {
+                    "type": "array",
+                    "title": "Tools",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"
+                        ]
+                    },
+                    "description": "Tools to add to draw toolbar.",
+                    "default": ["picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"]
                 }
             }
         }

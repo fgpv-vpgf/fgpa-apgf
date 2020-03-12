@@ -297,7 +297,18 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                 ] },
                 { 'title': $translate.instant('form.plugins.draw'), 'key': 'draw', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
-                    { 'key': 'draw.enable' }
+                    { 'key': 'draw.enable' },
+                    { 'key': 'draw.active', 'condition': 'model.draw.enable === true' },
+                    { 'key': 'draw.tools', 'condition': 'model.draw.enable === true', 'titleMap': [
+                        { value: 'picker', name: $translate.instant('form.plugins.drawctrlpicker') },
+                        { value: 'point', name: $translate.instant('form.plugins.drawctrlpoint') },
+                        { value: 'polyline', name: $translate.instant('form.plugins.drawctrlpolyline') },
+                        { value: 'polygon', name: $translate.instant('form.plugins.drawctrlpolygon') },
+                        { value: 'measure', name: $translate.instant('form.plugins.drawctrlmeasure') },
+                        { value: 'extent', name: $translate.instant('form.plugins.drawctrlextent') },
+                        { value: 'write', name: $translate.instant('form.plugins.drawctrlwrite') },
+                        { value: 'read', name: $translate.instant('form.plugins.drawctrlread') }
+                    ] }
                 ] }
             ] }
         ];

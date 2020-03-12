@@ -466,6 +466,23 @@
                 "enable": {
                     "type": "boolean",
                     "title": "Activer"
+                },
+                "active": {
+                    "type": "boolean",
+                    "title": "Ouvert par défaut",
+                    "default": true
+                },
+                "tools": {
+                    "type": "array",
+                    "title": "Outils",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"
+                        ]
+                    },
+                    "description": "Outils à ajouter à la barre d'outils de dessin.",
+                    "default": ["picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"]
                 }
             }
         }
