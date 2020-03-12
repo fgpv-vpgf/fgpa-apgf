@@ -156,6 +156,14 @@ form plugins chart,form.plugins.chartconfig,Configuration,0,Configuration,0
 form plugins chart,form.plugins.chartdata,Data,0,Donnée,0
 form plugins swiper,form.plugins.swiper,Swiper,0,Glisseur,0
 form plugins draw,form.plugins.draw,Draw Toolbar,0,Barre de dessin,0
+form plugins draw,form.plugins.drawctrlpicker,Color Picker,0,Sélecteur de couleurs,0
+form plugins draw,form.plugins.drawctrlpoint,Draw Points,0,Dessiner des points,0
+form plugins draw,form.plugins.drawctrlpolyline,Draw Lines,0,Dessiner des lignes,0
+form plugins draw,form.plugins.drawctrlpolygon,Draw Polygons,0,Dessiner des polygones,0
+form plugins draw,form.plugins.drawctrlextent,Delete drawing by extent,0,Supprimer des dessins par étendue,0
+form plugins draw,form.plugins.drawctrlmeasure,Show/Hide measures,0,Afficher / Cacher les mesures,0
+form plugins draw,form.plugins.drawctrlread,Upload Drawing,0,Charger dessins,0
+form plugins draw,form.plugins.drawctrlwrite,Save Drawing,0,Sauvegarder dessins,0
 form validation,form.validation.required,Required,0,Requis,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0
