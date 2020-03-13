@@ -21,9 +21,10 @@
         var plugins = localStorage.getItem('configplugins').replace(/"/g, '').replace('[', '').replace(']', '').split(',');
         if (plugins[0] === "") { plugins = []; }
         for (var i = 0; i < plugins.length; i++) {
+            var pluginDash = plugins[i].replace(/([A-Z])/g, function(char) { return '-' + char[0].toLowerCase(); });
             var path = 'https://{env}gcgeo.gc.ca//fgpv/fgpv-x.x.x/plugins/'.replace('x.x.x', version).replace('{env}', envar)
-                + plugins[i] + '/' + plugins[i];
-            var script = document.createElement('script')
+                + pluginDash + '/' + pluginDash;
+            var script = document.createElement('script');
             script.src = path + '.js';
             document.getElementsByTagName('head')[0].appendChild(script);
             var style = document.createElement('link');
