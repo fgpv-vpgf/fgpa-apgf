@@ -24,7 +24,7 @@
                       "title": "WKID",
                       "description": "ESRI well known id désignant une projection (WKID)",
                       "default": 3978,
-                      "minimum": "0"
+                      "minimum": 0
                   },
                   "vcsWkid": {
                       "type": "number",
@@ -310,7 +310,7 @@
                                 "title": "WKID",
                                 "description": "ESRI well known id désignant une projection (WKID)",
                                 "default": 3978,
-                                "minimum": "0"
+                                "minimum": 0
                                 },
                                 "vcsWkid": {
                                     "type": "number",
@@ -364,7 +364,7 @@
                             "type": "number",
                             "description": "Le rapport entre la taille de la carte d'aperçu et le rectangle d'étendue affiché sur cette carte. La valeur par défaut est 2, ce qui signifie que la carte d'aperçu aura au moins deux fois la taille du rectangle d'étendue.",
                             "default": 2,
-                            "minimum": "0",
+                            "minimum": 0,
                             "title": "Facteur d'expansion"
                         },
                         "initiallyExpanded": {
@@ -470,8 +470,8 @@
                             "title": "Opacité",
                             "version": "2.4",
                             "default": 1,
-                            "minimum": "0",
-                            "maximum": "1",
+                            "minimum": 0,
+                            "maximum": 1,
                             "description": "Opacité initiale"
                         }
                       },
@@ -694,7 +694,7 @@
                         "for": "esriDynamic, esriFeature",
                         "type": "number",
                         "default": 5,
-                        "minimum": "0",
+                        "minimum": 0,
                         "description": "Spécifie la tolérance en pixels de la région cliquable entourant un élément. Doit êtreun entier positif",
                         "title": "Tolérance"
                     },
@@ -817,8 +817,8 @@
                       "properties": {
                         "opacity": {
                           "type": "number",
-                          "minimum": "0",
-                          "maximum": "1",
+                          "minimum": 0,
+                          "maximum": 1,
                           "description": "Opacité initiale. La valeur doit être entre 0 et 1.",
                           "title": "Opacité initiale"
                         },
@@ -976,7 +976,7 @@
                                         },
                                         "width": {
                                             "type": "number",
-                                            "minimum": "0",
+                                            "minimum": 0,
                                             "description": "Spécifie la largeur de la colonne. La largeur de colonne minimale est 100 px. Si manquant, la largeur de colonne sera calculée.",
                                             "title": "Largeur"
                                         },
@@ -1037,7 +1037,7 @@
                                 "index": {
                                     "for": "esriDynamic",
                                     "type": "number",
-                                    "minimum": "0",
+                                    "minimum": 0,
                                     "description": "L'index de la couche dans le service de carte.",
                                     "title": "Index"
                                 },
@@ -1212,7 +1212,7 @@
                                                   },
                                                   "width": {
                                                       "type": "number",
-                                                      "minimum": "0",
+                                                      "minimum": 0,
                                                       "description": "Largeur de la colonne. Si elle n'est pas fournie, la valeur sera calculée.",
                                                       "title": "Largeur"
                                                   },
@@ -1320,8 +1320,8 @@
                                     "opacity": {
                                       "type": "number",
                                       "default": 1,
-                                      "minimum": "0",
-                                      "maximum": "1",
+                                      "minimum": 0,
+                                      "maximum": 1,
                                       "description": "Opacité initiale. La valeur doit être entre 0 et 1.",
                                       "title": "Opacité initiale"
                                     },

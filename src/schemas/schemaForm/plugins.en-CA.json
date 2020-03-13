@@ -489,6 +489,76 @@
                     "description": "Tools to add to draw toolbar.",
                     "default": ["picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"]
                 }
+            },
+            "required": ["active", "tools"]
+        },
+        "thematicSlider": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Enable"
+                },
+                "open": {
+                    "type": "boolean",
+                    "title": "Open by default",
+                    "default": true
+                },
+                "autorun": {
+                    "type": "boolean",
+                    "title": "Start animation on load",
+                    "defaul": false
+                },
+                "loop": {
+                    "type": "boolean",
+                    "title": "Play the animation in loop",
+                    "default": false
+                },
+                "description": {
+                    "type": "boolean",
+                    "title": "Enable description control",
+                    "default": true
+                },
+                "slider": {
+                    "type": "boolean",
+                    "title": "Enable slider control",
+                    "default": true
+                },
+                "stack": {
+                    "type": "boolean",
+                    "title": "Stack layer visibility",
+                    "default": false
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Layers",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
+                                "title": "ID"
+                            },
+                            "duration": {
+                                "type": "number",
+                                "title": "Animation duration in milliseconds",
+                                "minimum": 3000,
+                                "default": 3000
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title for this layer animation"
+                            },
+                            "description": {
+                                "type": "string",
+                                "title": "Description for this layer animation"
+                            }
+                        },
+                        "required": ["id", "duration"]
+                    }
+                },
+                "required": ["layers"]
             }
         }
     }
