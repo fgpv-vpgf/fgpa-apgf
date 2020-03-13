@@ -298,7 +298,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                 { 'title': $translate.instant('form.plugins.draw'), 'key': 'draw', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'draw.enable' },
-                    { 'key': 'draw.active', 'condition': 'model.draw.enable === true' },
+                    { 'key': 'draw.open', 'condition': 'model.draw.enable === true' },
                     { 'key': 'draw.tools', 'condition': 'model.draw.enable === true', 'titleMap': [
                         { value: 'picker', name: $translate.instant('form.plugins.drawctrlpicker') },
                         { value: 'point', name: $translate.instant('form.plugins.drawctrlpoint') },
@@ -308,6 +308,30 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { value: 'extent', name: $translate.instant('form.plugins.drawctrlextent') },
                         { value: 'write', name: $translate.instant('form.plugins.drawctrlwrite') },
                         { value: 'read', name: $translate.instant('form.plugins.drawctrlread') }
+                    ] }
+                ] },
+                { 'title': $translate.instant('form.plugins.thematicslider'), 'key': 'thematicSlider', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'thematicSlider.enable' },
+                    { 'key': 'thematicSlider.open', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.autorun', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.loop', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.description', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.slider', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.stack', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.layers', 'add': $translate.instant('button.add'), 'condition': 'model.thematicSlider.enable === true', 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-thematic-slider', 'items': [
+                            {
+                                'key': 'thematicSlider.layers[].id',
+                                'type': 'dynamic-select',
+                                'optionData': 'initLayerId',
+                                'model': 'id',
+                                'array': true
+                            },
+                            { 'key': 'thematicSlider.layers[].duration' },
+                            { 'key': 'thematicSlider.layers[].title' },
+                            { 'key': 'thematicSlider.layers[].description' }
+                        ] }
                     ] }
                 ] }
             ] }

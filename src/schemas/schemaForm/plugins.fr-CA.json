@@ -467,7 +467,7 @@
                     "type": "boolean",
                     "title": "Activer"
                 },
-                "active": {
+                "open": {
                     "type": "boolean",
                     "title": "Ouvert par défaut",
                     "default": true
@@ -484,6 +484,75 @@
                     "description": "Outils à ajouter à la barre d'outils de dessin.",
                     "default": ["picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"]
                 }
+            }
+        },
+        "thematicSlider": {
+            "type": "object",
+            "properties": {
+                "enable": {
+                    "type": "boolean",
+                    "title": "Activer"
+                },
+                "open": {
+                    "type": "boolean",
+                    "title": "Ouvert par défaut",
+                    "default": true
+                },
+                "autorun": {
+                    "type": "boolean",
+                    "title": "Démarrer l'animation au chargement",
+                    "defaul": false
+                },
+                "loop": {
+                    "type": "boolean",
+                    "title": "Jouer l'animation en boucle",
+                    "default": false
+                },
+                "description": {
+                    "type": "boolean",
+                    "title": "Activer la description",
+                    "default": true
+                },
+                "slider": {
+                    "type": "boolean",
+                    "title": "Activer la barre de défilement",
+                    "default": true
+                },
+                "stack": {
+                    "type": "boolean",
+                    "title": "Empiler la visibilité des couches",
+                    "default": false
+                },
+                "layers": {
+                    "type": "array",
+                    "title": "Couches",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).",
+                                "title": "ID"
+                            },
+                            "duration": {
+                                "type": "number",
+                                "title": "Durée de l'animation en millisecondes",
+                                "minimum": 3000,
+                                "default": 3000
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Titre de l'animation de cette couche"
+                            },
+                            "description": {
+                                "type": "string",
+                                "title": "Description de l'animation de cette coyche"
+                            }
+                        },
+                        "required": ["id", "duration"]
+                    }
+                },
+                "required": ["layers"]
             }
         }
     }

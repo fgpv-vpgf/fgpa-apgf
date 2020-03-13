@@ -164,6 +164,7 @@ form plugins draw,form.plugins.drawctrlextent,Delete drawing by extent,0,Supprim
 form plugins draw,form.plugins.drawctrlmeasure,Show/Hide measures,0,Afficher / Cacher les mesures,0
 form plugins draw,form.plugins.drawctrlread,Upload Drawing,0,Charger dessins,0
 form plugins draw,form.plugins.drawctrlwrite,Save Drawing,0,Sauvegarder dessins,0
+form plugins thematicSlider,form.plugins.thematicslider,Thematic Slider,0,Curseur de plage thématique,0
 form validation,form.validation.required,Required,0,Requis,0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0
