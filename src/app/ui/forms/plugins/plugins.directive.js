@@ -107,11 +107,55 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      * @return {Object} the plugins form
      */
     function setForm() {
+        console.log(parseInt(modelManager.getModel('version', false).version))
         return [
             { 'type': 'tabs', 'htmlClass': 'av-inner-tab av-version-dev av-version-dev-hide', 'tabs': [
+                { 'title': $translate.instant('form.plugins.coordinfo'), 'key': 'coordInfo', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'coordInfo.enable' }
+                ] },
+                { 'title': $translate.instant('form.plugins.aois'), 'key': 'AreasOfInterest', 'items': [
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'key': 'AreasOfInterest.enable' },
+                    { 'key': 'AreasOfInterest.areas', 'condition': 'model.AreasOfInterest.enable === true', 'title': $translate.instant('form.plugins.aois'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
+                        // new item, create accordion
+                        events.$broadcast(events.avNewItems);
+                    }, 'add': $translate.instant('button.add'), 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.aoi'), 'items': [
+                            { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
+                            { 'key': 'AreasOfInterest.areas[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                { 'key': 'AreasOfInterest.areas[].title-en-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                },
+                                { 'key': 'AreasOfInterest.areas[].title-fr-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                    self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                },
+                                { 'type': 'template', 'template': commonService.addButton('form.plugins', 'setaoi', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.AreasOfInterest.areas) },
+                                { 'type': 'section', 'htmlClass': 'row ', 'items': [
+                                    { 'key': 'AreasOfInterest.areas[]', 'notitle': true, 'items': [
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'AreasOfInterest.areas[].xmin', 'readonly': true }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'AreasOfInterest.areas[].ymin', 'readonly': true }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'AreasOfInterest.areas[].xmax', 'readonly': true }
+                                        ] },
+                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
+                                            { 'key': 'AreasOfInterest.areas[].ymax', 'readonly': true}
+                                        ] }
+                                    ] }
+                                ] },
+                                { 'key': 'AreasOfInterest.areas[].thumbnailUrl' }
+                            ] }
+                        ] }
+                    ] }
+                ] },
                 { 'title': $translate.instant('form.plugins.rangeslider'), 'key': 'rangeSlider', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'rangeSlider.enable' },
+                    { 'key': 'rangeSlider.open', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.controls', 'condition': 'model.rangeSlider.enable === true', 'titleMap': [
                         { value: 'lock', name: $translate.instant('form.plugins.rangesliderctrllock') },
                         { value: 'loop', name: $translate.instant('form.plugins.rangesliderctrlloop') },
@@ -152,48 +196,6 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         ] }
                     ] }
                 ] },
-                { 'title': $translate.instant('form.plugins.coordinfo'), 'key': 'coordInfo', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
-                    { 'key': 'coordInfo.enable' }
-                ] },
-                { 'title': $translate.instant('form.plugins.aois'), 'key': 'areasOfInterest', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
-                    { 'key': 'areasOfInterest.enable' },
-                    { 'key': 'areasOfInterest.areas', 'condition': 'model.areasOfInterest.enable === true', 'title': $translate.instant('form.plugins.aois'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
-                        // new item, create accordion
-                        events.$broadcast(events.avNewItems);
-                    }, 'add': $translate.instant('button.add'), 'items': [
-                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.aoi'), 'items': [
-                            { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                            { 'key': 'areasOfInterest.areas[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                { 'key': 'areasOfInterest.areas[].title-en-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
-                                    self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
-                                },
-                                { 'key': 'areasOfInterest.areas[].title-fr-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
-                                    self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
-                                },
-                                { 'type': 'template', 'template': commonService.addButton('form.plugins', 'setaoi', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.areasOfInterest.areas) },
-                                { 'type': 'section', 'htmlClass': 'row ', 'items': [
-                                    { 'key': 'areasOfInterest.areas[]', 'notitle': true, 'items': [
-                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'areasOfInterest.areas[].xmin', 'readonly': true }
-                                        ] },
-                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'areasOfInterest.areas[].ymin', 'readonly': true }
-                                        ] },
-                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'areasOfInterest.areas[].xmax', 'readonly': true }
-                                        ] },
-                                        { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'areasOfInterest.areas[].ymax', 'readonly': true}
-                                        ] }
-                                    ] }
-                                ] },
-                                { 'key': 'areasOfInterest.areas[].thumbnailUrl' }
-                            ] }
-                        ] }
-                    ] }
-                ] },
                 { 'title': $translate.instant('form.plugins.chart'), 'key': 'chart', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'chart.enable' },
@@ -215,24 +217,28 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { 'key': 'chart.labelsPie.values' },
                         { 'key': 'chart.labelsPie.split' }
                     ] },
-                    { 'key': 'chart.labelsLine', 'condition': 'model.chart.enable === true && model.chart.type !== "pie"', 'items': [
-                        { 'key': 'chart.labelsLine.xAxis', 'items': [
-                            { 'key': 'chart.labelsLine.xAxis.type', 'titleMap': [
+                    { 'key': 'chart.axis', 'condition': 'model.chart.enable === true && model.chart.type !== "pie"', 'items': [
+                        { 'key': 'chart.axis.xAxis', 'items': [
+                            { 'key': 'chart.axis.xAxis.type', 'condition': 'model.chart.enable === true && model.chart.type == "bar"', 'titleMap': [
                                 { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
                                 { value: 'field', name: $translate.instant('form.plugins.chartfield') }
                             ] },
-                            { 'key': 'chart.labelsLine.xAxis.title' },
-                            { 'key': 'chart.labelsLine.xAxis.values' },
-                            { 'key': 'chart.labelsLine.xAxis.split' }
+                            { 'key': 'chart.axis.xAxis.type', 'condition': 'model.chart.enable === true && model.chart.type == "line"', 'titleMap': [
+                                { value: 'date', name: $translate.instant('form.plugins.chartdate') },
+                                { value: 'linear', name: $translate.instant('form.plugins.chartlinear') }
+                            ] },
+                            { 'key': 'chart.axis.xAxis.title' },
+                            { 'key': 'chart.axis.xAxis.values' },
+                            { 'key': 'chart.axis.xAxis.split' }
                         ] },
-                        { 'key': 'chart.labelsLine.yAxis', 'items': [
-                            { 'key': 'chart.labelsLine.yAxis.type', 'titleMap': [
+                        { 'key': 'chart.axis.yAxis', 'items': [
+                            { 'key': 'chart.axis.yAxis.type', 'titleMap': [
                                 { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
                                 { value: 'field', name: $translate.instant('form.plugins.chartfield') }
                             ] },
-                            { 'key': 'chart.labelsLine.yAxis.title' },
-                            { 'key': 'chart.labelsLine.yAxis.values' },
-                            { 'key': 'chart.labelsLine.yAxis.split' }
+                            { 'key': 'chart.axis.yAxis.title' },
+                            { 'key': 'chart.axis.yAxis.values' },
+                            { 'key': 'chart.axis.yAxis.split' }
                         ] }
                     ] },
                     // TODO: re enable add when geoapi will support layer id. At the same time re enable layer id selection
@@ -304,6 +310,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { value: 'point', name: $translate.instant('form.plugins.drawctrlpoint') },
                         { value: 'polyline', name: $translate.instant('form.plugins.drawctrlpolyline') },
                         { value: 'polygon', name: $translate.instant('form.plugins.drawctrlpolygon') },
+                        { value: 'edit', name: $translate.instant('form.plugins.drawctrledit') },
                         { value: 'measure', name: $translate.instant('form.plugins.drawctrlmeasure') },
                         { value: 'extent', name: $translate.instant('form.plugins.drawctrlextent') },
                         { value: 'write', name: $translate.instant('form.plugins.drawctrlwrite') },

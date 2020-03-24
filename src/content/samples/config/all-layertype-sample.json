@@ -1234,7 +1234,7 @@
         "coordInfo": {
             "enable": false
         },
-        "areasOfInterest": {
+        "AreasOfInterest": {
             "enable": false
         }
     }

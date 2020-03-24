@@ -11,6 +11,11 @@
                     "type": "boolean",
                     "title": "Enable"
                 },
+                "open": {
+                    "type": "boolean",
+                    "title": "Open by default",
+                    "default": true
+                },
                 "controls": {
                     "type": "array",
                     "default": ["lock", "delay"],
@@ -123,7 +128,7 @@
                 }
             }
         },
-        "areasOfInterest": {
+        "AreasOfInterest": {
             "type": "object",
             "properties": {
                 "enable": {
@@ -251,7 +256,7 @@
                     },
                     "required": ["cutOut"]
                 },
-                "labelsLine": {
+                "axis": {
                     "type": "object",
                     "title": "Labels",
                     "properties": {
@@ -273,7 +278,7 @@
                                         "linear",
                                         "time"
                                     ],
-                                    "description": "Retreive the labels from a field, configuration or from values (linear and time).",
+                                    "description": "Retreive the labels from a field or configuration for bar chart or from values (linear or time) for line chart.",
                                     "default": "config"
                                 },
                                 "values": {
@@ -309,7 +314,7 @@
                                         "linear",
                                         "time"
                                     ],
-                                    "description": "Retreive the labels from a field, configuration or from values (linear and time).",
+                                    "description": "Retreive the labels from a field or configuration for bar chart or from values (linear or time) for line chart.",
                                     "default": "config"
                                 },
                                 "values": {
@@ -472,7 +477,7 @@
                     "type": "boolean",
                     "title": "Enable"
                 },
-                "active": {
+                "open": {
                     "type": "boolean",
                     "title": "Open by default",
                     "default": true
@@ -483,11 +488,11 @@
                     "items": {
                         "type": "string",
                         "enum": [
-                            "picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"
+                            "picker", "point", "polyline", "polygon", "edit", "measure", "extent", "write", "read"
                         ]
                     },
                     "description": "Tools to add to draw toolbar.",
-                    "default": ["picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"]
+                    "default": ["picker", "point", "polyline", "polygon", "edit", "measure", "extent", "write", "read"]
                 }
             },
             "required": ["active", "tools"]
