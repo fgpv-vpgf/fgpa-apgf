@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="./config/..." rv-extensions="extensions/extent.js">
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="./fgpa-latest/config/..." rv-extensions="extensions/extent.js">
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
     // set config name to data-rv-config
-    document.getElementById('fgpmap').setAttribute('data-rv-config', './config/' + localStorage.getItem('configextent') + '.json');
+    document.getElementById('fgpmap').setAttribute('data-rv-config', './fgpa-latest/config/' + localStorage.getItem('configextent') + '.json');
 
     localStorage.removeItem('configextent');
 </script>
