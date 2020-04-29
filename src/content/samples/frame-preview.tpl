@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
-
     <script>
         var version = localStorage.getItem('viewerversion');
         var envar = localStorage.getItem('viewerenv');
@@ -22,8 +21,20 @@
         if (plugins[0] === "") { plugins = []; }
         for (var i = 0; i < plugins.length; i++) {
             var pluginDash = plugins[i].replace(/([A-Z])/g, function(char) { return '-' + char[0].toLowerCase(); });
-            var path = 'https://{env}gcgeo.gc.ca//fgpv/fgpv-x.x.x/plugins/'.replace('x.x.x', version).replace('{env}', envar)
-                + pluginDash + '/' + pluginDash;
+
+            // RAMP plugin are not at the same as custom plugins
+            var path = '';
+            if (['AreasOfInterest', 'CoordinateInfo'].indexOf(plugins[i]) !== -1) {
+                path = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/ramp-plugin'.replace('x.x.x', version).replace('{env}', envar)
+                    + pluginDash;
+                //    path = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/ramp-plugin-'.replace('x.x.x', version).replace('{env}', envar)
+               //     + 'coordinate-info';
+            } else {
+                path = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/plugins/'.replace('x.x.x', version).replace('{env}', envar)
+                    + pluginDash + '/' + pluginDash;
+                path = 'https://jolevesq.github.io/contributed-plugins/' + pluginDash + '/' + pluginDash;
+            }
+
             var script = document.createElement('script');
             script.src = path + '.js';
             document.getElementsByTagName('head')[0].appendChild(script);
@@ -57,7 +68,6 @@
 </div>
 
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Object.entries,Object.values,Array.prototype.find,Array.prototype.findIndex,Array.prototype.values,Array.prototype.includes,HTMLCanvasElement.prototype.toBlob,String.prototype.repeat,String.prototype.codePointAt,String.fromCodePoint,NodeList.prototype.@@iterator,Promise,Promise.prototype.finally"></script>
-
 <script type="text/javascript">
     // set window.config to pass the config object to the data-rv-config
     // the object needs to be attach to the window object
@@ -74,7 +84,7 @@
     var version = localStorage.getItem('viewerversion');
     var envar = localStorage.getItem('viewerenv');
     envar = (envar === 'dev') ? 'dev.' : '';
-    scriptTag.src = 'https://{env}gcgeo.gc.ca//fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
+    scriptTag.src = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
     document.body.appendChild(scriptTag);
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');

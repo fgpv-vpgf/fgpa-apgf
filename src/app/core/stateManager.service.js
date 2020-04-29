@@ -479,13 +479,13 @@ function stateManager($translate, events, constants, commonService) {
         const masterLink = constants.schemas
             .indexOf(`plugins.[lang].json`) + 1;
 
-        const setID = [1, 'areasOfInterest', 'areas'];
+        const setID = [1, 'AreasOfInterest', 'areas'];
 
         const hlink = constants.subTabs.plugins.keys[2].replace(/\./g, '-');
 
         // is there a defined area of interest
-        if (typeof stateModel.items[2].items !== 'undefined') {
-            stateModel.items[2].items[setID[0]]['items'] = [];
+        if (typeof stateModel.items[1].items !== 'undefined') {
+            stateModel.items[1].items[setID[0]]['items'] = [];
             const items = model[setID[1]][setID[2]];
 
             for (let [j, item] of items.entries()) {
@@ -501,7 +501,7 @@ function stateManager($translate, events, constants, commonService) {
                 }
                 const shlink = setItemId(hlink, j, setID[1], setID[2]);
 
-                stateModel.items[2].items[setID[0]]['items']
+                stateModel.items[1].items[setID[0]]['items']
                     .push({ 'key': titleEn,
                         'title': titleEn,
                         items: [],

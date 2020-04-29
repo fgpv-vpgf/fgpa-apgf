@@ -11,6 +11,11 @@
                     "type": "boolean",
                     "title": "Activer"
                 },
+                "open": {
+                    "type": "boolean",
+                    "title": "Ouvert par défaut",
+                    "default": true
+                },
                 "controls": {
                     "type": "array",
                     "default": ["lock", "delay"],
@@ -122,7 +127,7 @@
                 }
             }
         },
-        "areasOfInterest": {
+        "AreasOfInterest": {
             "type": "object",
             "properties": {
                 "enable": {
@@ -250,7 +255,7 @@
                     },
                     "required": ["cutOut"]
                 },
-                "labelsLine": {
+                "axis": {
                     "type": "object",
                     "title": "Labels",
                     "properties": {
@@ -270,7 +275,7 @@
                                         "field",
                                         "config"
                                     ],
-                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
+                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type bar ou bien par valeurs (date ou linéaire) pour un grpahique de type ligne.",
                                     "default": "config"
                                 },
                                 "values": {
@@ -304,7 +309,7 @@
                                         "field",
                                         "config"
                                     ],
-                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
+                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type bar ou bien par valeurs (date ou linéaire) pour un grpahique de type ligne.",
                                     "default": "config"
                                 },
                                 "values": {
@@ -478,11 +483,11 @@
                     "items": {
                         "type": "string",
                         "enum": [
-                            "picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"
+                            "picker", "point", "polyline", "polygon", "edit", "measure", "extent", "write", "read"
                         ]
                     },
                     "description": "Outils à ajouter à la barre d'outils de dessin.",
-                    "default": ["picker", "point", "polyline", "polygon", "measure", "extent", "write", "read"]
+                    "default": ["picker", "point", "polyline", "polygon", "edit", "measure", "extent", "write", "read"]
                 }
             }
         },
