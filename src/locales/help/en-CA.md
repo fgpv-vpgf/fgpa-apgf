@@ -350,5 +350,381 @@ Keyboard Accessibility - Keyboard functionality is provided as an alternative fo
 
 You can reorder the array of basemaps and layers from the keyboard. To do so, when focus is one of the array item container, press down arrow key to move it downward or press up arrow key to move it upward.
 
-You can focus directly to the Summary panel by pressing Alt+q. By pressing Alt+a, the focus will go back to the original
-element.
+You can focus directly to the Summary panel by pressing Alt+q. By pressing Alt+a, the focus will go back to the original element.
+
+
+# Plugins Draw Toolbar
+
+![](drawtoolbar.png "Draw toolbar")
+
+The draw toolbar plugin allows users to draw points, lines and polygons as well as upload or download graphics to the download directory on your computer with the file name viewer.fgpv in ArcGIS Server JSON representation format.
+
+Enable
+Click the enable button checkbox to enable the draw toolbar in the FGP viewer. Once selected the toolbar is not visibile but has to be selected in the side menu.
+
+![](open_by_default_tb.png "Main Menu")
+ 
+Open by defult
+Click the open by default checkbox to enable the draw toolbar to appear in the menu bar. If not selected, you must select the tool bar in the side menu by selecting the draw toolbar plugin in order to make it appear in the menu toolbar.
+
+Select Color Picker
+
+Select the color picker checkbox to enable the color picker icon on the toolbar. The color picker lets you select colors for points, lines or polygons drawn on the map. Once you click on the color picker icon in the draw tollbar a window will appear allowing you to select a color. Initially the color selected is red but the color can be changed by clicking on the color bar on the top of the menu. The color selected will be the color used to draw a line, point or polygon. Multiple colors can be used.
+ 
+Draw points
+
+Click on the draw point checkbox to be able to draw points on the map. The draw point icon will appear on the draw toolbar and you be able to draw a point on the map. Select the draw point icon then click on the map to draw a point.
+
+Draw lines
+
+Click on the draw line icon checkbox to draw a lines on the map. Once selected the draw line icon will appear in the draw toolbar. Click once to enter the start point, then click to enter subsequent points or double click to enter the end point. A line will be drawn on the display in the selected color.
+
+Draw polygons
+
+Click on the draw polygon checkbox to enable the draw polygon icon in the tool bar. To draw a polygon clcik on he draw polygon icon on the toolbar then click on the display to draw a polygon start point over the image displayed in the viewer. Click on as many points for the polygon as you wish to create and double click to close the polygon.
+
+Edit Graphics
+
+Click on the edit graphics checkbox to add the edit graphics icon to the tool bar. Click on the edit graphics icon on the toolbar then click on the point, line or polygon to edit the graphic. Drag the point, end points or midpoint of a line or edit box of a polygon to modify it. Click on the point of the polygon you wish to edit and drag the point to expamd of contract the polygon.
+
+Show/Hide Measures
+
+Click on the show hide measures checkbox to display or remove the distances of lines or areas of polygons displayed.The distance of lines and areas of polygons are displayed on the lines or polygons once drawn. To hide the distances displayed click on the show/hide distances button of the menu bar. Click once again to display the distances. 
+
+Erase Selected graphics
+
+Click on the erase graphics checkbox to add the erase graphics icon to the tool bar. This button lets you erase a selected graphic. Select the erase graphic button then hold down the left mouse button to drag an area over selected graphic to delete it.
+
+Save graphics file
+
+Click on the save graphics checkbox to add the save graphics icon to the tool bar. The save graphics button lets you save the graphics drawn on the viewer to your download directory with the file name viewer.fgpv. Click on the save graphics checkbox to add the save graphics icon to the tool bar.
+
+Upload graphics file
+
+Click on the upload graphics file checkbox to add the upload graphics file icon to the tool bar. The upload graphics button lets you upload a graphics file as a graphics layer file in the viewer. Once you click on the upload graphics icon a file open directory will appear allowing you to select a file to load as a graphics file. Select the file you wish to upload then click the open button and the file will appear in the viewer.
+
+
+# Plugins Swiper
+
+![](swiper_en.png "Swiper")
+
+The swiper lets you move a vertical bar to control the display of the selected feature layer. A vertical bar is displayed on the viewer that can be moved right or left by holding down the right mouse button anywhere on the vertical bar and dragging it in either direction. The swiper is active once enabled and is not listed in the side menu of the viewer so can not be disabled.
+
+Enable
+
+Click on the enable button to select the swiper. It will not appear in the list of plugnins selected in the side menu. Once selected the swiper plugin can not be unselected from the viewer.
+
+Type
+
+Enter the type of vertical display. The only type of swiper available is vertical.
+
+Keyboard Movement
+
+The keyboard movement indicates the pixel value of the movement of the swiper displacement when you move the swiper by holding the cursor over the swiper. The minimum value is 1. The maximum value is 100.
+
+layer ID 
+
+Select the layer identifier from the pull down list of map layers. This layer will be displayed to the right of the vertial swiper bar and on the left of the swiper bar will be displayed the other feature layers.
+
+The identifier of the layer does not relate directly to any external service.
+
+
+# Plugins Range Slider
+
+![](range_slider_en.png "Range Slider")
+
+The Range slider lets you create an animation based on a attribute value that is a number or date. A panel is dispayed at the bottom of the map view with buttons to control the viewing the animation. The Range slider works with ESRI feature, ESRI dynamic, ESRI WMS and WMS-T layers. Once opened it will appear on  the botton of the map view. 
+
+Enable layer
+
+Click on the enable button to select the range slider. It will appear in the viewer side menu in the list of plugins. Once enabled it still must be selected from the side menu in order to run the range slider in the viewer map window.
+
+Open by defult
+
+Click the open by default checkbox to enable the range slider to appear in the map view. If not selected, you must select the range slider fom the list of plugins in the sode to make it appear in the map view.
+
+##### Slider bar controls
+
+Lock/unlock minimal range
+
+The lock button will Lock or unlock the left anchor when the animation is played.
+
+Loop animation
+
+The loop animation button when selected causes the animation to loop with the min and max values selected.
+
+Delay between animation
+
+The delay between animation causes the animation to be delayed the number of seconds specified.
+
+Export animation as Gif
+
+The export animation as gif option lets you export the animation as a gif file. The export to GIF function is not supported on Internet Explorer as it does not support SVG tag and Safari, as it uses a stricter security model on tag (domtoimage library).
+
+To export the animation select the gif button on the animation control by selecting the button to the right. The button will turn blue.Then press play to play the animation. Then pause the animation and deselect the gif button in order to automatically download the animation. The animation will be downloaded to the download directory with the filaname fgpv-slider-export.gif. It may take a few seconds to download the animation.
+
+Refresh
+
+The refresh button let you reset the slider with the default values.
+
+Parameters
+
+Slider Type 
+
+The slider type specified the type of fileld used to display the animation. It may be a number or date field. Select number or date from the pull down list. If date is selected, the range and limit must be in milliseconds.
+
+Delay between animations
+The default delay for the animation is 3 seconds. Other values can be selected from the pull down list .
+
+Default Range Values
+
+The range values dictate the interval be it number or date that will be used to display the animation. The smaller the range the longer the animation will run and more data will be displayed.
+
+Min Range 
+
+The minimal value for the range. If not set, minimum limit will be use. Must be set for WMS layers.
+
+Max Range 
+
+The maximal value for the range. If not set, maximum limit will be use. Must be set for WMS layers.
+
+Default Limit Values
+
+Min Limit 
+
+The minimal value for the limit. Must be set for WMS layers.
+
+Max Limit 
+
+The maximum value for the limit. Must be set for WMS layers.
+
+Layers
+
+ID 
+Select the identifier of the layer from the pull down list.
+
+Field Name 
+
+Enter the name of the field to be used as the date or number fields used with the range slider. It must be the field name, not the alias. It is based on the values of this field that the animation will be displayed.
+
+
+# Plugins Thematic Slider
+
+![](thematic_slider_en.png "Thematic Slider")
+
+The Thematic slider displays multiple selected map layers in sequence in order to compare the evolution of geolocated data. The control for the thematic slider may appear in the layers panel at the bottom of the layer list. It will work only with ESRI feature and ESRI dynamic layer. The sequence of map layers may be run in animation with a panel displayng a description of the displayed layer.
+
+Enable
+
+Click on the enable radio button to select the Thematic Slider. It will appear on the viewer and the list of plugins selected in the side viewer menu.
+
+Open by default
+
+Click the open by default checkbox to enable the thematic slider to appear in the layers panel at the bottom of the layer list. If not selected, you must select the thematic slider in the side menu by selecting the thematic slider plugin in order to make it appear in the menu toolbar.
+
+Start animation on load
+
+The start animation on load checkbox when selected will automatically start the animation  when the viewer is loaded.
+
+Play the animation in loop 
+
+The play animation in loop  when selected will loop the animation when the viewer is loaded.The animation can be stopped through the animation control at the bottom of the layers panel.
+
+Enable description control
+
+Click on the enable description control to display the sdescription n a panel on the viewer.
+
+Enable slider control
+
+Ckick on the enable slider control to display the slider control  at the bottom  of the Thematic slider panel. THe sldier control will permit you to stop the animation or go to the next or previous layer.
+
+Stack layer visibility
+
+Click the stack layer visibility checkbox if only the active layer is to be shown to start the animation or if all layers are to be viewed from the initial layer in the list to the active layer.
+
+Layer ID 
+
+Select the layer identifier of the layer to be displayed from the pull down list.
+ 
+Animation duration in milliseconds 
+
+Enter a number for the animaton duration. The initial duration of the animation is 3000 milliseconds.
+
+Title for this layer animation 
+
+Enter the title of the layer aniamation. The title wll be dislayed in a panel.
+
+Description for this layer animation 
+
+Enter the decription of the layer animation.The title wll be dislayed in a panel.
+
+Click on the add button to add multiple layers to the animation.
+
+
+# Plugins Charts
+
+![](charts_en.png "Chart")
+
+The chart plugin displays a chart when the users clicks on a point on the map display. It can be used with ESRI layer dynamic and Feature layers. It also works with file layer type like CSV or GeoJSON when they are served from a server.
+
+Enable
+
+Click on the enable checkbox to select the charts plugin. It will appear on the viewer side menu selected.
+
+The chart plugin is active once enabled and it is not listed in the side menu of the viewer so can not be disabled once selected.
+
+Chart Type
+
+Select the type of chart from the pull down list.The types of charts that can  be selcted are pie, bar and line charts.
+
+Title
+
+Enter the title of the chart to be used.
+
+Options
+
+Datasets Colors 
+
+Hexadecimal color code separated by a semicolon. If not provided, default colors will be used.
+
+Cut Out Percentage
+
+The Cut out percentage gives a doughnut effect for the chart. Enter a value between 10 to 80.
+
+
+Labels
+
+Type 
+
+The type of labels you can choose are configuration or field. You can retreive the labels from the configuration for bar charts or use values from a field (linear or date) for line charts.
+
+Values 
+
+Enter values for the label fields separated by a semi colon or a field name whose values will be used for the label.
+
+Split Character 
+
+Character to use to split list of values. The ; character is the default. 
+
+Layer ID 
+
+Select the layer to be used for the chart from the pull down list. The GeoApi doesn't support layer identifiers  inside identify. The plugin for the moment will only work when there is one layer on the map.
+
+Data
+
+Type of data inside the field
+
+Select a single value or combined value from the pull down list. Single if there is one value inside the field and combined if time is an axis and is used if time and value are part of the field.
+
+Measure Field
+
+Enter the field name to use for the measure to create the chart. It must be the field name, not the alias.
+
+Data Splitter
+
+Regex value to split datasets inside the field.
+
+This field is to manage when you have multiple datasets or combine values in the same field. To be able to separate datasets from values, we will use a regex expression. We encourage you to use your data and test your regex expression on a online site like https://regex101.com.
+
+Below is a list of some sample datasets and their regex: valeus used
+
+Sample 1
+    Data: [255;255;255];[120;232;23];[32;44;134]
+    
+    Regex: \\\\[|\\\\];\\\\[|\\\\]
+
+    Output: 3 datasets (e.g. 255;255;255). Values inside dataset will be split by the field 'Values Splitter'.
+    
+Sample 2
+
+    Data: (2011-03-28,0.511),(2011-04-04,0.421)
+    
+    Regex: \\\\(|\\\\),\\\\(|\\\\)</li><li>
+    
+    Ouput: 1 datasets, 2 pairs of values (e.g. 2011-03-28,0.511). Values inside are combined (y and x axis) and will be split by the field 'Values Splitter'.
+    
+    Note: we need to double the '\\' character</em></p>"
+
+Values splitter
+
+Enter the value splitter character to use to split values inside a field. Example a field contains '10;20;30' means there is 3 values split by ';' or [1,2,3];[4,5,6] means there is 2 datasets with 3 values each split by ','
+
+Dataset labels 
+
+Type 
+
+Select from the pull down list either value of configuration or field.
+
+Prefix to add to data hover
+
+Enter a string prefix to add to the hover data. The hover data appears over the chart displayed.
+
+Suffix to add to data hover
+
+Enter a string suffix to add to the hover data. The hover data appears over the chart displayed.
+
+
+# Plugins Coordinate Info
+
+![](coordinate_info_en.png "Coordinate Information")
+
+This coordinate info plugin displays information for the map locations when the user clicks on the map. 
+
+When the plugin is activated the cursor is changed to a cross. The coordinate informaton is displayed in a panel over the layer list and can be deselected by clicking on the x of the panel to return to the layer list. As long as the cursor is displayec as a cross on the map every mouse click will display the coordinate information in the coordinate information panel.
+
+By default the coordinate info plugin is not activated when enabled. It must be selected in the side menu to activate it. To deselect the plugin click beside the coordinate info plugin name in the side menu.
+
+Enable
+
+Click on the enable button to select the coordinate info plugin. It will appear on the viewer with the list of plugins selected in the side  menu. To disable the plugin deselect the plugin in the side menu.
+
+
+# Plugins Area of Interest
+
+![](area_of_interest_en.png "Area of Interest")
+
+This plugin displays the area of interest locations in the map window. The user clicks on the name of the area of interest in the area of interest panel and the map view zooms to the coordinates of the selected area.
+
+Enable
+
+Click on the enable button to select the coordinate info plugin. It will appear on the viewer with the list of plugins selected in the side menu. By default the area of interest plugin is not activated when selected. It must be selected in the side menu by selecting the plugin by a mouse click beside the name of the plugin. To deselect the plugin click beside the plugin name.
+
+The area of interests are displayed in a panel over the layer list and can be selected by clicking on an area of interest. To remove the area of interest panel click on the x of the panel to display the layer list. To view the area of interest panel the plugin must be reselected in the main menu.
+
+English title
+
+Enter the english title to be displayed in the area of interest panel.
+
+French Title
+
+Enter the french title to be displayed in the area of interest panel.
+
+Set Area
+
+The Set Area button opens up a viewer preview window and let users zoom and pan to the map extents that they wish to use as the area of interest. Once the wndow is closed by clcking on the x at the top right corner of the window the coordinates are saved and are used as the values for the following coordinates indicated below for the area of interest.
+
+The following minimum and maximum values for X and Y coordinates are entered automatically by using the set area of interest button and defining an area. The following fields are uneditable.
+
+Minimum value of X coordinate
+
+The default value is -4844430.
+Entered automatically by using the set area of interest button and uneditable.
+
+Mininimum value of Y coordinate
+
+The default value is -1052774.
+Entered automatically by using the set area of interest button and uneditable.
+
+Maximum value of X coordinate
+
+The default value is 5666163.
+Entered automatically by using the set area of interest button and uneditable.
+
+Maximum value of Y coordinate
+
+The defaut value is 4170111.
+Entered automatically by using the set area of interest button and uneditable.
+
+Thunmbnail url
+Enter the address of the thumbnail url to be displayed in the area of interest panel. xxxxx
+

@@ -235,7 +235,7 @@ La section Barre d'application vous permet d'ajouter ou de supprimer les outils 
 
 ##### Navigation
 
-La bsection navigation vous permet d'ajouter ou de supprimer les composantes de navigation suivantes:
+La section navigation vous permet d'ajouter ou de supprimer les composantes de navigation suivantes:
 + Votre emplacement (_geolocator_) - Afficher la position de l'utilisateur sur la carte
 + Étendue initiale (_home_) - Zoom sur l'étendue initiale
 + Sélecteur de cartes de base (_basemaps_) - Ouvrir le sélecteur de fond de carte _- également disponible dans la barre d'application -_
@@ -310,8 +310,7 @@ chargé de l'application APGF que vous utilisez et / ou
 ##### Liens pour les services
 
 La section Liens pour les services répertorie toutes les URL des services requises par l'application de visualisation.
-Ces URL sont des valeurs en lecture seule et par conséquent ne peuvent pas être modifiées. Si vous rencontrez un problème avec
-ces services, contactez le responsable de l'application VPGF que vous utilisez.
+Ces URL sont des valeurs en lecture seule et par conséquent ne peuvent pas être modifiées. Si vous rencontrez un problème avec ces services, contactez le responsable de l'application VPGF que vous utilisez.
 
 
 # Version
@@ -373,3 +372,403 @@ Vous pouvez réorganiser le tableau des cartes de fond et des couches à partir 
 
 Vous pouvez focuser directement au panneau de sommaire en pressant Alt+q. En pressant Alt+a, le focus retournera
 à l'élément original.
+
+
+# Module Barre de dessin
+
+![](drawtoolbar.png "Barre de dessin")
+
+Le module Barre de dessin permettre les utilisateurs de dessiner des points, lignes, surfaces et les telechanger et téléverser des fichiers de dessin sur votre ordianteur dans le repertoire télédechargement avec le nom viewer.fgpv dans le foramt ArcGis serveur representation JSON.
+
+Activer
+
+Cliquez sur le cas à cocher activer, pour voir la barre de dessin dans le menu latéral de visualisateur. Une fois selectionner il faut chosisir la barre de dessin dans le menu latéral  pour le rendre visible et fonctionnel.  
+
+![](activer_barre_de_dessin_fr.png "Main Menu")
+
+Cliquez sur le cas à cocher ouvert par défaut, pour voir la barre de dessin dans la barre d'application de visualisateur.
+
+Outils à ajouter à la barre d'outils de dessin
+
+Les outils que vous pouvez ajouter à la barre de dessin sont les suivants.
+
+Sélecteur de couleurs
+
+Cliquez sur le cas à cocher Sélecteur de couleurs pour activer le sélecteur de couleurs dans la barre de dessin. Le sélecteur de couleurs vour permettre de selectionner des couleurs pour les point, lignes et polygones. Un fois selectionner le couleur choisi sera utilier pour des points, lignes ou polygones dessiner. Par defaut le couleur initiale est rouge.
+
+Dessiner des points
+
+Cliquez sur le cas à cocher dessiner des points pour ajouter un bouton pourr dessiner des points dans la barre de dessin. Les points seront afficher dans le couleur choisi. Cliquez sur le bouton point dans le visualisateur pour activer des points et après,cliquez sur la carte pour crée des points.
+
+Dessiner des lignes
+
+Cliquez sur le cas à cocher Dessiner des lignes pour ajouter un bouton pour dessiner des lignes dans la barre de dessin. Les lignes seront afficher dans le couleur choisi. Cliquez sur le bouton ligne dans le visualisateur pour activer des lignes et après,cliquez sur la carte pour crée le point de depart et apres cliquez sur les points et double clique pour terminer la ligne.
+
+Dessiner des polygones
+ 
+Cochez sur Dessiner des polygones pour ajouter un bouton pour dessiner des polygones dans la barre de dessin. Cliquez sur le bouton polygone dans le visualisateur pour activer des polygones et après,cliquez sur la carte pour crée le point de depart et apres cliquez sur les points et double clique pour terminer la polygone.
+
+Éditer les dessins
+
+Cliquez sur le cas à cocher editer les Dessins pour ajouter un bouton pour dessiner des polygones dans la barre de dessin et editer les coordonnees des  points , lignes  ou polygones sur la carte.  Cliquez sur le bouton editer les dessins dans le visualisateur pour editer les points, lignes et polygones. Cliquez sur le dessin pour editer le dessin.
+
+Afficher / Cacher les mesures
+
+Cliquez sur le cas à cocher Afficher / Cacher les mesures pour ajouter un bouton pour afficher u cacher les measures  dans la barre de dessin.
+
+Supprimer des dessins par étendue
+
+Cliquez sur le cas à cocher Supprimer des dessins par étendue pour ajouter un bouton pour afficher ou cacher les measures dans la barre de dessin.
+
+Sauvegarder dessins
+
+Cliquez sur le cas à cocher Sauvegarde dessins pour ajouter un bouton pour avoir capable de sauvegarder un fichier de dessins dans la barre de dessin. Le fichier de dessins sera sauver dans le répertoire de téléchargement avec le nom viewer.fgpv.
+
+Charger dessins
+
+Cliquez sur le cas à cocher Charger dessins pour ajouter un bouton pour avoir capable de charger un fichier de dessins dans la barre de dessin.
+
+
+# Module Glisseur
+
+![](swiper_en.png "Module Glisseur")
+
+Cette section est utilisée pour définir le module glisseur. Il y a un seule type disponibles vertical.
+Vous pouvez deplacer le glisseur avec le curseur pour visualiser les differences entre des couches. Une fois selectionner la barre de dessin ne peut pas etre deselectioner et n'apparaitera pas dans le menu latéral pour le rendre visible et fonctionnel.  
+
+Activer
+
+Cliquez sur le cas à cocher activer, pour activer le glisseur.
+
+Type
+
+Le type de glisseur par defaut est Vertical.
+
+Déplacement clavier
+
+Entrez la valeur en pixel du déplacement du glisseur. La valeur de defaut est 10 et le maximum est 100.
+
+Couches
+
+ID 
+
+Choissisez l'identifiant de la couche dans la liste pour le référencement dans le visualiseur (ne concerne pas directement un service externe).
+
+
+# Module Curseur de place thématique
+
+![](thematic_slider_en.png "Curseur de place thématique")
+
+La curseur de plage thématique affiche des couches en animation en sequence et affiche un titre et description dans un panneau.
+
+Activer
+
+Cliquez sur le cas à cocher activer pour rendre le curseur de plage thématique actif. Le module sera afficher dans le menu latéral .
+
+Ouvert par défaut
+
+Cliquez sur cette cas à cocher pour ouvrir l'animation sur execution du visualisateur. Le module sera aussi afficher dans le menu latéral. Vous devez cliquer sur le bouton jouer pour commencer l'animation.
+
+Démarrer l'animation au chargement
+
+Cliquez sur cette cas à cocher pour executer l'animation sur le chargement du visualisateur. Le module sera aussi afficher dans le menu latéral. Vous pouvez arreter or recommencer l'animation en cliquant sur les boutons au dessous le panneau qui contient le titre et description.
+
+Jouer l'animation en boucle
+
+Cliquez sur cette cas à cocher pour executer l'animation en boucle sur le chargement du visualisateur. Une fois activer l'animation va executer en boucle jusqu'au temps t'arrete l'animation avec le bouton Pause.
+
+Activer la description
+
+Cliquez sur cette cas à cocher  pour afficher la description dans un panneau.
+
+Activer la barre de défilement
+
+Cliquez sur cette cas à cocher pour activer la barre de défilement dessous le panneau qui decrit la couche afficher.
+
+Empiler la visibilité des couches
+
+Cliquez sur cette cas à cocher pour afficher toutes le couches en sequence. Si non, seulement le couche actif est afficher.
+
+Couches
+
+ID 
+
+Choissisez l'identifiant de la couche dans la liste pour le référencement dans le visualiseur (ne concerne pas directement un service externe).
+
+Durée de l'animation en millisecondes 
+
+Entrez un temps en millisecondes pour l'affichage de la couche. La valauer de défaut est 3000.
+
+Titre de l'animation de cette couche 
+
+Entrez le titre de l'aniimation qui sera afficher dans le panneau.
+
+Description de l'animation de cette couche 
+
+Entrez le description de l'aniimation qui sera afficher dans le panneau.
+
+
+# Module Curseur de plage 
+
+Le mmodule Curseur de plage vous permettre d'afficher une animation en utilisant une chanp de type chiffre ou date. Une panneau est afficher en bas de fenetre avec des controles. Ca fonctionne avec des couches ESRI feature, ESRI dynamic, ESRI WMS and WMS-T.
+
+![](thematic_slider_en.png "Curseur de plage ")
+
+Activer
+
+Cocher le cas à cocher activer pour rendre le curseur de plage actif. Le module sera afficher dans le menu latéral.
+
+Ouvert par défaut
+
+Cliquez cette cas à cocher pour ouvrir l'animation sur execution du visualisateur. Vous devez cliquer sur le bouton jouer pour commencer l'animation.
+
+Contrôles de la barre de défilement
+
+Cliquez sur cette cas à cocher pour afficher les Contrôles de la barre de défilement de l'animation. 
+
+Barrer / débarrer la plage minimale
+
+Cliquez sur cette cas à cocher pour barrer ou débarrer la plage minimale dans les contrôles de la barre de défilement de l'animation. 
+
+Boucler l'animation
+
+Cliquez sur cette cas à cocher pour executer l'animation em boucle.
+
+Délais entre les animations
+
+Choissisez de la liste des valeurs le délais entre les animations en secondes. La valeur de défaut est 3 secondes.
+
+Exporter l'animation en format Gif
+
+Cocher le cas à cocher exporter l'animation en format Gif pour sauver l'animation visualiser. 
+
+Rafraîchir
+
+Cocher le cas à cocher Rafraîchir pour sauver l'animation visualiser. 
+
+## Paramètres
+
+Type de curseur    
+
+Choisissez nombre ou date de la liste des valeurs.
+Si la valeur 'Date' est sélectionné, la valeur de la plage et de la limite est en millisecondes.
+
+Délais entre les animations.
+
+Par défault le délais est 3 secondes. Vous pouz selctionner autres valeurs de la liste.
+
+Valeurs par défault de la plage
+
+Les valeurs de la plage sont utiliser pour determiner l'intervale utiliser dans l'animation. Le plus petite l;intervale le  plus longue l'animation va executer.
+
+Plage min 
+
+La valeur minimale pour la plage. Si non défini, la limite minimale sera utilisée. Doit être définie pour les couches WMS.
+
+Plage max 
+
+La valeur maximale pour la plage. Si non défini, la limite maximale sera utilisée. Doit être définie pour les couches WMS.
+
+Valeurs par défault de la limite
+
+Limite min 
+La valeur minimale pour la limite. Doit être définie pour les couches WMS.
+
+Limite max 
+La valeur maximale pour la limite. Doit être définie pour les couches WMS.
+
+Couches
+
+ID 
+
+L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).
+
+Nom du champ 
+
+Entrez le nom du champ qui contient le nombre ou date a utiliser pour l'animation.
+
+
+# Module Graphiques 
+ 
+Le module Graphiques affiche des graphique quand vous choissisez un point sur la carte. Ca peut etre utiliser avec les couches ESRI dynamic et Feature. Ca peut aussi etre utiliser avec un fichier de type CVS ou GeoJson télécharger par un serveur..
+
+![](charts_en.png "Graphiques ")
+
+Activer
+
+Cocher le cas à cocher activer pour rendre le curseur de plage actif. Le module sera afficher dans le menu latéral .
+
+Type de graphique
+
+Choissiez le type de graphique entre tarte, barre et ligne dans la liste.
+
+Titre
+
+Engtrez le titre pour le graphique.
+
+## Options
+
+Couleurs des jeux de données 
+
+Entrez le code de couleur hexadécimal séparé par un point-virgule. Si non fourni, les couleurs par défaut seront utilisées.
+
+Pourcentage de découpe 
+
+Enterz un numero entre 10 et 80 pour le percentage de découpage.
+
+## Étiquettes 
+
+Type 
+
+Choissiez le type d'étiquettes pour récupérer les étiquettes d'un champ ou de la configuration.
+
+Valeurs 
+
+Entrez des valeurs séparées par un point-virgule ou un nom de champ.
+
+Caractère de division 
+
+Entrez un caractère à utiliser pour scinder une liste de valeurs. Par defaut la  valeur est ; .
+
+Couches
+
+Identifiant de la Couche 
+
+GeoApi ne prend pas en charge les identifiants des couches. Le module, pour le moment, ne fonctionnera que s'il y a une seule couche sur la carte.
+
+Données
+
+Type de données à l'intérieur du champ
+
+Unique s'il n'y a qu'une seule valeur dans le champ. Combinez si vous utilisez l’axe temps et que le temps et la valeur font partie du champ.
+
+Champ de mesure
+
+Entrez le nom du champ a utiliser our cree le graphique.
+
+Enter the field name to use for the measure to create the chart. It must be the field name, not the alias.
+
+Separateur de donnees
+
+Entrez la valeur regex pour fractionner les jeux de données à l'intérieur du champ 
+
+Ce champ sert à gérer lorsque vous avez plusieurs jeux de données ou que vous combinez des valeurs dans un même champ. Pour pouvoir séparer les jeux de données des valeurs, nous devons utiliser une expression régulière. Nous vous encourageons à utiliser vos données et à tester votre expression sur un site en ligne tel que https://regex101.com. 
+
+Vous trouverez ci-dessous une liste d’échantillons de jeux de données et de regex:
+
+Exemple 1
+
+Données: [255; 255; 255];[120; 232; 23];[32; 44; 134]
+
+Regex: \\[|\\];\\[|\\]
+
+
+Sortie: 3 jeux de données (par exemple 255;255;255). Les valeurs à l'intérieur du jeu de données seront divisées par le champ 'Séparateur de valeurs'.
+
+Exemple 2
+
+Données: (2011-03-28, 0.511),(2011-04-04,0.421)
+
+Regex: \\(|\\),\\(|\\)
+
+Sortie: 1 jeu de données, 2 paires de valeurs (par exemple 2011-03-28,0.511). Les valeurs sont combinées (axes y et x) et seront divisées par le champ 'Séparateur de valeurs'.
+
+Remarque: nous devons doubler le caractère '\' .
+
+Séparateur de valeurs 
+
+Entrez un valeur pour le separateur de valeurs. Par defaut la valeur est ; .
+
+Caractère à utiliser pour scinder des valeurs dans un champ. Par exemple, un champ contient '10;20;30' signifie qu'il y a 3 valeurs divisées par ';' ou [1,2,3];[4,5,6] signifie qu'il y a 2 jeux de données avec 3 valeurs, chacunes divisée par ','.
+
+Étiquettes des jeux de données
+
+Type 
+
+Choissiez le type d'etiquette  de la liste. Les valeurs permissible sont configuration et champs.
+
+Valeurs 
+
+Entrez les Valeurs séparées par un point-virgule ou le nom d'un champ.
+
+Caractère de division 
+
+Entrez le caractere de division qui sera le caractère à utiliser pour scinder une liste de valeurs.
+
+Caractère à utiliser pour scinder une liste de valeurs.
+
+Préfixe 
+
+Entrez le préfixe à ajouter au survol de données.
+
+Suffixe 
+
+Entrez le suffixe à ajouter au survol de données.
+
+# Module Informations coordonnées 
+
+![](coordinate_info_en.png "Informations coordonnées ")
+
+Le module Informations coordonnées affiche les coordonnées du point sélectionner sur la carte. Les informations affiche sont lat/long, coordonnées UTM, élévation et déclianton magnétique.
+
+Par defaut, le module informations coordonnées n'est pas activer. Le cursuer sera changer en une croix un fois activer. Vous devez choisir le module en le sélectionner dans le menu latéral. Pour le desctiver vous devez le desélectionner dans le menu latéral.
+
+Activer
+
+Cocher le cas à cocher activer pour rendre le module informations coordonnées actif. Le module sera afficher dans le menu latéral  du visualisateur.
+
+Cochez le module dans le menu latéral du visualisateur pour l'activer. Le curseur sera changer en un croix un fois actif. Les coordonnées seront afficher dans un panneau. Pour desactiver le moodule deselectionner le module dans le menu latéral.
+
+
+# Module Régions d intérêt
+
+![](area_of_interest_en.png "Régions d'intérêt")
+
+Cette module affiche les régions d'intérêt sur le visualisateur. Cliquer sur le region d'intérêt dans le panneau pour faire un zoom à la délimitation de la région d'intérêt .
+ 
+Les régions d'intérêt sont affiche dans une panneau sur dessous le liste de couches et peut etre choici en cliquant sur une région. Pour fermer le panneau des régions d'intérêt cliquer sur le x à le coin droite superieur. Pour reactiver le panneau des régions d'intérêt cliquer sur le module dans le menu latéral.
+
+Activer
+
+Cocher le cas à cocher activer pour rendre le moduleRégions d'intérêt actif. Le module sera afficher dans le menu latéral du visualisateur.
+
+Titre anglais 
+
+Entrez le titre en anglais du régions d'intérêt qui sera afficher dans le panneau.
+
+Titre français 
+
+Entrez le titre en francais du régions d'intérêt qui sera afficher dans le panneau.
+
+Definir la région
+
+Entrez le titre en francais du régions d'intérêt qui sera afficher dans le panneau.
+
+Cliquez sur le bouton définir la région pour ouvrir le fenetre d'apercu qui va vous pemettre de définir un région ei qui va entrées les coordonnées automatiquement un fois le fenetre est défini.
+
+Les valeurs minimale et maximum ci dessous sont entrez automatiquement en utilisant le buton définir la région et ne sont pas editable.
+
+Valeur minimum x 
+
+La valeur de defaut est -4844430.
+Valeur entrez automatiquement en utilisant le buton définir la région.
+
+Valeur minimum y 
+
+La valeur de defaut est -1052774.
+Valeur entrez automatiquement en utilisant le buton définir la région.
+
+Valeur maximal x 
+
+La valeur de defaut est 5666163.
+Valeur entrez automatiquement en utilisant le buton définir la région.
+
+Valeur maximal y 
+
+La valeur de defaut est 4170111.
+Valeur entrez automatiquement en utilisant le buton définir la région.
+
+URL de la vignette
+
+Entrez l'adresse internet de la vignette qui sera afficher dans le panneau qui indique les régions d'intérêt. La vignette peut etre un fichier de type gif ou jpeg. xxxx
+
