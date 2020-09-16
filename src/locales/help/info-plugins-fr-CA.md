@@ -13,5 +13,6 @@
     ```
 
 
-Pour plus d'[informations](https://github.com/fgpv-vpgf/plugins) sur les principaux modules (seulement en anglais). <br />
-Pour plus de [documentation](http://fgpv-vpgf.github.io/fgpv-vpgf/v3.1.0-b5/#/developer/plugins) sur les modules (seulement en anglais).
+ Pour plus d'<a target="_blank" href="https://github.com/fgpv-vpgf/plugins">informations </a>sur les principaux modules (seulement en anglais).
+ <br />
+ Pour plus de <a target="_blank" href="http://fgpv-vpgf.github.io/fgpv-vpgf/v3.1.0-b5/#/developer/plugins">documentation </a>sur les modules (seulement en anglais).
