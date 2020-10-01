@@ -880,10 +880,10 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].metadataUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
                                 { 'key': 'layers[].catalogueUrl', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice !== \'file\'' },
                                 { 'key': 'layers[].suppressGetCapabilities', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'ogcWms\'' },
-                                { 'key': 'layers[].fileType', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
-                                { 'key': 'layers[].colour', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
-                                { 'key': 'layers[].latField', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
-                                { 'key': 'layers[].longField', 'htmlClass': 'av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].fileType', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].colour', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
+                                { 'key': 'layers[].latField', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
+                                { 'key': 'layers[].longField', 'condition': 'model.layers[arrayIndex].layerChoice === \'file\'' },
                                 // hidden read only field { 'key': 'layers[].layerType', 'readonly': true },
                                 { 'key': 'layers[].toggleSymbology', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\'' },
                                 { 'key': 'layers[].nameField', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
@@ -907,14 +907,14 @@ function Controller($scope, $translate, $timeout,
                                                 self.formService.copyValueToFormIndex(model, item);
                                             }, constants.delayUpdateColumns, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
-                                            { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
+                                            { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-version-dev av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].nameField', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[].layerEntries[]', 'av-controls-bug') }
                                             ] },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].layerEntries[].table', 'esriDynamic') },
-                                            { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse av-version-dev av-version-dev-hide', 'title': $translate.instant('form.map.fieldsmetadata'), 'items': [
+                                            { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.fieldsmetadata'), 'items': [
                                                 { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                                     { 'key': 'layers[].layerEntries[].fieldMetadata', 'notitle': true, 'startEmpty': true }
                                                 ] }
@@ -944,7 +944,7 @@ function Controller($scope, $translate, $timeout,
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': setControlSection('layers[]') }
                                 ] },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'', 'title': $translate.instant('form.map.layertable'), 'items': setTableSection('layers[].table', 'esriFeature') },
-                                { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse av-version-dev av-version-dev-hide', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'', 'title': $translate.instant('form.map.fieldsmetadata'), 'items': [
+                                { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'', 'title': $translate.instant('form.map.fieldsmetadata'), 'items': [
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                         { 'key': 'layers[].fieldMetadata', 'notitle': true, 'startEmpty': true }
                                     ] }
@@ -1113,10 +1113,10 @@ function Controller($scope, $translate, $timeout,
             { 'key': `${model}.search` },
             { 'key': `${model}.lazyFilter` },
             { 'key': `${model}.applyMap` },
-            { 'key': `${model}.showFilter`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
-            { 'key': `${model}.filterByExtent`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
-            { 'key': `${model}.searchStrictMatch`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
-            { 'key': `${model}.printEnabled`, 'htmlClass': 'av-version-dev av-version-dev-hide' },
+            { 'key': `${model}.showFilter` },
+            { 'key': `${model}.filterByExtent` },
+            { 'key': `${model}.searchStrictMatch` },
+            { 'key': `${model}.printEnabled` },
             { 'type': 'fieldset', 'title': $translate.instant('form.map.layertablecols'), 'items': [
                 { 'type': 'help', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.layertablecolsnote') + '<div>' },
                 { 'type': 'section', 'htmlClass': 'av-fields-buttons', 'items': [

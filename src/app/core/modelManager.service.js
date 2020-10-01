@@ -258,8 +258,6 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         const keys = Object.keys(pluginsModel);
         for (let key of keys) {
             if (pluginsModel[key].enable) {
-                if (key === 'coordInfo') { key = 'CoordinateInfo'; }
-                if (key === 'areasOfInterest') { key = 'AreasOfInterest'; }
                 pluginsList.push(`${key}`);
             }
         }

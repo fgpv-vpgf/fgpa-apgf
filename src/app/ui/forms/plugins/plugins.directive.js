@@ -109,45 +109,45 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     function setForm() {
         console.log(parseInt(modelManager.getModel('version', false).version))
         return [
-            { 'type': 'tabs', 'htmlClass': 'av-inner-tab av-version-dev av-version-dev-hide', 'tabs': [
+            { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
                 { 'title': $translate.instant('form.plugins.coordinfo'), 'key': 'coordInfo', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'coordInfo.enable' }
                 ] },
-                { 'title': $translate.instant('form.plugins.aois'), 'key': 'AreasOfInterest', 'items': [
+                { 'title': $translate.instant('form.plugins.aois'), 'key': 'areasOfInterest', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
-                    { 'key': 'AreasOfInterest.enable' },
-                    { 'key': 'AreasOfInterest.areas', 'condition': 'model.AreasOfInterest.enable === true', 'title': $translate.instant('form.plugins.aois'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
+                    { 'key': 'areasOfInterest.enable' },
+                    { 'key': 'areasOfInterest.areas', 'condition': 'model.areasOfInterest.enable === true', 'title': $translate.instant('form.plugins.aois'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
                         // new item, create accordion
                         events.$broadcast(events.avNewItems);
                     }, 'add': $translate.instant('button.add'), 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.aoi'), 'items': [
                             { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                            { 'key': 'AreasOfInterest.areas[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                { 'key': 'AreasOfInterest.areas[].title-en-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
+                            { 'key': 'areasOfInterest.areas[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                { 'key': 'areasOfInterest.areas[].title-en-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
                                 },
-                                { 'key': 'AreasOfInterest.areas[].title-fr-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                { 'key': 'areasOfInterest.areas[].title-fr-CA', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.aoi'), 'onChange': debounceService.registerDebounce((model, item) => {
                                     self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
                                 },
-                                { 'type': 'template', 'template': commonService.addButton('form.plugins', 'setaoi', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.AreasOfInterest.areas) },
+                                { 'type': 'template', 'template': commonService.addButton('form.plugins', 'setaoi', 'setAreaOfInterest', 'av-setareaofinterest-button'), 'setAreaOfInterest': () => self.formService.setAreaOfInterest($scope.model.areasOfInterest.areas) },
                                 { 'type': 'section', 'htmlClass': 'row ', 'items': [
-                                    { 'key': 'AreasOfInterest.areas[]', 'notitle': true, 'items': [
+                                    { 'key': 'areasOfInterest.areas[]', 'notitle': true, 'items': [
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'AreasOfInterest.areas[].xmin', 'readonly': true }
+                                            { 'key': 'areasOfInterest.areas[].xmin', 'readonly': true }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'AreasOfInterest.areas[].ymin', 'readonly': true }
+                                            { 'key': 'areasOfInterest.areas[].ymin', 'readonly': true }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'AreasOfInterest.areas[].xmax', 'readonly': true }
+                                            { 'key': 'areasOfInterest.areas[].xmax', 'readonly': true }
                                         ] },
                                         { 'type': 'section', 'htmlClass': 'col-xs-3', 'items': [
-                                            { 'key': 'AreasOfInterest.areas[].ymax', 'readonly': true}
+                                            { 'key': 'areasOfInterest.areas[].ymax', 'readonly': true}
                                         ] }
                                     ] }
                                 ] },
-                                { 'key': 'AreasOfInterest.areas[].thumbnailUrl' }
+                                { 'key': 'areasOfInterest.areas[].thumbnailUrl' }
                             ] }
                         ] }
                     ] }

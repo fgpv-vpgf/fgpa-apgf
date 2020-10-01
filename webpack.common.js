@@ -107,7 +107,7 @@ module.exports = function (env) {
                 onBuildEnd: ['bash scripts/postBuild.sh']
             }),
 
-            new CopyWebpackPlugin([{
+            new CopyWebpackPlugin({ patterns: [{
                 context: 'src/content/samples',
                 from: '**/*.+(json|js|css|html)',
                 to: 'samples'
@@ -117,12 +117,12 @@ module.exports = function (env) {
             },{
                 from: 'src/schemas/schemaForm',
                 to: 'samples/schemaForm'
-            }]),
+            }]}),
 
-            new CopyWebpackPlugin([
+            new CopyWebpackPlugin({ patterns: [
                 { from: 'node_modules/tv4/tv4.js', to: 'form'},
                 { from: 'node_modules/angular-schema-form-bootstrap/dist/angular-schema-form-bootstrap-bundled.min.js', to: 'form'}
-            ]),
+            ]}),
 
             new webpack.ProvidePlugin({
                 $: 'jquery',

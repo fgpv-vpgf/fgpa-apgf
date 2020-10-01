@@ -7,42 +7,49 @@
     <script>
         var version = localStorage.getItem('viewerversion');
         var envar = localStorage.getItem('viewerenv');
-        envar = (envar === 'dev') ? 'dev.' : '';
+        envar = (envar === 'dev') ? 'dev.' : 'dev'; // TODO: modify when we have cloud in prod
 
-        // set css path
+        // set css path for viewer
         var styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
-        styles.href = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar);
+        styles.href = 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar);
         document.getElementsByTagName('head')[0].appendChild(styles);
 
         // set plugins js and css
-        var plugins = localStorage.getItem('configplugins').replace(/"/g, '').replace('[', '').replace(']', '').split(',');
-        if (plugins[0] === "") { plugins = []; }
-        for (var i = 0; i < plugins.length; i++) {
-            var pluginDash = plugins[i].replace(/([A-Z])/g, function(char) { return '-' + char[0].toLowerCase(); });
-
-            // RAMP plugin are not at the same as custom plugins
-            var path = '';
-            if (['AreasOfInterest', 'CoordinateInfo'].indexOf(plugins[i]) !== -1) {
-                path = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/ramp-plugin'.replace('x.x.x', version).replace('{env}', envar)
-                    + pluginDash;
-                //    path = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/ramp-plugin-'.replace('x.x.x', version).replace('{env}', envar)
-               //     + 'coordinate-info';
-            } else {
-                path = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/plugins/'.replace('x.x.x', version).replace('{env}', envar)
-                    + pluginDash + '/' + pluginDash;
-                path = 'https://jolevesq.github.io/contributed-plugins/' + pluginDash + '/' + pluginDash;
-            }
-
+        function addScriptTag(path){
             var script = document.createElement('script');
-            script.src = path + '.js';
+            script.src = path;
             document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
+        function addStyleTag(path) {
             var style = document.createElement('link');
             style.rel = 'stylesheet';
             style.type = 'text/css';
-            style.href = path + '.css';
+            style.href = path;
             document.getElementsByTagName('head')[0].appendChild(style);
+        }
+
+        var plugins = localStorage.getItem('configplugins').replace(/"/g, '').replace('[', '').replace(']', '').split(',');
+        if (plugins[0] === '') { plugins = []; }
+        for (var i = 0; i < plugins.length; i++) {
+            var pluginDash = plugins[i].replace(/([A-Z])/g, function(char) { return '-' + char[0].toLowerCase(); });
+
+            // RAMP core plugins are not at the same as custom plugins
+            var path = '';
+            if (plugins[i] === 'coordInfo') {
+                addScriptTag('https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-coordinate-info.js'.replace('x.x.x', version).replace('{env}', envar));
+            } else if (plugins[i] === 'areasOfInterest') {
+                addScriptTag('https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version).replace('{env}', envar));
+            } else {
+                // TODO: use version on the cloud when we will have dev and prod
+                // path = 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/core-plugins/'.replace('x.x.x', version).replace('{env}', envar)
+                //     + pluginDash + '/' + pluginDash;
+                path = 'https://jolevesq.github.io/contributed-plugins/' + pluginDash + '/' + pluginDash;
+                addScriptTag(path + '.js');
+                addStyleTag(path + '.css');
+            }
         }
     </script>
 
@@ -59,7 +66,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs='' rv-plugins=''>
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="config" data-rv-langs="" rv-plugins="">
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -83,8 +90,8 @@
     var scriptTag = document.createElement('script');
     var version = localStorage.getItem('viewerversion');
     var envar = localStorage.getItem('viewerenv');
-    envar = (envar === 'dev') ? 'dev.' : '';
-    scriptTag.src = 'https://{env}gcgeo.gc.ca/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
+    envar = (envar === 'dev') ? 'dev.' : 'dev'; // TODO: modify when we have cloud in prod
+    scriptTag.src = 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
     document.body.appendChild(scriptTag);
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');
