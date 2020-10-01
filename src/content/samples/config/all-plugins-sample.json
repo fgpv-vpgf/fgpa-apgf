@@ -874,7 +874,7 @@
         "coordInfo": {
             "enable": false
         },
-        "AreasOfInterest": {
+        "areasOfInterest": {
             "enable": false,
             "areas": [
                 {

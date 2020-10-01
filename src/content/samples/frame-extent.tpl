@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
 
-    <link rel="stylesheet" href="https://geoappext.nrcan.gc.ca/fgpv/fgpv-latest-2.x/rv-styles.css" />
+    <link rel="stylesheet" href="https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-3.2.0/rv-styles.css" />
 
     <style>
         body {
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="./fgpa-latest/config/..." rv-extensions="extensions/extent.js">
+<div id="fgpmap" is="rv-map" class="myMap" data-rv-config="">
     <noscript>
         <p>This interactive map requires JavaScript. To view this content please enable JavaScript in your browser or download a browser that supports it.</p>
 
@@ -32,13 +32,27 @@
 
 <script type="text/javascript">
     // set config name to data-rv-config
-    document.getElementById('fgpmap').setAttribute('data-rv-config', './fgpa-latest/config/' + localStorage.getItem('configextent') + '.json');
-
+    // TODO: CORS errors doesn't let us read from the cloud at the moment so use the version on GitHub
+    //document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpa/fgpa-latest/config/' + localStorage.getItem('configextent') + '.json');
+    document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://raw.githubusercontent.com/fgpv-vpgf/fgpa-apgf/develop/src/content/samples/config/' + localStorage.getItem('configextent') + '.json');
     localStorage.removeItem('configextent');
 </script>
 
-<!-- IMPORTANT, keep the viewer to version 2.5. Modification of viewer version may impact functionnality -->
-<script src="https://geoappext.nrcan.gc.ca/fgpv/fgpv-2.5.0/rv-main.js"></script>
+<!-- IMPORTANT, keep the viewer to version 3.2.0 Modification of viewer version may impact functionnality -->
+<script src="https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-3.2.0/legacy-api.js"></script>
+<script src="https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-3.2.0/rv-main.js"></script>
+
+<script type="text/javascript">
+    // link to api from script to get new extent
+    RAMP.mapAdded.subscribe(mapi => {
+        // subscribe to extent change event to capture the new extent
+        mapi.boundsChanged.subscribe(function(extent, a, b, c) {
+            // set the new extent inside local storage to be retreive by the author later
+            // use real extent in lcc because using lat/long and reproject it gives wrong result
+            localStorage.setItem('mapextent', JSON.stringify(RAMP.mapById('fgpmap').mapI.extent));
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -50,11 +50,11 @@ angular
             },
             plugins: {
                 index: 3,
-                keys: ['coordInfo', 'AreasOfInterest', 'rangeSlider', 'chart', 'swiper', 'draw', 'thematicSlider']
+                keys: ['coordInfo', 'areasOfInterest', 'rangeSlider', 'chart', 'swiper', 'draw', 'thematicSlider']
             }
         },
-        devVersion: '3.3.0',
-        prodVersion: '2.5.0'
+        devVersion: '3.3.1',
+        prodVersion: '3.2.0'
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
 function events($rootScope) {

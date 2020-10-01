@@ -479,7 +479,7 @@ function stateManager($translate, events, constants, commonService) {
         const masterLink = constants.schemas
             .indexOf(`plugins.[lang].json`) + 1;
 
-        const setID = [1, 'AreasOfInterest', 'areas'];
+        const setID = [1, 'areasOfInterest', 'areas'];
 
         const hlink = constants.subTabs.plugins.keys[2].replace(/\./g, '-');
 

@@ -128,7 +128,7 @@
                 }
             }
         },
-        "AreasOfInterest": {
+        "areasOfInterest": {
             "type": "object",
             "properties": {
                 "enable": {
