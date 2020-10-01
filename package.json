@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "@flowjs/ng-flow": "2.7.8",
-    "angular": "1.6.10",
+    "angular": "1.8.0",
     "angular-animate": "1.6.10",
     "angular-aria": "1.6.10",
     "angular-material": "1.1.10",
