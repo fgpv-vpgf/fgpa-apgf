@@ -49,9 +49,10 @@ function avSummary() {
  * @param {Object} stateManager service to manage model state for validation
  * @param {Object} commonService service with common functions
  * @param {Object} version service provides current version numbers and the timestap
+ * @param {Object} debounceService service to debounce user input
  */
 function Controller($mdDialog, $rootScope, $timeout, $interval, events, constants, modelManager, stateManager, commonService,
-    version) {
+    version, debounceService) {
     'ngInject';
     const self = this;
 
@@ -61,8 +62,8 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
     self.expandTree = expand;
     self.collapseTree = collapse;
     self.openPreview = openPreview;
-    self.validateForm = validateForm;
-    self.previewReady = previewReady;
+    self.validateForm = debounceService.registerDebounce(validateForm, constants.delayValid);
+    self.isPreview = false;
 
     self.disableCollapseExpand = true;
 
@@ -98,6 +99,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
     events.$on(events.avValidateForm, () => {
         self.disableCollapseExpand = false;
     });
+
+    // When user click inside the forms, disable preview to make sure preview is not launch with a bad config
+    events.$on(events.avFormClick, () => { self.isPreview = false; });
 
     function expand() { expandSummary(self, true); }
     function collapse() { expandSummary(self, false); }
@@ -147,6 +151,10 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
     function validateForm() {
         initState();
         $rootScope.$broadcast(events.avValidateForm);
+
+        // Enable preview button 10 seconds when form is validate.
+        // This will enforce user to validate the form to reduce the risk of using a bad config in preview
+        self.isPreview = stateManager.goNoGoPreview();
     }
 
     /**
@@ -159,17 +167,6 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         constants.schemas.forEach(schema => {
             self[schema.split('.')[0]] = stateManager.getState(schema.split('.')[0]);
         });
-    }
-
-    /**
-     * Check if preview can be done
-     *
-     * @function previewReady
-     * @private
-     * @return {Boolean} true if ready and false if not
-     */
-    function previewReady() {
-        return stateManager.goNoGoPreview();
     }
 
     /**
@@ -191,35 +188,30 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
      */
     function openPreview() {
 
-        validateForm();
+        // set the config to use by the preview window/iFrame
+        localStorage.setItem('configpreview', modelManager.save(true));
 
-        if (stateManager.goNoGoPreview()) {
+        // set the array of languages to use by the preview window/iFrame
+        const langs = commonService.setUniq([modelManager.getModel('language', false).language].concat(commonService.getLangs()));
+        localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
 
-            // set the config to use by the preview window/iFrame
-            localStorage.setItem('configpreview', modelManager.save(true));
+        // get list of plugin to set
+        localStorage.setItem('configplugins', modelManager.getEnabledPlugins());
 
-            // set the array of languages to use by the preview window/iFrame
-            const langs = commonService.setUniq([modelManager.getModel('language', false).language].concat(commonService.getLangs()));
-            localStorage.setItem('configlangs', `["${langs.join('","')}"]`);
+        // set the viewer version to use by the preview window/iFrame
+         setLocalVersion();
 
-            // get list of plugin to set
-            localStorage.setItem('configplugins', modelManager.getEnabledPlugins());
-
-            // set the viewer version to use by the preview window/iFrame
-            setLocalVersion();
-
-            $mdDialog.show({
-                controller: previewController,
-                controllerAs: 'self',
-                templateUrl: templateUrls.preview,
-                parent: $('.fgpa'),
-                clickOutsideToClose: true,
-                fullscreen: false,
-                onRemoving: () => { $timeout(() => {
-                    document.getElementsByClassName('av-preview-button')[0].focus();
-                }, constants.delayWCAG); }
-            });
-        }
+        $mdDialog.show({
+            controller: previewController,
+            controllerAs: 'self',
+            templateUrl: templateUrls.preview,
+            parent: $('.fgpa'),
+            clickOutsideToClose: true,
+            fullscreen: false,
+            onRemoving: () => { $timeout(() => {
+                document.getElementsByClassName('av-preview-button')[0].focus();
+            }, constants.delayWCAG); }
+        });
     }
 
     /**

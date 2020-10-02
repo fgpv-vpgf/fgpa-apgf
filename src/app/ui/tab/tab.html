@@ -13,7 +13,7 @@
             <md-tooltip>{{ 'button.extension' | translate }}</md-tooltip>
         </md-button>
     </div>
-    <div flex>
+    <div flex id="avTabInfo">
         <div ng-show="self.isSet($index + 1) && !self.isShowExtension" ng-repeat="tab in self.tabs" av-compile-html="tab.tag"></div>
         <div ng-show="self.isShowExtension" layout="row" class="av-extentions-container"></div>
     </div>

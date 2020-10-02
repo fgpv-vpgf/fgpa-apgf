@@ -161,6 +161,8 @@ function stateManager($translate, events, constants, commonService) {
 
         // ADVANCE PARAMETERS SECTION
         processAdvance(_state, modelName, arrForm);
+
+        return goNoGoPreview();
     }
 
     /**
