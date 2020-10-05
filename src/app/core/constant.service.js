@@ -15,15 +15,16 @@ angular
     .constant('constants', {
         debInput: 500, // time for debouncing when user enter value
         delayWCAG: 250,
-        delayAccordion: 2500,
-        delayHandle: 3500,
-        delayCollapseLink: 2800,
-        delayCollapseHeader: 3000,
-        delaySplash: 3500,
+        delayValid: 2000,
+        delayAccordion: 1000,
+        delayHandle: 1500,
+        delayCollapseLink: 1300,
+        delayCollapseHeader: 1500,
+        delaySplash: 2000,
         delayEventSplash: 750,
         delayUpdateColumns: 1000,
         delaySetSubTab: 500,
-        delaySetVersion: 2000,
+        delaySetVersion: 1000,
         delayScroll: 100,
         delayScrollToElement: 300,
         supportWkid: [3978, 3857, 102100],
@@ -84,7 +85,8 @@ function events($rootScope) {
         avLegendError: 'avLegendError', // Fired when there's an id in error in the structured legend
         avValidateLegend: 'avValidateLegend', // Fired legend validation
         avNewSaveName: 'avNewSaveName', // Fired new save name,
-        avVersionSet: 'avVersionSet' // Fired when version has been set
+        avVersionSet: 'avVersionSet', // Fired when version has been set
+        avFormClick: 'avFormClick' // Fired when user click on the form to edit it. Use by the preview button
     };
 }
 

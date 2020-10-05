@@ -10,6 +10,8 @@
 
 [Working Demo](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)
 
+*Notes: It is preferable to use Chrome or Firefox (Internet Explorer is not supported)*
+
 [Documentation](https://fgpv-vpgf.github.io/fgpa-apgf/a2v2/0.1.0/index.html)
 
 ## Getting Started
@@ -31,6 +33,8 @@ We use a fork and pull model for contributions, see our [contributing guidelines
 # Auteur pour le visualisateur de la Plateforme géospatiale fédérale (PGF)
 
 [Page Démonstration](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)
+
+*Notes: Il est préférable d'utiliser Chrome ou Firefox (Internet Explorer n'est pas supporté)*
 
 ## Pour commencer
 

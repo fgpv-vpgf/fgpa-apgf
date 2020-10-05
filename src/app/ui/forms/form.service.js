@@ -40,7 +40,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
     const service = {
         showAdvance,
-        triggerValidation,
         advanceModel: false,
         toggleSection,
         toggleAll,
@@ -57,14 +56,19 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         getActiveElemIndex
     };
 
+    // Add an event to disable preview button when user edit the forms
+    $timeout(() => { $('#avTabInfo').on('click', () => { $rootScope.$broadcast(events.avFormClick) }); }, constants.delaySplash);
+
     // if show advance is true we need to toggle the hidden because the form has been reset
     events.$on(events.avSchemaUpdate, () => {
         resestShowAdvance();
-        triggerValidation();
+
+        $timeout(() => {
+            angular.element('#validate').triggerHandler('click');
+        }, constants.delayEventSplash);
     });
     events.$on(events.avLoadModel, () => {
         resestShowAdvance();
-        triggerValidation();
     });
     events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
 
@@ -143,17 +147,6 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         const items = document.getElementsByClassName('av-version-dev');
         const func = (show) ? 'removeClass' : 'addClass';
         $(items)[func]('av-version-dev-hide');
-    }
-
-    /**
-     * Trigger forms validation
-     *
-     * @function triggerValidation
-     */
-    function triggerValidation() {
-        $timeout(() => {
-            angular.element('#validate').triggerHandler('click');
-        });
     }
 
     /**
