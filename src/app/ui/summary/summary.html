@@ -24,13 +24,14 @@
         </md-button>
         <md-button
             class="av-button-square md-raised av-preview-button"
-            ng-class="{ 'av-preview-enable': self.isPreview }"
+            ng-class="{ 'av-preview-valid': self.isPreview, 'av-preview-novalid': !self.isPreview }"
             ng-disabled="!self.isPreview"
             ng-click="self.openPreview()">
             {{ 'summary.preview' | translate }}
             <md-tooltip>{{ 'summary.preview' | translate }}</md-tooltip>
         </md-button>
     </div>
+    <div class="av-preview-detail"><span>{{ self.isPreview ? '' : 'summary.nopreview' | translate }}</span></div>
     <md-divider></md-divider>
 
     <div ng-repeat="tab in self.tabs" av-compile-html="tab.model"></div>

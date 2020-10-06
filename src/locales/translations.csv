@@ -35,6 +35,7 @@ header file vesrion,header.version,Version: ,0,Version : ,0
 summary expand,summary.expand,Expand,0,Ouvrir,0
 summary collapse,summary.collapse,Collapse,0,Fermer,0
 summary preview,summary.preview,Preview,0,Aperçu,0
+summary preview,summary.nopreview,Preview not available (click Validate),0,Aperçu non disponible (cliquer sur Valider),0
 summary preview dialog title,summary.previewdialog.title,Preview Viewer Configuration,0,Aperçu de la configuration du visualisateur,0
 summary missing name,summary.missing.name,Missing name or id,0,Nom ou identifiant manquant,0
 form ui,form.ui.general,General,0,Général,0

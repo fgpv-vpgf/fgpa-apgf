@@ -37,8 +37,21 @@
         color: $alert-color;
     }
 
-    .av-preview-enable {
-        background-color: #fae0e3;
+    .av-preview-detail {
+        overflow: auto;
+        max-width: 560px;
+
+        span {
+            float: right;
+        }
+    }
+
+    .av-preview-valid {
+        background-color: #d9f3de;
+    }
+
+    .av-preview-novalid {
+        background-color: #fae0e0 !important;
     }
 
     .av-version {

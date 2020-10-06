@@ -850,7 +850,7 @@
         "googleAPIKey": "",
         "esriLibUrl": ""
     },
-    "version": "3.3.0",
+    "version": "3.2.0",
     "language": "en-CA",
     "plugins": {
         "rangeSlider": {
@@ -946,27 +946,30 @@
             "open": true,
             "autorun": true,
             "loop": true,
-            "description": false,
-            "slider": false,
+            "slider": true,
             "stack": true,
+            "legendStack": true,
             "layers": [
                 {
                     "duration": 3000,
                     "id": "32***05003c79",
                     "title": "23",
-                    "description": "qwrqqvqrqv"
+                    "description": "qwrqqvqrqv",
+                    "legend": []
                 },
                 {
                     "duration": 3000,
                     "id": "33***0461e604",
                     "title": "33",
-                    "description": "fwfwwf"
+                    "description": "fwfwwf",
+                    "legend": []
                 },
                 {
                     "duration": 3000,
                     "id": "34***36cbdd8b",
                     "title": "34",
-                    "description": "sf ew eewfe"
+                    "description": "sf ew eewfe",
+                    "legend": []
                 }
             ]
         }

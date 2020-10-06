@@ -323,9 +323,9 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'thematicSlider.open', 'condition': 'model.thematicSlider.enable === true' },
                     { 'key': 'thematicSlider.autorun', 'condition': 'model.thematicSlider.enable === true' },
                     { 'key': 'thematicSlider.loop', 'condition': 'model.thematicSlider.enable === true' },
-                    { 'key': 'thematicSlider.description', 'condition': 'model.thematicSlider.enable === true' },
                     { 'key': 'thematicSlider.slider', 'condition': 'model.thematicSlider.enable === true' },
                     { 'key': 'thematicSlider.stack', 'condition': 'model.thematicSlider.enable === true' },
+                    { 'key': 'thematicSlider.legendStack', 'condition': 'model.thematicSlider.enable === true' },
                     { 'key': 'thematicSlider.layers', 'add': $translate.instant('button.add'), 'condition': 'model.thematicSlider.enable === true', 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-thematic-slider', 'items': [
                             {
@@ -337,7 +337,11 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             },
                             { 'key': 'thematicSlider.layers[].duration' },
                             { 'key': 'thematicSlider.layers[].title' },
-                            { 'key': 'thematicSlider.layers[].description' }
+                            { 'key': 'thematicSlider.layers[].description' },
+                            { 'key': 'thematicSlider.layers[].legend', 'startEmpty': true, 'items': [
+                                'thematicSlider.layers[].legend[].image',
+                                'thematicSlider.layers[].legend[].label'
+                            ] }
                         ] }
                     ] }
                 ] }

@@ -513,11 +513,6 @@
                     "title": "Jouer l'animation en boucle",
                     "default": false
                 },
-                "description": {
-                    "type": "boolean",
-                    "title": "Activer la description",
-                    "default": true
-                },
                 "slider": {
                     "type": "boolean",
                     "title": "Activer la barre de défilement",
@@ -527,6 +522,11 @@
                     "type": "boolean",
                     "title": "Empiler la visibilité des couches",
                     "default": false
+                },
+                "legendStack": {
+                    "type": "boolean",
+                    "title": "Empiler les éléments de la légende (utile avec l'option de pile pour voir tous les éléments actifs de la légende)",
+                    "default": true
                 },
                 "layers": {
                     "type": "array",
@@ -552,6 +552,46 @@
                             "description": {
                                 "type": "string",
                                 "title": "Description de l'animation de cette coyche"
+                            },
+                            "legend": {
+                                "type": "array",
+                                "title": "Légende",
+                                "description": "Ajouter des éléments pour une légende personnalisée, laissez ce champ vide pour utiliser la légende par défaut.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "label": {
+                                            "type": "string",
+                                            "title": "Étiquette"
+                                        },
+                                        "image": {
+                                            "type": "object",
+                                            "properties": {
+                                                "url": {
+                                                    "type": "string",
+                                                    "title": "URL",
+                                                    "default": ""
+                                                },
+                                                "width": {
+                                                    "type": "number",
+                                                    "title": "Largeur",
+                                                    "minimum": 25,
+                                                    "maximum": 150,
+                                                    "default": 150
+                                                },
+                                                "height": {
+                                                    "type": "number",
+                                                    "title": "Hauteur",
+                                                    "minimum": 25,
+                                                    "maximum": 150,
+                                                    "default": 150
+                                                }
+                                            },
+                                            "required": ["url", "width", "height"]
+                                        },
+                                        "required": ["image"]
+                                    }
+                                }
                             }
                         },
                         "required": ["id", "duration"]

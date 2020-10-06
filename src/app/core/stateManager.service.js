@@ -87,6 +87,7 @@ function stateManager($translate, events, constants, commonService) {
      * @param {Object}  form      the angular schema form active form
      * @param {Array}   arrForm   the form as an array of objects
      * @param {Object}  model     the model
+     * @return {Boolean} true if the schema is valid
      */
     function validateModel(modelName, form, arrForm, model) {
 
@@ -114,6 +115,9 @@ function stateManager($translate, events, constants, commonService) {
 
                 // Generate state records for charts
                 setChartItemsState(_state[modelName], model, arrKeys);
+
+                // Generate state record fot hematic slider
+                setThematicItemsState(_state[modelName], model, arrKeys);
             } else if (modelName === 'services') {
                 setGeoSearchItemState(_state[modelName], model);
             }
@@ -559,6 +563,59 @@ function stateManager($translate, events, constants, commonService) {
     }
 
     /**
+     * Set new record for chart items in state model
+     * @function setChartItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setThematicItemsState(stateModel, model, arrKeys) {
+        const masterLink = constants.schemas
+            .indexOf(`plugins.[lang].json`) + 1;
+
+        const setID = [[0, 'thematicSlider', 'layers']];
+
+        const hlink = constants.subTabs.plugins.keys[6].replace(/\./g, '-');
+
+        // is there a defined thematic layer
+        if (typeof stateModel.items[6].items !== 'undefined') {
+            const layers = model[setID[0][1]][setID[0][2]];
+
+            let pluginVal = true;
+            for (let [j, item] of layers.entries()) {
+                if (typeof stateModel.items[6].items[7] !== 'undefined') {
+                    // the link will not work because layers is present inside map tab. To make this work, we should add tab to the id so there is no
+                    // duplicate. This would involve a major refactor and we are not sure it is worth it so we let it like this for now
+                    // TODO: investigate...
+                    const shlink = setItemId(hlink, j, 'thematicSlider', 'layers');
+
+                    stateModel.items[6].items[7].items[j].title = item.id;
+                    stateModel.items[6].items[7].items[j].stype = 'element';
+                    stateModel.items[6].items[7].items[j].items = [];
+                    stateModel.items[6].items[7].items[j].hlink = hlink;
+                    stateModel.items[6].items[7].items[j].shlink = shlink;
+                    stateModel.items[6].items[7].items[j].masterlink = masterLink;
+
+                    // Because the url required is not trap by the validation, check it here
+                    let valid = true;
+                    for (let k = 0; k < item.legend.length; k++) {
+                        if (item.legend[k].image.url === '') {
+                            valid = false;
+                            pluginVal = false;
+                        }
+                    }
+                    stateModel.items[6].items[7].items[j].valid = valid;
+                }
+            }
+
+            // Propagate the value to parent if there is an error inside the legend element
+            stateModel.items[6].items[7].valid = pluginVal;
+            stateModel.items[6].valid = pluginVal;
+        }
+    }
+
+    /**
      * Set record settings array object
      * @function setGeoSearchItemState
      * @private
@@ -974,7 +1031,9 @@ function stateManager($translate, events, constants, commonService) {
 
                 const index = state.items.findIndex(el => el.key === item);
                 // Go deeper
-                buildStateTree(state.items[index], item, newKeysArr, mainSection);
+                if (typeof state.items[index].key !== 'undefined') {
+                    buildStateTree(state.items[index], item, newKeysArr, mainSection);
+                }
             } else if (item !== 'items' && typeof item !== 'undefined') {
 
                 // validKey => [[[key], valid, id]]

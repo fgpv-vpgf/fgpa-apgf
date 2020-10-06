@@ -20,7 +20,7 @@ angular
         delayHandle: 1500,
         delayCollapseLink: 1300,
         delayCollapseHeader: 1500,
-        delaySplash: 2000,
+        delaySplash: 3000,
         delayEventSplash: 750,
         delayUpdateColumns: 1000,
         delaySetSubTab: 500,
