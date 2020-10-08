@@ -519,11 +519,6 @@
                     "title": "Play the animation in loop",
                     "default": false
                 },
-                "description": {
-                    "type": "boolean",
-                    "title": "Enable description control",
-                    "default": true
-                },
                 "slider": {
                     "type": "boolean",
                     "title": "Enable slider control",
@@ -533,6 +528,11 @@
                     "type": "boolean",
                     "title": "Stack layer visibility",
                     "default": false
+                },
+                "legendStack": {
+                    "type": "boolean",
+                    "title": "Stack legend items (useful with the stack option to see all active elements legend)",
+                    "default": true
                 },
                 "layers": {
                     "type": "array",
@@ -558,6 +558,46 @@
                             "description": {
                                 "type": "string",
                                 "title": "Description for this layer animation"
+                            },
+                            "legend": {
+                                "type": "array",
+                                "title": "Legend",
+                                "description": "Add items for a custom legend, leave it blank for default legend.",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "label": {
+                                            "type": "string",
+                                            "title": "Label"
+                                        },
+                                        "image": {
+                                            "type": "object",
+                                            "properties": {
+                                                "url": {
+                                                    "type": "string",
+                                                    "title": "URL",
+                                                    "default": ""
+                                                },
+                                                "width": {
+                                                    "type": "number",
+                                                    "title": "Width",
+                                                    "minimum": 25,
+                                                    "maximum": 150,
+                                                    "default": 150
+                                                },
+                                                "height": {
+                                                    "type": "number",
+                                                    "title": "Height",
+                                                    "minimum": 25,
+                                                    "maximum": 150,
+                                                    "default": 150
+                                                }
+                                            },
+                                            "required": ["url", "width", "height"]
+                                        }
+                                    },
+                                    "required": ["image"]
+                                }
                             }
                         },
                         "required": ["id", "duration"]
