@@ -16,6 +16,16 @@
                     "title": "Open by default",
                     "default": true
                 },
+                "autorun": {
+                    "type": "boolean",
+                    "title": "Start animation on load",
+                    "defaul": false
+                },
+                "loop": {
+                    "type": "boolean",
+                    "title": "Play the animation in loop",
+                    "default": false
+                },
                 "controls": {
                     "type": "array",
                     "default": ["lock", "delay"],
@@ -40,10 +50,44 @@
                             "type": "string",
                             "enum": [
                                 "number",
-                                "date"
+                                "date",
+                                "wmst"
                             ],
-                            "description": "If date is selected, range and limit must be in milliseconds.",
+                            "description": "If date is selected, range and limit must be in milliseconds. Note: Date is for esri layer and WMS-T is for ogc WMS-T layer.",
                             "default": "number"
+                        },
+                        "rangeType": {
+                            "title": "Range Type",
+                            "type": "string",
+                            "enum": [
+                                "single",
+                                "dual"
+                            ],
+                            "description": "Type of range (single for one handle or dual for 2 handles).",
+                            "default": "dual"
+                        },
+                        "stepType": {
+                            "title": "Step Type",
+                            "type": "string",
+                            "enum": [
+                                "dynamic",
+                                "static"
+                            ],
+                            "description": "Type of step (dynamic for open values or static from a list of values).",
+                            "default": "dynamic"
+                        },
+                        "precision": {
+                            "title": "Precision",
+                            "type": "string",
+                            "enum": [
+                                "0",
+                                "1",
+                                "2",
+                                "date",
+                                "hour"
+                            ],
+                            "description": "Precision of numeric data (0, 1, 2) or date (Date, Hour).",
+                            "default": "0"
                         },
                         "delay": {
                             "title": "Animation Delay",
@@ -65,12 +109,14 @@
                                 "min": {
                                     "type": "number",
                                     "title": "Min Range",
-                                    "description": "The minimal value for the range. If not set, minimum limit will be use. Must be set for WMS layers."
+                                    "description": "The minimal value for the range. If not set, minimum limit will be use. Must be set for WMS layers.",
+                                    "default": 0
                                 },
                                 "max": {
                                     "type": "number",
                                     "title": "Max Range",
-                                    "description": "The maximal value for the range. If not set, maximal limit will be use. Must be set for WMS layers."
+                                    "description": "The maximal value for the range. If not set, maximal limit will be use. Must be set for WMS layers.",
+                                    "default": 1
                                 }
                             }
                         },
@@ -81,12 +127,23 @@
                                 "min": {
                                     "type": "number",
                                     "title": "Min Limit",
-                                    "description": "The minimal value for the limit. Must be set for WMS layers."
+                                    "description": "The minimal value for the limit. If not set, values from the layer will be use. Note: Must be set for WMS layers.",
+                                    "default": 0
                                 },
                                 "max": {
                                     "type": "number",
                                     "title": "Max Limit",
-                                    "description": "The maximal value for the limit. Must be set for WMS layers."
+                                    "description": "The maximal value for the limit. If not set, values from the layer will be use. Note: Must be set for WMS layers.",
+                                    "default": 1
+                                },
+                                "staticItems": {
+                                    "type": "array",
+                                    "title": "Static Limit Values",
+                                    "items": {
+                                        "title": "Value",
+                                        "type": "number"
+                                    },
+                                    "description": "The values for static limit. Note: Use Min Limit and Max Limit ot set the lower and upper limit."
                                 }
                             }
                         }

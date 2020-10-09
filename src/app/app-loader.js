@@ -11,6 +11,9 @@ import 'angular-translate-loader-static-files';
 import 'angular-ui-sortable';
 import 'dotjem-angular-tree/src/directives/dxTree.js';
 
+import 'timepicker';
+import 'jquery-ui';
+
 // angular schema form: https://github.com/json-schema-form/angular-schema-form
 import 'angular-schema-form';
 
