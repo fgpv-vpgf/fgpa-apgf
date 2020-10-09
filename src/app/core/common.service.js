@@ -38,6 +38,7 @@ function commonService($translate, events, $timeout, constants) {
         scrollToElement,
         validServiceUrl,
         addButton,
+        addInput,
         cleanLayerModel
     };
 
@@ -241,6 +242,22 @@ function commonService($translate, events, $timeout, constants) {
                     {{ '${form}.${type}' | translate }}
                     <md-tooltip>{{ '${form}.${type}' | translate }}</md-tooltip>
                 </md-button>`;
+    }
+
+    /**
+     * Add a input element. May be use to create time picker
+     *
+     * @function addButton
+     * @private
+     * @param {String} form form to apply to
+     * @param {String} type type of button to add
+     * @param {String} func function to associate to ng-click
+     * @param {String} addClass class to add
+     * @returns {String} the template for the button
+     */
+    function addInput(form, type, func, addClass = '') {
+        return `<md-input class="${addClass}">
+                </md-input>`;
     }
 
     /**
