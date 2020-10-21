@@ -114,10 +114,10 @@ function stateManager($translate, events, constants, commonService) {
                 setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
 
                 // Generate state records for charts
-                setChartItemsState(_state[modelName], model, arrKeys);
+                if (model.chart.enable) { setChartItemsState(_state[modelName], model, arrKeys); }
 
-                // Generate state record fot hematic slider
-                setThematicItemsState(_state[modelName], model, arrKeys);
+                // Generate state record for thematic slider
+                if (model.thematicSlider.enable) { setThematicItemsState(_state[modelName], model, arrKeys); }
             } else if (modelName === 'services') {
                 setGeoSearchItemState(_state[modelName], model);
             }

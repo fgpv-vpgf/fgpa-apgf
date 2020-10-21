@@ -16,6 +16,16 @@
                     "title": "Ouvert par défaut",
                     "default": true
                 },
+                "autorun": {
+                    "type": "boolean",
+                    "title": "Démarrer l'animation au chargement",
+                    "defaul": false
+                },
+                "loop": {
+                    "type": "boolean",
+                    "title": "Jouer l'animation en boucle",
+                    "default": false
+                },
                 "controls": {
                     "type": "array",
                     "default": ["lock", "delay"],
@@ -39,11 +49,45 @@
                             "title": "Type de curseur",
                             "type": "string",
                             "enum": [
+                                "number",
                                 "date",
-                                "number"
+                                "wmst"
                             ],
-                            "description": "Si la valeur 'Date' est sélectionné, la valeur de la plage et de la limite est en millisecondes.",
+                            "description": "Si la valeur 'Date' ou 'WMS-T' est sélectionnée, la valeur de la plage et de la limite est en millisecondes. Note: Date est pour les couche esri et WMS-T est pour les couches ogc WMS-T.",
                             "default": "number"
+                        },
+                        "rangeType": {
+                            "title": "Type d'étendue",
+                            "type": "string",
+                            "enum": [
+                                "single",
+                                "dual"
+                            ],
+                            "description": "Type d'étendue (simple pour une poignée ou double pour 2 poignées).",
+                            "default": "dual"
+                        },
+                        "stepType": {
+                            "title": "Type de limite",
+                            "type": "string",
+                            "enum": [
+                                "dynamic",
+                                "static"
+                            ],
+                            "description": "Type de limite (dynamique pour les valeurs ouvertes ou statique à partir d'une liste de valeurs).",
+                            "default": "dynamic"
+                        },
+                        "precision": {
+                            "title": "Précision",
+                            "type": "string",
+                            "enum": [
+                                "0",
+                                "1",
+                                "2",
+                                "date",
+                                "hour"
+                            ],
+                            "description": "Précision des données numériques (0, 1, 2) ou de la date (date, heure).",
+                            "default": "0"
                         },
                         "delay": {
                             "title": "Délais de l'animation",
@@ -65,12 +109,14 @@
                                 "min": {
                                     "type": "number",
                                     "title": "Plage min",
-                                    "description": "La valeur minimale pour la plage. Si non défini, la limite minimale sera utilisée. Doit être définie pour les couches WMS."
+                                    "description": "La valeur minimale pour la plage. Si non défini, la limite minimale sera utilisée. Doit être définie pour les couches WMS.",
+                                    "default": 0
                                 },
                                 "max": {
                                     "type": "number",
                                     "title": "Plage max",
-                                    "description": "La valeur maximale pour la plage. Si non défini, la limite maximale sera utilisée. Doit être définie pour les couches WMS."
+                                    "description": "La valeur maximale pour la plage. Si non défini, la limite maximale sera utilisée. Doit être définie pour les couches WMS.",
+                                    "default": 1
                                 }
                             }
                         },
@@ -81,12 +127,23 @@
                                 "min": {
                                     "type": "number",
                                     "title": "Limite min",
-                                    "description": "La valeur minimale pour la limite. Doit être définie pour les couches WMS."
+                                    "description": "La valeur minimale pour la limite. Si non défini, le valeur sera trouvée à l'aide des valeurs de la couche. Note: Doit être définie pour les couches WMS.",
+                                    "default": 0
                                 },
                                 "max": {
                                     "type": "number",
                                     "title": "Limite max",
-                                    "description": "La valeur maximale pour la limite. Doit être définie pour les couches WMS."
+                                    "description": "La valeur maximale pour la limite. Si non défini, le valeur sera trouvée à l'aide des valeurs de la couche. Note: Doit être définie pour les couches WMS.",
+                                    "default": 1
+                                },
+                                "staticItems": {
+                                    "type": "array",
+                                    "title": "Valeurs limite statique",
+                                    "items": {
+                                        "title": "Valeur",
+                                        "type": "number"
+                                    },
+                                    "description": "Les valeurs de la limite statique. Remarque: Utilisez les limites Limite min et Limite max pour définir les limites inférieure et supérieure."
                                 }
                             }
                         }

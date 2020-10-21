@@ -144,6 +144,13 @@ form plugins rangeSlider,form.plugins.rangesliderctrlloop,Loop animation,0,Boucl
 form plugins rangeSlider,form.plugins.rangesliderctrldelay,Delay between animation,0,Délais entre les animations,0
 form plugins rangeSlider,form.plugins.rangesliderctrlrefresh,Refresh,0,Rafraîchir,0
 form plugins rangeSlider,form.plugins.rangesliderctrlexport,Export animation as Gif,0,Exporter l'animation en format Gif,0
+form plugins rangeSlider,form.plugins.rangeslidersingle,Single,0,Simple,0
+form plugins rangeSlider,form.plugins.rangesliderdual,Dual,0,Double,0
+form plugins rangeSlider,form.plugins.rangesliderdynamic,Dynamic,0,Dynamique,0
+form plugins rangeSlider,form.plugins.rangesliderstatic,Static,0,Statique,0
+form plugins rangeSlider,form.plugins.rangesliderdatelabel,Convert date to milliseconds,0,Convertir une date en millisecondes,0
+form plugins rangeSlider,form.plugins.rangesliderdateconvert,Convert,0,Convertir,0
+form plugins rangeSlider,form.plugins.rangesliderrangesection,Ranges and Limits,0,Étendues et limites,0
 form plugins coordInfo,form.plugins.coordinfo,Coordinates Info,0,Info coordonnées,0
 form plugins areasOfInterest,form.plugins.aois,Areas of interest,0,Régions d'intérêt,0
 form plugins areasOfInterest,form.plugins.aoi,Area of Interest,0,Région d'intérêt,0
@@ -170,6 +177,8 @@ form plugins draw,form.plugins.drawctrlread,Upload Drawing,0,Charger dessins,0
 form plugins draw,form.plugins.drawctrlwrite,Save Drawing,0,Sauvegarder dessins,0
 form plugins thematicSlider,form.plugins.thematicslider,Thematic Slider,0,Curseur de plage thématique,0
 form validation,form.validation.required,Required,0,Requis,0
+form validation,form.validation.rangeslidertype,Single range type and Dynamic step type is not allowed (modify the step then switch back the range to avoid the error),0,Une étendue Simple et une limite Dynamique n'est pas permise (modifier la limite et changer de nouveau l'étendue pour faire disparaitre l'erreur),0
+form validation,form.validation.rangesliderlimit,Minimum value can't be higher then Maximum value (modify the wrong value then reapply the right value to avoid the error),0,La valeur minimale ne peut pas être supérieure à la valeur maximale (modifier la mauvaise valeur puis réappliquer la bonne valeur pour éviter les erreurs),0
 Options list of items for dynamic-select,options.dynamicselect,-- No option available --,0,-- Aucune option disponible --,0
 ,button.save,Save,0,Sauvegarder,0
 ,button.cancel,Cancel,0,Annuler,0
@@ -180,6 +189,7 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,button.import,Import,0,Importer,0
 ,button.extension,Extensions,0,Extensions,0
 ,format.date,Date,0,Date,0
+,format.hour,Hour,0,Heure,0
 ,format.number,Number,0,Nombre,0
 ,ui.fullscreen.title,Fullscreen,1,Plein écran,1
 ,ui.theme.title,Theme,1,Thème,1

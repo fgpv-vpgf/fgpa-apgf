@@ -705,6 +705,98 @@
                 "name": "34",
                 "id": "34***36cbdd8b",
                 "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/NACEI/energy_infrastructure_of_north_america_en/MapServer/34"
+            },
+            {
+                "layerChoice": "esriDynamic",
+                "layerType": "esriDynamic",
+                "toggleSymbology": true,
+                "refreshInterval": 0,
+                "expectedResponseTime": 4000,
+                "tolerance": 5,
+                "outfields": "*",
+                "imageFormat": "png32",
+                "singleEntryCollapse": true,
+                "controls": [
+                    "opacity",
+                    "visibility",
+                    "boundingBox",
+                    "query",
+                    "snapshot",
+                    "metadata",
+                    "boundaryZoom",
+                    "refresh",
+                    "reload",
+                    "remove",
+                    "settings",
+                    "data",
+                    "styles"
+                ],
+                "disabledControls": [],
+                "enableStructuredDelete": false,
+                "state": {
+                    "opacity": 1,
+                    "visibility": true,
+                    "boundingBox": false,
+                    "query": true,
+                    "snapshot": false,
+                    "hovertips": true
+                },
+                "layerEntries": [
+                    {
+                        "outfields": "*",
+                        "stateOnly": false,
+                        "table": {
+                            "title": "",
+                            "maximize": false,
+                            "lazyFilter": false,
+                            "applyMap": false,
+                            "showFilter": true,
+                            "filterByExtent": false,
+                            "searchStrictMatch": false,
+                            "printEnabled": false,
+                            "columns": [
+                                {
+                                    "visible": true,
+                                    "searchable": true,
+                                    "filter": {
+                                        "value": "",
+                                        "static": false
+                                    }
+                                }
+                            ]
+                        },
+                        "controls": [
+                            "opacity",
+                            "visibility",
+                            "boundingBox",
+                            "query",
+                            "snapshot",
+                            "metadata",
+                            "boundaryZoom",
+                            "refresh",
+                            "reload",
+                            "remove",
+                            "settings",
+                            "data",
+                            "styles"
+                        ],
+                        "disabledControls": [],
+                        "state": {
+                            "opacity": 1,
+                            "visibility": false,
+                            "boundingBox": false,
+                            "query": true,
+                            "snapshot": false,
+                            "hovertips": true
+                        },
+                        "init": true,
+                        "index": 0,
+                        "name": "Points"
+                    }
+                ],
+                "name": "Geochron",
+                "id": "Geochron***896302c1",
+                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/GSCC/Geochronology/MapServer/"
             }
         ],
         "legend": {
@@ -855,14 +947,20 @@
     "plugins": {
         "rangeSlider": {
             "enable": false,
-            "open": false,
-            "controls": [
-                "lock",
-                "delay"
-            ],
+            "open": true,
+            "autorun": false,
+            "loop": true,
+            "controls": ["lock", "loop", "delay", "export", "refresh"],
             "params": {
+                "delay": "3000",
+                "rangeType": "dual",
+                "stepType": "dynamic",
+                "precision": "0",
+                "limit": { "min": 10, "max": 70, "staticItems": [] },
+                "range": { "min": 10, "max": 20 },
                 "type": "number",
-                "delay": "3000"
+                "units": "Degree",
+                "description": "Latitude of features"
             },
             "layers": [
                 {

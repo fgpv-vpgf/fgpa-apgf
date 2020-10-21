@@ -99,7 +99,7 @@ module.exports = function (env) {
 
         plugins: [
             new MiniCssExtractPlugin({
-                filename: "av-styles.css"
+                filename: 'av-styles.css'
             }),
 
             new WebpackShellPlugin({

@@ -1,4 +1,7 @@
 const templateUrl = require('../form.html');
+import '../../../../../node_modules/jquery-ui/ui/widgets/datepicker.js';
+import '../../../../../node_modules/jquery-ui/ui/i18n/datepicker-fr-CA.js';
+
 
 /**
  * @module avPlugins
@@ -91,6 +94,9 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
 
         $scope.form = angular.copy($scope.form);
         $scope.form = setForm();
+
+        // create the convert to millisecond date and time picker element
+        setTimepicker();
     }
 
     events.$on(events.avValidateForm, () => {
@@ -100,6 +106,60 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     });
 
     /**
+     * Set the date and time picker element
+     *
+     * @function setTimepicker
+     * @private
+     */
+    function setTimepicker() {
+        setTimeout(() => {
+            // set default date and language
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            const lang = commonService.getLang();
+            const todayLang = (lang === 'en-CA') ? `${mm}/${dd}/${yyyy}` : `${dd}/${mm}/${yyyy}`; 
+
+            // initialize datepicker and timepicker
+            $('.av-range-date').datepicker({ changeMonth: true, changeYear: true }).val(todayLang);
+            $( "#datepicker" ).datepicker('option', $.datepicker.regional[lang]);
+            $('.av-range-hour').timepicker({ 'showDuration': true, 'timeFormat': 'g:ia' }).val('12:00am');
+
+            // set convert button event
+            $('.av-setrange-date').on('click', () => {
+                // extrac hours and minutes and convert
+                const timepick = $('.av-range-hour').timepicker('getTime');
+                const time = timepick.getHours() * 3600 + timepick.getMinutes() * 60;
+                $('.av-range-millisecond')[0].value = Date.parse($('.av-range-date' ).datepicker('getDate')) + time;
+            });
+
+            // broadcast event to generate accordion
+            events.$broadcast(events.avNewItems);
+
+        }, constants.delayAccordion);
+    }
+
+    /**
+     * Get timepicker element
+     *
+     * @function getTimepicker
+     * @private
+     * @return {String} the element string
+     */
+    function getTimepicker() {
+        return  `<fieldset class="schema-form-fieldset">
+                    <span>${$translate.instant('form.plugins.rangesliderdatelabel')}</span>
+                    <div class="av-range-date-container">
+                        <input type="text" class="av-range-date-holder av-range-date"></input>
+                        <input type="text" class="av-range-date-holder av-range-hour"></input>
+                        <button class="av-toggle-button av-setrange-date">${$translate.instant('form.plugins.rangesliderdateconvert')}</button>
+                        <input type="text" class="av-range-date-holder av-range-millisecond"></input> 
+                    </div>
+                </fieldset>`;
+    }
+
+    /**
      * Set Plugins form
      *
      * @function setForm
@@ -107,7 +167,6 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      * @return {Object} the plugins form
      */
     function setForm() {
-        console.log(parseInt(modelManager.getModel('version', false).version))
         return [
             { 'type': 'tabs', 'htmlClass': 'av-inner-tab', 'tabs': [
                 { 'title': $translate.instant('form.plugins.coordinfo'), 'key': 'coordInfo', 'items': [
@@ -154,8 +213,10 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                 ] },
                 { 'title': $translate.instant('form.plugins.rangeslider'), 'key': 'rangeSlider', 'items': [
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
-                    { 'key': 'rangeSlider.enable' },
+                    { 'key': 'rangeSlider.enable', 'onChange': (key, value) => { if (value) setTimepicker() }},
                     { 'key': 'rangeSlider.open', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.autorun', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.loop', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.controls', 'condition': 'model.rangeSlider.enable === true', 'titleMap': [
                         { value: 'lock', name: $translate.instant('form.plugins.rangesliderctrllock') },
                         { value: 'loop', name: $translate.instant('form.plugins.rangesliderctrlloop') },
@@ -166,7 +227,27 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'rangeSlider.params', 'condition': 'model.rangeSlider.enable === true', 'items': [
                         { 'key': 'rangeSlider.params.type', 'type': 'select', 'titleMap': [
                             { value: 'date', name: $translate.instant('format.date') },
-                            { value: 'number', name: $translate.instant('format.number') }
+                            { value: 'number', name: $translate.instant('format.number') },
+                            { value: 'wmst', name: 'WMS-T' }
+                        ] },
+                        { 'key': 'rangeSlider.params.rangeType', 'type': 'select', 'titleMap': [
+                            { value: 'single', name: $translate.instant('form.plugins.rangeslidersingle') },
+                            { value: 'dual', name: $translate.instant('form.plugins.rangesliderdual') }
+                        ], 'validationMessage': { 'wrongType': $translate.instant('form.validation.rangeslidertype') },
+                        '$validators': { wrongType: (newValue) => { return (newValue === 'single' && $scope.model.rangeSlider.params.stepType === 'dynamic') ? false : true; } }
+                        },
+                        { 'key': 'rangeSlider.params.stepType', 'type': 'select', 'titleMap': [
+                            { value: 'static', name: $translate.instant('form.plugins.rangesliderstatic') },
+                            { value: 'dynamic', name: $translate.instant('form.plugins.rangesliderdynamic') }
+                        ], 'validationMessage': { 'wrongType': $translate.instant('form.validation.rangeslidertype') },
+                        '$validators': { wrongType: (newValue) => { return (newValue === 'dynamic' && $scope.model.rangeSlider.params.rangeType === 'single') ? false : true; } }
+                        },
+                        { 'key': 'rangeSlider.params.precision', 'type': 'select', 'titleMap': [
+                            { value: '0', name: '0' },
+                            { value: '1', name: '1' },
+                            { value: '2', name: '2' },
+                            { value: 'date', name: $translate.instant('format.date') },
+                            { value: 'dynamic', name: $translate.instant('format.hour') }
                         ] },
                         { 'key': 'rangeSlider.params.delay', 'titleMap': [
                             { value: '3000', name: '3 sec' },
@@ -175,8 +256,32 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             { value: '6000', name: '6 sec' },
                             { value: '7000', name: '7 sec' }
                         ] },
-                        { 'key': 'rangeSlider.params.range' },
-                        { 'key': 'rangeSlider.params.limit' }
+                        { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.rangesliderrangesection'), 'items': [
+                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
+                                { 'type': 'template', 'template': getTimepicker() },
+                                { 'key': 'rangeSlider.params.range', 'items': [
+                                    { 'key': 'rangeSlider.params.range.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
+                                    '$validators': { wrongValues: (value) => {
+                                        return (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true;
+                                    } } },
+                                    { 'key': 'rangeSlider.params.range.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
+                                    '$validators': { wrongValues: (value) => {
+                                        return (value !== null && value <= $scope.model.rangeSlider.params.range.min) ? false : true;
+                                    } } }
+                                ] },
+                                { 'key': 'rangeSlider.params.limit', 'items': [
+                                    { 'key': 'rangeSlider.params.limit.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
+                                    '$validators': { wrongValues: (value) => {
+                                        return (value !== null && value >= $scope.model.rangeSlider.params.limit.max) ? false : true;
+                                    } } },
+                                    { 'key': 'rangeSlider.params.limit.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
+                                    '$validators': { wrongValues: (value) => {
+                                        return (value !== null && value <= $scope.model.rangeSlider.params.limit.min) ? false : true;
+                                    } } },
+                                    { 'key': 'rangeSlider.params.limit.staticItems', 'startEmpty': true, 'condition': 'model.rangeSlider.params.stepType === \'static\'' }
+                                ] }
+                            ] }
+                        ] }
                     ] },
                     { 'key': 'rangeSlider.layers', 'add': $translate.instant('button.add'), 'condition': 'model.rangeSlider.enable === true', 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-rangeSlider', 'items': [
@@ -188,7 +293,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                 'array': true
                             },
                             // there is a problem with the validation. Need to add custom one
-                            { 'key': 'rangeSlider.layers[].field','validationMessage':
+                            { 'key': 'rangeSlider.layers[].field', 'validationMessage':
                                 { 'empty': $translate.instant('form.validation.required') },
                             '$validators': { empty: function(value) {
                                 return (angular.isString(value) && value === '') ? false : true;
