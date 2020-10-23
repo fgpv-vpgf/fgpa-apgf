@@ -14,6 +14,9 @@
 
 [Documentation](https://fgpv-vpgf.github.io/fgpa-apgf/a2v2/0.1.0/index.html)
 
+_Important: After npm install, modify angular-schema-form-bootstrap-bundled.min.js inside the node_modules folder. You need to modify this o.a.uppercase(t[0]) to t[0].toUpperCase().
+This is important because uppercase is deprecated and the application won't work_
+
 ## Getting Started
 
 Requirements:
@@ -35,6 +38,9 @@ We use a fork and pull model for contributions, see our [contributing guidelines
 [Page Démonstration](https://jolevesq.github.io/fgpa-apgf/samples/fgpv-author.html)
 
 *Notes: Il est préférable d'utiliser Chrome ou Firefox (Internet Explorer n'est pas supporté)*
+
+_Important: Après npm install, modifer angular-schema-form-bootstrap-bundled.min.js qui se situe dans le répertoire node_modules. Vous devez modifier ceci o.a.uppercase(t[0]) pour t[0].toUpperCase().
+Ceci est important car uppercase est déprécié et l'application de fonctionnera pas_
 
 ## Pour commencer
 
