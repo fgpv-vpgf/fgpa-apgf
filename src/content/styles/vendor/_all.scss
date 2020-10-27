@@ -5,9 +5,11 @@ This should make it easy to update my third-party stylesheets to more current ve
 // import all vendor override files
 @import "_angularmaterial.scss";
 @import "_bootstrap.scss";
+@import "_datepicker.scss";
 @import "_shame.scss";
 
 @include angularmaterial;
 @include bootstrap;
+@include datepicker;
 @include IE;
 

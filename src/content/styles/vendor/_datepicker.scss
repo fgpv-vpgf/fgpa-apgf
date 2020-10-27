@@ -1,0 +1,8 @@
+// JQuery UI datepicker specific css
+
+@mixin datepicker {
+    .ui-datepicker {
+        background-color: $primary-color-text;
+        border: $primary-color 1px solid;
+    }
+}

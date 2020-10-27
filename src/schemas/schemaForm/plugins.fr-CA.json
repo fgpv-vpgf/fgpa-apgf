@@ -143,6 +143,7 @@
                                         "title": "Valeur",
                                         "type": "number"
                                     },
+                                    "default": [],
                                     "description": "Les valeurs de la limite statique. Remarque: Utilisez les limites Limite min et Limite max pour définir les limites inférieure et supérieure."
                                 }
                             }
