@@ -143,6 +143,7 @@
                                         "title": "Value",
                                         "type": "number"
                                     },
+                                    "default": [],
                                     "description": "The values for static limit. Note: Use Min Limit and Max Limit ot set the lower and upper limit."
                                 }
                             }

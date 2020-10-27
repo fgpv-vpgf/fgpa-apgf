@@ -122,7 +122,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
             const todayLang = (lang === 'en-CA') ? `${mm}/${dd}/${yyyy}` : `${dd}/${mm}/${yyyy}`; 
 
             // initialize datepicker and timepicker
-            $('.av-range-date').datepicker({ changeMonth: true, changeYear: true }).val(todayLang);
+            $('.av-range-date').datepicker({ changeMonth: true, changeYear: true, yearRange: '1900:c+30' }).val(todayLang);
             $( "#datepicker" ).datepicker('option', $.datepicker.regional[lang]);
             $('.av-range-hour').timepicker({ 'showDuration': true, 'timeFormat': 'g:ia' }).val('12:00am');
 

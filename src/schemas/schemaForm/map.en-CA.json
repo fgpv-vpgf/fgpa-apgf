@@ -469,7 +469,6 @@
                             "type": "number",
                             "title": "Opacity",
                             "version": "2.4",
-                            "todo": "required",
                             "default": 1,
                             "minimum": 0,
                             "maximum": 1,
