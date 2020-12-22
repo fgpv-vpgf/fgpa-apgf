@@ -147,6 +147,18 @@
                                     "description": "Les valeurs de la limite statique. Remarque: Utilisez les limites Limite min et Limite max pour définir les limites inférieure et supérieure."
                                 }
                             }
+                        },
+                        "units": {
+                            "type": "string",
+                            "title": "Unitées",
+                            "description": "Montré à droite de l'axe du temps. Soyez bref pour améliorer la lisibilité.",
+                            "default": ""
+                        },
+                        "description": {
+                            "type": "string",
+                            "title": "Description",
+                            "description": "Montré en bas de la barre d'outils. Peut être masqué par l'utilisateur.",
+                            "default": ""
                         }
                     },
                     "required": ["type"]

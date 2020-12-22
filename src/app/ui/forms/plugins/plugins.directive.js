@@ -2,7 +2,6 @@ const templateUrl = require('../form.html');
 import '../../../../../node_modules/jquery-ui/ui/widgets/datepicker.js';
 import '../../../../../node_modules/jquery-ui/ui/i18n/datepicker-fr-CA.js';
 
-
 /**
  * @module avPlugins
  * @memberof app.ui
@@ -234,14 +233,16 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             { value: 'single', name: $translate.instant('form.plugins.rangeslidersingle') },
                             { value: 'dual', name: $translate.instant('form.plugins.rangesliderdual') }
                         ], 'validationMessage': { 'wrongType': $translate.instant('form.validation.rangeslidertype') },
-                        '$validators': { wrongType: (newValue) => { return (newValue === 'single' && $scope.model.rangeSlider.params.stepType === 'dynamic') ? false : true; } }
+                        '$validators': { wrongType: newValue => (newValue === 'single' && $scope.model.rangeSlider.params.stepType === 'dynamic') ? false : true }
                         },
                         { 'key': 'rangeSlider.params.stepType', 'type': 'select', 'titleMap': [
                             { value: 'static', name: $translate.instant('form.plugins.rangesliderstatic') },
                             { value: 'dynamic', name: $translate.instant('form.plugins.rangesliderdynamic') }
                         ], 'validationMessage': { 'wrongType': $translate.instant('form.validation.rangeslidertype') },
-                        '$validators': { wrongType: (newValue) => { return (newValue === 'dynamic' && $scope.model.rangeSlider.params.rangeType === 'single') ? false : true; } }
+                        '$validators': { wrongType: newValue => (newValue === 'dynamic' && $scope.model.rangeSlider.params.rangeType === 'single') ? false : true }
                         },
+                        { 'key': 'rangeSlider.params.units' },
+                        { 'key': 'rangeSlider.params.description' },
                         { 'key': 'rangeSlider.params.precision', 'type': 'select', 'titleMap': [
                             { value: '0', name: '0' },
                             { value: '1', name: '1' },
@@ -261,23 +262,15 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                 { 'type': 'template', 'template': getTimepicker() },
                                 { 'key': 'rangeSlider.params.range', 'items': [
                                     { 'key': 'rangeSlider.params.range.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
-                                    '$validators': { wrongValues: (value) => {
-                                        return (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true;
-                                    } } },
+                                        '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true } },
                                     { 'key': 'rangeSlider.params.range.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
-                                    '$validators': { wrongValues: (value) => {
-                                        return (value !== null && value <= $scope.model.rangeSlider.params.range.min) ? false : true;
-                                    } } }
+                                        '$validators': { wrongValues: value => (value !== null && value <= $scope.model.rangeSlider.params.range.min) ? false : true } }
                                 ] },
                                 { 'key': 'rangeSlider.params.limit', 'items': [
                                     { 'key': 'rangeSlider.params.limit.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
-                                    '$validators': { wrongValues: (value) => {
-                                        return (value !== null && value >= $scope.model.rangeSlider.params.limit.max) ? false : true;
-                                    } } },
+                                        '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.limit.max) ? false : true } },
                                     { 'key': 'rangeSlider.params.limit.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
-                                    '$validators': { wrongValues: (value) => {
-                                        return (value !== null && value <= $scope.model.rangeSlider.params.limit.min) ? false : true;
-                                    } } },
+                                        '$validators': { wrongValues: value => (value !== null && value <= $scope.model.rangeSlider.params.limit.min) ? false : true } },
                                     { 'key': 'rangeSlider.params.limit.staticItems', 'startEmpty': true, 'condition': 'model.rangeSlider.params.stepType === \'static\'' }
                                 ] }
                             ] }
