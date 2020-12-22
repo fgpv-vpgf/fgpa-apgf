@@ -126,9 +126,14 @@
 
     .av-range-date-container {
         display: flex;
+        align-items: center;
 
         .av-range-date-holder {
             margin: 15px;
+        }
+
+        .av-set-range-date {
+            height: 25px;
         }
     }
 }

@@ -13,7 +13,7 @@
         var styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
-        styles.href = 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar);
+        styles.href = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version).replace('{env}', envar);
         document.getElementsByTagName('head')[0].appendChild(styles);
 
         // set plugins js and css
@@ -39,12 +39,12 @@
             // RAMP core plugins are not at the same as custom plugins
             var path = '';
             if (plugins[i] === 'coordInfo') {
-                addScriptTag('https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-coordinate-info.js'.replace('x.x.x', version).replace('{env}', envar));
+                addScriptTag('https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-coordinate-info.js'.replace('x.x.x', version).replace('{env}', envar));
             } else if (plugins[i] === 'areasOfInterest') {
-                addScriptTag('https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version).replace('{env}', envar));
+                addScriptTag('https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version).replace('{env}', envar));
             } else {
                 // TODO: use version on the cloud when we will have dev and prod
-                // path = 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/core-plugins/'.replace('x.x.x', version).replace('{env}', envar)
+                // path = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/'.replace('x.x.x', version).replace('{env}', envar)
                 //     + pluginDash + '/' + pluginDash;
                 path = 'https://jolevesq.github.io/contributed-plugins/' + pluginDash + '/' + pluginDash;
                 addScriptTag(path + '.js');
@@ -91,7 +91,7 @@
     var version = localStorage.getItem('viewerversion');
     var envar = localStorage.getItem('viewerenv');
     envar = (envar === 'dev') ? 'dev.' : 'dev'; // TODO: modify when we have cloud in prod
-    scriptTag.src = 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
+    scriptTag.src = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version).replace('{env}', envar);
     document.body.appendChild(scriptTag);
     localStorage.removeItem('configlangs');
     localStorage.removeItem('configpreview');

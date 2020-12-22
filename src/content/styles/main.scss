@@ -11,3 +11,7 @@
     @import "modules/_all.scss";
     @import "vendor/_all.scss";
 }
+
+// Picker is created outside fgpa div, import separately
+@import "vendor/_datepicker.scss";
+@include datepicker;

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
 
-    <link rel="stylesheet" href="https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-3.2.0/rv-styles.css" />
+    <link rel="stylesheet" href="https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/rv-styles.css" />
 
     <style>
         body {
@@ -32,15 +32,15 @@
 
 <script type="text/javascript">
     // set config name to data-rv-config
-    // TODO: CORS errors doesn't let us read from the cloud at the moment so use the version on GitHub
-    //document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://maps-cartes.viz-dev.services.geo.ca/assets/fgpa/fgpa-latest/config/' + localStorage.getItem('configextent') + '.json');
-    document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://raw.githubusercontent.com/fgpv-vpgf/fgpa-apgf/develop/src/content/samples/config/' + localStorage.getItem('configextent') + '.json');
+    // TODO: CORS errors doesn't let us read from the cloud at the moment so use the version on GitHub when developing
+    document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://viewer-visualiseur-dev.services.geo.ca/fgpv-vpgf/author-auteur/config/' + localStorage.getItem('configextent') + '.json');
+    //document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://raw.githubusercontent.com/fgpv-vpgf/fgpa-apgf/develop/src/content/samples/config/' + localStorage.getItem('configextent') + '.json');
     localStorage.removeItem('configextent');
 </script>
 
 <!-- IMPORTANT, keep the viewer to version 3.2.0 Modification of viewer version may impact functionnality -->
-<script src="https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-3.2.0/legacy-api.js"></script>
-<script src="https://maps-cartes.viz-dev.services.geo.ca/assets/fgpv/fgpv-3.2.0/rv-main.js"></script>
+<script src="https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/legacy-api.js"></script>
+<script src="https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/rv-main.js"></script>
 
 <script type="text/javascript">
     // link to api from script to get new extent
