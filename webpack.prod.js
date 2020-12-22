@@ -26,7 +26,7 @@ module.exports = function(env) {
             new ZipPlugin({
                 path:  path.resolve(__dirname, 'dist'),
                 filename:  path.resolve(__dirname, `dist/fgpa-${pkg.version}.zip`),
-                exclude: [/samples/],
+                exclude: [/samples/]
             }),
 
             new SriPlugin({
