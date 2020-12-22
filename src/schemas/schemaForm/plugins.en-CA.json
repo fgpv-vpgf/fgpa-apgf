@@ -147,6 +147,18 @@
                                     "description": "The values for static limit. Note: Use Min Limit and Max Limit ot set the lower and upper limit."
                                 }
                             }
+                        },
+                        "units": {
+                            "type": "string",
+                            "title": "Units",
+                            "description": "Shown at the right of the time axis. Keep it short to improve readability.",
+                            "default": ""
+                        },
+                        "description": {
+                            "type": "string",
+                            "title": "Description",
+                            "description": "Shown at the bottom of the toolbar. Can be hide by the user.",
+                            "default": ""
                         }
                     },
                     "required": ["type"]

@@ -199,7 +199,7 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
         localStorage.setItem('configplugins', modelManager.getEnabledPlugins());
 
         // set the viewer version to use by the preview window/iFrame
-         setLocalVersion();
+        setLocalVersion();
 
         $mdDialog.show({
             controller: previewController,
