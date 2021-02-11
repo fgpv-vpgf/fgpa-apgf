@@ -32,9 +32,7 @@
 
 <script type="text/javascript">
     // set config name to data-rv-config
-    // TODO: CORS errors doesn't let us read from the cloud at the moment so use the version on GitHub when developing
-    document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://viewer-visualiseur-dev.services.geo.ca/fgpv-vpgf/author-auteur/config/' + localStorage.getItem('configextent') + '.json');
-    //document.getElementById('fgpmap').setAttribute('data-rv-config', 'https://raw.githubusercontent.com/fgpv-vpgf/fgpa-apgf/develop/src/content/samples/config/' + localStorage.getItem('configextent') + '.json');
+    document.getElementById('fgpmap').setAttribute('data-rv-config', './config/' + localStorage.getItem('configextent') + '.json');
     localStorage.removeItem('configextent');
 </script>
 

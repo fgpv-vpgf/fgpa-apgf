@@ -157,8 +157,7 @@
                         "description": {
                             "type": "string",
                             "title": "Description",
-                            "description": "Shown at the bottom of the toolbar. Can be hide by the user.",
-                            "default": ""
+                            "description": "Description to add in the section below the slider."
                         }
                     },
                     "required": ["type"]
@@ -320,7 +319,7 @@
                             "type": "number",
                             "description": "Cut out percentage to use to give doughnut effect.",
                             "default": 0,
-                            "minimum": 10,
+                            "minimum": 0,
                             "maximum": 80
                         }
                     },
@@ -346,7 +345,7 @@
                                         "field",
                                         "config",
                                         "linear",
-                                        "time"
+                                        "date"
                                     ],
                                     "description": "Retreive the labels from a field or configuration for bar chart or from values (linear or time) for line chart.",
                                     "default": "config"
@@ -376,7 +375,7 @@
                                     "default": ""
                                 },
                                 "type": {
-                                    "title": "LType",
+                                    "title": "Type",
                                     "type": "string",
                                     "enum": [
                                         "field",
@@ -414,8 +413,32 @@
                             "id": {
                                 "title": "Layer ID",
                                 "type": "string",
-                                "description": "GeoApi doesn't support layers id inside identify. The plugin, for the moment, will only work when there is one layer on the map.",
-                                "default": "0"
+                                "description": ""
+                            },
+                            "nameField": {
+                                "type": "string",
+                                "title": "Name Field",
+                                "description": "Field name to use for the chart selection combo box when multiple charts."
+                            },
+                            "type": {
+                                "title": "Chart Data Type",
+                                "type": "string",
+                                "enum": [
+                                    "inline",
+                                    "link"
+                                ],
+                                "description": "Type of data (inline for items inside the layer or link for items inside a link table).",
+                                "default": "inline"
+                            },
+                            "linkUrl": {
+                                "type": "string",
+                                "title": "Link URL",
+                                "description": "URL of the link table."
+                            },
+                            "linkField": {
+                                "type": "string",
+                                "title": "Link Field",
+                                "description": "Field name for the link between the layer and the table."
                             },
                             "data": {
                                 "type": "array",
@@ -432,9 +455,34 @@
                                             "description": "Single if there is only one value inside the field. Combine if we use time axis and time and value are part of the field.",
                                             "default": "single"
                                         },
+                                        "linkType": {
+                                            "title": "Type of link",
+                                            "type": "string",
+                                            "enum": [
+                                                "single",
+                                                "multi"
+                                            ],
+                                            "description": "How data is structure inside the link table (single for one field for value and one for date OR multi if there is multiple datasets inside one field and the chart needs to parse).",
+                                            "default": "single"
+                                        },
+                                        "link": {
+                                            "title": "Link Field",
+                                            "type": "string",
+                                            "description": "Link field to link between layer and table."
+                                        },
+                                        "date": {
+                                            "title": "Date Field",
+                                            "type": "string",
+                                            "description": "Field to use for the date"
+                                        },
                                         "measure": {
                                             "title": "Measure Field",
                                             "type": "string"
+                                        },
+                                        "values": {
+                                            "title": "Label Values",
+                                            "type": "string",
+                                            "description": "Field name to get labels from for link type multi."
                                         },
                                         "label": {
                                             "type": "object",
@@ -491,9 +539,24 @@
                                     },
                                     "required": ["type", "measure", "split"]
                                 }
+                            },
+                            "details": {
+                                "type": "object",
+                                "title": "Details",
+                                "properties": {
+                                    "enabled": {
+                                        "type": "boolean",
+                                        "title": "Enable"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "title": "Value",
+                                        "description": "String with the custom details in markdown notation."
+                                    }
+                                }
                             }
                         },
-                        "required": ["id"]
+                        "required": ["id", "nameField", "type", "data"]
                     }
                 },
                 "required": ["type", "layers"]
@@ -633,6 +696,7 @@
                                 "type": "array",
                                 "title": "Legend",
                                 "description": "Add items for a custom legend, leave it blank for default legend.",
+                                "default": [],
                                 "items": {
                                     "type": "object",
                                     "properties": {
