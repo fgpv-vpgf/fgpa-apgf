@@ -599,12 +599,15 @@ function stateManager($translate, events, constants, commonService) {
 
                     // Because the url required is not trap by the validation, check it here
                     let valid = true;
-                    for (let k = 0; k < item.legend.length; k++) {
-                        if (item.legend[k].image.url === '') {
-                            valid = false;
-                            pluginVal = false;
+                    if (typeof item.legend !== 'undefined') {
+                        for (let k = 0; k < item.legend.length; k++) {
+                            if (item.legend[k].image.url === '') {
+                                valid = false;
+                                pluginVal = false;
+                            }
                         }
                     }
+                    
                     stateModel.items[6].items[7].items[j].valid = valid;
                 }
             }

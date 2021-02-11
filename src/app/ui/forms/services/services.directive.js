@@ -157,7 +157,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-servicesurl-${commonService.getLang()}.md`, true) },
                     { 'key': 'proxyUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'corsEverywhere', 'htmlClass': 'av-form-advance hidden', 'readonly': false },
-                    { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
+                    { 'key': 'exportMapUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': false },
                     { 'key': 'geometryUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'googleAPIKey', 'htmlClass': 'av-form-advance hidden', 'readonly': true },
                     { 'key': 'esriLibUrl', 'htmlClass': 'av-form-advance hidden', 'readonly': false }
