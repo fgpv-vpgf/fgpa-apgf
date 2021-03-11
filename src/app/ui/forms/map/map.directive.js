@@ -607,6 +607,9 @@ function Controller($scope, $translate, $timeout,
                 input.checked = true;
             }
 
+            // make sure columns are empty
+            entry.table.columns = []
+
             // FIXME: there so bugs with ASF.
             // We are not able to set step value... we need to set them manually
             $timeout(() => {

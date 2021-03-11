@@ -150,15 +150,14 @@
                         },
                         "units": {
                             "type": "string",
-                            "title": "Unitées",
+                            "title": "Unités",
                             "description": "Montré à droite de l'axe du temps. Soyez bref pour améliorer la lisibilité.",
                             "default": ""
                         },
                         "description": {
                             "type": "string",
                             "title": "Description",
-                            "description": "Montré en bas de la barre d'outils. Peut être masqué par l'utilisateur.",
-                            "default": ""
+                            "description": "Description à ajouter dans la section sous le curseur."
                         }
                     },
                     "required": ["type"]
@@ -319,7 +318,7 @@
                             "type": "number",
                             "description": "Pourcentage de découpe pour donner un effet de beigne.",
                             "default": 0,
-                            "minimum": 10,
+                            "minimum": 0,
                             "maximum": 80
                         }
                     },
@@ -343,7 +342,9 @@
                                     "type": "string",
                                     "enum": [
                                         "field",
-                                        "config"
+                                        "config",
+                                        "linear",
+                                        "date"
                                     ],
                                     "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type bar ou bien par valeurs (date ou linéaire) pour un grpahique de type ligne.",
                                     "default": "config"
@@ -377,7 +378,9 @@
                                     "type": "string",
                                     "enum": [
                                         "field",
-                                        "config"
+                                        "config",
+                                        "linear",
+                                        "date"
                                     ],
                                     "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type bar ou bien par valeurs (date ou linéaire) pour un grpahique de type ligne.",
                                     "default": "config"
@@ -409,8 +412,32 @@
                             "id": {
                                 "title": "identifiant de la Couche",
                                 "type": "string",
-                                "description": "GeoApi ne prend pas en charge les identifiants des couches. Le module, pour le moment, ne fonctionnera que s'il y a une seule couche sur la carte.",
-                                "default": "0"
+                                "description": ""
+                            },
+                            "nameField": {
+                                "type": "string",
+                                "title": "Champ nommé",
+                                "description": "Nom du champ à utiliser pour la zone de liste déroulante pour la sélection de graphique lorsque qu'il y a plusieurs graphiques."
+                            },
+                            "type": {
+                                "title": "Type de données du graphique",
+                                "type": "string",
+                                "enum": [
+                                    "inline",
+                                    "link"
+                                ],
+                                "description": "Type de données (interne pour les éléments à l'intérieur de la couche ou lié pour les éléments à l'intérieur d'une table de liens).",
+                                "default": "inline"
+                            },
+                            "linkUrl": {
+                                "type": "string",
+                                "title": "URL table de liens",
+                                "description": "URL de la table de liens."
+                            },
+                            "linkField": {
+                                "type": "string",
+                                "title": "Champ lié",
+                                "description": "Nom du champ pour le lien entre la couche et la table."
                             },
                             "data": {
                                 "type": "array",
@@ -427,9 +454,34 @@
                                             "description": "Unique s'il n'y a qu'une seule valeur dans le champ. Combinez si vous utilisez l’axe temps et que le temps et la valeur font partie du champ.",
                                             "default": "single"
                                         },
+                                        "linkType": {
+                                            "title": "Type de lien",
+                                            "type": "string",
+                                            "enum": [
+                                                "single",
+                                                "multi"
+                                            ],
+                                            "description": "La structure des données à l'intérieur de la table de liens (unique pour un champ pour la valeur et un pour la date OU multi s'il y a plusieurs ensembles de données dans un champ et que le graphique doit analyser).",
+                                            "default": "single"
+                                        },
+                                        "link": {
+                                            "title": "Champ Lien",
+                                            "type": "string",
+                                            "description": "Champs lien entre la table et la couche."
+                                        },
+                                        "date": {
+                                            "title": "Champ date",
+                                            "type": "string",
+                                            "description": "Champs à utiliser pour la date."
+                                        },
                                         "measure": {
                                             "title": "Champ de mesure",
                                             "type": "string"
+                                        },
+                                        "values": {
+                                            "title": "Valeurs étiquettes",
+                                            "type": "string",
+                                            "description": "Nom du champs pour obtenir les étiquettes dans un type de lien multi."
                                         },
                                         "label": {
                                             "type": "object",
@@ -486,9 +538,24 @@
                                     },
                                     "required": ["type", "measure", "split"]
                                 }
+                            },
+                            "details": {
+                                "type": "object",
+                                "title": "Détails",
+                                "properties": {
+                                    "enabled": {
+                                        "type": "boolean",
+                                        "title": "Activer"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "title": "Valeur",
+                                        "description": "Chaîne de texte avec les détails personnalisés en notation markdown."
+                                    }
+                                }
                             }
                         },
-                        "required": ["id"]
+                        "required": ["id", "nameField", "type", "data"]
                     }
                 },
                 "required": ["type", "layers"]
@@ -627,6 +694,7 @@
                                 "type": "array",
                                 "title": "Légende",
                                 "description": "Ajouter des éléments pour une légende personnalisée, laissez ce champ vide pour utiliser la légende par défaut.",
+                                "default": [],
                                 "items": {
                                     "type": "object",
                                     "properties": {

@@ -21,7 +21,7 @@
     },
     "exportMapUrl": {
       "type": "string",
-      "description": "Un point de service ESRI pour générer des images à partir de cartes. Doit pointer directement vers un point de service qui peut être utilisé par un service d'impression d'ESRI (ESRI PrintTask).",
+      "description": "Un point de service ESRI pour générer des images à partir de cartes. Doit pointer directement vers un point de service qui peut être utilisé par un service d'impression d'ESRI (ESRI PrintTask). Si la valeur est vide, exportera en tant qu'élément Canvas sans ESRI.",
       "title": "URL de la carte à exporter",
       "help": "",
       "default": ""

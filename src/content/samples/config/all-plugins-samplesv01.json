@@ -563,6 +563,17 @@
         ],
         "layers": [
             {
+                "id": "WaterQuality***05003c79",
+                "name": "Water Quality",
+                "layerChoice": "esriDynamic",
+                "layerType": "esriDynamic",
+                "url": "https://maps-stage.services.geo.ca/server_serveur/rest/services/NRCAN/Water_Quality_Test2/MapServer",
+                "layerEntries": [{
+                  "index": 0,
+                  "name": "Points"
+                }]
+            },
+            {
                 "layerChoice": "esriFeature",
                 "layerType": "esriFeature",
                 "toggleSymbology": true,
@@ -987,32 +998,54 @@
             ]
         },
         "chart": {
-            "enable": false,
-            "type": "pie",
-            "title": "",
-            "labelsPie": {
-                "type": "config",
+            "type": "line",
+            "title": "Water Quality",
+            "axis": {
+              "xAxis": {
+                "type": "date",
+                "title": "Dates",
                 "values": "",
-                "split": ";"
+                "split": ""
+              },
+              "yAxis": {
+                "type": "linear",
+                "title": "MG / L",
+                "values": "",
+                "split": ""
+              }
             },
             "options": {
-                "colors": "",
-                "cutOut": 0
+              "colors": "",
+              "cutOut": 0
             },
-            "axis": {
-                "xAxis": {
-                    "title": "",
-                    "type": "config",
-                    "values": "",
-                    "split": ";"
-                },
-                "yAxis": {
-                    "title": "",
-                    "type": "config",
-                    "values": "",
-                    "split": ";"
+            "layers": [{
+                "id": "WaterQuality***05003c79",
+                "nameField": "Site_number",
+                "type": "link",
+                "linkUrl": "https://maps-stage.services.geo.ca/server_serveur/rest/services/NRCAN/Water_Quality_Test2/MapServer/1",
+                "linkField": "Site_number",
+                "data": [{
+                    "type": "combine",
+                    "linkType": "multi",
+                    "link": "Site_number",
+                    "measure": "VALUE_VALEUR",
+                    "values": "VARIABLE_NAME",
+                    "date": "DATE",
+                    "label": {
+                      "type": "config",
+                      "values": "",
+                      "split": ""
+                    },
+                    "regex": "\\(|\\),\\(|\\)",
+                    "split": ",",
+                    "prefix": "",
+                    "suffix": "MG/L"
+                }],
+                "details": {
+                    "enabled": true,
+                    "value": "## What a nice pie chart\n**Useful data listed below**\n"
                 }
-            }
+            }]
         },
         "swiper": {
             "enable": false,
@@ -1025,7 +1058,7 @@
             ]
         },
         "draw": {
-            "enable": true,
+            "enable": false,
             "open": false,
             "tools": [
                 "picker",
