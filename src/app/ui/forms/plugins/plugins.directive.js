@@ -117,13 +117,18 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
             const dd = String(today.getDate()).padStart(2, '0');
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const yyyy = today.getFullYear();
-            const lang = commonService.getLang();
-            const todayLang = (lang === 'en-CA') ? `${mm}/${dd}/${yyyy}` : `${dd}/${mm}/${yyyy}`; 
+            const lang = commonService.getLang() === 'en-CA' ? 'en' : 'fr-CA';
+            const todayLang = (lang === 'en') ? `${mm}/${dd}/${yyyy}` : `${dd}/${mm}/${yyyy}`;
+            const dateFormat = (lang === 'en') ? `mm/dd/yy` : `dd/mm/yy`;
+
 
             // initialize datepicker and timepicker
-            $('.av-range-date').datepicker({ changeMonth: true, changeYear: true, yearRange: '1900:c+30' }).val(todayLang);
-            $('#datepicker').datepicker('option', $.datepicker.regional[lang]);
-            $('.av-range-hour').timepicker({ 'showDuration': true, 'timeFormat': 'g:ia' }).val('12:00am');
+            $('.av-range-date').datepicker({ changeMonth: true, changeYear: true, yearRange: '1900:c+30' });
+            $('.av-range-date').datepicker('option', $.datepicker.regional[lang]);
+            $('.av-range-date').datepicker('option', 'dateFormat', dateFormat);
+            $('.av-range-date').datepicker('setDate', todayLang);
+            $('.av-range-hour').timepicker();
+            $('.av-range-hour').timepicker('setTime', '12:00am');
 
             // set convert button event
             $('.av-setrange-date').on('click', () => {
