@@ -104,7 +104,7 @@
                         },
                         "range": {
                             "type": "object",
-                            "title": "Valeurs par défault de la plage",
+                            "title": "Valeurs par défaut de la plage",
                             "properties": {
                                 "min": {
                                     "type": "number",
@@ -122,7 +122,7 @@
                         },
                         "limit": {
                             "type": "object",
-                            "title": "Valeurs par défault de la limite",
+                            "title": "Valeurs par défaut de la limite",
                             "properties": {
                                 "min": {
                                     "type": "number",
@@ -365,7 +365,7 @@
                             "required": ["type", "values", "split"]
                         },
                         "yAxis": {
-                            "title": "Y Axis",
+                            "title": "Axes des Y",
                             "type": "object",
                             "properties": {
                                 "title": {
@@ -410,7 +410,7 @@
                         "type": "object",
                         "properties": {
                             "id": {
-                                "title": "identifiant de la Couche",
+                                "title": "Identifiant de la couche",
                                 "type": "string",
                                 "description": ""
                             },
@@ -688,7 +688,7 @@
                             },
                             "description": {
                                 "type": "string",
-                                "title": "Description de l'animation de cette coyche"
+                                "title": "Description de l'animation de cette couche"
                             },
                             "legend": {
                                 "type": "array",

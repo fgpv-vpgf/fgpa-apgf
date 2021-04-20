@@ -10,7 +10,7 @@ app section ui,app.section.ui,UI,0,UI,0
 app section service,app.section.services,Services,0,Services,0
 app section version,app.section.version,Version,0,Version,0
 app section language,app.section.language,Language,0,Langue,0
-app section plugins,app.section.plugins,Plugins,0,Modules,0
+app section plugins,app.section.plugins,Plugins,0,Modules d'extension,0
 app summary,app.summary,Summary,0,Sommaire,0
 Content panel tooltip,contentPanel.tooltip.close,Close,0,Fermer,0
 header language selection,header.language,Language,0,Langue,0
@@ -138,7 +138,7 @@ form map,form.map.selectorerror,Wrong format - each item needs to be inside doub
 form show advance,form.showadvance,Show advanced configuration options,0,Afficher les options de configuration avancée,0
 form custom help accordion,form.custom.help,- Help - Section information,0,- Aide - Information sur la section,0
 form version template comment,form.templatecomment,Choose the right template (dev) for the development version of the Author.,0,Choisir le bon gabarit (dev) pour la version développement de l'Auteur.,0
-form plugins rangeSlider,form.plugins.rangeslider,Range Slider,0,Curseur de plage,0
+form plugins rangeSlider,form.plugins.rangeslider,Range Slider,0,Barre de défilement des plages de valeurs,0
 form plugins rangeSlider,form.plugins.rangesliderctrllock,Lock/unlock minimal range,0,Barrer / débarrer la plage minimale,0
 form plugins rangeSlider,form.plugins.rangesliderctrlloop,Loop animation,0,Boucler l'animation,0
 form plugins rangeSlider,form.plugins.rangesliderctrldelay,Delay between animation,0,Délais entre les animations,0
@@ -151,7 +151,7 @@ form plugins rangeSlider,form.plugins.rangesliderstatic,Static,0,Statique,0
 form plugins rangeSlider,form.plugins.rangesliderdatelabel,Convert date to milliseconds,0,Convertir une date en millisecondes,0
 form plugins rangeSlider,form.plugins.rangesliderdateconvert,Convert,0,Convertir,0
 form plugins rangeSlider,form.plugins.rangesliderrangesection,Ranges and Limits,0,Étendues et limites,0
-form plugins coordInfo,form.plugins.coordinfo,Coordinates Info,0,Info coordonnées,0
+form plugins coordInfo,form.plugins.coordinfo,Coordinates Information,0,Identification des coordonnées,0
 form plugins areasOfInterest,form.plugins.aois,Areas of interest,0,Régions d'intérêt,0
 form plugins areasOfInterest,form.plugins.aoi,Area of Interest,0,Région d'intérêt,0
 form plugins areasOfInterest,form.plugins.setaoi,Set Area,0,Définir la région,0
@@ -166,8 +166,8 @@ form plugins chart,form.plugins.chartconfig,Configuration,0,Configuration,0
 form plugins chart,form.plugins.chartdate,Date,0,Date,0
 form plugins chart,form.plugins.chartlinear,Linear,0,Linéaire,0
 form plugins chart,form.plugins.chartdata,Data,0,Donnée,0
-form plugins swiper,form.plugins.swiper,Swiper,0,Glisseur,0
-form plugins draw,form.plugins.draw,Draw Toolbar,0,Barre de dessin,0
+form plugins swiper,form.plugins.swiper,Swiper,0,Outils de balayage,0
+form plugins draw,form.plugins.draw,Draw Toolbar,0,Outils de dessin,0
 form plugins draw,form.plugins.drawctrlpicker,Color Picker,0,Sélecteur de couleurs,0
 form plugins draw,form.plugins.drawctrlpoint,Draw Points,0,Dessiner des points,0
 form plugins draw,form.plugins.drawctrlpolyline,Draw Lines,0,Dessiner des lignes,0
@@ -177,7 +177,7 @@ form plugins draw,form.plugins.drawctrlextent,Delete drawing by extent,0,Supprim
 form plugins draw,form.plugins.drawctrlmeasure,Show/Hide measures,0,Afficher / Cacher les mesures,0
 form plugins draw,form.plugins.drawctrlread,Upload Drawing,0,Charger dessins,0
 form plugins draw,form.plugins.drawctrlwrite,Save Drawing,0,Sauvegarder dessins,0
-form plugins thematicSlider,form.plugins.thematicslider,Thematic Slider,0,Curseur de plage thématique,0
+form plugins thematicSlider,form.plugins.thematicslider,Thematic Slider,0,Barre de défilement des valeurs thématiques,0
 form validation,form.validation.required,Required,0,Requis,0
 form validation,form.validation.rangeslidertype,Single range type and Dynamic step type is not allowed (modify the step then switch back the range to avoid the error),0,Une étendue Simple et une limite Dynamique n'est pas permise (modifier la limite et changer de nouveau l'étendue pour faire disparaitre l'erreur),0
 form validation,form.validation.rangesliderlimit,Minimum value can't be higher then Maximum value (modify the wrong value then reapply the right value to avoid the error),0,La valeur minimale ne peut pas être supérieure à la valeur maximale (modifier la mauvaise valeur puis réappliquer la bonne valeur pour éviter les erreurs),0

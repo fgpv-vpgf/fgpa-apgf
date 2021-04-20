@@ -695,7 +695,7 @@
                         "type": "number",
                         "default": 5,
                         "minimum": 0,
-                        "description": "Spécifie la tolérance en pixels de la région cliquable entourant un élément. Doit êtreun entier positif",
+                        "description": "Spécifie la tolérance en pixels de la région cliquable entourant un élément. Doit être un entier positif",
                         "title": "Tolérance"
                     },
                     "nameField": {
@@ -1029,7 +1029,7 @@
                     },
                     "layerEntries": {
                         "type": "array",
-                        "title": "Couches Utilisées",
+                        "title": "Couches utilisées",
                         "default": [],
                         "items": {
                             "type": "object",

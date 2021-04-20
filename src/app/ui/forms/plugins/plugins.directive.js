@@ -453,7 +453,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             { 'key': 'thematicSlider.layers[].duration' },
                             { 'key': 'thematicSlider.layers[].title' },
                             { 'key': 'thematicSlider.layers[].description' },
-                            { 'key': 'thematicSlider.layers[].legend', 'startEmpty': true, 'items': [
+                            { 'key': 'thematicSlider.layers[].legend', 'add': $translate.instant('button.add'), 'startEmpty': true, 'items': [
                                 'thematicSlider.layers[].legend[].image',
                                 'thematicSlider.layers[].legend[].label'
                             ] }
