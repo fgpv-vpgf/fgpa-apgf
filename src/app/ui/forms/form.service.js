@@ -38,6 +38,9 @@ angular
 function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNames, commonService, constants, projectionService,
     $http, modelManager) {
 
+    let _sfOptionsFR = setSfOptions('fr-CA');
+    let _sfOptionsEN = setSfOptions('en-CA');
+
     const service = {
         showAdvance,
         advanceModel: false,
@@ -53,7 +56,10 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
         initValueToFormIndex,
         copyValueToModelIndex,
         updateLinkValues,
-        getActiveElemIndex
+        getActiveElemIndex,
+        activeLang: commonService.getLang(),
+        sfOptionsEN: _sfOptionsEN,
+        sfOptionsFR: _sfOptionsFR
     };
 
     // Add an event to disable preview button when user edit the forms
@@ -61,16 +67,19 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
 
     // if show advance is true we need to toggle the hidden because the form has been reset
     events.$on(events.avSchemaUpdate, () => {
-        resestShowAdvance();
+        resetShowAdvance();
 
         $timeout(() => {
             angular.element('#validate').triggerHandler('click');
         }, constants.delayEventSplash);
     });
     events.$on(events.avLoadModel, () => {
-        resestShowAdvance();
+        resetShowAdvance();
     });
-    events.$on(events.avSwitchLanguage, () => { resestShowAdvance(); });
+    events.$on(events.avSwitchLanguage, () => {
+        service.activeLang = commonService.getLang();
+        resetShowAdvance();
+    });
 
     // when we add basemap or layers, if show advance is click, remove hidden
     events.$on(events.avNewItems, () => { $timeout(() => {
@@ -89,6 +98,94 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
     return service;
 
     /***/
+
+    function setSfOptions(lang) {
+
+        const _sfOptions = { destroyStrategy: 'remove' };
+
+        if (lang === 'en-CA') {
+            // TODO: some live element doesn't work... make the right link
+            // TODO: {value} is not working
+            // message from tv4 file in node_modules if there is a need update
+            _sfOptions.validationMessage = {
+                0: 'Invalid type: {type} (expected {expected})',
+                1: 'No enum match',
+                2: 'Data does not match any schemas from \'anyOf\'',
+                3: 'Data does not match any schemas from \'oneOf\'',
+                4: 'Data is valid against more than one schema from \'oneOf\': indices {index1} and {index2}',
+                5: 'Data matches schema from \'not\'',
+                // Numeric errors
+                100: 'Value is not a multiple of {{schema.multipleOf}}',
+                101: 'Value is less than minimum {{schema.minimum}}',
+                102: 'Value is equal to exclusive minimum {{schema.minimum}}',
+                103: 'Value is greater than maximum {{schema.maximum}}',
+                104: 'Value is equal to exclusive maximum {{schema.maximum}}',
+                105: 'Value is not a valid number',
+                // String errors
+                200: 'String is too short ({length} chars), minimum {{schema.minimum}}',
+                201: 'String is too long ({length} chars), maximum {{schema.maximum}}',
+                202: 'String does not match pattern: {pattern}',
+                // Object errors
+                300: 'Too few properties defined ({propertyCount}), minimum {{schema.minimum}}',
+                301: 'Too many properties defined ({propertyCount}), maximum {{schema.maximum}}',
+                302: 'Missing required property: {{schema.title}}',
+                303: 'Additional properties not allowed',
+                304: 'Dependency failed - key must exist: {missing} (due to key: {{schema.title}})',
+                // Array errors
+                400: 'Array is too short ({length}), minimum {{schema.minimum}}',
+                401: 'Array is too long ({length}), maximum {{schema.maximum}}',
+                402: 'Array items are not unique (indices {match1} and {match2})',
+                403: 'Additional items not allowed',
+                // Format errors
+                500: 'Format validation failed ({message})',
+                501: 'Keyword failed: {{schema.title}} ({message})',
+                // Schema structure
+                600: 'Circular $refs: {urls}',
+                // Non-standard validation options
+                1000: 'Unknown property (not in schema)'
+            }
+        } else {
+            _sfOptions.validationMessage = {
+                0: 'Type invalide: {type} ({expected} attendu)',
+                1: 'Aucune valeur correspondante (enum)',
+                10: 'La donnée ne correspond à aucun schema de \'anyOf\'',
+                11: 'La donnée ne correspond à aucun schema de  \'oneOf\'',
+                12: 'La donnée est valide pour plus d\'un schema de \'oneOf\': indices {index1} et {index2}',
+                13: 'La donnée correspond au schema de \'not\'',
+                // Numeric errors
+                100: 'La valeur n\'est pas un multiple de {multipleOf}',
+                101: 'La valeur est inférieure au minimum {{schema.minimum}}',
+                102: 'La valeur est égale au minimum exclusif {{schema.minimum}}',
+                103: 'La valeur est supérieure au maximum {{schema.maximum}}',
+                104: 'La valeur est égale au maximum exclusif {{schema.maximum}}',
+                105: 'La valeur n\'est pas un nombre valide',
+                // String errors
+                200: 'Le texte est trop court ({length} carac.), minimum {{schema.minimum}}',
+                201: 'Le texte est trop long ({length} carac.), maximum {{schema.maximum}}',
+                202: 'Le texte ne correspond pas au motif: {pattern}',
+                // Object errors
+                300: 'Pas assez de propriétés définies ({propertyCount}), minimum {{schema.minimum}}',
+                301: 'Trop de propriétés définies ({propertyCount}), maximum {{schema.maximum}}',
+                302: 'Propriété requise manquante: {{schema.title}}',
+                303: 'Propriétés additionnelles non autorisées',
+                304: 'Echec de dépendance - la clé doit exister: {missing} (du à la clé: {{schema.title}})',
+                // Array errors
+                400: 'Le tableau est trop court ({length}), minimum {{schema.minimum}}',
+                401: 'Le tableau est trop long ({length}), maximum {{schema.maximum}}',
+                402: 'Des éléments du tableau ne sont pas uniques (indices {match1} et {match2})',
+                403: 'Éléments additionnels non autorisés',
+                // Format errors
+                500: 'Échec de validation du format ({message})',
+                501: 'Échec de mot-clé: {{schema.title}} ({message})',
+                // Schema structure
+                600: 'Références ($refs) circulaires: {urls}',
+                // Non-standard validation options
+                1000: 'Propriété inconnue (n\'existe pas dans le schema)'
+            }
+        }
+
+        return _sfOptions;
+    }
 
     /**
      * Add WCAG for tab inside a form
@@ -116,10 +213,10 @@ function formService($timeout, $rootScope, events, $mdDialog, $translate, keyNam
     /**
      * Reset show advance fields if needed when there is a new model or language switch
      *
-     * @function resestShowAdvance
+     * @function resetShowAdvance
      * @private
      */
-    function resestShowAdvance() {
+    function resetShowAdvance() {
         if (service.advanceModel) { $timeout(() => showAdvance(), constants.delayAccordion); }
     }
 
