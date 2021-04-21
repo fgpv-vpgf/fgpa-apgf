@@ -216,7 +216,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] }
                 ] },
                 { 'title': $translate.instant('form.plugins.rangeslider'), 'key': 'rangeSlider', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'rangeSlider.enable', 'onChange': (key, value) => { if (value) setTimepicker() }},
                     { 'key': 'rangeSlider.open', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.autorun', 'condition': 'model.rangeSlider.enable === true' },
@@ -302,7 +302,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] }
                 ] },
                 { 'title': $translate.instant('form.plugins.chart'), 'key': 'chart', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'chart.enable' },
                     { 'key': 'chart.type', 'condition': 'model.chart.enable === true', 'titleMap': [
                         { value: 'pie', name: $translate.instant('form.plugins.chartpie') },
@@ -403,7 +403,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] }
                 ] },
                 { 'title': $translate.instant('form.plugins.swiper'), 'key': 'swiper', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'swiper.enable' },
                     { 'key': 'swiper.type', 'condition': 'model.swiper.enable === true', 'titleMap': [
                         { value: 'vertical', name: 'Vertical' }
@@ -422,7 +422,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] }
                 ] },
                 { 'title': $translate.instant('form.plugins.draw'), 'key': 'draw', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'draw.enable' },
                     { 'key': 'draw.open', 'condition': 'model.draw.enable === true' },
                     { 'key': 'draw.tools', 'condition': 'model.draw.enable === true', 'titleMap': [
@@ -438,7 +438,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     ] }
                 ] },
                 { 'title': $translate.instant('form.plugins.thematicslider'), 'key': 'thematicSlider', 'items': [
-                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-plugins-${commonService.getLang()}.md`, true) },
+                    { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'thematicSlider.enable' },
                     { 'key': 'thematicSlider.open', 'condition': 'model.thematicSlider.enable === true' },
                     { 'key': 'thematicSlider.autorun', 'condition': 'model.thematicSlider.enable === true' },
