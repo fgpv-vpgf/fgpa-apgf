@@ -1049,7 +1049,7 @@
         },
         "swiper": {
             "enable": false,
-            "type": "vertical",
+            "type": "horizontal",
             "keyboardOffset": 10,
             "layers": [
                 {
