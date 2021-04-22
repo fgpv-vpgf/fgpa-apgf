@@ -572,7 +572,8 @@
                     "type": "string",
                     "title": "Type",
                     "enum": [
-                        "vertical"
+                        "vertical",
+                        "horizontal"
                     ],
                     "default": "vertical"
                 },

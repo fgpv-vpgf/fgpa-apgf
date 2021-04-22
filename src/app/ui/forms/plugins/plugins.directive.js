@@ -406,7 +406,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'swiper.enable' },
                     { 'key': 'swiper.type', 'condition': 'model.swiper.enable === true', 'titleMap': [
-                        { value: 'vertical', name: 'Vertical' }
+                        { value: 'vertical', name: 'Vertical' },
+                        { value: 'horizontal', name: 'Horizontal' }
                     ] },
                     { 'key': 'swiper.keyboardOffset', 'condition': 'model.swiper.enable === true' },
                     { 'key': 'swiper.layers', 'add': $translate.instant('button.add'), 'condition': 'model.swiper.enable === true', 'items': [
