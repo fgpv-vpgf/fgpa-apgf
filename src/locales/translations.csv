@@ -143,6 +143,7 @@ form plugins rangeSlider,form.plugins.rangesliderctrllock,Lock/unlock minimal ra
 form plugins rangeSlider,form.plugins.rangesliderctrlloop,Loop animation,0,Boucler l'animation,0
 form plugins rangeSlider,form.plugins.rangesliderctrldelay,Delay between animation,0,Délais entre les animations,0
 form plugins rangeSlider,form.plugins.rangesliderctrlrefresh,Refresh,0,Rafraîchir,0
+form plugins rangeSlider,form.plugins.rangesliderctrlreverse,Reverse,0,Sens inverse,0
 form plugins rangeSlider,form.plugins.rangesliderctrlexport,Export animation as Gif,0,Exporter l'animation en format Gif,0
 form plugins rangeSlider,form.plugins.rangeslidersingle,Single,0,Simple,0
 form plugins rangeSlider,form.plugins.rangesliderdual,Dual,0,Double,0
@@ -151,6 +152,9 @@ form plugins rangeSlider,form.plugins.rangesliderstatic,Static,0,Statique,0
 form plugins rangeSlider,form.plugins.rangesliderdatelabel,Convert date to milliseconds,0,Convertir une date en millisecondes,0
 form plugins rangeSlider,form.plugins.rangesliderdateconvert,Convert,0,Convertir,0
 form plugins rangeSlider,form.plugins.rangesliderrangesection,Ranges and Limits,0,Étendues et limites,0
+form plugins rangeSlider,form.plugins.rangesliderrangeinterval,Default Range values from interval,0,Valeurs par défaut de la plage à partir d'un intervalle,0
+form plugins rangeSlider,form.plugins.rangesliderrangeintervaltitle,How to setup ranges,0,Comment configurer les plages,0
+form plugins rangeSlider,form.plugins.rangesliderrangeintervaldesc,"There is 2 ways for setting the range: From interval or from min and max values. If you keep min and max values empty, the slider will use the interval value.",0,"Il y a deux façons de définir la plage : à partir de l'intervalle ou à partir des valeurs min et max. Si vous laissez les valeurs min et max vides, le curseur utilisera la valeur de l'intervalle.",0
 form plugins coordInfo,form.plugins.coordinfo,Coordinates Information,0,Identification des coordonnées,0
 form plugins areasOfInterest,form.plugins.aois,Areas of interest,0,Régions d'intérêt,0
 form plugins areasOfInterest,form.plugins.aoi,Area of Interest,0,Région d'intérêt,0

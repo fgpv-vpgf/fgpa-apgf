@@ -16,6 +16,16 @@
                     "title": "Open by default",
                     "default": true
                 },
+                 "maximize": {
+                    "type": "boolean",
+                    "title": "Slider maximized by default",
+                    "default": true
+                },
+                 "maximizeDesc": {
+                    "type": "boolean",
+                    "title": "Description section open by default",
+                    "default": true
+                },
                 "autorun": {
                     "type": "boolean",
                     "title": "Start animation on load",
@@ -32,11 +42,12 @@
                     "items": {
                         "type": "string",
                         "enum": [
-                             "lock",
+                            "lock",
                             "loop",
                             "delay",
                             "export",
-                            "refresh"
+                            "refresh",
+                            "reverse"
                         ]
                     },
                     "title": "Slider bar controls"
@@ -102,9 +113,20 @@
                             "description": "Delay between animations.",
                             "default": "3000"
                         },
+                        "rangeInterval": {
+                            "type": "number",
+                            "title": "Range Interval",
+                            "default": -1,
+                            "description": "When range is define dynamically, it can be use to the interval. Will start at the beginning of the slider unless Start interval at the end is active"
+                        },
+                        "startRangeEnd": {
+                            "type": "boolean",
+                            "title": "Start interval at the end",
+                            "default": true
+                        },
                         "range": {
                             "type": "object",
-                            "title": "Default Range Values",
+                            "title": "Default Range Values from min and max",
                             "properties": {
                                 "min": {
                                     "type": "number",
@@ -179,9 +201,15 @@
                                 "description": "The field name to use.",
                                 "title": "Field Name",
                                 "default": ""
+                            },
+                            "isTimeAware": {
+                                "type": "boolean",
+                                "title": "Is Time Aware",
+                                "default": true,
+                                "description": "If time aware is true, the slider will use the TimeInfo (ESRI) or time dimension (WMS) to extract limits and range."
                             }
                         },
-                        "required": ["id, field"]
+                        "required": ["id, field", "isTimeAware"]
                     }
                 }
             },

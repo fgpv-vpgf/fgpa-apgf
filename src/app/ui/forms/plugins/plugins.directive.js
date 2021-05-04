@@ -219,6 +219,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'rangeSlider.enable', 'onChange': (key, value) => { if (value) setTimepicker() }},
                     { 'key': 'rangeSlider.open', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.maximize', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.maximizeDesc', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.autorun', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.loop', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.controls', 'condition': 'model.rangeSlider.enable === true', 'titleMap': [
@@ -226,7 +228,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { value: 'loop', name: $translate.instant('form.plugins.rangesliderctrlloop') },
                         { value: 'delay', name: $translate.instant('form.plugins.rangesliderctrldelay') },
                         { value: 'export', name: $translate.instant('form.plugins.rangesliderctrlexport') },
-                        { value: 'refresh', name: $translate.instant('form.plugins.rangesliderctrlrefresh') }
+                        { value: 'refresh', name: $translate.instant('form.plugins.rangesliderctrlrefresh') },
+                        { value: 'reverse', name: $translate.instant('form.plugins.rangesliderctrlreverse') }
                     ] },
                     { 'key': 'rangeSlider.params', 'condition': 'model.rangeSlider.enable === true', 'items': [
                         { 'key': 'rangeSlider.params.type', 'type': 'select', 'titleMap': [
@@ -265,6 +268,13 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.rangesliderrangesection'), 'items': [
                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
                                 { 'type': 'template', 'template': getTimepicker() },
+                                { 'type': 'fieldset', 'title': $translate.instant('form.plugins.rangesliderrangeintervaltitle'), 'items': [
+                                    { 'type': 'template', 'template': `<p>${$translate.instant('form.plugins.rangesliderrangeintervaldesc')}</p>` }
+                                ] },
+                                { 'type': 'fieldset', 'title': $translate.instant('form.plugins.rangesliderrangeinterval'), 'items': [
+                                    { 'key': 'rangeSlider.params.rangeInterval' },
+                                    { 'key': 'rangeSlider.params.startRangeEnd' }
+                                ] },
                                 { 'key': 'rangeSlider.params.range', 'items': [
                                     { 'key': 'rangeSlider.params.range.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
                                         '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true } },
@@ -297,7 +307,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                 { 'empty': $translate.instant('form.validation.required') },
                             '$validators': { empty: function(value) {
                                 return (angular.isString(value) && value === '') ? false : true;
-                            } } }
+                            } } },
+                            { 'key': 'rangeSlider.layers[].isTimeAware'}
                         ] }
                     ] }
                 ] },

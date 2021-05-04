@@ -16,6 +16,16 @@
                     "title": "Ouvert par défaut",
                     "default": true
                 },
+                "maximize": {
+                    "type": "boolean",
+                    "title": "Glisseur maximisé par défaut",
+                    "default": true
+                },
+                 "maximizeDesc": {
+                    "type": "boolean",
+                    "title": "Section description ouverte par défaut",
+                    "default": true
+                },
                 "autorun": {
                     "type": "boolean",
                     "title": "Démarrer l'animation au chargement",
@@ -36,7 +46,8 @@
                             "loop",
                             "delay",
                             "export",
-                            "refresh"
+                            "refresh",
+                            "reverse"
                         ]
                     },
                     "title": "Contrôles de la barre de défilement"
@@ -46,7 +57,7 @@
                     "title": "Paramètres",
                     "properties": {
                         "type": {
-                            "title": "Type de curseur",
+                            "title": "Type de plage de valeurs",
                             "type": "string",
                             "enum": [
                                 "number",
@@ -102,9 +113,20 @@
                             "description": "Délais entre les animations.",
                             "default": "3000"
                         },
+                        "rangeInterval": {
+                            "type": "number",
+                            "title": "Plage par intervalle",
+                            "default": -1,
+                            "description": "Lorsque la plage est définie dynamiquement, elle peut être utilisée pour définir l'intervalle. Commencera au début du curseur sauf si l'option Démarrer à la fin activé."
+                        },
+                        "startRangeEnd": {
+                            "type": "boolean",
+                            "title": "Démarrer à la fin",
+                            "default": true
+                        },
                         "range": {
                             "type": "object",
-                            "title": "Valeurs par défaut de la plage",
+                            "title": "Valeurs par défaut de la plage à partir des min et max",
                             "properties": {
                                 "min": {
                                     "type": "number",
@@ -178,9 +200,15 @@
                                 "description": "Le nom du champ à utiliser.",
                                 "title": "Nom du champ",
                                 "default": ""
+                            },
+                            "isTimeAware": {
+                                "type": "boolean",
+                                "title": "Dimension temporelle",
+                                "default": true,
+                                "description": "Si Dimension temporelle est actif, le curseur utilisera le TimeInfo (ESRI) ou la dimension temporelle (WMS) pour extraire les limites et la plage."
                             }
                         },
-                        "required": ["id", "field"]
+                        "required": ["id", "field", "isTimeAware"]
                     }
                 }
             },
@@ -326,7 +354,7 @@
                 },
                 "axis": {
                     "type": "object",
-                    "title": "Labels",
+                    "title": "Étiquettes",
                     "properties": {
                         "xAxis": {
                             "title": "Axe des X",
@@ -653,7 +681,7 @@
                 },
                 "slider": {
                     "type": "boolean",
-                    "title": "Activer la barre de défilement",
+                    "title": "Activer les commandes d'animation",
                     "default": true
                 },
                 "stack": {
