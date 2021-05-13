@@ -115,9 +115,9 @@
                         },
                         "rangeInterval": {
                             "type": "number",
-                            "title": "Plage par intervalle",
+                            "title": "Intervalle (en millisecondes pour les données de type date)",
                             "default": -1,
-                            "description": "Lorsque la plage est définie dynamiquement, elle peut être utilisée pour définir l'intervalle. Commencera au début du curseur sauf si l'option Démarrer à la fin activé."
+                            "description": "Cette option permet de définir un intervalle préétabli entre les deux poignées. La valeur se doit d’être en millisecondes pour les données de type date. Pour les autres formats de valeurs numériques, inscrire directement la valeur souhaitée. Pour convertir un intervalle de temps en millisecondes, utilisez le convertisseur intégré au site. Commencera au début de la barre de défilement, sauf si l'option « Démarrer à la fin » est activée."
                         },
                         "startRangeEnd": {
                             "type": "boolean",
@@ -126,36 +126,36 @@
                         },
                         "range": {
                             "type": "object",
-                            "title": "Valeurs par défaut de la plage à partir des min et max",
+                            "title": "",
                             "properties": {
                                 "min": {
                                     "type": "number",
-                                    "title": "Plage min",
-                                    "description": "La valeur minimale pour la plage. Si non défini, la limite minimale sera utilisée. Doit être définie pour les couches WMS.",
+                                    "title": "Valeur minimale de la plage (en millisecondes pour les données de type date)",
+                                    "description": "La valeur minimale de la plage qui correspond à la position de la poignée de gauche. Si non définie, la limite minimale sera utilisée. La valeur se doit d’être en millisecondes pour les données de type date. Pour les autres formats de valeurs numériques, inscrire directement la valeur souhaitée. Pour convertir une date en millisecondes, utilisez le convertisseur intégré au site.",
                                     "default": 0
                                 },
                                 "max": {
                                     "type": "number",
-                                    "title": "Plage max",
-                                    "description": "La valeur maximale pour la plage. Si non défini, la limite maximale sera utilisée. Doit être définie pour les couches WMS.",
+                                    "title": "Valeur maximale de la plage (en millisecondes pour les données de type date)",
+                                    "description": "La valeur maximale de la plage qui correspond à la position de la poignée de droite. Si non définie, la limite maximale sera utilisée. La valeur se doit d’être en millisecondes pour les données de type date. Pour les autres formats de valeurs numériques, inscrire directement la valeur souhaitée. Pour convertir une date en millisecondes, utilisez le convertisseur intégré au site.",
                                     "default": 1
                                 }
                             }
                         },
                         "limit": {
                             "type": "object",
-                            "title": "Valeurs par défaut de la limite",
+                            "title": "Limites des valeurs du jeu de données",
                             "properties": {
                                 "min": {
                                     "type": "number",
-                                    "title": "Limite min",
-                                    "description": "La valeur minimale pour la limite. Si non défini, le valeur sera trouvée à l'aide des valeurs de la couche. Note: Doit être définie pour les couches WMS.",
+                                    "title": "Limite minimal",
+                                    "description": "La valeur minimale contenue dans le jeu de données. Si non définie, la valeur sera trouvée à l'aide des valeurs présentent dans le champ utilisé de la couche. Pour convertir une date en millisecondes, utilisez le convertisseur intégré au site.",
                                     "default": 0
                                 },
                                 "max": {
                                     "type": "number",
-                                    "title": "Limite max",
-                                    "description": "La valeur maximale pour la limite. Si non défini, le valeur sera trouvée à l'aide des valeurs de la couche. Note: Doit être définie pour les couches WMS.",
+                                    "title": "Limite maximale",
+                                    "description": "La valeur maximale contenue dans le jeu de données. Si non définie, la valeur sera trouvée à l'aide des valeurs présentent dans le champ utilisé de la couche. Pour convertir une date en millisecondes, utilisez le convertisseur intégré au site.",
                                     "default": 1
                                 },
                                 "staticItems": {
@@ -166,7 +166,7 @@
                                         "type": "number"
                                     },
                                     "default": [],
-                                    "description": "Les valeurs de la limite statique. Remarque: Utilisez les limites Limite min et Limite max pour définir les limites inférieure et supérieure."
+                                    "description": "Les valeurs de la limite statique. Remarque: les limites minimale et maximale sont utilisées pour définir les limites statiques inférieure et supérieure. Inscrire ici que les valeurs intermédiares."
                                 }
                             }
                         },
@@ -193,7 +193,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).",
-                                "title": "ID"
+                                "title": "Identifiant de la couche"
                             },
                             "field": {
                                 "type": "string",
@@ -374,7 +374,7 @@
                                         "linear",
                                         "date"
                                     ],
-                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type bar ou bien par valeurs (date ou linéaire) pour un grpahique de type ligne.",
+                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type barre ou bien par valeurs (date ou linéaire) pour un graphique de type ligne.",
                                     "default": "config"
                                 },
                                 "values": {
@@ -410,7 +410,7 @@
                                         "linear",
                                         "date"
                                     ],
-                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type bar ou bien par valeurs (date ou linéaire) pour un grpahique de type ligne.",
+                                    "description": "Récupérer les étiquettes d'un champ ou de la configuration pour un graphique de type barre ou bien par valeurs (date ou linéaire) pour un graphique de type ligne.",
                                     "default": "config"
                                 },
                                 "values": {
@@ -454,13 +454,13 @@
                                     "inline",
                                     "link"
                                 ],
-                                "description": "Type de données (interne pour les éléments à l'intérieur de la couche ou lié pour les éléments à l'intérieur d'une table de liens).",
+                                "description": "Type de données (interne pour les éléments à l'intérieur de la couche ou lié pour les éléments à l'intérieur d'une table liée).",
                                 "default": "inline"
                             },
                             "linkUrl": {
                                 "type": "string",
-                                "title": "URL table de liens",
-                                "description": "URL de la table de liens."
+                                "title": "URL table liée",
+                                "description": "URL de la table liée."
                             },
                             "linkField": {
                                 "type": "string",
@@ -489,18 +489,18 @@
                                                 "single",
                                                 "multi"
                                             ],
-                                            "description": "La structure des données à l'intérieur de la table de liens (unique pour un champ pour la valeur et un pour la date OU multi s'il y a plusieurs ensembles de données dans un champ et que le graphique doit analyser).",
+                                            "description": "La structure des données à l'intérieur de la table liée (unique pour un champ pour la valeur et un pour la date OU multi s'il y a plusieurs ensembles de données dans un champ et que le graphique doit analyser).",
                                             "default": "single"
                                         },
                                         "link": {
-                                            "title": "Champ Lien",
+                                            "title": "Champ lié",
                                             "type": "string",
-                                            "description": "Champs lien entre la table et la couche."
+                                            "description": "Champ lié entre la table et la couche."
                                         },
                                         "date": {
                                             "title": "Champ date",
                                             "type": "string",
-                                            "description": "Champs à utiliser pour la date."
+                                            "description": "Champ à utiliser pour la date."
                                         },
                                         "measure": {
                                             "title": "Champ de mesure",
@@ -509,7 +509,7 @@
                                         "values": {
                                             "title": "Valeurs étiquettes",
                                             "type": "string",
-                                            "description": "Nom du champs pour obtenir les étiquettes dans un type de lien multi."
+                                            "description": "Nom du champs pour obtenir les étiquettes dans un type de lien multiple."
                                         },
                                         "label": {
                                             "type": "object",
@@ -608,7 +608,7 @@
                 "keyboardOffset": {
                     "type": "number",
                     "title": "Déplacement clavier",
-                    "description": "Valeur en pixel du déplacement du glisseur.",
+                    "description": "Valeur en pixel du déplacement de l'outil de balayage.",
                     "default": 10,
                     "minimum": 1,
                     "maximum": 100
@@ -622,7 +622,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).",
-                                "title": "ID"
+                                "title": "Identifiant de la couche"
                             }
                         },
                         "required": ["id"]
@@ -703,7 +703,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "L'identifiant de la couche pour le référencement dans le visualiseur (ne concerne pas directement un service externe).",
-                                "title": "ID"
+                                "title": "Identifiant de la couche"
                             },
                             "duration": {
                                 "type": "number",
