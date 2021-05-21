@@ -150,11 +150,17 @@ form plugins rangeSlider,form.plugins.rangesliderdual,Dual,0,Double,0
 form plugins rangeSlider,form.plugins.rangesliderdynamic,Dynamic,0,Dynamique,0
 form plugins rangeSlider,form.plugins.rangesliderstatic,Static,0,Statique,0
 form plugins rangeSlider,form.plugins.rangesliderdatelabel,Convert date to milliseconds,0,Convertir une date en millisecondes,0
+form plugins rangeSlider,form.plugins.rangesliderdurationlabel,Convert interval to milliseconds,0,Convertir un intervalle en millisecondes,0
+form plugins rangeSlider,form.plugins.rangesliderrangetypeinterval,By interval,0,Par intervalle,0
+form plugins rangeSlider,form.plugins.rangesliderrangetypevalues,By values,0,Par valeurs,0
+form plugins rangeSlider,form.plugins.rangesliderdurationqt,Quantity: ,0,Quantité : ,0
+form plugins rangeSlider,form.plugins.rangesliderdurationqttype,Type: ,0,Type : ,0
 form plugins rangeSlider,form.plugins.rangesliderdateconvert,Convert,0,Convertir,0
 form plugins rangeSlider,form.plugins.rangesliderrangesection,Ranges and Limits,0,Étendues et limites,0
-form plugins rangeSlider,form.plugins.rangesliderrangeinterval,Default Range values from interval,0,Valeurs par défaut de la plage à partir d'un intervalle,0
-form plugins rangeSlider,form.plugins.rangesliderrangeintervaltitle,How to setup ranges,0,Comment configurer les plages,0
-form plugins rangeSlider,form.plugins.rangesliderrangeintervaldesc,"There is 2 ways for setting the range: From interval or from min and max values. If you keep min and max values empty, the slider will use the interval value.",0,"Il y a deux façons de définir la plage : à partir de l'intervalle ou à partir des valeurs min et max. Si vous laissez les valeurs min et max vides, le curseur utilisera la valeur de l'intervalle.",0
+form plugins rangeSlider,form.plugins.rangesliderrangeinterval,Range defined according to an interval,0,Plage définie selon un intervalle,0
+form plugins rangeSlider,form.plugins.rangesliderrangevalues,Range defined by minimum and maximum values,0,Plage définie selon des valeurs minimales et maximales,0
+form plugins rangeSlider,form.plugins.rangesliderrangeintervaltitle,Configuration of the range of values (positioning of handles),0,Configuration de la plage des valeurs (positionnement des poignées),0
+form plugins rangeSlider,form.plugins.rangesliderrangeintervaldesc,"There are two ways to define the range of values: according to a predefined chronological (e.g. 2 years, 10 years) or quantitative interval or from a minimum and a maximum range (specific values).",0,"Il y a deux façons de définir la plage de valeurs : selon un intervalle chronologique (ex. : 2 ans, 10 ans) ou quantitatif prédéfini ou à partir d’une plage minimale et d’une plage maximale (valeurs spécifiques).",0
 form plugins coordInfo,form.plugins.coordinfo,Coordinates Information,0,Identification des coordonnées,0
 form plugins areasOfInterest,form.plugins.aois,Areas of interest,0,Régions d'intérêt,0
 form plugins areasOfInterest,form.plugins.aoi,Area of Interest,0,Région d'intérêt,0
@@ -169,7 +175,10 @@ form plugins chart,form.plugins.chartinline,Inline,0,Interne,0
 form plugins chart,form.plugins.chartconfig,Configuration,0,Configuration,0
 form plugins chart,form.plugins.chartdate,Date,0,Date,0
 form plugins chart,form.plugins.chartlinear,Linear,0,Linéaire,0
-form plugins chart,form.plugins.chartdata,Data,0,Donnée,0
+form plugins chart,form.plugins.chartdata,Data,0,Données,0
+form plugins chart,form.plugins.chartdatatype1,Single,0,Unique,0
+form plugins chart,form.plugins.chartdatatype2,Combine,0,Combiné,0
+form plugins chart,form.plugins.chartdatatype3,Multiple,0,Multiple,0
 form plugins swiper,form.plugins.swiper,Swiper,0,Outils de balayage,0
 form plugins draw,form.plugins.draw,Draw Toolbar,0,Outils de dessin,0
 form plugins draw,form.plugins.drawctrlpicker,Color Picker,0,Sélecteur de couleurs,0
@@ -196,6 +205,9 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,button.extension,Extensions,0,Extensions,0
 ,format.date,Date,0,Date,0
 ,format.hour,Hour,0,Heure,0
+,format.day,Day,0,Jour,0
+,format.week,Week,0,Semaine,0
+,format.year,Year,0,Année,0
 ,format.number,Number,0,Nombre,0
 ,ui.fullscreen.title,Fullscreen,1,Plein écran,1
 ,ui.theme.title,Theme,1,Thème,1

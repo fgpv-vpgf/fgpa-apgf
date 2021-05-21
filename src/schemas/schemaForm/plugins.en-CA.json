@@ -115,47 +115,47 @@
                         },
                         "rangeInterval": {
                             "type": "number",
-                            "title": "Range Interval",
+                            "title": "Interval (in milliseconds for date data type)",
                             "default": -1,
-                            "description": "When range is define dynamically, it can be use to the interval. Will start at the beginning of the slider unless Start interval at the end is active"
+                            "description": "When the limit type is dynamic, this option allows you to define a preset interval between the two handles. The value must be in milliseconds date data type. For other numerical value formats, enter the desired value directly. To convert a time interval into milliseconds, use the built-in converter. Will start at the beginning of the scroll bar, unless the \"Start at end\" option is enabled."
                         },
                         "startRangeEnd": {
                             "type": "boolean",
                             "title": "Start interval at the end",
-                            "default": true
+                            "default": false
                         },
                         "range": {
                             "type": "object",
-                            "title": "Default Range Values from min and max",
+                            "title": "",
                             "properties": {
                                 "min": {
                                     "type": "number",
-                                    "title": "Min Range",
-                                    "description": "The minimal value for the range. If not set, minimum limit will be use. Must be set for WMS layers.",
+                                    "title": "Minimum value of the range (in milliseconds for date data type)",
+                                    "description": "The minimum value of the range that corresponds to the position of the left handle. If not defined, the minimum limit will be used. The value must be in milliseconds date data type. For other numerical value formats, enter the desired value directly. To convert a date to milliseconds, use the site's built-in converter.",
                                     "default": 0
                                 },
                                 "max": {
                                     "type": "number",
-                                    "title": "Max Range",
-                                    "description": "The maximal value for the range. If not set, maximal limit will be use. Must be set for WMS layers.",
+                                    "title": "Maximum value of the range (in milliseconds for date data type)",
+                                    "description": "The maximum value of the range that corresponds to the position of the right handle. If not defined, the maximum limit will be used. The value must be in milliseconds date data type. For other numerical value formats, enter the desired value directly. To convert a date to milliseconds, use the site's built-in converter.",
                                     "default": 1
                                 }
                             }
                         },
                         "limit": {
                             "type": "object",
-                            "title": "Default Limit Values",
+                            "title": "Limits of the data set values",
                             "properties": {
                                 "min": {
                                     "type": "number",
-                                    "title": "Min Limit",
-                                    "description": "The minimal value for the limit. If not set, values from the layer will be use. Note: Must be set for WMS layers.",
+                                    "title": "Minimum Limit",
+                                    "description": "The minimum value contained in the dataset. If not defined, the value will be found using the values present in the used field of the layer. To convert a date to milliseconds, use the site's built-in converter.",
                                     "default": 0
                                 },
                                 "max": {
                                     "type": "number",
-                                    "title": "Max Limit",
-                                    "description": "The maximal value for the limit. If not set, values from the layer will be use. Note: Must be set for WMS layers.",
+                                    "title": "Maximum Limit",
+                                    "description": "The maximum value contained in the dataset. If not defined, the value will be found using the values present in the used field of the layer. To convert a date to milliseconds, use the site's built-in converter.",
                                     "default": 1
                                 },
                                 "staticItems": {
@@ -166,7 +166,7 @@
                                         "type": "number"
                                     },
                                     "default": [],
-                                    "description": "The values for static limit. Note: Use Min Limit and Max Limit ot set the lower and upper limit."
+                                    "description": "The values for static limit. Note: the minimum and maximum limits are used to define the lower and upper static limits. Enter only the intermediate values here."
                                 }
                             }
                         },
@@ -193,7 +193,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
-                                "title": "ID",
+                                "title": "Layer id",
                                 "default": ""
                             },
                             "field": {
@@ -623,7 +623,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
-                                "title": "ID"
+                                "title": "Layer id"
                             }
                         },
                         "required": ["id"]
@@ -705,7 +705,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
-                                "title": "ID"
+                                "title": "Layer id"
                             },
                             "duration": {
                                 "type": "number",

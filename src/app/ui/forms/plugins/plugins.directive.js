@@ -164,6 +164,87 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
     }
 
     /**
+     * Get time duration element
+     *
+     * @function getDuration
+     * @private
+     * @return {String} the element string
+     */
+     function getDuration() {
+        return  `<fieldset class="schema-form-fieldset">
+                    <span>${$translate.instant('form.plugins.rangesliderdurationlabel')}</span>
+                    <div class="av-range-duration-container">
+                        <label for="av-range-quanity">${$translate.instant('form.plugins.rangesliderdurationqt')}</label>
+                        <input type="number" name="${$translate.instant('form.plugins.rangesliderdurationqt')}" id="av-range-quanity" class="av-range-duration-holder" min="1" max="100" value="1"></input>
+                        <label for="av-range-quantity-type">${$translate.instant('form.plugins.rangesliderdurationqttype')}</label>
+                        <select name="${$translate.instant('form.plugins.rangesliderdurationqttype')}" id="av-range-quantity-type" class="av-range-duration-holder">
+                            <option value="hh">${$translate.instant('format.hour')}(s)</option>
+                            <option value="dd">${$translate.instant('format.day')}(s)</option>
+                            <option value="ww">${$translate.instant('format.week')}(s)</option>
+                            <option value="yy">${$translate.instant('format.year')}(s)</option>
+                        </select>
+                        <button class="av-toggle-button av-duration-set" ng-click="form.setDuration()">${$translate.instant('form.plugins.rangesliderdateconvert')}</button>
+                        <input type="text" class="av-range-duration-holder"></input> 
+                    </div>
+                </fieldset>`;
+    }
+
+    /**
+     * Set the duration interval in milliseconds
+     * @function setDuration
+     */
+    function setDuration() {
+        const elems = document.getElementsByClassName('av-range-duration-holder');
+        const qt = Number(elems[0].value);
+        const elemType = elems[1].value;
+        let qtType = 3600 * 1000; // 1 hour in milliseconds
+
+        if (elemType === 'dd') {
+            qtType = qtType * 24;
+        }
+        if (elemType === 'ww') {
+            qtType = qtType * 24 * 7;
+        }
+        if (elemType === 'yy') {
+            qtType = qtType * 24 * 7 * 52 + (24 * 3600 * 1000);
+        }
+
+        document.getElementsByClassName('av-range-duration-holder')[2].value = qt * qtType;
+    }
+
+    /**
+     * Get range type element
+     *
+     * @function getRangeType
+     * @private
+     * @return {String} the element string
+     */
+    function getRangeType() {
+        return `<fieldset class="schema-form-fieldset">
+                    <input type="radio" id="av-range-duration-interval" class="av-range-rangetype" name="type" value="interval" checked ng-click="form.setRangeType()">
+                    <label for="av-range-duration-interval">${$translate.instant('form.plugins.rangesliderrangetypeinterval')}</label>
+                    <input type="radio" id="av-range-duration-values" class="av-range-rangetype" name="type" value="values" ng-click="form.setRangeType()">
+                    <label for="av-range-duration-values">${$translate.instant('form.plugins.rangesliderrangetypevalues')}</label><br>
+                </fieldset>`;
+    }
+
+    /**
+     * Show or hide the proper section
+     * @function setRangeType
+     */
+    function setRangeType() {
+        const elems = document.getElementsByClassName('av-range-rangetype');
+
+        if (elems[0].checked) {
+            document.getElementsByClassName('av-range-interval-section')[0].classList.remove('av-none');
+            document.getElementsByClassName('av-range-values-section')[0].classList.add('av-none');
+        } else {
+            document.getElementsByClassName('av-range-values-section')[0].classList.remove('av-none');
+            document.getElementsByClassName('av-range-interval-section')[0].classList.add('av-none');
+        }
+    }
+
+    /**
      * Set Plugins form
      *
      * @function setForm
@@ -267,31 +348,42 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         ] },
                         { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.rangesliderrangesection'), 'items': [
                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-content', 'items': [
-                                { 'type': 'template', 'template': getTimepicker() },
                                 { 'type': 'fieldset', 'title': $translate.instant('form.plugins.rangesliderrangeintervaltitle'), 'items': [
                                     { 'type': 'template', 'template': `<p>${$translate.instant('form.plugins.rangesliderrangeintervaldesc')}</p>` }
                                 ] },
-                                { 'type': 'fieldset', 'title': $translate.instant('form.plugins.rangesliderrangeinterval'), 'items': [
+                                {
+                                    'type': 'template',
+                                    'template': getRangeType(),
+                                    'setRangeType': () => setRangeType()
+                                },
+                                { 'type': 'fieldset', 'htmlClass': 'av-range-interval-section', 'title': $translate.instant('form.plugins.rangesliderrangeinterval'), 'items': [
+                                    {
+                                        'type': 'template',
+                                        'template': getDuration(),
+                                        'setDuration': () => setDuration()
+                                    },
                                     { 'key': 'rangeSlider.params.rangeInterval' },
                                     { 'key': 'rangeSlider.params.startRangeEnd' }
                                 ] },
-                                { 'key': 'rangeSlider.params.range', 'items': [
-                                    { 'key': 'rangeSlider.params.range.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
-                                        '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true } },
-                                    { 'key': 'rangeSlider.params.range.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
-                                        '$validators': { wrongValues: value => (value !== null && value <= $scope.model.rangeSlider.params.range.min) ? false : true } }
+                                { 'type': 'fieldset',  'htmlClass': 'av-range-values-section av-none', 'title': $translate.instant('form.plugins.rangesliderrangevalues'), 'items': [
+                                    { 'type': 'template', 'template': getTimepicker() },
+                                    { 'key': 'rangeSlider.params.range', 'notitle': true, 'items': [
+                                        { 'key': 'rangeSlider.params.range.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
+                                            '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true } },
+                                        { 'key': 'rangeSlider.params.range.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
+                                            '$validators': { wrongValues: value => (value !== null && value <= $scope.model.rangeSlider.params.range.min) ? false : true } }
+                                    ] }
                                 ] },
                                 { 'key': 'rangeSlider.params.limit', 'items': [
+                                    { 'type': 'template', 'template': getTimepicker() },
                                     { 'key': 'rangeSlider.params.limit.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
                                         '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.limit.max) ? false : true } },
                                     { 'key': 'rangeSlider.params.limit.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
                                         '$validators': { wrongValues: value => (value !== null && value <= $scope.model.rangeSlider.params.limit.min) ? false : true } },
-                                    { 'key': 'rangeSlider.params.limit.staticItems', 'startEmpty': true, 'condition': 'model.rangeSlider.params.stepType === \'static\'' }
+                                    { 'key': 'rangeSlider.params.limit.staticItems', 'startEmpty': true, 'add': $translate.instant('button.add'), 'condition': 'model.rangeSlider.params.stepType === \'static\'' }
                                 ] }
                             ] }
-                        ] },
-                        { 'key': 'rangeSlider.params.units', 'condition': 'model.rangeSlider.enable === true' },
-                        { 'key': 'rangeSlider.params.description', 'condition': 'model.rangeSlider.enable === true' }
+                        ] }
                     ] },
                     { 'key': 'rangeSlider.layers', 'add': $translate.instant('button.add'), 'condition': 'model.rangeSlider.enable === true', 'items': [
                         { 'type': 'fieldset', 'htmlClass': 'av-rangeSlider', 'items': [
@@ -384,8 +476,14 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.chartdata'), 'items': [
                                 { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
                                 { 'key': 'chart.layers[].data[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                    { 'key': 'chart.layers[].data[].type', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
-                                    { 'key': 'chart.layers[].data[].linkType', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
+                                    { 'key': 'chart.layers[].data[].type', 'condition': 'model.chart.layers[arrayIndex].type !== "link"', 'titleMap': [
+                                        { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
+                                        { value: 'combine', name: $translate.instant('form.plugins.chartdatatype2') }
+                                    ] },
+                                    { 'key': 'chart.layers[].data[].linkType', 'condition': 'model.chart.layers[arrayIndex].type === "link"', 'titleMap': [
+                                        { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
+                                        { value: 'multi', name: $translate.instant('form.plugins.chartdatatype3') }
+                                    ] },
                                     { 'key': 'chart.layers[].data[].link', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
                                     { 'key': 'chart.layers[].data[].date', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
                                     { 'key': 'chart.layers[].data[].values', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },

@@ -1,4 +1,8 @@
 @mixin forms {
+    .av-none {
+        display: none;
+    }
+
     .av-main-tab {
         margin: 0 10px 0 10px;
     }
@@ -133,6 +137,19 @@
         }
 
         .av-set-range-date {
+            height: 25px;
+        }
+    }
+
+    .av-range-duration-container {
+        display: flex;
+        align-items: center;
+
+        .av-range-duration-holder {
+            margin: 15px;
+        }
+
+        .av-set-range-duration {
             height: 25px;
         }
     }
