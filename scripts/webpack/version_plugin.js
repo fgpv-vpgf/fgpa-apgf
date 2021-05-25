@@ -1,31 +1,32 @@
 const pkg           = require('../../package.json');
 const ConcatSource  = require('webpack-sources').ConcatSource;
-
 const version = {};
 
-function version_plugin(options) {
-    const packageVersion = pkg.version.split('.');
-    version.major = packageVersion[0];
-    version.minor = packageVersion[1];
-    version.patch = packageVersion[2];
-    version.timestamp = + new Date();
-    version.gitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim();
-}
+class VersionPlugin {
+    constructor(options) {
+        const packageVersion = pkg.version.split('.');
+        version.major = packageVersion[0];
+        version.minor = packageVersion[1];
+        version.patch = packageVersion[2];
+        version.timestamp = + new Date();
+        version.gitHash = require('child_process').execSync('git rev-parse HEAD').toString().trim();
+    }
 
-version_plugin.prototype.apply = function(compiler) {
-    compiler.plugin('compilation', compilation => {
-        compilation.plugin('optimize-chunk-assets', (chunks, done) => {
-            chunks.forEach(chunk => {
-                chunk.files.forEach(filename => {
-                    if (/^av-main\.js$/.test(filename)) {
-                        const content = `var AVersion = ${JSON.stringify(version)};`;
-                        compilation.assets[filename] = new ConcatSource(content, compilation.assets[filename]);
-                    }
+    apply(compiler) {
+        compiler.hooks.thisCompilation.tap('version_plugin', compilation => {
+            compilation.hooks.optimizeChunkAssets.tapAsync('version_plugin', (chunks, callback) => {
+                chunks.forEach(chunk => {
+                    chunk.files.forEach(filename => {
+                        if (/^av-main\.js$/.test(filename)) {
+                            const content = `var AVersion = ${JSON.stringify(version)};`;
+                            compilation.assets[filename] = new ConcatSource(content, compilation.assets[filename]);
+                        }
+                    });
                 });
+                callback();
             });
-            done();
         });
-    });
+    }
 }
 
-module.exports = version_plugin;
+module.exports = VersionPlugin;

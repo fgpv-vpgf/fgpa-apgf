@@ -17,7 +17,7 @@
             class="md-icon-button av-button-32 black av-help-button"
             ng-click="self.help()">
             <md-tooltip>{{ 'header.help' | translate }}</md-tooltip>
-            <md-icon md-svg-src="community:help"></md-icon>
+            <md-icon md-svg-icon="community:help"></md-icon>
         </md-button>
 
         <md-input-container class="md-subhead av-templates" ng-if="self.templates.length">
@@ -36,7 +36,7 @@
             ng-click="self.create()"
             ng-if="self.templates.length === 0">
             <md-tooltip>{{ 'header.create' | translate }}</md-tooltip>
-            <md-icon md-svg-src="content:add"></md-icon>
+            <md-icon md-svg-icon="content:add"></md-icon>
         </md-button>
 
         <md-button
@@ -48,7 +48,7 @@
             flow-progress="console.log()"
             flow-attrs="{ accept: '.json' }">
             <md-tooltip>{{ 'header.open' | translate }}</md-tooltip>
-            <md-icon md-svg-src="file:file_upload"></md-icon>
+            <md-icon md-svg-icon="file:file_upload"></md-icon>
         </md-button>
 
         <md-button
@@ -57,7 +57,7 @@
             class="md-icon-button av-button-32 black av-save-button"
             ng-click="self.save()">
             <md-tooltip>{{ 'header.save' | translate }}</md-tooltip>
-            <md-icon md-svg-src="content:save"></md-icon>
+            <md-icon md-svg-icon="content:save"></md-icon>
         </md-button>
 
         <div class="av-savename">
