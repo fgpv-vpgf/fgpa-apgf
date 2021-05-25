@@ -11,8 +11,8 @@ class TranslationPlugin {
     }
 
     apply (compiler) {
-        compiler.plugin('compilation', (compilation) => {
-            compilation.plugin('optimize-chunk-assets', (chunks, done) => {
+        compiler.hooks.compilation.tap('translation_plugin', compilation => {
+            compilation.hooks.optimizeChunkAssets.tapAsync('translation_plugin', (chunks, callback) => {
                 const sourceChunks = [];
                 chunks.forEach(chunk => {
                     chunk.files.forEach(filename => {
@@ -22,32 +22,33 @@ class TranslationPlugin {
                     });
                 });
 
-                this.init(sourceChunks, compilation, done);
+                this.init(sourceChunks, compilation, callback);
             });
         });
     }
 
-    init (srcChunks, compilation, done) {
+    init (srcChunks, compilation, callback) {
         csv({
             noheader: true,
             ignoreColumns: this.ignoreCol
         })
-        .fromFile(this.csvPath)
-        .on('csv', (row, rowNum) => {
-            if (rowNum === 0) {
-                row.shift();
-                row.forEach(l => this.translations[l] = {});
-            } else {
-                this.flatten(row);
-            }
-        })
-        .on('done', () => {
+            .fromFile(this.csvPath)
+            .on('csv', (row, rowNum) => {
+                if (rowNum === 0) {
+                    row.shift();
+                    row.forEach(l => this.translations[l] = {});
+                } else {
+                    this.flatten(row);
+                }
+            })
+
+        const content = `var AUTOFILLED_TRANSLATIONS = ${JSON.stringify(this.translations)};`;
+        srcChunks.forEach(c => {
             const content = `var AUTOFILLED_TRANSLATIONS = ${JSON.stringify(this.translations)};`;
-            srcChunks.forEach(c => {
-                compilation.assets[c] = new ConcatSource(content, compilation.assets[c]);
-            });
-            done();
+            compilation.assets[c] = new ConcatSource(content, compilation.assets[c]);
         });
+
+        callback();
     }
 
     flatten (row) {
@@ -77,16 +78,16 @@ class TranslationPlugin {
             noheader: true,
             maxRowLength: 1 // only read the first row
         })
-        .fromFile(csvPath)
-        .on('csv', (row, rowNum) => {
-            if (rowNum === 0) { // the first row if it exists
-                for (let i = 3; i < row.length; i++) { // starting in the 3rd column
-                    if (i % 2 === 1 && this.ignoreCol.indexOf(i) === -1) { // the column after a translation
-                        this.ignoreCol.push(i);
+            .fromFile(csvPath)
+            .on('csv', (row, rowNum) => {
+                if (rowNum === 0) { // the first row if it exists
+                    for (let i = 3; i < row.length; i++) { // starting in the 3rd column
+                        if (i % 2 === 1 && this.ignoreCol.indexOf(i) === -1) { // the column after a translation
+                            this.ignoreCol.push(i);
+                        }
                     }
                 }
-            }
-        });
+            });
     }
 }
 

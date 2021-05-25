@@ -3,6 +3,7 @@ const path      = require('path');
 const fs        = require('fs');
 const glob      = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const TranslationPlugin     = require('./scripts/webpack/translations_plugin.js');
 const CopyWebpackPlugin     = require('copy-webpack-plugin');
 const VersionPlugin         = require('./scripts/webpack/version_plugin.js');
@@ -10,10 +11,11 @@ const WrapperPlugin         = require('wrapper-webpack-plugin');
 const HtmlWebpackPlugin     = require('html-webpack-plugin');
 const htmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
 const BundleAnalyzerPlugin  = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const WebpackShellPlugin    = require('webpack-shell-plugin');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 const babelPresets = {
-    presets: ['env', 'stage-2'],
+    presets: ['@babel/preset-env'],
+    plugins: ['angularjs-annotate'],
     cacheDirectory: true
 }
 
@@ -56,12 +58,8 @@ module.exports = function (env) {
                     test: /\.js$/,
                     include: [path.resolve(__dirname, 'src/app'), geoPath],
                     use: [{
-                        loader: 'ng-annotate-loader'
-                    }, {
                         loader: 'babel-loader',
                         options: babelPresets
-                    }, {
-                        loader: 'eslint-loader'
                     }]
                 },
                 {
@@ -102,9 +100,11 @@ module.exports = function (env) {
                 filename: 'av-styles.css'
             }),
 
-            new WebpackShellPlugin({
-                onBuildStart: ['bash scripts/preBuild.sh'],
-                onBuildEnd: ['bash scripts/postBuild.sh']
+            new ESLintPlugin({}),
+
+            new WebpackShellPluginNext({
+                onBuildStart: { scripts: ['bash scripts/preBuild.sh'] },
+                onBuildEnd: { scripts: ['bash scripts/postBuild.sh'] }
             }),
 
             new CopyWebpackPlugin({ patterns: [{
@@ -133,8 +133,9 @@ module.exports = function (env) {
             new TranslationPlugin('./src/locales/translations.csv'),
 
             new WrapperPlugin({
-                header: fileName => /^av-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/header.js', 'utf8') : '',
-                footer: fileName => /^av-main\.js$/.test(fileName) ? fs.readFileSync('./scripts/webpack/footer.js', 'utf8') : ''
+                test: /^av-main\.js$/,
+                header: fs.readFileSync('./scripts/webpack/header.js', 'utf8'),
+                footer: fs.readFileSync('./scripts/webpack/footer.js', 'utf8')
             }),
 
             new VersionPlugin()

@@ -11,7 +11,7 @@
         var styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
-        styles.href = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version);
+        styles.href = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version);
         document.getElementsByTagName('head')[0].appendChild(styles);
 
         // set plugins js and css
@@ -37,12 +37,12 @@
             // RAMP core plugins are not at the same as custom plugins
             var path = '';
             if (plugins[i] === 'coordInfo') {
-                addScriptTag('https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-coordinate-info.js'.replace('x.x.x', version));
+                addScriptTag('https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-coordinate-info.js'.replace('x.x.x', version));
             } else if (plugins[i] === 'areasOfInterest') {
-                addScriptTag('https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version));
+                addScriptTag('https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version));
             } else {
                 // TODO: remove version number from plugins name (Prod use prod version and dev use by dev version)
-                path = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/contributed-plugins/' + pluginDash + '/' + pluginDash;
+                path = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/contributed-plugins/' + pluginDash + '/' + pluginDash;
                 addScriptTag(path + '.js');
                 addStyleTag(path + '.css');
             }
@@ -86,8 +86,8 @@
     var scriptTag = document.createElement('script');
     var scriptTagLegacy = document.createElement('script');
     var version = localStorage.getItem('viewerversion');
-    scriptTag.src = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version);
-    scriptTagLegacy.src = 'https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/legacy-api.js'.replace('x.x.x', version);
+    scriptTag.src = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version);
+    scriptTagLegacy.src = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/legacy-api.js'.replace('x.x.x', version);
     document.body.appendChild(scriptTagLegacy);
     document.body.appendChild(scriptTag);
 
