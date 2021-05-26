@@ -8,5 +8,5 @@
     env.inspect                     -   Use for analysing our bundle component sizes and dependency trees.
 */
 module.exports = function(env = {}) {
-    return require(`./webpack.${env.prod ? 'prod' : 'dev'}.js`)(env);
+    return require(`./webpack.${env.production ? 'prod' : 'dev'}.js`)(env);
 }

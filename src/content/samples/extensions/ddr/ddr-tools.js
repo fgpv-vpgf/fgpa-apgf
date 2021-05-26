@@ -993,4 +993,4 @@ function getDeleteList(json) {
             row.classList.add('hidden-sev');
         }
     }
-}
+}}
