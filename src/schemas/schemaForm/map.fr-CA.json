@@ -11,7 +11,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "title": "ID",
+                "title": "Identifiant de l'étendue",
                 "default": ""
               },
               "spatialReference": {
@@ -176,7 +176,7 @@
                 "properties": {
                   "id": {
                     "type": "string",
-                    "title": "ID",
+                    "title": "Identifiant du niveaux de détail",
                     "default": ""
                   },
                   "lods": {
@@ -228,7 +228,7 @@
                   "id": {
                     "type": "string",
                     "description": "L'identifiant unique d'un schéma de tuiles (combinaison de l'étendue et de l'échelle)",
-                    "title": "ID",
+                    "title": "Identifiant du schéma de tuiles",
                     "default": ""
                   },
                   "name": {
@@ -240,13 +240,13 @@
                   "extentSetId": {
                     "type": "string",
                     "description": "Le lot d'étendues à utiliser pour la carte de base.",
-                    "title": "ID du lot d'étendues",
+                    "title": "Identifiant du lot d'étendues",
                     "default": ""
                   },
                   "lodSetId": {
                     "type": "string",
                     "description": "Optionnel. Lot de niveaux de détail utilisé pour la carte de base.",
-                    "title": "ID du lot de niv. de détail",
+                    "title": "Identifiant du lot de niv. de détail",
                     "default": ""
                   },
                   "overviewUrl": {
@@ -393,7 +393,7 @@
         "initialBasemapId": {
           "type": "string",
           "description": "Carte de base utilisée lors du chargement initial. Si celle-ci n'a pas été configurée, une autre carte de base sera sélectionnée.",
-          "title": "ID carte de base initiale",
+          "title": "Identifiant carte de base initiale",
           "default": ""
         },
         "baseMaps": {
@@ -404,7 +404,7 @@
                   "id": {
                     "type": "string",
                     "description": "Un identifiant unique pour la carte de base.",
-                    "title": "ID carte de base",
+                    "title": "Identifiant carte de base",
                     "default": ""
                   },
                   "name": {
@@ -440,7 +440,7 @@
                   "tileSchemaId": {
                     "type": "string",
                     "description": "Le schéma de tuiles pour la carte de base.",
-                    "title": "ID schéma de tuiles",
+                    "title": "Identifiant schéma de tuiles",
                     "default": ""
                   },
                   "layers": {
@@ -453,7 +453,7 @@
                         "id": {
                           "type": "string",
                           "default": "",
-                          "title": "ID"
+                          "title": "Identifiant de la couche"
                         },
                         "layerType": {
                           "type": "string",
@@ -601,8 +601,8 @@
                     },
                     "id": {
                         "type": "string",
-                        "description": "L'ID de la couche pour référencement interne au visualisateur ( n'est pas directement lié à un service externe).",
-                        "title": "ID"
+                        "description": "L'identifiant de la couche pour référencement interne au visualisateur ( n'est pas directement lié à un service externe).",
+                        "title": "Identifiant de la couche"
                     },
                     "name": {
                         "type": "string",
@@ -1095,15 +1095,15 @@
                                 "id": {
                                     "for": "ogcwms",
                                     "type": "string",
-                                    "description": "L'ID de l'entrée de la couche dans le WMS. La valeur entre les étiquettes &lt;Name>...&lt;/Name> de la couche (e.g. &lt;Name>routes&lt;/Name> où routes est le ID).",
-                                    "title": "ID"
+                                    "description": "L'identifiant de l'entrée de la couche dans le WMS. La valeur entre les étiquettes &lt;Name>...&lt;/Name> de la couche (e.g. &lt;Name>routes&lt;/Name> où routes est l'identifiant).",
+                                    "title": "Identifiant de la couche"
                                 },
                                 "allStyles": {
                                     "for": "ogcwms",
                                     "type": "array",
                                     "description": "Tous les styles pour l'entrée de la couche dans le WMS",
                                     "title": "Tous les styles",
-                                    "items": { "type": "string" }
+                                    "items": { "type": "string", "title": "Valeur" }
                                 },
                                 "currentStyle": {
                                     "for": "ogcwms",

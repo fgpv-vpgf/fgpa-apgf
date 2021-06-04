@@ -304,6 +304,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'key': 'rangeSlider.maximizeDesc', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.autorun', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.loop', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.lock', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.reverse', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.controls', 'condition': 'model.rangeSlider.enable === true', 'titleMap': [
                         { value: 'lock', name: $translate.instant('form.plugins.rangesliderctrllock') },
                         { value: 'loop', name: $translate.instant('form.plugins.rangesliderctrlloop') },

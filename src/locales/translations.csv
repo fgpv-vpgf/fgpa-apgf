@@ -79,7 +79,7 @@ form map,form.map.basemaps,Basemaps,0,Cartes de base,0
 form map,form.map.extentset,Spatial Extents Sets,0,"Lots d'étendues spatiales",0
 form map,form.map.lodset,Levels of Detail Sets,0,Lots de niveaux de détail,0
 form map,form.map.tileschema,Tile Schemas,0,Schéma des tuiles,0
-form map,form.map.initialid,Initial Basemap ID,0,ID de la carte de base initiale,0
+form map,form.map.initialid,Initial Basemap ID,0,Identifiant de la carte de base initiale,0
 form map,form.map.basemap,Basemap,0,Carte de base,0
 form map,form.map.layers,Layers,0,Couches,0
 form map,form.map.layer,Layer,0,Couche,0
@@ -237,7 +237,7 @@ Options list of items for dynamic-select,options.dynamicselect,-- No option avai
 ,ui.legend.isOpen.medium.title,Medium,1,Moyen,1
 ,ui.legend.isOpen.small.title,Small,1,Restreint,1
 ,ui.tableIsOpen.title,Table opening,1,Ouverture de la table,1
-,ui.tableIsOpen.id.title,ID,1,ID,1
+,ui.tableIsOpen.id.title,Layer ID,1,Identifiant de la couche,1
 ,ui.tableIsOpen.large.title,Large,1,Étendue,1
 ,ui.tableIsOpen.medium.title,Medium,1,Moyenne,1
 ,ui.tableIsOpen.small.title,Small,1,Restreinte,1

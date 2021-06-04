@@ -896,7 +896,7 @@ function Controller($scope, $translate, $timeout,
                                 { 'key': 'layers[].tolerance', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\' || model.layers[arrayIndex].layerChoice === \'file\' || model.layers[arrayIndex].layerChoice === \'esriDynamic\' || model.layers[arrayIndex].layerChoice === \'ogcWfs\'' },
                                 { 'key': 'layers[].imageFormat', 'htmlClass': 'av-form-advance hidden', 'condition': `model.layers[arrayIndex].layerChoice === \'esriDynamic\'` },
                                 { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerdetail'), 'items': [
-                                    { 'key': 'layers[].outfields', 'htmlClass': 'av-version-dev av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
+                                    { 'key': 'layers[].outfields', 'htmlClass': 'av-form-advance hidden', 'condition': 'model.layers[arrayIndex].layerChoice === \'esriFeature\'' },
                                     { 'type': 'section', 'htmlClass': 'av-accordion-content', 'items': [
                                         { 'key': 'layers[].details', 'htmlClass': 'av-form-advance hidden' }
                                     ]}
@@ -910,7 +910,7 @@ function Controller($scope, $translate, $timeout,
                                                 self.formService.copyValueToFormIndex(model, item);
                                             }, constants.delayUpdateColumns, false) },
                                             { 'key': 'layers[].layerEntries[].name' },
-                                            { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-version-dev av-form-advance hidden' },
+                                            { 'key': 'layers[].layerEntries[].outfields', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].nameField', 'htmlClass': 'av-form-advance hidden' },
                                             { 'key': 'layers[].layerEntries[].stateOnly', 'htmlClass': 'av-form-advance hidden' },
                                             { 'type': 'fieldset', 'htmlClass': 'av-form-advance hidden av-accordion-toggle av-collapse', 'title': $translate.instant('form.map.layerconstrols'), 'items': [
@@ -1087,7 +1087,7 @@ function Controller($scope, $translate, $timeout,
             'data': $translate.instant('form.map.enumdata'),
             'styles': $translate.instant('form.map.enumstyles')
         } },
-        { 'key': `${key}.enableStructuredDelete`, 'htmlClass': `av-version-dev ${htmlClass}` },
+        { 'key': `${key}.enableStructuredDelete`, 'htmlClass': `${htmlClass}` },
         // We don't set this section because it is internal to the viewer { 'key': 'layers[].layerEntries[].disabledControls' },
         { 'key': `${key}.state`, 'items': [
             { 'key': `${key}.state.opacity`, 'htmlClass': 'av-opacity-input'  },
