@@ -11,7 +11,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "title": "ID",
+                "title": "Extent Set ID",
                 "default": ""
               },
               "spatialReference": {
@@ -176,7 +176,7 @@
                 "properties": {
                   "id": {
                     "type": "string",
-                    "title": "ID",
+                    "title": "Level of Detail ID",
                     "default": ""
                   },
                   "lods": {
@@ -228,7 +228,7 @@
                   "id": {
                     "type": "string",
                     "description": "A unique id identifying a tile schema (combination of an extent set and a zoom scale)",
-                    "title": "ID",
+                    "title": "Tile Schema ID",
                     "default": ""
                   },
                   "name": {
@@ -453,7 +453,7 @@
                         "id": {
                           "type": "string",
                           "default": "",
-                          "title": "ID"
+                          "title": "Layer ID"
                         },
                         "layerType": {
                           "type": "string",
@@ -601,7 +601,7 @@
                     "id": {
                         "type": "string",
                         "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service)",
-                        "title": "ID"
+                        "title": "Layer ID"
                     },
                     "name": {
                         "type": "string",
@@ -1094,7 +1094,7 @@
                                 "id": {
                                     "for": "ogcwms",
                                     "type": "string",
-                                    "title": "ID",
+                                    "title": "Layer ID",
                                     "description": "The id of the layer entry in the WMS. The value between the &lt;Name>...&lt;Name> tag of the layer (e.g. &lt;Name>roads&lt;/Name> where roads is the ID)."
                                 },
                                 "allStyles": {
@@ -1102,7 +1102,7 @@
                                     "type": "array",
                                     "title": "All styles",
                                     "description": "All the styles for the layer entry in the WMS",
-                                    "items": { "type": "string" }
+                                    "items": { "type": "string", "title": "Value" }
                                 },
                                 "currentStyle": {
                                     "for": "ogcwms",

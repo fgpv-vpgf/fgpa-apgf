@@ -703,7 +703,7 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,ui.legend.isOpen.medium.title,Medium,1,Moyen,1
 ,ui.legend.isOpen.small.title,Small,1,Restreint,1
 ,ui.tableIsOpen.title,Table openning,1,Ouverture de la table,1
-,ui.tableIsOpen.id.title,ID,1,ID,1
+,ui.tableIsOpen.id.title,Layer ID,1,Identifiant de la couche,1
 ,ui.tableIsOpen.large.title,Large,1,Étende,1
 ,ui.tableIsOpen.medium.title,Medium,1,Moyenne,1
 ,ui.tableIsOpen.small.title,Small,1,Restreinte,1
@@ -776,7 +776,7 @@ User interface title,ui.title,User Interface,1,Interface utilisateur,1
 ,map.components.overviewMap.expandFactor.title,,0,,0
 ,map.components.scaleBar.title,Scale bar,1," Échelle",1
 ,map.components.basemap.title,Basemap,1,Carte de base,1
-,map.initialBasemapId.title,Initial basemap ID,1,ID de la carte de base initiale,1
+,map.initialBasemapId.title,Initial basemap ID,1,Identifiant de la carte de base initiale,1
 ,map.baseMaps.title,Basemap,1,Carte de base,1
 ,map.layers.title,Layers,1,Couches,1
 ,map.legend.title,Legend,1,Légende,1

@@ -36,6 +36,16 @@
                     "title": "Jouer l'animation en boucle",
                     "default": false
                 },
+                "reverse": {
+                    "type": "boolean",
+                    "title": "Animation en mode inverse",
+                    "default": false
+                },
+                "lock": {
+                    "type": "boolean",
+                    "title": "Barrer la poignée",
+                    "default": false
+                },
                 "controls": {
                     "type": "array",
                     "default": ["lock", "delay"],

@@ -8,10 +8,10 @@
             "title": "Version",
             "type": "string",
             "enum": [
-                "3.2.0",
-                "3.3.2"
+                "3.3.2",
+                "3.3.3"
             ],
-            "default": "3.2.0",
+            "default": "3.3.2",
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."
         }
     }

@@ -36,6 +36,16 @@
                     "title": "Play the animation in loop",
                     "default": false
                 },
+                "reverse": {
+                    "type": "boolean",
+                    "title": "Animation in reverse mode",
+                    "default": false
+                },
+                "lock": {
+                    "type": "boolean",
+                    "title": "Lock handle",
+                    "default": false
+                },
                 "controls": {
                     "type": "array",
                     "default": ["lock", "delay"],
