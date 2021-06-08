@@ -494,7 +494,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                     },
                                     { 'key': 'chart.layers[].data[].regex', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
                                     { 'key': 'chart.layers[].data[].split', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
-                                    { 'key': 'chart.layers[].data[].label', 'condition': 'model.chart.enable === true && model.chart.type === "pie"', 'items': [
+                                    { 'key': 'chart.layers[].data[].label', 'condition': 'model.chart.enable === true', 'items': [
                                         { 'key': 'chart.layers[].data[].label.type', 'titleMap': [
                                             { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
                                             { value: 'field', name: $translate.instant('form.plugins.chartfield') }

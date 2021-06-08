@@ -491,7 +491,7 @@
                                                 "combine"
                                             ],
                                             "description": "Single if there is only one value inside the field. Combine if we use time axis and time and value are part of the field.",
-                                            "default": "single"
+                                            "default": "combine"
                                         },
                                         "linkType": {
                                             "title": "Type of link",
@@ -500,7 +500,7 @@
                                                 "single",
                                                 "multi"
                                             ],
-                                            "description": "How data is structure inside the link table (single for one field for value and one for date OR multi if there is multiple datasets inside one field and the chart needs to parse).",
+                                            "description": "How data is structure inside the link table (single for one field for value and one for date OR multiple if there is multiple datasets inside one field and the chart needs to parse).",
                                             "default": "single"
                                         },
                                         "link": {
@@ -554,12 +554,13 @@
                                         "regex": {
                                             "title": "Dataset splitter",
                                             "type": "string",
-                                            "description": "<p>Regex value to split datasets inside the field.<br /><br /> This field is to manage when you have multiple datasets or combine values in the same field. To be able to separate datasets from values, we will use a regex expression. We encourage you to use your data and test your regex expression on a online site like https://regex101.com.<br /><br /> Below we list some samples of datasets and regex:</p><ul><li>Sample 1<ul><li>Data: [255;255;255];[120;232;23];[32;44;134]</li><li>Regex: \\\\[|\\\\];\\\\[|\\\\]</li><li>Ouput: 3 datasets (e.g. 255;255;255). Values inside dataset will be split by the field 'Values Splitter'.</li></ul></li><li>Sample 2</li><ul><li>Data: (2011-03-28,0.511),(2011-04-04,0.421)</li><li>Regex: \\\\(|\\\\),\\\\(|\\\\)</li><li>Ouput: 1 datasets, 2 pairs of values (e.g. 2011-03-28,0.511). Values inside are combined (y and x axis) and will be split by the field 'Values Splitter'.</li></ul></ul><p><em>Note: we need to double the '\\' character</em></p>"
+                                            "description": "<p>Regex value to split datasets inside the field.<br /><br /> This field is to manage when you have multiple datasets or combine values in the same field. To be able to separate datasets from values, we will use a regex expression. We encourage you to use your data and test your regex expression on a online site like https://regex101.com.<br /><br /> Below we list some samples of datasets and regex:</p><ul><li>Sample 1<ul><li>Data: [255;255;255];[120;232;23];[32;44;134]</li><li>Regex: \\\\[|\\\\];\\\\[|\\\\]</li><li>Ouput: 3 datasets (e.g. 255;255;255). Values inside dataset will be split by the field 'Values Splitter'.</li></ul></li><li>Sample 2</li><ul><li>Data: (2011-03-28,0.511),(2011-04-04,0.421)</li><li>Regex: \\\\(|\\\\),\\\\(|\\\\)</li><li>Ouput: 1 datasets, 2 pairs of values (e.g. 2011-03-28,0.511). Values inside are combined (y and x axis) and will be split by the field 'Values Splitter'.</li></ul></ul><p><em>Note: we need to double the '\\' character</em></p>",
+                                            "default": "\\(|\\),\\(|\\)"
                                         },
                                         "split": {
                                             "title": "Values splitter",
                                             "type": "string",
-                                            "default": ";",
+                                            "default": ",",
                                             "description": "Character to use to split values inside a field. E.g. a field contains '10;20;30' means there is 3 values split by ';' or [1,2,3];[4,5,6] means there is 2 datasets with 3 values each split by ','."
                                         },
                                         "prefix": {
