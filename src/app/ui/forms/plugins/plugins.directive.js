@@ -170,7 +170,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
      * @private
      * @return {String} the element string
      */
-     function getDuration() {
+    function getDuration() {
         return  `<fieldset class="schema-form-fieldset">
                     <span>${$translate.instant('form.plugins.rangesliderdurationlabel')}</span>
                     <div class="av-range-duration-container">
@@ -455,61 +455,61 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                         ] }
                     ] },
                     { 'key': 'chart.layers', 'condition': 'model.chart.enable === true', 'add': null, 'items': [
-                        { 'type': 'fieldset', 'htmlClass': 'av-tileschema', 'items': [
+                        { 'type': 'fieldset', 'htmlClass': 'av-chart', 'items': [
                             {
                                 'key': 'chart.layers[].id',
                                 'type': 'dynamic-select',
                                 'optionData': 'initLayerId',
                                 'model': 'id',
                                 'array': true
-                            }
-                        ] },
-                        { 'key': 'chart.layers[].nameField' },
-                        { 'key': 'chart.layers[].type', 'titleMap': [
-                            { value: 'inline', name: $translate.instant('form.plugins.chartinline') },
-                            { value: 'link', name: $translate.instant('form.plugins.chartlink') }
-                        ] },
-                        { 'key': 'chart.layers[].linkUrl', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
-                        { 'key': 'chart.layers[].linkField', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
-                        { 'key': 'chart.layers[].data', 'title': $translate.instant('form.plugins.chartdata'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
-                            // new item, create accordion
-                            events.$broadcast(events.avNewItems);
-                        }, 'add': $translate.instant('button.add'), 'items': [
-                            { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.chartdata'), 'items': [
-                                { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
-                                { 'key': 'chart.layers[].data[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                    { 'key': 'chart.layers[].data[].type', 'condition': 'model.chart.layers[arrayIndex].type !== "link"', 'titleMap': [
-                                        { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
-                                        { value: 'combine', name: $translate.instant('form.plugins.chartdatatype2') }
-                                    ] },
-                                    { 'key': 'chart.layers[].data[].linkType', 'condition': 'model.chart.layers[arrayIndex].type === "link"', 'titleMap': [
-                                        { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
-                                        { value: 'multi', name: $translate.instant('form.plugins.chartdatatype3') }
-                                    ] },
-                                    { 'key': 'chart.layers[].data[].link', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
-                                    { 'key': 'chart.layers[].data[].date', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
-                                    { 'key': 'chart.layers[].data[].values', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
-                                    { 'key': 'chart.layers[].data[].measure', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.chartdata'), 'onChange': debounceService.registerDebounce((model, item) => {
-                                        self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
-                                    },
-                                    { 'key': 'chart.layers[].data[].regex', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
-                                    { 'key': 'chart.layers[].data[].split', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
-                                    { 'key': 'chart.layers[].data[].label', 'condition': 'model.chart.enable === true', 'items': [
-                                        { 'key': 'chart.layers[].data[].label.type', 'titleMap': [
-                                            { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
-                                            { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                            },
+                            { 'key': 'chart.layers[].nameField' },
+                            { 'key': 'chart.layers[].type', 'titleMap': [
+                                { value: 'inline', name: $translate.instant('form.plugins.chartinline') },
+                                { value: 'link', name: $translate.instant('form.plugins.chartlink') }
+                            ] },
+                            { 'key': 'chart.layers[].linkUrl', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
+                            { 'key': 'chart.layers[].linkField', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
+                            { 'key': 'chart.layers[].data', 'title': $translate.instant('form.plugins.chartdata'), 'htmlClass': 'av-accordion-all', 'startEmpty': true, 'onChange': () => {
+                                // new item, create accordion
+                                events.$broadcast(events.avNewItems);
+                            }, 'add': $translate.instant('button.add'), 'items': [
+                                { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.chartdata'), 'items': [
+                                    { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
+                                    { 'key': 'chart.layers[].data[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
+                                        { 'key': 'chart.layers[].data[].type', 'condition': 'model.chart.layers[arrayIndex].type !== "link"', 'titleMap': [
+                                            { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
+                                            { value: 'combine', name: $translate.instant('form.plugins.chartdatatype2') }
                                         ] },
-                                        { 'key': 'chart.layers[].data[].label.values' },
-                                        { 'key': 'chart.layers[].data[].label.split' }
-                                    ] },
-                                    { 'key': 'chart.layers[].data[].prefix' },
-                                    { 'key': 'chart.layers[].data[].suffix' }
+                                        { 'key': 'chart.layers[].data[].linkType', 'condition': 'model.chart.layers[arrayIndex].type === "link"', 'titleMap': [
+                                            { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
+                                            { value: 'multi', name: $translate.instant('form.plugins.chartdatatype3') }
+                                        ] },
+                                        { 'key': 'chart.layers[].data[].link', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
+                                        { 'key': 'chart.layers[].data[].date', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
+                                        { 'key': 'chart.layers[].data[].values', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
+                                        { 'key': 'chart.layers[].data[].measure', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.chartdata'), 'onChange': debounceService.registerDebounce((model, item) => {
+                                            self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
+                                        },
+                                        { 'key': 'chart.layers[].data[].regex', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
+                                        { 'key': 'chart.layers[].data[].split', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
+                                        { 'key': 'chart.layers[].data[].label', 'condition': 'model.chart.enable === true', 'items': [
+                                            { 'key': 'chart.layers[].data[].label.type', 'titleMap': [
+                                                { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
+                                                { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                                            ] },
+                                            { 'key': 'chart.layers[].data[].label.values' },
+                                            { 'key': 'chart.layers[].data[].label.split' }
+                                        ] },
+                                        { 'key': 'chart.layers[].data[].prefix' },
+                                        { 'key': 'chart.layers[].data[].suffix' }
+                                    ] }
                                 ] }
+                            ] },
+                            { 'key': 'chart.layers[].details', 'items': [
+                                { 'key': 'chart.layers[].details.enabled' },
+                                { 'key': 'chart.layers[].details.value', 'condition': 'model.chart.layers[arrayIndex].details.enabled === true' }
                             ] }
-                        ] },
-                        { 'key': 'chart.layers[].details', 'items': [
-                            { 'key': 'chart.layers[].details.enabled' },
-                            { 'key': 'chart.layers[].details.value', 'condition': 'model.chart.layers[arrayIndex].details.enabled === true' }
                         ] }
                     ] }
                 ] },
