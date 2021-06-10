@@ -97,7 +97,9 @@ function Controller($mdDialog, $rootScope, $timeout, $interval, events, constant
 
     // on validation enable expand and collapse
     events.$on(events.avValidateForm, () => {
+        initState();
         self.disableCollapseExpand = false;
+        $timeout(() => { $rootScope.$apply(); }, 5000);
     });
 
     // When user click inside the forms, disable preview to make sure preview is not launch with a bad config
