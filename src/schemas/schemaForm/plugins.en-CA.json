@@ -398,10 +398,10 @@
                                     "title": "Split Character",
                                     "type": "string",
                                     "description": "Character to use to split list of values.",
-                                    "default": ";"
+                                    "default": ""
                                 }
                             },
-                            "required": ["type", "values", "split"]
+                            "required": ["type"]
                         },
                         "yAxis": {
                             "title": "Y Axis",
@@ -419,7 +419,7 @@
                                         "field",
                                         "config",
                                         "linear",
-                                        "time"
+                                        "date"
                                     ],
                                     "description": "Retreive the labels from a field or configuration for bar chart or from values (linear or time) for line chart.",
                                     "default": "config"
@@ -434,10 +434,10 @@
                                     "title": "Split Character",
                                     "type": "string",
                                     "description": "Character to use to split list of values.",
-                                    "default": ";"
+                                    "default": ""
                                 }
                             },
-                            "required": ["type", "values", "split"]
+                            "required": ["type"]
                         },
                         "required": ["xAxis", "yAxis"]
                     }
@@ -498,7 +498,8 @@
                                             "type": "string",
                                             "enum": [
                                                 "single",
-                                                "multi"
+                                                "multi",
+                                                "combine"
                                             ],
                                             "description": "How data is structure inside the link table (single for one field for value and one for date OR multiple if there is multiple datasets inside one field and the chart needs to parse).",
                                             "default": "single"
@@ -531,7 +532,8 @@
                                                     "type": "string",
                                                     "enum": [
                                                         "field",
-                                                        "config"
+                                                        "config",
+                                                        "value"
                                                     ],
                                                     "description": "Retreive the labels from a field or from the configuration.",
                                                     "default": "config"
@@ -549,7 +551,7 @@
                                                     "default": ";"
                                                 }
                                             },
-                                            "required": ["type", "values", "split"]
+                                            "required": ["type", "values"]
                                         },
                                         "regex": {
                                             "title": "Dataset splitter",

@@ -170,6 +170,7 @@ form plugins chart,form.plugins.chartpie,Pie,0,Tarte,0
 form plugins chart,form.plugins.chartbar,Bar,0,Barre,0
 form plugins chart,form.plugins.chartline,Line,0,Ligne,0
 form plugins chart,form.plugins.chartfield,Field,0,Champs,0
+form plugins chart,form.plugins.chartvalue,Value,0,Valeur,0
 form plugins chart,form.plugins.chartlink,Link,0,Lié,0
 form plugins chart,form.plugins.chartinline,Inline,0,Interne,0
 form plugins chart,form.plugins.chartconfig,Configuration,0,Configuration,0

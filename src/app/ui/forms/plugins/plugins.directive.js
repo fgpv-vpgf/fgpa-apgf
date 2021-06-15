@@ -339,7 +339,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                             { value: '1', name: '1' },
                             { value: '2', name: '2' },
                             { value: 'date', name: $translate.instant('format.date') },
-                            { value: 'dynamic', name: $translate.instant('format.hour') }
+                            { value: 'hour', name: $translate.instant('format.hour') }
                         ] },
                         { 'key': 'rangeSlider.params.delay', 'titleMap': [
                             { value: '3000', name: '3 sec' },
@@ -438,20 +438,26 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                 { value: 'linear', name: $translate.instant('form.plugins.chartlinear') }
                             ] },
                             { 'key': 'chart.axis.xAxis.title' },
-                            { 'key': 'chart.axis.xAxis.values', 'condition': 'model.chart.type !== "line"' },
-                            { 'key': 'chart.axis.xAxis.split', 'condition': 'model.chart.type !== "line" && model.chart.axis.xAxis.type === "config"' }
+                            { 'key': 'chart.axis.xAxis.values' },
+                            { 'key': 'chart.axis.xAxis.split'  }
                         ] },
-                        { 'key': 'chart.axis.yAxis', 'items': [
-                            { 'key': 'chart.axis.yAxis.type', 'condition': 'model.chart.enable === true && model.chart.type == "bar"', 'titleMap': [
-                                { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
-                                { value: 'field', name: $translate.instant('form.plugins.chartfield') }
-                            ] },
-                            { 'key': 'chart.axis.yAxis.type', 'condition': 'model.chart.enable === true && model.chart.type == "line"', 'titleMap': [
-                                { value: 'linear', name: $translate.instant('form.plugins.chartlinear') }
-                            ] },
-                            { 'key': 'chart.axis.yAxis.title' },
-                            { 'key': 'chart.axis.yAxis.values', 'condition': 'model.chart.type !== "line"' },
-                            { 'key': 'chart.axis.yAxis.split', 'condition': 'model.chart.type !== "line" && model.chart.axis.yAxis.type === "config"' }
+                        {
+                            'key': 'chart.axis.yAxis', 'items': [
+                                {
+                                    'key': 'chart.axis.yAxis.type', 'condition': 'model.chart.enable === true && model.chart.type == "bar"', 'titleMap': [
+                                        { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
+                                        { value: 'field', name: $translate.instant('form.plugins.chartfield') },
+                                        { value: 'linear', name: $translate.instant('form.plugins.chartlinear') }
+                                    ]
+                                },
+                                {
+                                    'key': 'chart.axis.yAxis.type', 'condition': 'model.chart.enable === true && model.chart.type == "line"', 'titleMap': [
+                                        { value: 'linear', name: $translate.instant('form.plugins.chartlinear') }
+                                    ]
+                                },
+                                { 'key': 'chart.axis.yAxis.title' },
+                                { 'key': 'chart.axis.yAxis.values' },
+                                { 'key': 'chart.axis.yAxis.split', 'condition': '(model.chart.axis.yAxis.type === "config"||model.chart.axis.yAxis.type === "linear")'}
                         ] }
                     ] },
                     { 'key': 'chart.layers', 'condition': 'model.chart.enable === true', 'add': null, 'items': [
@@ -477,12 +483,13 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                 { 'type': 'fieldset', 'htmlClass': 'av-accordion-toggle', 'title': $translate.instant('form.plugins.chartdata'), 'items': [
                                     { 'type': 'help', 'htmlClass': 'av-form-advance hidden', 'helpvalue': '<div class="help-block">' + $translate.instant('form.map.expcoldesc') + '<div>' },
                                     { 'key': 'chart.layers[].data[]', 'htmlClass': `av-accordion-content`, 'notitle': true, 'items': [
-                                        { 'key': 'chart.layers[].data[].type', 'condition': 'model.chart.layers[arrayIndex].type !== "link"', 'titleMap': [
+                                        { 'key': 'chart.layers[].data[].type', 'titleMap': [
                                             { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
                                             { value: 'combine', name: $translate.instant('form.plugins.chartdatatype2') }
                                         ] },
                                         { 'key': 'chart.layers[].data[].linkType', 'condition': 'model.chart.layers[arrayIndex].type === "link"', 'titleMap': [
                                             { value: 'single', name: $translate.instant('form.plugins.chartdatatype1') },
+                                            { value: 'combine', name: $translate.instant('form.plugins.chartdatatype2') },
                                             { value: 'multi', name: $translate.instant('form.plugins.chartdatatype3') }
                                         ] },
                                         { 'key': 'chart.layers[].data[].link', 'condition': 'model.chart.layers[arrayIndex].type === "link"' },
@@ -491,12 +498,13 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                         { 'key': 'chart.layers[].data[].measure', 'targetLink': 'legend.0', 'targetParent': 'av-accordion-toggle', 'default': $translate.instant('form.plugins.chartdata'), 'onChange': debounceService.registerDebounce((model, item) => {
                                             self.formService.copyValueToFormIndex(model, item);}, constants.debInput, false)
                                         },
-                                        { 'key': 'chart.layers[].data[].regex', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
-                                        { 'key': 'chart.layers[].data[].split', 'condition': 'model.chart.layers[arrayIndex].type !== "link"' },
+                                        { 'key': 'chart.layers[].data[].regex' },
+                                        { 'key': 'chart.layers[].data[].split' },
                                         { 'key': 'chart.layers[].data[].label', 'condition': 'model.chart.enable === true', 'items': [
                                             { 'key': 'chart.layers[].data[].label.type', 'titleMap': [
                                                 { value: 'config', name: $translate.instant('form.plugins.chartconfig') },
-                                                { value: 'field', name: $translate.instant('form.plugins.chartfield') }
+                                                { value: 'field', name: $translate.instant('form.plugins.chartfield') },
+                                                 { value: 'value', name: $translate.instant('form.plugins.chartvalue') }
                                             ] },
                                             { 'key': 'chart.layers[].data[].label.values' },
                                             { 'key': 'chart.layers[].data[].label.split' }

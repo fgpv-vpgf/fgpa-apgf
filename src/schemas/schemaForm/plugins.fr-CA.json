@@ -400,7 +400,7 @@
                                     "default": ";"
                                 }
                             },
-                            "required": ["type", "values", "split"]
+                            "required": ["type"]
                         },
                         "yAxis": {
                             "title": "Axes des Y",
@@ -436,7 +436,7 @@
                                     "default": ";"
                                 }
                             },
-                            "required": ["type", "values", "split"]
+                            "required": ["type"]
                         },
                         "required": ["xAxis", "yAxis"]
                     }
@@ -530,7 +530,8 @@
                                                     "type": "string",
                                                     "enum": [
                                                         "field",
-                                                        "config"
+                                                        "config",
+                                                         "value"
                                                     ],
                                                     "description": "Récupérer les étiquettes d'un champ ou de la configuration.",
                                                     "default": "config"
