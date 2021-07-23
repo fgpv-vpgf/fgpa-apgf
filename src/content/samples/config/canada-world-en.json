@@ -656,6 +656,7 @@
         },
         "tableIsOpen": {
             "id": "",
+            "dynamicIndex": "",
             "large": false,
             "medium": false,
             "small": false
@@ -724,7 +725,7 @@
         "googleAPIKey": "",
         "esriLibUrl": ""
     },
-    "version": "3.3.2",
+    "version": "3.3.3",
     "language": "en-CA",
     "plugins": {
         "rangeSlider": {

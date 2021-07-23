@@ -235,19 +235,17 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                     { 'key': 'fullscreen' },
                     // FIXME: not use inside the viewer... see if still needed { 'key': 'theme' },
                     { 'key': 'failureFeedback', 'htmlClass': 'av-form-advance hidden' },
-                    {
-                        'type': 'fieldset', 'key': 'legend', 'items': [
-                            {
-                                'type': "template",
-                                'template': '<div class="av-legend-link" ng-click="form.link()">{{form.name}}</div>',
-                                'name': $translate.instant('form.ui.gomap'),
-                                'link': () => commonService.clickSubTab(1, 'legend')
-                            },
-                            { 'key': 'legend.reorderable' },
-                            { 'key': 'legend.allowImport' },
-                            { 'key': 'legend.isOpen' }
-                        ]
-                    },
+                    { 'type': 'fieldset', 'key': 'legend', 'items': [
+                        {
+                            'type': "template",
+                            'template': '<div class="av-legend-link" ng-click="form.link()">{{form.name}}</div>',
+                            'name': $translate.instant('form.ui.gomap'),
+                            'link': () => commonService.clickSubTab(1, 'legend')
+                        },
+                        { 'key': 'legend.reorderable' },
+                        { 'key': 'legend.allowImport' },
+                        { 'key': 'legend.isOpen' }
+                    ] },
                     { 'key': 'tableIsOpen', 'htmlClass': 'av-form-advance hidden', 'items': [
                         {
                             'key': 'tableIsOpen.id',
@@ -259,6 +257,7 @@ function Controller($scope, $translate, $timeout, events, modelManager, stateMan
                             // this temp model will be save to config file as well use same name with _ to replace .
                             'onChange': (model, data) => { $timeout(() => { $scope.model.tableIsOpen_id = model; $scope.model.tableIsOpen.id = model; }, 1000); }
                         },
+                        { 'key': 'tableIsOpen.dynamicIndex', 'htmlClass': 'av-version-dev av-version-dev-hide' },
                         { 'key': 'tableIsOpen.large' },
                         { 'key': 'tableIsOpen.medium' },
                         { 'key': 'tableIsOpen.small' }

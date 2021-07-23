@@ -253,6 +253,12 @@
                     "title": "Layer ID",
                     "default": ""
                 },
+                "dynamicIndex": {
+                    "type": "string",
+                    "description": "If the layer is a dynamic layer, specify the index of the sublayer to open.",
+                    "title": "Dynamic layer index",
+                    "version": "3.3.4"
+                },
                 "large": {
                     "type": "boolean",
                     "default": false,
