@@ -11,7 +11,14 @@
         var styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
-        styles.href = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version);
+
+        // TODO remove and keep only the cloud when installed
+        if (version === '3.3.3') {
+            styles.href = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version);
+        } else {
+            styles.href = 'https://jolevesq.github.io/contributed-plugins/fgpv/rv-styles.css';
+        }
+
         document.getElementsByTagName('head')[0].appendChild(styles);
 
         // set plugins js and css
@@ -41,10 +48,16 @@
             } else if (plugins[i] === 'areasOfInterest') {
                 addScriptTag('https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version));
             } else {
-                // TODO: remove version number from plugins name (Prod use prod version and dev use by dev version)
-                path = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/contributed-plugins/' + pluginDash + '/' + pluginDash;
-                addScriptTag(path + '.js');
-                addStyleTag(path + '.css');
+                // TODO: remove and keep only the cloud when installed
+                if (version === '3.3.3') {
+                    path = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/contributed-plugins/' + pluginDash + '/' + pluginDash;
+                    addScriptTag(path + '.js');
+                    addStyleTag(path + '.css');
+                } else {
+                    path = 'https://jolevesq.github.io/contributed-plugins/' + pluginDash + '/' + pluginDash;
+                    addScriptTag(path + '.js');
+                    addStyleTag(path + '.css');
+                }
             }
         }
     </script>
@@ -86,7 +99,11 @@
     var scriptTag = document.createElement('script');
     var scriptTagLegacy = document.createElement('script');
     var version = localStorage.getItem('viewerversion');
-    scriptTag.src = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version);
+    // scriptTag.src = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-main.js'.replace('x.x.x', version);
+
+    // TODO: remove and keep only the cloud when installed
+    scriptTag.src = 'https://jolevesq.github.io/contributed-plugins/fgpv/rv-mainx.x.x.js'.replace('x.x.x', version);
+
     scriptTagLegacy.src = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/legacy-api.js'.replace('x.x.x', version);
     document.body.appendChild(scriptTagLegacy);
     document.body.appendChild(scriptTag);
