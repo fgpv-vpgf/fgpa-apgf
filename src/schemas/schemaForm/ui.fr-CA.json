@@ -253,6 +253,12 @@
                     "title": "ID de la couche",
                     "default": ""
                 },
+                "dynamicIndex": {
+                    "type": "string",
+                    "description": "Si la couche dynamique, spécifiez l'index de la sous-couche à ouvrir.",
+                    "title": "Index de la couche dynamique",
+                    "version": "3.3.4"
+                },
                 "large": {
                     "type": "boolean",
                     "default": false,
