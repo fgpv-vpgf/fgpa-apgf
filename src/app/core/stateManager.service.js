@@ -118,6 +118,9 @@ function stateManager($translate, events, constants, commonService) {
 
                 // Generate state record for thematic slider
                 if (model.thematicSlider.enable) { setThematicItemsState(_state[modelName], model, arrKeys); }
+
+                // Generate state record for swiper
+                if (model.swiper.enable) { setSwiperItemsState(_state[modelName], model, arrKeys); }
             } else if (modelName === 'services') {
                 setGeoSearchItemState(_state[modelName], model);
             }
@@ -563,6 +566,72 @@ function stateManager($translate, events, constants, commonService) {
     }
 
     /**
+     * Set new record for swiper items in state model
+     * @function setSwiperItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setSwiperItemsState(stateModel, model, arrKeys) {
+
+        const masterLink = constants.schemas
+            .indexOf(`plugins.[lang].json`) + 1;
+
+        const setID = [[4, 'swiper', 'layers']];
+
+        const hlink = constants.subTabs.plugins.keys[4].replace(/\./g, '-');
+
+        // is there a defined swiper layer
+        if (typeof stateModel.items[4].items !== 'undefined') {
+            const layers = model[setID[0][1]][setID[0][2]];
+            let isValid = typeof layers[0].id === 'undefined' ? false : true;
+
+            // add layers item as it is not populate by default
+            stateModel.items[4].items
+                .push({ 'key': 'layers',
+                    'title': 'layers',
+                    items: [],
+                    'valid': isValid,
+                    'expand': false,
+                    'masterlink': masterLink,
+                    'hlink': hlink,
+                    'advance': 'falseHide',
+                    'stype': isValid === false ? 'bad-element' : '',
+                    'shlink': '',
+                    'type': 'object' });
+            
+            // set layers validity from number of layers specified then add layer items
+            for (let [j, item] of layers.entries()) {
+                if (typeof stateModel.items[4].items[3] !== 'undefined') {
+                    // the link will not work because layers is present inside map tab. To make this work, we should add tab to the id so there is no
+                    // duplicate. This would involve a major refactor and we are not sure it is worth it so we let it like this for now
+                    // TODO: investigate...
+                    const shlink = 'layers';
+
+                    if (typeof item.id === 'undefined') { isValid = false; }
+
+                    const obj = {
+                        'title': item.id,
+                        'stype': 'element',
+                        'items': [],
+                        'hlink': hlink,
+                        'shlink': shlink,
+                        'masterlink': masterLink
+                    }
+                    stateModel.items[4].items[3].items.push(obj);
+                }
+            }
+
+            stateModel.items[4].valid = isValid;
+            stateModel.items[4].items.valid = isValid;
+            stateModel.items[4].items.stype = isValid === false ? 'bad-element' : '';
+            stateModel.items[4].items[3].stype = isValid === false ? 'bad-element' : '';
+            stateModel.items[4].items[3].valid = isValid;
+        }
+    }
+
+    /**
      * Set new record for chart items in state model
      * @function setChartItemsState
      * @private
@@ -581,14 +650,18 @@ function stateManager($translate, events, constants, commonService) {
         // is there a defined thematic layer
         if (typeof stateModel.items[6].items !== 'undefined') {
             const layers = model[setID[0][1]][setID[0][2]];
-
-            let pluginVal = true;
+            let isValid = typeof layers[0].id === 'undefined' ? false : true;
+            
+            // set layers validity from number of layers specified then add layer items
             for (let [j, item] of layers.entries()) {
                 if (typeof stateModel.items[6].items[7] !== 'undefined') {
                     // the link will not work because layers is present inside map tab. To make this work, we should add tab to the id so there is no
                     // duplicate. This would involve a major refactor and we are not sure it is worth it so we let it like this for now
                     // TODO: investigate...
-                    const shlink = setItemId(hlink, j, 'thematicSlider', 'layers');
+                    const shlink = 'layers';
+
+                    if (typeof item.id === 'undefined') { isValid = false; }
+                    if (item.legend.length > 0 && typeof item.legend[0].url === 'undefined') { isValid = false; }
 
                     stateModel.items[6].items[7].items[j].title = item.id;
                     stateModel.items[6].items[7].items[j].stype = 'element';
@@ -596,25 +669,15 @@ function stateManager($translate, events, constants, commonService) {
                     stateModel.items[6].items[7].items[j].hlink = hlink;
                     stateModel.items[6].items[7].items[j].shlink = shlink;
                     stateModel.items[6].items[7].items[j].masterlink = masterLink;
-
-                    // Because the url required is not trap by the validation, check it here
-                    let valid = true;
-                    if (typeof item.legend !== 'undefined') {
-                        for (let k = 0; k < item.legend.length; k++) {
-                            if (item.legend[k].image.url === '') {
-                                valid = false;
-                                pluginVal = false;
-                            }
-                        }
-                    }
-
-                    stateModel.items[6].items[7].items[j].valid = valid;
+        
                 }
             }
 
-            // Propagate the value to parent if there is an error inside the legend element
-            stateModel.items[6].items[7].valid = pluginVal;
-            stateModel.items[6].valid = pluginVal;
+            stateModel.items[6].valid = isValid;
+            stateModel.items[6].items.valid = isValid;
+            stateModel.items[6].items.stype = isValid === false ? 'bad-element' : '';
+            stateModel.items[6].items[7].stype = isValid === false ? 'bad-element' : '';
+            stateModel.items[6].items[7].valid = isValid;
         }
     }
 

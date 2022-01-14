@@ -411,6 +411,12 @@
                                     "type": "string",
                                     "default": ""
                                 },
+                                "precision": {
+                                    "title": "Précision",
+                                    "type": "number",
+                                    "default": "",
+                                    "description": "Nombre de chiffres à afficher sur l'étiquette de l'axe."
+                                },
                                 "type": {
                                     "title": "Type",
                                     "type": "string",

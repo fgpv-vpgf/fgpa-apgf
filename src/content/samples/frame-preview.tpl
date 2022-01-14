@@ -13,7 +13,7 @@
         styles.type = 'text/css';
 
         // TODO remove and keep only the cloud when installed
-        if (version === '3.3.3') {
+        if (version === '3.3.4') {
             styles.href = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/rv-styles.css'.replace('x.x.x', version);
         } else {
             styles.href = 'https://jolevesq.github.io/contributed-plugins/fgpv/rv-styles.css';
@@ -49,7 +49,7 @@
                 addScriptTag('https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-x.x.x/core-plugins/ramp-plugin-areas-of-interest.js'.replace('x.x.x', version));
             } else {
                 // TODO: remove and keep only the cloud when installed
-                if (version === '3.3.3') {
+                if (version === '3.3.4') {
                     path = 'https://viewer-visualiseur.services.geo.ca/apps/RAMP/contributed-plugins/' + pluginDash + '/' + pluginDash;
                     addScriptTag(path + '.js');
                     addStyleTag(path + '.css');
