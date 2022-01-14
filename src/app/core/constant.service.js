@@ -54,8 +54,8 @@ angular
                 keys: ['coordInfo', 'areasOfInterest', 'rangeSlider', 'chart', 'swiper', 'draw', 'thematicSlider']
             }
         },
-        devVersion: '3.3.4',
-        prodVersion: '3.3.3'
+        devVersion: '3.3.5',
+        prodVersion: '3.3.4'
     }); // TODO: add new tabs and subtabs as they come, tabs and subtabs listed as they should appear in the interface
 
 function events($rootScope) {

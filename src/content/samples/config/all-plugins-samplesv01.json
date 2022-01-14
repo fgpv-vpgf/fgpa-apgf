@@ -954,7 +954,7 @@
         "googleAPIKey": "",
         "esriLibUrl": ""
     },
-    "version": "3.3.3",
+    "version": "3.3.4",
     "language": "en-CA",
     "plugins": {
         "rangeSlider": {

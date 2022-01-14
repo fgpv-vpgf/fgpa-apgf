@@ -367,8 +367,8 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                     { 'key': 'rangeSlider.params.rangeInterval' },
                                     { 'key': 'rangeSlider.params.startRangeEnd' }
                                 ] },
+                                { 'type': 'template', 'template': getTimepicker() },
                                 { 'type': 'fieldset',  'htmlClass': 'av-range-values-section av-none', 'title': $translate.instant('form.plugins.rangesliderrangevalues'), 'items': [
-                                    { 'type': 'template', 'template': getTimepicker() },
                                     { 'key': 'rangeSlider.params.range', 'notitle': true, 'items': [
                                         { 'key': 'rangeSlider.params.range.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
                                             '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.range.max) ? false : true } },
@@ -377,7 +377,6 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                     ] }
                                 ] },
                                 { 'key': 'rangeSlider.params.limit', 'items': [
-                                    { 'type': 'template', 'template': getTimepicker() },
                                     { 'key': 'rangeSlider.params.limit.min', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
                                         '$validators': { wrongValues: value => (value !== null && value >= $scope.model.rangeSlider.params.limit.max) ? false : true } },
                                     { 'key': 'rangeSlider.params.limit.max', 'validationMessage': { 'wrongValues': $translate.instant('form.validation.rangesliderlimit') },
@@ -450,6 +449,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                 { value: 'linear', name: $translate.instant('form.plugins.chartlinear') }
                             ] },
                             { 'key': 'chart.axis.yAxis.title' },
+                            { 'key': 'chart.axis.yAxis.precision' },
                             { 'key': 'chart.axis.yAxis.values', 'condition': 'model.chart.type !== "line"' },
                             { 'key': 'chart.axis.yAxis.split', 'condition': 'model.chart.type !== "line" && model.chart.axis.yAxis.type === "config"' }
                         ] }

@@ -203,8 +203,7 @@
                             "id": {
                                 "type": "string",
                                 "description": "The id of the layer for referencing within the viewer (does not relate directly to any external service).",
-                                "title": "Layer id",
-                                "default": ""
+                                "title": "Layer id"
                             },
                             "field": {
                                 "type": "string",
@@ -219,7 +218,7 @@
                                 "description": "If time aware is true, the slider will use the TimeInfo (ESRI) or time dimension (WMS) to extract limits and range."
                             }
                         },
-                        "required": ["id, field", "isTimeAware"]
+                        "required": ["id", "field", "isTimeAware"]
                     }
                 }
             },
@@ -411,6 +410,12 @@
                                     "title": "Title",
                                     "type": "string",
                                     "default": ""
+                                },
+                                "precision": {
+                                    "title": "Precision",
+                                    "type": "number",
+                                    "default": "",
+                                    "description": "Number of digits to show on axis label."
                                 },
                                 "type": {
                                     "title": "Type",
