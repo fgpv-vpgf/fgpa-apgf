@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
 
-    <link rel="stylesheet" href="https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/rv-styles.css" />
+    <link rel="stylesheet" href="https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/rv-styles.css" />
 
     <style>
         body {
@@ -37,8 +37,8 @@
 </script>
 
 <!-- IMPORTANT, keep the viewer to version 3.2.0 Modification of viewer version may impact functionnality -->
-<script src="https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/legacy-api.js"></script>
-<script src="https://viewer-visualiseur-dev.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/rv-main.js"></script>
+<script src="https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/legacy-api.js"></script>
+<script src="https://viewer-visualiseur.services.geo.ca/apps/RAMP/fgpv/fgpv-3.2.0/rv-main.js"></script>
 
 <script type="text/javascript">
     // link to api from script to get new extent
