@@ -546,20 +546,31 @@ function stateManager($translate, events, constants, commonService) {
         // is there a defined chart layer
         if (typeof stateModel.items[3].items !== 'undefined') {
             const layers = model[setID[0][1]][setID[0][2]];
-
+            
+            let isValid = typeof layers[0].id === 'undefined' ? false : true;
+    
             for (let [j, item] of layers.entries()) {
                 if (typeof stateModel.items[3].items[5] !== 'undefined') {
                     // the link will not work because layers is present inside map tab. To make this work, we should add tab to the id so there is no
                     // duplicate. This would involve a major refactor and we are not sure it is worth it so we let it like this for now
                     // TODO: investigate...
-                    const shlink = setItemId(hlink, j, 'chart', 'layers');
+       //             const shlink = setItemId(hlink, j, 'chart', 'layers');
 
-                    stateModel.items[3].items[5].items[j].title = item.id;
-                    stateModel.items[3].items[5].items[j].stype = 'element';
-                    stateModel.items[3].items[5].items[j].items = [];
-                    stateModel.items[3].items[5].items[j].hlink = hlink;
-                    stateModel.items[3].items[5].items[j].shlink = shlink;
-                    stateModel.items[3].items[5].items[j].masterlink = masterLink;
+                     const shlink = 'layers';
+
+            if (typeof item.id === 'undefined') { isValid = false; }
+
+                    const obj = {
+                        'title': item.id,
+                        'stype': 'element',
+                        'items': [],
+                        'hlink': hlink,
+                        'shlink': shlink,
+                        'masterlink': masterLink
+                    }
+              
+        stateModel.items[3].items[5].items[0].items.push(obj);
+
                 }
             }
         }
