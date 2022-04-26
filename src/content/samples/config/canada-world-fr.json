@@ -285,7 +285,7 @@
                 "lodSetId": "LOD_NRCAN_Lambert_3978",
                 "overviewUrl": {
                     "layerType": "esriTile",
-                    "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer"
+                    "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT3978/MapServer"
                 }
             },
             {
@@ -310,13 +310,13 @@
                     {
                         "id": "CBME_CBCE_HS_RO_3978",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                         "opacity": 1
                     },
                     {
                         "id": "CBMT",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT3978/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT3978/MapServer",
                         "opacity": 0.75
                     }
                 ],
@@ -340,13 +340,13 @@
                     {
                         "id": "CBME_CBCE_HS_RO_3978",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                         "opacity": 1
                     },
                     {
                         "id": "CBMT_CBCT_GEOM_3978",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
                         "opacity": 0.75
                     }
                 ],
@@ -369,7 +369,7 @@
                     {
                         "id": "SMR",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/Simple/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
                         "opacity": 1
                     }
                 ],
@@ -384,25 +384,25 @@
                 }
             },
             {
-                "id":"2a30f9b6",
-                "name":"Relief ombragé",
-                "description":"Cette carte de base canadienne fournit un contexte géographique à l'aide d'un relief ombragé. De Ressources naturelles Canada.",
-                "altText":"Relief ombragé",
-                "layers":[
+                "id": "2a30f9b6",
+                "name": "Relief ombragé",
+                "description": "Cette carte de base canadienne fournit un contexte géographique à l'aide d'un relief ombragé. De Ressources naturelles Canada.",
+                "altText": "Relief ombragé",
+                "layers": [
                     {
-                        "id":"CBME_CBCE_HS_RO_3978",
-                        "layerType":"esriFeature",
-                        "url":"https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                        "id": "CBME_CBCE_HS_RO_3978",
+                        "layerType": "esriFeature",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                         "opacity": 1
                     }
                 ],
-                "tileSchemaId":"cad53536",
+                "tileSchemaId": "cad53536",
                 "attribution": {
                     "text": {
-                        "enabled": true}
-                    ,
+                        "enabled": true
+                    },
                     "logo": {
-                        "enabled":false
+                        "enabled": false
                     }
                 }
             },
@@ -429,13 +429,13 @@
                     {
                         "id": "WorldTransportLabel",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer",
                         "opacity": 1
                     },
                     {
                         "id": "WorldLabel",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBCT_TXT_3857/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT_TXT_3857/MapServer",
                         "opacity": 1
                     }
                 ]
@@ -463,7 +463,7 @@
                     {
                         "id": "WorldTransport",
                         "layerType": "esriFeature",
-                        "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer",
+                        "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3857/MapServer",
                         "opacity": 1
                     }
                 ]
@@ -665,8 +665,8 @@
     },
     "services": {
         "proxyUrl": "https://maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy",
-        "geometryUrl": "https://webservices.maps.canada.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-        "exportMapUrl": "https://webservices.maps.canada.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+        "geometryUrl": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/Utilities/Geometry/GeometryServer",
+        "exportMapUrl": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
         "search": {
             "serviceUrls": {
                 "geoNames": "https://geogratis.gc.ca/services/geoname/en/geonames.json",
@@ -725,12 +725,13 @@
         "googleAPIKey": "",
         "esriLibUrl": ""
     },
-    "version": "3.3.4",
+    "version": "3.3.5",
     "language": "fr-CA",
     "plugins": {
         "rangeSlider": {
             "enable": false,
             "open": true,
+            "autoinint": true,
             "controls": [
                 "lock",
                 "delay"

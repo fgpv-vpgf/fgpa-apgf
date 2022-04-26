@@ -16,6 +16,11 @@
                     "title": "Open by default",
                     "default": true
                 },
+                "autoinit": {
+                    "type": "boolean",
+                    "title": "Initialize automatically with time aware layer",
+                    "default": true
+                },
                  "maximize": {
                     "type": "boolean",
                     "title": "Slider maximized by default",

@@ -300,6 +300,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     { 'type': 'template', 'template': self.formService.addCustomAccordion($translate.instant('form.custom.help'), `help/info-contribute-plugins-${commonService.getLang()}.md`, true) },
                     { 'key': 'rangeSlider.enable', 'onChange': (key, value) => { if (value) setTimepicker() }},
                     { 'key': 'rangeSlider.open', 'condition': 'model.rangeSlider.enable === true' },
+                    { 'key': 'rangeSlider.autoinit', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.maximize', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.maximizeDesc', 'condition': 'model.rangeSlider.enable === true' },
                     { 'key': 'rangeSlider.autorun', 'condition': 'model.rangeSlider.enable === true' },

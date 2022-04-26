@@ -11,7 +11,7 @@
                 "3.3.4",
                 "3.3.5"
             ],
-            "default": "3.3.4",
+            "default": "3.3.5",
             "description": "La version du visualisateur utilisé pour valider le fichier de configuration. Les champs propre à la version la plus élevée ont une bordure gauche turquoise."
         }
     }

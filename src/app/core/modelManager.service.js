@@ -81,6 +81,13 @@ function modelManager($timeout, $translate, events, constants, commonService) {
         // remove $$haskkey from model
         let cleanModels = commonService.parseJSON(models);
 
+        // remove plugins section who are disable
+        if (!models.plugins.rangeSlider.enable) { models.plugins.rangeSlider = { "enable": false, "autonit": true } }
+        if (!models.plugins.chart.enable) { models.plugins.chart = { "enable": false } }
+        if (!models.plugins.swiper.enable) { models.plugins.swiper = { "enable": false } }
+        if (!models.plugins.draw.enable) { models.plugins.draw = { "enable": false } }
+        if (!models.plugins.thematicSlider.enable) { models.plugins.thematicSlider = { "enable": false } }
+
         modifyPropNames(cleanModels, 'SAVE');
 
         // return the config as a string
