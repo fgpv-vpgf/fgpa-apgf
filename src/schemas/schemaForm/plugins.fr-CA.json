@@ -16,6 +16,11 @@
                     "title": "Ouvert par défaut",
                     "default": true
                 },
+                "autoinit": {
+                    "type": "boolean",
+                    "title": "Initialise automatiquement en présence d'une couche ayant une dimension temporelle",
+                    "default": true
+                },
                 "maximize": {
                     "type": "boolean",
                     "title": "Glisseur maximisé par défaut",

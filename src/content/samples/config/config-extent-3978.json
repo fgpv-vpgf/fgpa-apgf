@@ -136,7 +136,7 @@
             "layers": [{
                 "id": "CBMT",
                 "layerType": "esriFeature",
-                "url": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer"
+                "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT3978/MapServer"
             }],
             "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
             "attribution": {
@@ -197,8 +197,8 @@
     },
     "services": {
         "proxyUrl": "https://maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy",
-        "geometryUrl": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-        "exportMapUrl": "https://geoappext.nrcan.gc.ca/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+        "geometryUrl": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/Utilities/Geometry/GeometryServer",
+        "exportMapUrl": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
         "search": {
             "serviceUrls": {
                 "geoNames": "https://geogratis.gc.ca/services/geoname/en/geonames.json",
@@ -248,6 +248,6 @@
             }
         }
     },
-    "version": "2.5",
+    "version": "3.3.5",
     "language": "en-CA"
 }
