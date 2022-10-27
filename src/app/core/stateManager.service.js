@@ -113,6 +113,9 @@ function stateManager($translate, events, constants, commonService) {
                 // Generate state records for area of interest
                 setAreaOfInterestItemsState(_state[modelName], model, arrKeys);
 
+                // Generate state records for range slider
+                if (model.rangeSlider.enable) { setRangeItemsState(_state[modelName], model, arrKeys); }
+         
                 // Generate state records for charts
                 if (model.chart.enable) { setChartItemsState(_state[modelName], model, arrKeys); }
 
@@ -522,6 +525,54 @@ function stateManager($translate, events, constants, commonService) {
                         'stype': stype,
                         'shlink': shlink,
                         'type': 'object' });
+            }
+        }
+    }
+
+    /**
+     * Set new record for range slider items in state model
+     * @function setRangeItemsState
+     * @private
+     * @param {Object}  stateModel the stateModel
+     * @param {Object}  model the model
+     * @param {Array} arrKeys array of object {key: [], valid: true | false}
+     */
+    function setRangeItemsState(stateModel, model, arrKeys) {
+
+        const masterLink = constants.schemas
+            .indexOf(`plugins.[lang].json`) + 1;
+
+        const setID = [[0, 'rangeSlider', 'layers']];
+
+        const hlink = constants.subTabs.plugins.keys[2].replace(/\./g, '-');
+
+        // is there a defined chart layer
+        if (typeof stateModel.items[2].items !== 'undefined') {
+            const layers = model[setID[0][1]][setID[0][2]];
+           
+        let isValid = typeof layers[0].id === 'undefined' ? false : true;
+    
+            for (let [j, item] of layers.entries()) {
+                if (typeof stateModel.items[2].items[9] !== 'undefined') {
+                    // the link will not work because layers is present inside map tab. To make this work, we should add tab to the id so there is no
+                    // duplicate. This would involve a major refactor and we are not sure it is worth it so we let it like this for now
+                    // TODO: investigate...
+
+                    const shlink = 'layers';
+
+            if (typeof item.id === 'undefined') { isValid = false; }
+
+                    const obj = {
+                        'title': item.id,
+                        'stype': 'element',
+                      'items': [],
+                        'hlink': hlink,
+                        'shlink': shlink,
+                        'masterlink': masterLink
+                    }
+                    stateModel.items[2].items[9].items[0].items.push(obj);
+
+              }
             }
         }
     }
