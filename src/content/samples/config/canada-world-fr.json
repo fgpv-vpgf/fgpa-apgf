@@ -729,80 +729,26 @@
     "language": "fr-CA",
     "plugins": {
         "rangeSlider": {
-            "enable": false,
-            "open": true,
-            "autoinint": true,
-            "controls": [
-                "lock",
-                "delay"
-            ],
-            "params": {
-                "type": "number",
-                "delay": "3000"
-            }
+        "enable": false,
+        "autoinit": true
         },
         "coordInfo": {
-            "enable": false
+        "enable": false
         },
         "areasOfInterest": {
-            "enable": false
+        "enable": false
         },
         "chart": {
-            "enable": false,
-            "type": "pie",
-            "title": "",
-            "labelsPie": {
-                "type": "config",
-                "values": "",
-                "split": ";"
-            },
-            "options": {
-                "colors": "",
-                "cutOut": 0
-            },
-            "axis": {
-                "xAxis": {
-                    "title": "",
-                    "type": "config",
-                    "values": "",
-                    "split": ";"
-                },
-                "yAxis": {
-                    "title": "",
-                    "type": "config",
-                    "values": "",
-                    "split": ";"
-                }
-            }
+        "enable": false
         },
         "swiper": {
-            "enable": false,
-            "type": "vertical",
-            "keyboardOffset": 10
+        "enable": false
         },
         "draw": {
-            "enable": false,
-            "open": true,
-            "tools": [
-                "picker",
-                "point",
-                "polyline",
-                "polygon",
-                "edit",
-                "measure",
-                "extent",
-                "write",
-                "read"
-            ]
+        "enable": false
         },
         "thematicSlider": {
-            "enable": false,
-            "open": true,
-            "autorun": false,
-            "loop": false,
-            "description": true,
-            "slider": true,
-            "stack": false
+        "enable": false
         }
     }
 }
