@@ -225,7 +225,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                     <label for="av-range-duration-interval">${$translate.instant('form.plugins.rangesliderrangetypeinterval')}</label>
                     <input type="radio" id="av-range-duration-values" class="av-range-rangetype" name="type" value="values" ng-click="form.setRangeType()">
                     <label for="av-range-duration-values">${$translate.instant('form.plugins.rangesliderrangetypevalues')}</label><br>
-                </fieldset>`;
+                    </fieldset>`;
     }
 
     /**
@@ -236,6 +236,7 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
         const elems = document.getElementsByClassName('av-range-rangetype');
 
         if (elems[0].checked) {
+            $scope.model.rangeSlider.params.rangeInterval = -1;
             document.getElementsByClassName('av-range-interval-section')[0].classList.remove('av-none');
             document.getElementsByClassName('av-range-values-section')[0].classList.add('av-none');
         } else {
@@ -365,7 +366,9 @@ function Controller($scope, $translate, events, modelManager, stateManager, form
                                         'template': getDuration(),
                                         'setDuration': () => setDuration()
                                     },
-                                    { 'key': 'rangeSlider.params.rangeInterval' },
+                                    {
+                                        'key': 'rangeSlider.params.rangeInterval'
+                                    },
                                     { 'key': 'rangeSlider.params.startRangeEnd' }
                                 ] },
                                 { 'type': 'template', 'template': getTimepicker() },
